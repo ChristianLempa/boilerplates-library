@@ -1,0 +1,85 @@
+---
+- name: Install curated Ubuntu packages
+  hosts: all
+  become: true
+  gather_facts: true
+
+  vars:
+    ubuntu_package_matrix:
+      - name: python3-venv
+        enabled: << install_python3_venv >>
+      - name: python3-pip
+        enabled: << install_python3_pip >>
+      - name: python3-apt
+        enabled: << install_python3_apt >>
+      - name: curl
+        enabled: << install_curl >>
+      - name: wget
+        enabled: << install_wget >>
+      - name: git
+        enabled: << install_git >>
+      - name: jq
+        enabled: << install_jq >>
+      - name: rsync
+        enabled: << install_rsync >>
+      - name: unzip
+        enabled: << install_unzip >>
+      - name: ca-certificates
+        enabled: << install_ca_certificates >>
+      - name: gnupg
+        enabled: << install_gnupg >>
+      - name: lsb-release
+        enabled: << install_lsb_release >>
+      - name: prometheus-node-exporter
+        enabled: << install_prometheus_node_exporter >>
+      - name: nfs-common
+        enabled: << install_nfs_common >>
+      - name: qemu-guest-agent
+        enabled: << install_qemu_guest_agent >>
+
+  tasks:
+    - name: Validate Ubuntu APT target
+      ansible.builtin.assert:
+        that:
+          - ansible_facts['distribution'] == 'Ubuntu'
+          - ansible_facts['pkg_mgr'] == 'apt'
+        fail_msg: "This playbook only supports Ubuntu hosts that use APT."
+
+    - name: Build selected package list
+      ansible.builtin.set_fact:
+        ubuntu_selected_packages: "{{ ubuntu_package_matrix | selectattr('enabled') | map(attribute='name') | list }}"
+
+    - name: Refresh APT package index
+      ansible.builtin.command:
+        cmd: apt-get update
+      environment:
+        DEBIAN_FRONTEND: noninteractive
+      register: ubuntu_packages_apt_update
+      changed_when: false
+
+    - name: Install selected Ubuntu packages
+      ansible.builtin.apt:
+        name: "{{ ubuntu_selected_packages }}"
+        state: present
+        update_cache: false
+      when: ubuntu_selected_packages | length > 0
+
+    - name: Enable and start Prometheus node exporter
+      ansible.builtin.service:
+        name: prometheus-node-exporter
+        state: started
+        enabled: true
+      when: << install_prometheus_node_exporter >>
+
+    - name: Enable and start QEMU guest agent
+      ansible.builtin.service:
+        name: qemu-guest-agent
+        state: started
+        enabled: true
+      when: << install_qemu_guest_agent >>
+
+    - name: Show selected package summary
+      ansible.builtin.debug:
+        msg:
+          - "Host: {{ inventory_hostname }}"
+          - "Selected packages: {{ ubuntu_selected_packages | join(', ') if (ubuntu_selected_packages | length > 0) else 'none' }}"

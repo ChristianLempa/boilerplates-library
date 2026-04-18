@@ -1,0 +1,86 @@
+<%- if create_namespace %>
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: << namespace >>
+<%- endif %>
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: << git_repository_name >>
+  namespace: << namespace >>
+spec:
+  interval: << git_interval >>
+  timeout: << git_timeout >>
+  url: << git_repository_url >>
+  ref:
+    branch: << git_branch >>
+<%- if git_secret_ref_enabled %>
+  secretRef:
+    name: << git_secret_ref_name >>
+<%- endif %>
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: << kustomization_name >>
+  namespace: << namespace >>
+spec:
+  interval: << kustomization_interval >>
+  timeout: << kustomization_timeout >>
+  force: << kustomization_force | lower >>
+  path: << kustomization_path >>
+  prune: << kustomization_prune | lower >>
+  wait: << kustomization_wait | lower >>
+  sourceRef:
+    kind: GitRepository
+    name: << git_repository_name >>
+<%- if target_namespace_enabled %>
+  targetNamespace: << target_namespace >>
+<%- endif %>
+<%- if depends_on_enabled %>
+  dependsOn:
+    - name: << depends_on_name >>
+<%- endif %>
+<%- if decryption_enabled %>
+  decryption:
+    provider: sops
+    secretRef:
+      name: << decryption_secret_name >>
+<%- endif %>
+<%- if helm_repository_enabled %>
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: << helm_repository_name >>
+  namespace: << namespace >>
+spec:
+  interval: << helm_repository_interval >>
+  url: << helm_repository_url >>
+<%- endif %>
+<%- if helm_release_enabled %>
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: << helm_release_name >>
+  namespace: << helm_release_namespace >>
+spec:
+  interval: << helm_release_interval >>
+  chart:
+    spec:
+      chart: << helm_chart_name >>
+      version: "<< helm_chart_version >>"
+      sourceRef:
+        kind: HelmRepository
+        name: << helm_repository_name >>
+        namespace: << namespace >>
+<%- if helm_target_namespace_enabled %>
+  install:
+    createNamespace: true
+  targetNamespace: << helm_target_namespace >>
+<%- endif %>
+<%- endif %>

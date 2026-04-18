@@ -1,0 +1,39 @@
+services:
+  << service_name >>:
+    image: docker.io/twingate/connector:1.80.0
+    hostname: << container_hostname >>
+    environment:
+      - TZ=<< container_timezone >>
+      - TWINGATE_NETWORK=<< twingate_network >>
+      - TWINGATE_ACCESS_TOKEN=<< twingate_access_token >>
+      - TWINGATE_REFRESH_TOKEN=<< twingate_refresh_token >>
+      - TWINGATE_LOG_ANALYTICS=v2
+      - TWINGATE_LOG_LEVEL=<< twingate_log_level >>
+      <%- if twingate_dns %>
+      - TWINGATE_DNS=<< twingate_dns >>
+      <%- endif %>
+    sysctls:
+      net.ipv4.ping_group_range: "0 2147483647"
+    deploy:
+      <%- if swarm_placement_mode == 'replicated' %>
+      mode: replicated
+      replicas: << swarm_replicas >>
+      <%- if swarm_placement_host %>
+      placement:
+        constraints:
+          - node.hostname == << swarm_placement_host >>
+      <%- endif %>
+      <%- else %>
+      mode: global
+      <%- endif %>
+      restart_policy:
+        condition: on-failure
+      <%- if resources_enabled %>
+      resources:
+        limits:
+          cpus: '<< resources_cpu_limit >>'
+          memory: << resources_memory_limit >>
+        reservations:
+          cpus: '<< resources_cpu_reservation >>'
+          memory: << resources_memory_reservation >>
+      <%- endif %>

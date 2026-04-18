@@ -1,0 +1,536 @@
+{
+  "slug": "k3s-postinstall",
+  "kind": "ansible",
+  "metadata": {
+    "name": "K3s Post-Install Platform Setup",
+    "description": "Configures common post-install building blocks for a fresh K3s cluster. Supports kubeconfig retrieval, namespace management, Traefik dashboard exposure, cert-manager bootstrap, metrics-server, Longhorn preparation, and optional kube-system tuning.",
+    "guide": "## Overview\nThis playbook handles practical post-install steps for a K3s cluster after the control plane is reachable.\n\n## Prerequisites\n- Confirm the control machine can reach the cluster API and that the selected kubeconfig path is writable if you enable kubeconfig fetch.\n- Install the `kubernetes.core` Ansible collection and ensure the control machine has Python Kubernetes dependencies available.\n- Install Helm on the control machine if you enable any Helm-managed add-ons.\n- Review the Longhorn prerequisites and package assumptions before enabling host preparation on production nodes.\n\n## Run\n1. Render `main.yml` and confirm the kubeconfig source, namespace list, and which add-ons you actually want enabled.\n2. Run the playbook against the inventory that contains the K3s server and any nodes you want to prepare for Longhorn.\n3. Verify the generated cluster resources, Helm releases, and any kube-system changes after the play completes.\n\n## Notes\n- The kube-proxy strictARP option is useful for MetalLB in layer2 mode and is kept as an explicit toggle.\n- Cert-manager resources are optional and use realistic placeholders so you can wire in your own DNS provider credentials later.\n\n## Docs\n- [K3s Documentation](https://docs.k3s.io/)\n- [Traefik Documentation](https://doc.traefik.io/traefik/)\n- [cert-manager](https://cert-manager.io/)\n- [Metrics Server](https://github.com/kubernetes-sigs/metrics-server)\n- [Longhorn Documentation](https://longhorn.io/docs/)",
+    "tags": [
+      "kubernetes",
+      "k3s",
+      "postinstall",
+      "helm",
+      "homelab"
+    ],
+    "template_version": "1.0.0",
+    "icon": {
+      "provider": "simple-icons",
+      "id": "kubernetes"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "title": "Execution",
+      "variables": [
+        {
+          "name": "secrets_file",
+          "type": "str",
+          "title": "Secrets File",
+          "required": false,
+          "default": "",
+          "description": "Optional vars file to load before running the playbook."
+        }
+      ],
+      "name": "execution"
+    },
+    {
+      "title": "Kubeconfig",
+      "variables": [
+        {
+          "name": "fetch_kubeconfig",
+          "type": "bool",
+          "title": "Fetch Kubeconfig",
+          "required": false,
+          "default": true,
+          "description": "Fetch the admin kubeconfig from the first K3s server before applying cluster resources"
+        },
+        {
+          "name": "kubeconfig_source_host",
+          "type": "str",
+          "title": "Source Host",
+          "required": false,
+          "default": "k3s-server-01",
+          "description": "Inventory host that stores the K3s admin kubeconfig",
+          "needs": [
+            "fetch_kubeconfig=true"
+          ],
+          "config": {
+            "placeholder": "k3s-server-01"
+          }
+        },
+        {
+          "name": "kubeconfig_source_path",
+          "type": "str",
+          "title": "Source Path",
+          "required": false,
+          "default": "/etc/rancher/k3s/k3s.yaml",
+          "description": "Path to the kubeconfig file on the K3s server",
+          "needs": [
+            "fetch_kubeconfig=true"
+          ],
+          "config": {
+            "placeholder": "/etc/rancher/k3s/k3s.yaml"
+          }
+        },
+        {
+          "name": "kubeconfig_server_endpoint",
+          "type": "str",
+          "title": "API Endpoint",
+          "required": false,
+          "default": "{{ hostvars['k3s-server-01'].ansible_host | default('k3s-server-01') }}",
+          "description": "Host or IP that should replace 127.0.0.1 in the fetched kubeconfig",
+          "needs": [
+            "fetch_kubeconfig=true"
+          ],
+          "config": {
+            "placeholder": "192.168.1.10"
+          }
+        },
+        {
+          "name": "kubeconfig_local_path",
+          "type": "str",
+          "title": "Local Kubeconfig",
+          "required": false,
+          "default": "{{ lookup('env', 'HOME') }}/.kube/k3s.yaml",
+          "description": "Local kubeconfig path used by the control machine for all cluster operations",
+          "config": {
+            "placeholder": "{{ lookup('env', 'HOME') }}/.kube/k3s.yaml"
+          }
+        }
+      ],
+      "name": "kubeconfig"
+    },
+    {
+      "title": "Namespaces",
+      "variables": [
+        {
+          "name": "ensure_namespaces",
+          "type": "bool",
+          "title": "Manage Namespaces",
+          "required": false,
+          "default": true,
+          "description": "Ensure common namespaces exist before installing platform add-ons"
+        },
+        {
+          "name": "extra_namespaces_yaml",
+          "type": "str",
+          "title": "Extra Namespaces",
+          "required": false,
+          "default": "[]",
+          "description": "YAML list of extra namespaces to create",
+          "needs": [
+            "ensure_namespaces=true"
+          ],
+          "config": {
+            "textarea": true,
+            "placeholder": "- apps\n- monitoring"
+          }
+        }
+      ],
+      "name": "namespaces"
+    },
+    {
+      "title": "Traefik",
+      "variables": [
+        {
+          "name": "traefik_dashboard_exposure_enabled",
+          "type": "bool",
+          "title": "Expose Dashboard",
+          "required": false,
+          "default": false,
+          "description": "Create a Traefik IngressRoute that exposes the internal Traefik dashboard"
+        },
+        {
+          "name": "traefik_dashboard_namespace",
+          "type": "str",
+          "title": "Namespace",
+          "required": false,
+          "default": "traefik",
+          "description": "Namespace where the Traefik release is installed",
+          "needs": [
+            "traefik_dashboard_exposure_enabled=true"
+          ],
+          "config": {
+            "placeholder": "traefik"
+          }
+        },
+        {
+          "name": "traefik_dashboard_host",
+          "type": "str",
+          "title": "Dashboard Host",
+          "required": false,
+          "default": "traefik.example.internal",
+          "description": "FQDN used to expose the Traefik dashboard",
+          "needs": [
+            "traefik_dashboard_exposure_enabled=true"
+          ],
+          "config": {
+            "placeholder": "traefik.example.internal"
+          }
+        },
+        {
+          "name": "traefik_dashboard_entrypoint",
+          "type": "str",
+          "title": "Entrypoint",
+          "required": false,
+          "default": "websecure",
+          "description": "Traefik entrypoint for the dashboard route",
+          "needs": [
+            "traefik_dashboard_exposure_enabled=true"
+          ],
+          "config": {
+            "placeholder": "websecure"
+          }
+        },
+        {
+          "name": "traefik_dashboard_tls_enabled",
+          "type": "bool",
+          "title": "TLS",
+          "required": false,
+          "default": true,
+          "description": "Enable TLS for the dashboard route",
+          "needs": [
+            "traefik_dashboard_exposure_enabled=true"
+          ]
+        },
+        {
+          "name": "traefik_dashboard_tls_secret_name",
+          "type": "str",
+          "title": "TLS Secret",
+          "required": false,
+          "default": "traefik-dashboard-tls",
+          "description": "TLS secret used by the dashboard route when TLS is enabled",
+          "needs": [
+            "traefik_dashboard_exposure_enabled=true",
+            "traefik_dashboard_tls_enabled=true"
+          ],
+          "config": {
+            "placeholder": "traefik-dashboard-tls"
+          }
+        },
+        {
+          "name": "traefik_dashboard_middleware_name",
+          "type": "str",
+          "title": "Middleware",
+          "required": false,
+          "default": "",
+          "description": "Optional Traefik middleware name attached to the dashboard route",
+          "needs": [
+            "traefik_dashboard_exposure_enabled=true"
+          ],
+          "config": {
+            "placeholder": "traefik-dashboard-auth"
+          }
+        },
+        {
+          "name": "traefik_dashboard_middleware_namespace",
+          "type": "str",
+          "title": "Middleware NS",
+          "required": false,
+          "default": "traefik",
+          "description": "Namespace for the optional dashboard middleware",
+          "needs": [
+            "traefik_dashboard_exposure_enabled=true"
+          ],
+          "config": {
+            "placeholder": "traefik"
+          }
+        }
+      ],
+      "name": "traefik"
+    },
+    {
+      "title": "Cert-Manager",
+      "variables": [
+        {
+          "name": "cert_manager_install_enabled",
+          "type": "bool",
+          "title": "Install cert-manager",
+          "required": false,
+          "default": false,
+          "description": "Install cert-manager with Helm"
+        },
+        {
+          "name": "cert_manager_chart_version",
+          "type": "str",
+          "title": "Chart Version",
+          "required": false,
+          "default": "1.18.2",
+          "description": "cert-manager Helm chart version",
+          "needs": [
+            "cert_manager_install_enabled=true"
+          ],
+          "config": {
+            "placeholder": "1.18.2"
+          }
+        },
+        {
+          "name": "cert_manager_namespace",
+          "type": "str",
+          "title": "Namespace",
+          "required": false,
+          "default": "cert-manager",
+          "description": "Namespace used by cert-manager",
+          "config": {
+            "placeholder": "cert-manager"
+          }
+        },
+        {
+          "name": "cert_manager_create_cloudflare_secret",
+          "type": "bool",
+          "title": "Cloudflare Secret",
+          "required": false,
+          "default": false,
+          "description": "Create a placeholder secret for a Cloudflare DNS API token"
+        },
+        {
+          "name": "cert_manager_cloudflare_secret_name",
+          "type": "str",
+          "title": "Secret Name",
+          "required": false,
+          "default": "cloudflare-api-token-secret",
+          "description": "Secret name for the Cloudflare DNS API token",
+          "needs": [
+            "cert_manager_create_cloudflare_secret=true"
+          ],
+          "config": {
+            "placeholder": "cloudflare-api-token-secret"
+          }
+        },
+        {
+          "name": "cert_manager_cloudflare_secret_key",
+          "type": "str",
+          "title": "Secret Key",
+          "required": false,
+          "default": "api-token",
+          "description": "Secret key that stores the Cloudflare API token",
+          "needs": [
+            "cert_manager_create_cloudflare_secret=true"
+          ],
+          "config": {
+            "placeholder": "api-token"
+          }
+        },
+        {
+          "name": "cert_manager_cloudflare_api_token",
+          "type": "secret",
+          "title": "Cloudflare Token",
+          "required": false,
+          "default": "",
+          "description": "Optional Cloudflare API token value used to populate the placeholder secret",
+          "needs": [
+            "cert_manager_create_cloudflare_secret=true"
+          ]
+        },
+        {
+          "name": "cert_manager_clusterissuer_enabled",
+          "type": "bool",
+          "title": "ClusterIssuer",
+          "required": false,
+          "default": false,
+          "description": "Create a production Let's Encrypt ClusterIssuer that uses Cloudflare DNS-01"
+        },
+        {
+          "name": "cert_manager_clusterissuer_name",
+          "type": "str",
+          "title": "ClusterIssuer Name",
+          "required": false,
+          "default": "letsencrypt-production",
+          "description": "Name of the cert-manager ClusterIssuer",
+          "needs": [
+            "cert_manager_clusterissuer_enabled=true"
+          ],
+          "config": {
+            "placeholder": "letsencrypt-production"
+          }
+        },
+        {
+          "name": "cert_manager_acme_email",
+          "type": "str",
+          "title": "ACME Email",
+          "required": false,
+          "default": "",
+          "description": "Email address used for ACME registration",
+          "needs": [
+            "cert_manager_clusterissuer_enabled=true"
+          ],
+          "config": {
+            "placeholder": "me@example.com"
+          }
+        },
+        {
+          "name": "cert_manager_acme_server",
+          "type": "str",
+          "title": "ACME Server",
+          "required": false,
+          "default": "https://acme-v02.api.letsencrypt.org/directory",
+          "description": "ACME directory URL used by the ClusterIssuer",
+          "needs": [
+            "cert_manager_clusterissuer_enabled=true"
+          ],
+          "config": {
+            "placeholder": "https://acme-v02.api.letsencrypt.org/directory"
+          }
+        }
+      ],
+      "name": "cert-manager"
+    },
+    {
+      "title": "Metrics Server",
+      "variables": [
+        {
+          "name": "metrics_server_install_enabled",
+          "type": "bool",
+          "title": "Install Metrics Server",
+          "required": false,
+          "default": false,
+          "description": "Install metrics-server with Helm"
+        },
+        {
+          "name": "metrics_server_chart_version",
+          "type": "str",
+          "title": "Chart Version",
+          "required": false,
+          "default": "3.13.0",
+          "description": "metrics-server Helm chart version",
+          "needs": [
+            "metrics_server_install_enabled=true"
+          ],
+          "config": {
+            "placeholder": "3.13.0"
+          }
+        },
+        {
+          "name": "metrics_server_namespace",
+          "type": "str",
+          "title": "Namespace",
+          "required": false,
+          "default": "kube-system",
+          "description": "Namespace used by metrics-server",
+          "needs": [
+            "metrics_server_install_enabled=true"
+          ],
+          "config": {
+            "placeholder": "kube-system"
+          }
+        },
+        {
+          "name": "metrics_server_kubelet_insecure_tls",
+          "type": "bool",
+          "title": "Insecure TLS",
+          "required": false,
+          "default": true,
+          "description": "Add --kubelet-insecure-tls for clusters that use self-signed kubelet certificates",
+          "needs": [
+            "metrics_server_install_enabled=true"
+          ]
+        }
+      ],
+      "name": "metrics-server"
+    },
+    {
+      "title": "Longhorn",
+      "variables": [
+        {
+          "name": "longhorn_prerequisites_enabled",
+          "type": "bool",
+          "title": "Prepare Nodes",
+          "required": false,
+          "default": false,
+          "description": "Install host packages and kernel module configuration needed by Longhorn"
+        },
+        {
+          "name": "longhorn_node_hosts",
+          "type": "str",
+          "title": "Node Hosts",
+          "required": false,
+          "default": "k3s_cluster",
+          "description": "Inventory host pattern for the nodes that should be prepared for Longhorn",
+          "needs": [
+            "longhorn_prerequisites_enabled=true"
+          ],
+          "config": {
+            "placeholder": "k3s_cluster"
+          }
+        },
+        {
+          "name": "longhorn_disable_multipathd",
+          "type": "bool",
+          "title": "Disable multipathd",
+          "required": false,
+          "default": false,
+          "description": "Stop and disable multipathd if your nodes do not use multipath storage",
+          "needs": [
+            "longhorn_prerequisites_enabled=true"
+          ]
+        },
+        {
+          "name": "longhorn_install_enabled",
+          "type": "bool",
+          "title": "Install Longhorn",
+          "required": false,
+          "default": false,
+          "description": "Install Longhorn with Helm after prerequisites are in place"
+        },
+        {
+          "name": "longhorn_chart_version",
+          "type": "str",
+          "title": "Chart Version",
+          "required": false,
+          "default": "1.9.1",
+          "description": "Longhorn Helm chart version",
+          "needs": [
+            "longhorn_install_enabled=true"
+          ],
+          "config": {
+            "placeholder": "1.9.1"
+          }
+        },
+        {
+          "name": "longhorn_namespace",
+          "type": "str",
+          "title": "Namespace",
+          "required": false,
+          "default": "longhorn-system",
+          "description": "Namespace used by Longhorn",
+          "needs": [
+            "longhorn_install_enabled=true"
+          ],
+          "config": {
+            "placeholder": "longhorn-system"
+          }
+        },
+        {
+          "name": "longhorn_default_data_path",
+          "type": "str",
+          "title": "Data Path",
+          "required": false,
+          "default": "/var/lib/longhorn",
+          "description": "Default host path used by Longhorn for replica data",
+          "needs": [
+            "longhorn_install_enabled=true"
+          ],
+          "config": {
+            "placeholder": "/var/lib/longhorn"
+          }
+        }
+      ],
+      "name": "longhorn"
+    },
+    {
+      "title": "Kube-System",
+      "variables": [
+        {
+          "name": "kube_proxy_strict_arp_enabled",
+          "type": "bool",
+          "title": "Enable strictARP",
+          "required": false,
+          "default": false,
+          "description": "Patch the kube-proxy ConfigMap and restart the daemonset with strictARP enabled"
+        }
+      ],
+      "name": "kube-system"
+    }
+  ]
+}

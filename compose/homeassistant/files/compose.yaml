@@ -1,0 +1,15 @@
+services:
+  << service_name >>:
+    container_name: << container_name >>
+    image: ghcr.io/home-assistant/home-assistant:2026.2.2
+    network_mode: host
+    environment:
+      - TZ=<< container_timezone >>
+    volumes:
+      - ./config:/config
+      - /etc/localtime:/etc/localtime:ro
+      - /run/dbus:/run/dbus:ro
+    # devices:
+    #   - /dev/ttyACMO  # (optional) Add serial devices to the container
+    privileged: true
+    restart: << restart_policy >>

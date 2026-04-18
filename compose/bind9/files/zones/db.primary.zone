@@ -1,0 +1,11 @@
+$TTL 86400
+@ IN SOA ns1.<< domain_name >>. admin.<< domain_name >>. (
+  2026010101 ; serial
+  3600       ; refresh
+  900        ; retry
+  604800     ; expire
+  86400      ; minimum
+)
+
+@   IN NS ns1.<< domain_name >>.
+ns1 IN A 127.0.0.1

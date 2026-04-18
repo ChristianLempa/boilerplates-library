@@ -1,0 +1,291 @@
+{
+  "slug": "openwebui",
+  "kind": "compose",
+  "metadata": {
+    "name": "Openwebui",
+    "description": "Web-based interface for managing and interacting with local AI models (Ollama, etc.). Provides chat, model management, and multi-user support.",
+    "guide": "## Overview\nWeb-based interface for managing and interacting with local AI models (Ollama, etc.). Provides chat, model management, and multi-user support.\n\n## Prerequisites\n- Have an Ollama or OpenAI-compatible backend reachable from the container before first start.\n- If you enable Authentik SSO, create the client, collect the issuer metadata URL, and register the redirect URI before deploying.\n- Decide whether the UI will be exposed through Traefik or a direct published port.\n\n## Deploy\n- Render the generated files, verify the model backend URL and any OAuth values, and start the stack with `docker compose up -d`.\n- Watch the logs until the web UI is reachable and can successfully contact the configured model backend.\n\n## Post-Install\n- Complete the initial admin setup flow, then test a chat request and at least one model pull or backend connection.\n- If SSO is enabled, verify login and logout with your identity provider before disabling local-only access patterns.\n- Review user access, model permissions, and data retention settings before opening the instance to multiple users.\n\n## References\n- [Open WebUI](https://openwebui.com/)\n- [Documentation](https://docs.openwebui.com/)\n- [GitHub](https://github.com/open-webui/open-webui)",
+    "tags": [
+      "traefik",
+      "authentik"
+    ],
+    "template_version": "0.8.2",
+    "icon": {
+      "provider": "selfhst",
+      "id": "open-webui"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "title": "General",
+      "variables": [
+        {
+          "name": "service_name",
+          "type": "str",
+          "title": "Service Name",
+          "required": false,
+          "default": "openwebui",
+          "config": {
+            "placeholder": "openwebui"
+          },
+          "description": "Name of the service."
+        },
+        {
+          "name": "container_name",
+          "type": "str",
+          "title": "Container Name",
+          "required": false,
+          "default": "openwebui",
+          "config": {
+            "placeholder": "openwebui"
+          },
+          "description": "Name to use for the container."
+        },
+        {
+          "name": "container_hostname",
+          "type": "str",
+          "title": "Container Hostname",
+          "required": false,
+          "description": "Hostname used inside the container."
+        },
+        {
+          "name": "container_timezone",
+          "type": "str",
+          "title": "Container Timezone",
+          "required": false,
+          "description": "Timezone used inside the container."
+        },
+        {
+          "name": "restart_policy",
+          "type": "enum",
+          "title": "Restart Policy",
+          "required": true,
+          "default": "unless-stopped",
+          "config": {
+            "options": [
+              "unless-stopped",
+              "always",
+              "on-failure",
+              "no"
+            ]
+          },
+          "description": "Policy used for Restart."
+        },
+        {
+          "name": "ollama_base_url",
+          "type": "str",
+          "title": "Ollama URL",
+          "required": false,
+          "default": "http://ollama:11434",
+          "description": "Ollama API base URL",
+          "config": {
+            "placeholder": "http://ollama:11434"
+          }
+        },
+        {
+          "name": "webui_url",
+          "type": "str",
+          "title": "Public WebUI URL",
+          "required": false,
+          "default": "http://localhost:8080",
+          "description": "Public URL used by Open WebUI for OAuth and generated links.",
+          "config": {
+            "placeholder": "https://openwebui.home.arpa"
+          }
+        }
+      ],
+      "name": "general"
+    },
+    {
+      "title": "Traefik",
+      "variables": [
+        {
+          "name": "traefik_enabled",
+          "type": "bool",
+          "title": "Traefik",
+          "required": false,
+          "default": false,
+          "description": "Enable Traefik integration"
+        },
+        {
+          "name": "traefik_host",
+          "type": "str",
+          "title": "Host",
+          "required": false,
+          "config": {
+            "placeholder": "openwebui"
+          },
+          "description": "Hostname used for Traefik."
+        },
+        {
+          "name": "traefik_domain",
+          "type": "str",
+          "title": "Domain",
+          "required": true,
+          "config": {
+            "placeholder": "home.arpa"
+          },
+          "description": "Domain used for Traefik."
+        },
+        {
+          "name": "traefik_entrypoint",
+          "type": "str",
+          "title": "Traefik Entrypoint",
+          "required": false,
+          "default": "",
+          "description": "Traefik entrypoint name."
+        },
+        {
+          "name": "traefik_network",
+          "type": "str",
+          "title": "Network",
+          "required": true,
+          "default": "traefik",
+          "config": {
+            "placeholder": "traefik"
+          },
+          "description": "Network used for Traefik."
+        },
+        {
+          "name": "traefik_tls_enabled",
+          "type": "bool",
+          "title": "TLS",
+          "required": false,
+          "default": false,
+          "description": "Enable Traefik TLS"
+        },
+        {
+          "name": "traefik_tls_entrypoint",
+          "type": "str",
+          "title": "Traefik Tls Entrypoint",
+          "required": false,
+          "default": "",
+          "description": "Traefik TLS entrypoint name.",
+          "needs": [
+            "traefik_tls_enabled=true"
+          ]
+        },
+        {
+          "name": "traefik_tls_certresolver",
+          "type": "str",
+          "title": "Cert Resolver",
+          "required": true,
+          "default": "cloudflare",
+          "config": {
+            "placeholder": "cloudflare"
+          },
+          "description": "Traefik Tls Certresolver",
+          "needs": [
+            "traefik_tls_enabled=true"
+          ]
+        }
+      ],
+      "name": "traefik",
+      "toggle": "traefik_enabled"
+    },
+    {
+      "title": "Ports",
+      "variables": [
+        {
+          "name": "ports_http",
+          "type": "int",
+          "title": "Web UI port",
+          "required": false,
+          "default": 8080,
+          "description": "Port used for Web UI.",
+          "config": {
+            "placeholder": "8080"
+          }
+        }
+      ],
+      "name": "ports"
+    },
+    {
+      "title": "Authentik",
+      "variables": [
+        {
+          "name": "authentik_enabled",
+          "type": "bool",
+          "title": "Authentik Enabled",
+          "required": false,
+          "default": false,
+          "description": "Enable or disable authentik enabled."
+        },
+        {
+          "name": "openid_provider_url",
+          "type": "str",
+          "title": "OpenID Config URL",
+          "required": false,
+          "description": "OpenID provider configuration URL",
+          "needs": [
+            "authentik_enabled=true"
+          ],
+          "config": {
+            "placeholder": "https://authentik.home.arpa/application/o/openwebui/.well-known/openid-configuration"
+          }
+        },
+        {
+          "name": "openid_redirect_uri",
+          "type": "str",
+          "title": "OAuth redirect URI",
+          "required": false,
+          "default": "https://openwebui.home.arpa/oauth/oidc/callback",
+          "description": "Value used for the authentik settings.",
+          "needs": [
+            "authentik_enabled=true"
+          ],
+          "config": {
+            "placeholder": "https://openwebui.home.arpa/oauth/oidc/callback"
+          }
+        },
+        {
+          "name": "oauth_scopes",
+          "type": "str",
+          "title": "OAuth Scopes",
+          "required": false,
+          "default": "openid email profile",
+          "description": "OAuth scopes (space-separated)",
+          "needs": [
+            "authentik_enabled=true"
+          ],
+          "config": {
+            "placeholder": "openid email profile"
+          }
+        },
+        {
+          "name": "oauth_merge_accounts",
+          "type": "bool",
+          "title": "Merge Accounts",
+          "required": false,
+          "default": false,
+          "description": "Merge OAuth accounts by email",
+          "needs": [
+            "authentik_enabled=true"
+          ]
+        },
+        {
+          "name": "authentik_client_id",
+          "type": "secret",
+          "title": "Authentik Client Id",
+          "required": true,
+          "needs": [
+            "authentik_enabled=true"
+          ],
+          "description": "Identifier for the authentik client."
+        },
+        {
+          "name": "authentik_client_secret",
+          "type": "secret",
+          "title": "Authentik Client Secret",
+          "required": true,
+          "needs": [
+            "authentik_enabled=true"
+          ],
+          "description": "Secret value for the authentik client."
+        }
+      ],
+      "name": "authentik"
+    }
+  ]
+}

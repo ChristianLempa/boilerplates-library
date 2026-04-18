@@ -1,0 +1,197 @@
+{
+  "slug": "docker-mysql-backup",
+  "kind": "ansible",
+  "metadata": {
+    "name": "Docker MySQL Backup",
+    "description": "Connects to a named MySQL container and creates compressed SQL dumps with configurable retention. Supports optional Discord notifications on success or failure.",
+    "guide": "## Overview\nThis playbook creates compressed backups from a MySQL container and enforces retention.\n\n## Prerequisites\n- Confirm the target container name, database scope, and backup destination before running.\n- Provide the Discord webhook values first if you want backup notifications.\n\n## Run\n1. Render `main.yml` and review the container, database, retention, and notification settings.\n2. Run the playbook against the Docker host that runs the MySQL container.\n3. Verify the dump files and retention behavior after the play completes.\n\n## Docs\n- [mysqldump Documentation](https://dev.mysql.com/doc/refman/8.0/en/mysqldump.html)",
+    "tags": [
+      "docker",
+      "backup",
+      "mysql",
+      "database"
+    ],
+    "template_version": "1",
+    "icon": {
+      "provider": "simple-icons",
+      "id": "mysql",
+      "color": "emerald"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "title": "Backup",
+      "variables": [
+        {
+          "name": "container_name",
+          "type": "str",
+          "title": "Container Name",
+          "required": true,
+          "description": "Name of the MySQL container"
+        },
+        {
+          "name": "mysql_user",
+          "type": "str",
+          "title": "MySQL User",
+          "required": false,
+          "default": "root",
+          "description": "Database user for mysqldump",
+          "config": {
+            "placeholder": "root"
+          }
+        },
+        {
+          "name": "mysql_password",
+          "type": "str",
+          "title": "MySQL Password",
+          "required": false,
+          "default": "",
+          "description": "Optional database password"
+        },
+        {
+          "name": "mysql_database",
+          "type": "str",
+          "title": "Database Name",
+          "required": false,
+          "default": "all",
+          "description": "Database to dump, or 'all' for all databases",
+          "config": {
+            "placeholder": "all"
+          }
+        },
+        {
+          "name": "backup_retention_days",
+          "type": "int",
+          "title": "Retention Days",
+          "required": false,
+          "default": 14,
+          "description": "Delete backup archives older than this many days",
+          "config": {
+            "slider": true,
+            "min": 1,
+            "max": 365,
+            "step": 1,
+            "placeholder": "14",
+            "unit": "days"
+          }
+        }
+      ],
+      "name": "backup"
+    },
+    {
+      "title": "Notification",
+      "variables": [
+        {
+          "name": "send_discord_notification",
+          "type": "bool",
+          "title": "Send Discord Notification",
+          "required": false,
+          "default": false,
+          "description": "Send success/failure status to Discord webhook"
+        },
+        {
+          "name": "discord_webhook",
+          "type": "secret",
+          "title": "Discord Webhook",
+          "required": false,
+          "default": "",
+          "description": "Discord webhook URL for notifications"
+        }
+      ],
+      "name": "notification"
+    },
+    {
+      "title": "Internal",
+      "variables": [
+        {
+          "name": "backup_file_name",
+          "type": "str",
+          "title": "Backup File Name",
+          "required": false,
+          "default": "",
+          "description": "Name to use for the backup file."
+        },
+        {
+          "name": "backup_root",
+          "type": "str",
+          "title": "Backup Root",
+          "required": false,
+          "default": "/backups/mysql",
+          "config": {
+            "placeholder": "/backups/mysql"
+          },
+          "description": "Value used for the internal settings."
+        },
+        {
+          "name": "ansible_failed_result",
+          "type": "str",
+          "title": "Failed Result",
+          "required": false,
+          "default": "",
+          "description": "Value used for the internal settings."
+        },
+        {
+          "name": "backup_timestamp",
+          "type": "str",
+          "title": "Backup Timestamp",
+          "required": false,
+          "default": "",
+          "description": "Value used for the internal settings."
+        },
+        {
+          "name": "old_backups",
+          "type": "str",
+          "title": "Old Backups",
+          "required": false,
+          "default": "",
+          "description": "Value used for the internal settings."
+        },
+        {
+          "name": "backup_status",
+          "type": "str",
+          "title": "Backup Status",
+          "required": false,
+          "default": "",
+          "description": "Value used for the internal settings."
+        },
+        {
+          "name": "inventory_hostname",
+          "type": "str",
+          "title": "Inventory Hostname",
+          "required": false,
+          "default": "",
+          "description": "Hostname used for Inventory."
+        },
+        {
+          "name": "backup_file_path",
+          "type": "str",
+          "title": "Backup File Path",
+          "required": false,
+          "default": "",
+          "description": "Path used for Backup File."
+        },
+        {
+          "name": "item",
+          "type": "str",
+          "title": "Loop Item",
+          "required": false,
+          "default": "",
+          "description": "Value used for the internal settings."
+        },
+        {
+          "name": "backup_status_message",
+          "type": "str",
+          "title": "Backup Status Message",
+          "required": false,
+          "default": "",
+          "config": {
+            "textarea": true
+          },
+          "description": "Value used for the internal settings."
+        }
+      ],
+      "name": "internal"
+    }
+  ]
+}

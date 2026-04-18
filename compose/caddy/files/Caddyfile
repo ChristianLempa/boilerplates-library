@@ -1,0 +1,7 @@
+<%- if tls_enabled and tls_email %>
+{
+	email << tls_email >>
+}
+
+<%- endif %>
+import /etc/caddy/config/*.caddy

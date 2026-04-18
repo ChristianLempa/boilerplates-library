@@ -1,0 +1,78 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: << resource_name >>
+  namespace: << namespace >>
+spec:
+<%- if apply_to_all_pods %>
+  podSelector: {}
+<%- else %>
+  podSelector:
+    matchLabels:
+      << pod_selector_label_key >>: << pod_selector_label_value >>
+<%- endif %>
+<%- if ingress_enabled or egress_enabled %>
+  policyTypes:
+<%- if ingress_enabled %>
+    - Ingress
+<%- endif %>
+<%- if egress_enabled %>
+    - Egress
+<%- endif %>
+<%- endif %>
+<%- if ingress_enabled %>
+<%- if ingress_allow_same_namespace or ingress_namespace_selector_enabled or ingress_ipblock_enabled or ingress_port_enabled %>
+  ingress:
+    -
+<%- if ingress_allow_same_namespace or ingress_namespace_selector_enabled or ingress_ipblock_enabled %>
+      from:
+<%- if ingress_allow_same_namespace %>
+        - podSelector: {}
+<%- endif %>
+<%- if ingress_namespace_selector_enabled %>
+        - namespaceSelector:
+            matchLabels:
+              << ingress_namespace_selector_label_key >>: << ingress_namespace_selector_label_value >>
+<%- endif %>
+<%- if ingress_ipblock_enabled %>
+        - ipBlock:
+            cidr: << ingress_ipblock_cidr >>
+<%- endif %>
+<%- endif %>
+<%- if ingress_port_enabled %>
+      ports:
+        - port: << ingress_port >>
+          protocol: << ingress_port_protocol >>
+<%- endif %>
+<%- else %>
+  ingress: []
+<%- endif %>
+<%- endif %>
+<%- if egress_enabled %>
+<%- if egress_allow_same_namespace or egress_namespace_selector_enabled or egress_ipblock_enabled or egress_port_enabled %>
+  egress:
+    -
+<%- if egress_allow_same_namespace or egress_namespace_selector_enabled or egress_ipblock_enabled %>
+      to:
+<%- if egress_allow_same_namespace %>
+        - podSelector: {}
+<%- endif %>
+<%- if egress_namespace_selector_enabled %>
+        - namespaceSelector:
+            matchLabels:
+              << egress_namespace_selector_label_key >>: << egress_namespace_selector_label_value >>
+<%- endif %>
+<%- if egress_ipblock_enabled %>
+        - ipBlock:
+            cidr: << egress_ipblock_cidr >>
+<%- endif %>
+<%- endif %>
+<%- if egress_port_enabled %>
+      ports:
+        - port: << egress_port >>
+          protocol: << egress_port_protocol >>
+<%- endif %>
+<%- else %>
+  egress: []
+<%- endif %>
+<%- endif %>

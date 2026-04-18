@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: << resource_name >>
+  namespace: << namespace >>
+spec:
+  serviceName: << service_name >>
+  replicas: << replicas >>
+  podManagementPolicy: << pod_management_policy >>
+  updateStrategy:
+    type: << update_strategy >>
+  selector:
+    matchLabels:
+      app: << app_label >>
+  template:
+    metadata:
+      labels:
+        app: << app_label >>
+    spec:
+<%- if service_account_name %>
+      serviceAccountName: << service_account_name >>
+<%- endif %>
+      containers:
+        - name: << container_name >>
+          image: << image >>
+          imagePullPolicy: << image_pull_policy >>
+<%- if ports_enabled %>
+          ports:
+            - containerPort: << container_port >>
+              protocol: << container_port_protocol >>
+<%- if container_port_name %>
+              name: << container_port_name >>
+<%- endif %>
+<%- endif %>
+<%- if env_literal_enabled or env_secret_enabled %>
+          env:
+<%- if env_literal_enabled %>
+            - name: << env_literal_name >>
+              value: "<< env_literal_value >>"
+<%- endif %>
+<%- if env_secret_enabled %>
+            - name: << env_secret_name >>
+              valueFrom:
+                secretKeyRef:
+                  name: << env_secret_secret_name >>
+                  key: << env_secret_secret_key >>
+<%- endif %>
+<%- endif %>
+<%- if persistence_enabled %>
+          volumeMounts:
+            - name: << volume_claim_name >>
+              mountPath: << mount_path >>
+<%- endif %>
+<%- if resources_enabled %>
+          resources:
+            limits:
+              cpu: << resources_cpu_limit >>
+              memory: << resources_memory_limit >>
+            requests:
+              cpu: << resources_cpu_request >>
+              memory: << resources_memory_request >>
+<%- endif %>
+<%- if persistence_enabled %>
+  volumeClaimTemplates:
+    - metadata:
+        name: << volume_claim_name >>
+      spec:
+<%- if storage_class %>
+        storageClassName: << storage_class >>
+<%- endif %>
+        accessModes:
+          - << access_mode >>
+        resources:
+          requests:
+            storage: << storage_size >>
+<%- endif %>

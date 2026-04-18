@@ -1,0 +1,187 @@
+{
+  "slug": "nginx",
+  "kind": "compose",
+  "metadata": {
+    "name": "Nginx",
+    "description": "High-performance web server, reverse proxy, and load balancer known for stability, low resource consumption, and simple configuration.",
+    "guide": "## Overview\nHigh-performance web server, reverse proxy, and load balancer known for stability, low resource consumption, and simple configuration.\n\n## Deploy\n- Render `compose.yaml`, review the generated files, then start the stack with `docker compose up -d`.\n- Confirm the containers are healthy with `docker compose ps` and follow `docker compose logs -f` during the first boot if initialization is still running.\n\n## Post-Install\n- Replace the sample site and default config with your actual content or reverse-proxy configuration before exposing the service publicly.\n\n## Docs\n- [Nginx](https://nginx.org/)\n- [Documentation](https://nginx.org/en/docs/)\n- [GitHub](https://github.com/nginx/nginx)",
+    "tags": [
+      "traefik"
+    ],
+    "template_version": "1.28.2-alpine",
+    "icon": {
+      "provider": "simple-icons",
+      "id": "nginx"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "title": "General",
+      "variables": [
+        {
+          "name": "service_name",
+          "type": "str",
+          "title": "Service Name",
+          "required": false,
+          "default": "nginx",
+          "config": {
+            "placeholder": "nginx"
+          },
+          "description": "Name of the service."
+        },
+        {
+          "name": "restart_policy",
+          "type": "enum",
+          "title": "Restart Policy",
+          "required": false,
+          "default": "unless-stopped",
+          "config": {
+            "options": [
+              "unless-stopped",
+              "always",
+              "on-failure",
+              "no"
+            ]
+          },
+          "description": "Policy used for Restart."
+        },
+        {
+          "name": "container_name",
+          "type": "str",
+          "title": "Container Name",
+          "required": false,
+          "default": "nginx",
+          "config": {
+            "placeholder": "nginx"
+          },
+          "description": "Name to use for the container."
+        },
+        {
+          "name": "container_timezone",
+          "type": "str",
+          "title": "Container Timezone",
+          "required": false,
+          "default": "UTC",
+          "config": {
+            "placeholder": "UTC"
+          },
+          "description": "Timezone used inside the container."
+        }
+      ],
+      "name": "general"
+    },
+    {
+      "title": "Traefik",
+      "variables": [
+        {
+          "name": "traefik_enabled",
+          "type": "bool",
+          "title": "Traefik Enabled",
+          "required": false,
+          "default": false,
+          "description": "Enable or disable traefik enabled."
+        },
+        {
+          "name": "traefik_host",
+          "type": "str",
+          "title": "Host",
+          "required": false,
+          "config": {
+            "placeholder": "nginx"
+          },
+          "description": "Hostname used for Traefik."
+        },
+        {
+          "name": "traefik_domain",
+          "type": "str",
+          "title": "Domain",
+          "required": false,
+          "config": {
+            "placeholder": "home.arpa"
+          },
+          "description": "Domain used for Traefik."
+        },
+        {
+          "name": "traefik_entrypoint",
+          "type": "str",
+          "title": "Traefik Entrypoint",
+          "required": false,
+          "default": "web",
+          "description": "Traefik entrypoint name."
+        },
+        {
+          "name": "traefik_network",
+          "type": "str",
+          "title": "Network",
+          "required": false,
+          "default": "traefik",
+          "config": {
+            "placeholder": "traefik"
+          },
+          "description": "Network used for Traefik."
+        },
+        {
+          "name": "traefik_tls_enabled",
+          "type": "bool",
+          "title": "TLS",
+          "required": false,
+          "default": false,
+          "description": "Enable Traefik TLS"
+        },
+        {
+          "name": "traefik_tls_entrypoint",
+          "type": "str",
+          "title": "Traefik Tls Entrypoint",
+          "required": false,
+          "default": "",
+          "description": "Traefik TLS entrypoint name.",
+          "needs": [
+            "traefik_tls_enabled=true"
+          ]
+        },
+        {
+          "name": "traefik_tls_certresolver",
+          "type": "str",
+          "title": "Cert Resolver",
+          "required": false,
+          "default": "",
+          "description": "Traefik Tls Certresolver",
+          "needs": [
+            "traefik_tls_enabled=true"
+          ]
+        }
+      ],
+      "name": "traefik",
+      "toggle": "traefik_enabled"
+    },
+    {
+      "title": "Ports",
+      "variables": [
+        {
+          "name": "ports_http",
+          "type": "int",
+          "title": "HTTP Port",
+          "required": false,
+          "default": 8080,
+          "description": "HTTP port for nginx service",
+          "config": {
+            "placeholder": "8080"
+          }
+        },
+        {
+          "name": "ports_https",
+          "type": "int",
+          "title": "HTTPS Port",
+          "required": false,
+          "default": 8443,
+          "description": "HTTPS port for nginx service",
+          "config": {
+            "placeholder": "8443"
+          }
+        }
+      ],
+      "name": "ports"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "slug": "ubuntu-vm-core",
+  "kind": "ansible",
+  "metadata": {
+    "name": "Install Ubuntu VM Core Packages",
+    "description": "Installs essential packages for Ubuntu virtual machines, including Prometheus node exporter, NFS client utilities, and QEMU guest agent.",
+    "guide": "## Overview\nThis playbook installs a baseline package set for Ubuntu virtual machines.\n\n## Prerequisites\n- Confirm the target VMs are Ubuntu systems with the required repositories available.\n- Review whether every selected host should run node exporter, NFS utilities, and the QEMU guest agent.\n\n## Run\n1. Render `main.yml` and review the package assumptions.\n2. Run the playbook against the intended VM workload hosts. The workload inventory already provides the host selection, so the playbook runs against `all` selected hosts.\n3. Verify the installed services are enabled and healthy after the play completes.\n\n## Docs\n- [Ubuntu Server Documentation](https://ubuntu.com/server/docs)\n- [Prometheus Node Exporter](https://github.com/prometheus/node_exporter)",
+    "tags": [],
+    "template_version": "1.0.0",
+    "icon": {
+      "provider": "simple-icons",
+      "id": "ansible"
+    },
+    "draft": false
+  },
+  "variables": []
+}

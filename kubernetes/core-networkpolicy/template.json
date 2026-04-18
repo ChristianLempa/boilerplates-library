@@ -1,0 +1,292 @@
+{
+  "slug": "core-networkpolicy",
+  "kind": "kubernetes",
+  "metadata": {
+    "name": "Kubernetes NetworkPolicy",
+    "description": "Creates a Kubernetes NetworkPolicy with targeted pod selection, optional ingress and egress policy types, and simple peer and port controls for common isolation patterns.",
+    "guide": "## Overview\nCreates a Kubernetes NetworkPolicy resource for isolating workloads and explicitly allowing only the traffic patterns you want to keep.\n\n## Prerequisites\n- Confirm your cluster CNI enforces NetworkPolicy resources.\n- Review the selected peers and ports carefully before applying the policy to shared namespaces or stateful workloads.\n\n## Apply\n- Render `main.yaml`, review the targeted Pods and enabled ingress or egress rules, then apply it with `kubectl apply -f main.yaml`.\n- Validate connectivity from expected clients before promoting the policy to production namespaces.\n\n## Follow-Up\n- Start with a narrow selector and expand coverage gradually as you verify dependencies.\n- Pair the policy with Services, ingress configuration, and monitoring so connectivity regressions are easy to spot.\n\n## References\n- [NetworkPolicy Documentation](https://kubernetes.io/docs/concepts/services-networking/network-policies/)",
+    "tags": [],
+    "template_version": "1.31.0",
+    "icon": {
+      "provider": "simple-icons",
+      "id": "kubernetes"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "title": "General",
+      "name": "general",
+      "variables": [
+        {
+          "name": "resource_name",
+          "type": "str",
+          "title": "NetworkPolicy name",
+          "required": false,
+          "default": "app-networkpolicy",
+          "description": "Name to use for the NetworkPolicy.",
+          "config": {
+            "placeholder": "app-networkpolicy"
+          }
+        },
+        {
+          "name": "namespace",
+          "type": "str",
+          "title": "Namespace",
+          "required": false,
+          "default": "default",
+          "description": "Namespace for the resource.",
+          "config": {
+            "placeholder": "default"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Target Pods",
+      "name": "target",
+      "variables": [
+        {
+          "name": "apply_to_all_pods",
+          "type": "bool",
+          "title": "Apply to all Pods",
+          "required": false,
+          "default": false,
+          "description": "Target all Pods in the namespace instead of a specific label selector."
+        },
+        {
+          "name": "pod_selector_label_key",
+          "type": "str",
+          "title": "Pod selector label key",
+          "required": false,
+          "default": "app",
+          "description": "Label key used to select target Pods.",
+          "config": {
+            "placeholder": "app"
+          }
+        },
+        {
+          "name": "pod_selector_label_value",
+          "type": "str",
+          "title": "Pod selector label value",
+          "required": false,
+          "default": "app",
+          "description": "Label value used to select target Pods.",
+          "config": {
+            "placeholder": "app"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Ingress",
+      "name": "ingress",
+      "variables": [
+        {
+          "name": "ingress_enabled",
+          "type": "bool",
+          "title": "Ingress policy",
+          "required": false,
+          "default": true,
+          "description": "Enable ingress rules for the policy."
+        },
+        {
+          "name": "ingress_allow_same_namespace",
+          "type": "bool",
+          "title": "Allow same-namespace ingress",
+          "required": false,
+          "default": true,
+          "description": "Allow ingress from any Pod in the same namespace."
+        },
+        {
+          "name": "ingress_namespace_selector_enabled",
+          "type": "bool",
+          "title": "Namespace selector",
+          "required": false,
+          "default": false,
+          "description": "Allow ingress from namespaces matching one label selector."
+        },
+        {
+          "name": "ingress_namespace_selector_label_key",
+          "type": "str",
+          "title": "Namespace selector label key",
+          "required": false,
+          "default": "kubernetes.io/metadata.name",
+          "description": "Namespace label key used for the ingress namespace selector.",
+          "config": {
+            "placeholder": "kubernetes.io/metadata.name"
+          }
+        },
+        {
+          "name": "ingress_namespace_selector_label_value",
+          "type": "str",
+          "title": "Namespace selector label value",
+          "required": false,
+          "default": "ingress",
+          "description": "Namespace label value used for the ingress namespace selector.",
+          "config": {
+            "placeholder": "ingress"
+          }
+        },
+        {
+          "name": "ingress_ipblock_enabled",
+          "type": "bool",
+          "title": "IPBlock source",
+          "required": false,
+          "default": false,
+          "description": "Allow ingress from one CIDR block."
+        },
+        {
+          "name": "ingress_ipblock_cidr",
+          "type": "str",
+          "title": "Ingress CIDR",
+          "required": false,
+          "default": "10.0.0.0/8",
+          "description": "CIDR block allowed for ingress traffic.",
+          "config": {
+            "placeholder": "10.0.0.0/8"
+          }
+        },
+        {
+          "name": "ingress_port_enabled",
+          "type": "bool",
+          "title": "Port restriction",
+          "required": false,
+          "default": false,
+          "description": "Restrict ingress to one port."
+        },
+        {
+          "name": "ingress_port",
+          "type": "int",
+          "title": "Ingress port",
+          "required": false,
+          "default": 80,
+          "description": "Port allowed for ingress traffic.",
+          "config": {
+            "placeholder": "80"
+          }
+        },
+        {
+          "name": "ingress_port_protocol",
+          "type": "enum",
+          "title": "Ingress port protocol",
+          "required": false,
+          "default": "TCP",
+          "description": "Protocol used for the ingress port.",
+          "config": {
+            "options": [
+              "TCP",
+              "UDP",
+              "SCTP"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": "Egress",
+      "name": "egress",
+      "variables": [
+        {
+          "name": "egress_enabled",
+          "type": "bool",
+          "title": "Egress policy",
+          "required": false,
+          "default": false,
+          "description": "Enable egress rules for the policy."
+        },
+        {
+          "name": "egress_allow_same_namespace",
+          "type": "bool",
+          "title": "Allow same-namespace egress",
+          "required": false,
+          "default": false,
+          "description": "Allow egress to any Pod in the same namespace."
+        },
+        {
+          "name": "egress_namespace_selector_enabled",
+          "type": "bool",
+          "title": "Namespace selector",
+          "required": false,
+          "default": false,
+          "description": "Allow egress to namespaces matching one label selector."
+        },
+        {
+          "name": "egress_namespace_selector_label_key",
+          "type": "str",
+          "title": "Namespace selector label key",
+          "required": false,
+          "default": "kubernetes.io/metadata.name",
+          "description": "Namespace label key used for the egress namespace selector.",
+          "config": {
+            "placeholder": "kubernetes.io/metadata.name"
+          }
+        },
+        {
+          "name": "egress_namespace_selector_label_value",
+          "type": "str",
+          "title": "Namespace selector label value",
+          "required": false,
+          "default": "database",
+          "description": "Namespace label value used for the egress namespace selector.",
+          "config": {
+            "placeholder": "database"
+          }
+        },
+        {
+          "name": "egress_ipblock_enabled",
+          "type": "bool",
+          "title": "IPBlock destination",
+          "required": false,
+          "default": false,
+          "description": "Allow egress to one CIDR block."
+        },
+        {
+          "name": "egress_ipblock_cidr",
+          "type": "str",
+          "title": "Egress CIDR",
+          "required": false,
+          "default": "0.0.0.0/0",
+          "description": "CIDR block allowed for egress traffic.",
+          "config": {
+            "placeholder": "0.0.0.0/0"
+          }
+        },
+        {
+          "name": "egress_port_enabled",
+          "type": "bool",
+          "title": "Port restriction",
+          "required": false,
+          "default": false,
+          "description": "Restrict egress to one port."
+        },
+        {
+          "name": "egress_port",
+          "type": "int",
+          "title": "Egress port",
+          "required": false,
+          "default": 443,
+          "description": "Port allowed for egress traffic.",
+          "config": {
+            "placeholder": "443"
+          }
+        },
+        {
+          "name": "egress_port_protocol",
+          "type": "enum",
+          "title": "Egress port protocol",
+          "required": false,
+          "default": "TCP",
+          "description": "Protocol used for the egress port.",
+          "config": {
+            "options": [
+              "TCP",
+              "UDP",
+              "SCTP"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

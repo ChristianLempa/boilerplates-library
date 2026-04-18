@@ -1,0 +1,125 @@
+{
+  "slug": "traefik-helm",
+  "kind": "helm",
+  "metadata": {
+    "name": "Traefik Ingress Controller",
+    "description": "Helm chart for Traefik v3, a modern HTTP reverse proxy and load balancer designed for microservices and Kubernetes environments.",
+    "guide": "## Overview\nHelm chart for Traefik v3, a modern HTTP reverse proxy and load balancer designed for microservices and Kubernetes environments.\n\n## Prerequisites\n- Decide whether this release will be the cluster's primary ingress controller before installing it.\n- If you enable the dashboard ingress route, prepare the hostname, authentication middleware, and TLS secret or certificate issuer ahead of time.\n- Confirm whether HTTP to HTTPS redirects, access logs, and Prometheus metrics match your cluster policy before rollout.\n\n## Deploy\n- Render `values.yaml`, review the dashboard, redirect, and metrics settings, then install or update the release with `helm upgrade --install`.\n- Verify the Traefik service, entrypoints, and controller logs after the rollout completes.\n\n## Post-Install\n- Expose the dashboard only behind authentication and TLS, then verify that the intended middleware is actually attached.\n- Test HTTP to HTTPS redirection and scrape the metrics endpoint if Prometheus support is enabled.\n- Confirm that other ingress resources in the cluster are being reconciled by the expected Traefik instance.\n\n## References\n- [Traefik](https://traefik.io/)\n- [Documentation](https://doc.traefik.io/traefik/)\n- [Helm Chart](https://traefik.github.io/charts)",
+    "tags": [],
+    "template_version": "3.5.3",
+    "icon": {
+      "provider": "selfhst",
+      "id": "traefik"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "title": "Dashboard IngressRoute",
+      "variables": [
+        {
+          "name": "dashboard_host",
+          "type": "str",
+          "title": "Dashboard Host",
+          "required": false,
+          "description": "FQDN for the Traefik dashboard",
+          "needs": [
+            "dashboard_ingressroute_enabled=true"
+          ]
+        },
+        {
+          "name": "dashboard_ingressroute_enabled",
+          "type": "bool",
+          "title": "IngressRoute",
+          "required": false,
+          "default": false,
+          "description": "Create IngressRoute for Traefik dashboard"
+        },
+        {
+          "name": "dashboard_middleware",
+          "type": "str",
+          "title": "Middleware",
+          "required": false,
+          "default": "traefik-dashboard-auth",
+          "description": "Authentication middleware name for dashboard protection",
+          "needs": [
+            "dashboard_ingressroute_enabled=true"
+          ],
+          "config": {
+            "placeholder": "traefik-dashboard-auth"
+          }
+        },
+        {
+          "name": "dashboard_tls_secret",
+          "type": "str",
+          "title": "TLS Secret",
+          "required": false,
+          "default": "traefik-dashboard-tls",
+          "description": "TLS secret name for dashboard",
+          "needs": [
+            "dashboard_ingressroute_enabled=true"
+          ],
+          "config": {
+            "placeholder": "traefik-dashboard-tls"
+          }
+        }
+      ],
+      "name": "dashboard"
+    },
+    {
+      "title": "Redirect",
+      "variables": [
+        {
+          "name": "http_redirect_enabled",
+          "type": "bool",
+          "title": "HTTP Redirect",
+          "required": false,
+          "default": true,
+          "description": "Automatically redirect HTTP traffic to HTTPS"
+        },
+        {
+          "name": "http_redirect_permanent",
+          "type": "bool",
+          "title": "Permanent Redirect",
+          "required": false,
+          "default": true,
+          "description": "Use permanent redirect (301) instead of temporary (302)",
+          "needs": [
+            "http_redirect_enabled=true"
+          ]
+        }
+      ],
+      "name": "http-redirect"
+    },
+    {
+      "title": "Traefik Settings",
+      "variables": [
+        {
+          "name": "accesslog_enabled",
+          "type": "bool",
+          "title": "Access Log",
+          "required": false,
+          "default": false,
+          "description": "Enable Traefik access log"
+        },
+        {
+          "name": "dashboard_enabled",
+          "type": "bool",
+          "title": "Dashboard",
+          "required": false,
+          "default": false,
+          "description": "Enable Traefik dashboard"
+        },
+        {
+          "name": "prometheus_enabled",
+          "type": "bool",
+          "title": "Prometheus",
+          "required": false,
+          "default": false,
+          "description": "Enable Prometheus metrics"
+        }
+      ],
+      "name": "traefik-config"
+    }
+  ]
+}

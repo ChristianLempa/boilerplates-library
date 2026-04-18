@@ -1,0 +1,64 @@
+{
+  "slug": "longhorn",
+  "kind": "helm",
+  "metadata": {
+    "name": "Longhorn",
+    "description": "Helm chart for Longhorn, a distributed block storage system for Kubernetes with built-in backup, snapshots, and disaster recovery.",
+    "guide": "## Overview\nHelm chart for Longhorn, a distributed block storage system for Kubernetes with built-in backup, snapshots, and disaster recovery.\n\n## Prerequisites\n- Review Longhorn's environment checks and prepare the required disks, mount points, and host services on every storage node before install.\n- If you enable the default backup target, provision that object store or NFS target first and confirm credentials are available to the cluster.\n- Make sure the nodes that will host Longhorn have enough free capacity and stable network connectivity.\n\n## Deploy\n- Render `values.yaml`, then install or update the release with `helm upgrade --install`.\n- Wait until the Longhorn manager and UI pods are ready and the nodes appear healthy in the UI.\n\n## Post-Install\n- Verify that every intended node and disk is schedulable before creating production volumes.\n- If backups are enabled, run one backup and one restore test before relying on the target for disaster recovery.\n- Take a snapshot and attach a test volume so you confirm the CSI path works end to end.\n\n## References\n- [Longhorn](https://longhorn.io/)\n- [Documentation](https://longhorn.io/docs/)\n- [Helm Chart](https://charts.longhorn.io)",
+    "tags": [],
+    "template_version": "1.9.1",
+    "icon": {
+      "provider": "selfhst",
+      "id": "rancher-longhorn"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "title": "Backup Configuration",
+      "variables": [
+        {
+          "name": "backup_enabled",
+          "type": "bool",
+          "title": "Backup",
+          "required": false,
+          "default": false,
+          "description": "Enable backup target configuration"
+        },
+        {
+          "name": "backup_target",
+          "type": "str",
+          "title": "Backup Target",
+          "required": false,
+          "description": "Backup target URL (e.g., s3://bucket or nfs://server/path)",
+          "needs": [
+            "backup_enabled=true"
+          ]
+        }
+      ],
+      "name": "backup"
+    },
+    {
+      "title": "Longhorn UI",
+      "variables": [
+        {
+          "name": "ui_replicas",
+          "type": "int",
+          "title": "UI Replicas",
+          "required": false,
+          "default": 1,
+          "description": "Number of Longhorn UI replicas",
+          "config": {
+            "slider": true,
+            "min": 1,
+            "max": 10,
+            "step": 1,
+            "placeholder": "1",
+            "unit": "replicas"
+          }
+        }
+      ],
+      "name": "ui"
+    }
+  ]
+}

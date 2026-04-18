@@ -1,0 +1,298 @@
+{
+  "slug": "homepage-swarm",
+  "kind": "swarm",
+  "metadata": {
+    "name": "Homepage",
+    "description": "Modern, fully static, fast application dashboard with integrations for over 100 services and translations into multiple languages.",
+    "guide": "## Overview\nModern, fully static, fast application dashboard with integrations for over 100 services and translations into multiple languages.\n\n## How to Use\nThis template renders `compose.yaml` as a file.\n\n1. Decide on stack naming, networking, ports, and persistent storage before rendering the stack.\n2. Fill in required service settings first, then enable optional integrations such as Traefik, databases, or metrics only when needed.\n3. Render the stack files, review placement and secret handling, and deploy them with Docker Swarm in the target environment.\n\n## Variable Guide\n### General\n- `service_name`: The service name; required; default: homepage.\n- `container_timezone`: The container timezone; optional.\n- `container_loglevel`: The container log level; optional; options: debug, info, warn, error.\n- `swarm_placement_mode`: Swarm Placement Mode; required; default: replicated; options: replicated, global.\n- `swarm_replicas`: Swarm Replicas; optional; default: 1.\n- `swarm_placement_host`: Swarm Placement Host; optional.\n\n### Ports\n- `ports_http`: The HTTP port; required; default: 3000; shown when: traefik_enabled=false.\n\n### Traefik\n- `traefik_enabled`: Enable Traefik integration; optional; default: false.\n- `traefik_entrypoint`: The Traefik entrypoint; required; default: web.\n- `traefik_host`: Traefik Host; optional; default: homepage.\n- `traefik_network`: Traefik Network; required; default: traefik.\n- `traefik_domain`: Traefik Domain; required; default: home.arpa.\n\n### Traefik TLS\n- `traefik_tls_enabled`: Enable Traefik TLS; optional; default: false.\n- `traefik_tls_entrypoint`: The Traefik TLS entrypoint; required; default: websecure.\n- `traefik_tls_certresolver`: Traefik Tls Certresolver; required; default: cloudflare.\n\n### Volume\n- `volume_mode`: Volume Mode; required; default: local; options: local, mount, nfs.\n- `volume_mount_path`: Volume Mount Path; required; default: /mnt/storage; shown when: volume_mode=mount.\n- `volume_nfs_options`: The NFS mount options; optional; default: nfsvers=4,soft,timeo=180,intr.\n- `volume_nfs_path`: The NFS path; optional.\n- `volume_nfs_server`: The NFS server; optional.\n\n## References\n- [Homepage](https://gethomepage.dev/)\n- [Documentation](https://gethomepage.dev/latest/)\n- [GitHub](https://github.com/gethomepage/homepage)",
+    "tags": [
+      "traefik",
+      "volume_modes"
+    ],
+    "template_version": "v1.10.1",
+    "icon": {
+      "provider": "selfhst",
+      "id": "homepage"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "title": "General",
+      "variables": [
+        {
+          "name": "service_name",
+          "type": "str",
+          "title": "The service name",
+          "required": true,
+          "default": "homepage",
+          "description": "Name of the service.",
+          "config": {
+            "placeholder": "homepage"
+          }
+        },
+        {
+          "name": "container_timezone",
+          "type": "str",
+          "title": "The container timezone",
+          "required": false,
+          "description": "Timezone used inside the container."
+        },
+        {
+          "name": "container_loglevel",
+          "type": "enum",
+          "title": "Log Level",
+          "required": false,
+          "description": "The container log level",
+          "config": {
+            "options": [
+              "debug",
+              "info",
+              "warn",
+              "error"
+            ]
+          }
+        },
+        {
+          "name": "swarm_placement_mode",
+          "type": "enum",
+          "title": "Swarm Placement Mode",
+          "required": true,
+          "default": "replicated",
+          "config": {
+            "options": [
+              "replicated",
+              "global"
+            ]
+          },
+          "description": "Mode used for Swarm Placement."
+        },
+        {
+          "name": "swarm_replicas",
+          "type": "int",
+          "title": "Swarm Replicas",
+          "required": false,
+          "default": 1,
+          "config": {
+            "slider": true,
+            "min": 1,
+            "max": 10,
+            "step": 1,
+            "placeholder": "1",
+            "unit": "replicas"
+          },
+          "description": "Number of replicas to run.",
+          "needs": [
+            "swarm_placement_mode=replicated"
+          ]
+        },
+        {
+          "name": "swarm_placement_host",
+          "type": "str",
+          "title": "Swarm Placement Host",
+          "required": false,
+          "default": "",
+          "description": "Hostname used for Swarm Placement.",
+          "needs": [
+            "swarm_placement_mode=replicated"
+          ],
+          "config": {
+            "placeholder": "swarm-node-1"
+          }
+        }
+      ],
+      "name": "general"
+    },
+    {
+      "title": "Ports",
+      "variables": [
+        {
+          "name": "ports_http",
+          "type": "int",
+          "title": "The HTTP port",
+          "required": true,
+          "default": 3000,
+          "description": "Host port exposed for HTTP.",
+          "needs": [
+            "traefik_enabled=false"
+          ],
+          "config": {
+            "placeholder": "3000"
+          }
+        }
+      ],
+      "name": "ports"
+    },
+    {
+      "title": "Traefik",
+      "variables": [
+        {
+          "name": "traefik_enabled",
+          "type": "bool",
+          "title": "Traefik",
+          "required": false,
+          "default": false,
+          "description": "Enable Traefik integration"
+        },
+        {
+          "name": "traefik_entrypoint",
+          "type": "str",
+          "title": "Entrypoint",
+          "required": true,
+          "default": "web",
+          "description": "Entrypoint name.",
+          "config": {
+            "placeholder": "web"
+          }
+        },
+        {
+          "name": "traefik_host",
+          "type": "str",
+          "title": "Host",
+          "required": false,
+          "config": {
+            "placeholder": "homepage"
+          },
+          "description": "Hostname used for Traefik."
+        },
+        {
+          "name": "traefik_network",
+          "type": "str",
+          "title": "Network",
+          "required": true,
+          "default": "traefik",
+          "config": {
+            "placeholder": "traefik"
+          },
+          "description": "Network used for Traefik."
+        },
+        {
+          "name": "traefik_domain",
+          "type": "str",
+          "title": "Domain",
+          "required": true,
+          "config": {
+            "placeholder": "home.arpa"
+          },
+          "description": "Domain used for Traefik."
+        }
+      ],
+      "name": "traefik",
+      "toggle": "traefik_enabled"
+    },
+    {
+      "title": "Traefik TLS",
+      "variables": [
+        {
+          "name": "traefik_tls_enabled",
+          "type": "bool",
+          "title": "TLS",
+          "required": false,
+          "default": false,
+          "description": "Enable Traefik TLS"
+        },
+        {
+          "name": "traefik_tls_entrypoint",
+          "type": "str",
+          "title": "TLS Entrypoint",
+          "required": true,
+          "default": "websecure",
+          "description": "Entrypoint name.",
+          "config": {
+            "placeholder": "websecure"
+          }
+        },
+        {
+          "name": "traefik_tls_certresolver",
+          "type": "str",
+          "title": "Cert Resolver",
+          "required": true,
+          "default": "cloudflare",
+          "config": {
+            "placeholder": "cloudflare"
+          },
+          "description": "Traefik Tls Certresolver"
+        }
+      ],
+      "name": "traefik-tls",
+      "toggle": "traefik_tls_enabled"
+    },
+    {
+      "title": "Volume",
+      "variables": [
+        {
+          "name": "volume_mode",
+          "type": "enum",
+          "title": "Volume Mode",
+          "required": true,
+          "default": "local",
+          "config": {
+            "options": [
+              "local",
+              "mount",
+              "nfs"
+            ]
+          },
+          "description": "Mode used for Volume."
+        },
+        {
+          "name": "volume_mount_path",
+          "type": "str",
+          "title": "Volume Mount Path",
+          "required": true,
+          "default": "/mnt/storage",
+          "needs": [
+            "volume_mode=mount"
+          ],
+          "config": {
+            "placeholder": "/mnt/storage"
+          },
+          "description": "Mount path used for the volume."
+        },
+        {
+          "name": "volume_nfs_options",
+          "type": "str",
+          "title": "NFS Options",
+          "required": false,
+          "default": "nfsvers=4,soft,timeo=180,intr",
+          "description": "The NFS mount options",
+          "config": {
+            "placeholder": "nfsvers=4,soft,timeo=180,intr"
+          },
+          "needs": [
+            "volume_mode=nfs"
+          ]
+        },
+        {
+          "name": "volume_nfs_path",
+          "type": "str",
+          "title": "NFS Path",
+          "required": false,
+          "default": "",
+          "description": "Export path on the NFS server.",
+          "needs": [
+            "volume_mode=nfs"
+          ],
+          "config": {
+            "placeholder": "/path/to/export"
+          }
+        },
+        {
+          "name": "volume_nfs_server",
+          "type": "str",
+          "title": "NFS Server",
+          "required": false,
+          "default": "",
+          "description": "Hostname or IP address of the NFS server.",
+          "needs": [
+            "volume_mode=nfs"
+          ],
+          "config": {
+            "placeholder": "192.0.2.1"
+          }
+        }
+      ],
+      "name": "volume"
+    }
+  ]
+}

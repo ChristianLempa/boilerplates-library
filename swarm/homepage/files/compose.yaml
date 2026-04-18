@@ -1,0 +1,97 @@
+services:
+  << service_name >>:
+    image: ghcr.io/gethomepage/homepage:v1.10.1
+    environment:
+      <%- if traefik_enabled %>
+      - HOMEPAGE_ALLOWED_HOSTS=<< traefik_host >>.<< traefik_domain >>
+      <%- else %>
+      - HOMEPAGE_ALLOWED_HOSTS=localhost:<< ports_http >>,127.0.0.1:<< ports_http >>
+      <%- endif %>
+      <%- if container_timezone %>
+      - TZ=<< container_timezone >>
+      <%- endif %>
+      <%- if container_loglevel %>
+      - LOG_LEVEL=<< container_loglevel >>
+      <%- endif %>
+    <%- if traefik_enabled %>
+    networks:
+      << traefik_network >>:
+    <%- endif %>
+    <%- if not traefik_enabled %>
+    ports:
+      - << ports_http >>:3000
+    <%- endif %>
+    volumes:
+      <%- if volume_mode == 'local' %>
+      - << service_name >>_config:/app/config
+      - << service_name >>_images:/app/images
+      - << service_name >>_icons:/app/icons
+      <%- elif volume_mode == 'mount' %>
+      - << volume_mount_path >>/<< service_name >>/config:/app/config
+      - << volume_mount_path >>/<< service_name >>/images:/app/images
+      - << volume_mount_path >>/<< service_name >>/icons:/app/icons
+      <%- elif volume_mode == 'nfs' %>
+      - << service_name >>_config:/app/config
+      - << service_name >>_images:/app/images
+      - << service_name >>_icons:/app/icons
+      <%- endif %>
+    deploy:
+      <%- if swarm_placement_mode == 'replicated' %>
+      replicas: << swarm_replicas >>
+      <%- if swarm_placement_host %>
+      placement:
+        constraints:
+          - node.hostname == << swarm_placement_host >>
+      <%- endif %>
+      <%- else %>
+      mode: global
+      <%- endif %>
+      <%- if traefik_enabled %>
+      labels:
+        - traefik.enable=true
+        - traefik.docker.network=<< traefik_network >>
+        - traefik.http.services.<< service_name >>-web.loadbalancer.server.port=3000
+        - traefik.http.routers.<< service_name >>-http.service=<< service_name >>-web
+        - traefik.http.routers.<< service_name >>-http.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
+        - traefik.http.routers.<< service_name >>-http.entrypoints=<< traefik_entrypoint >>
+        <%- if traefik_tls_enabled %>
+        - traefik.http.routers.<< service_name >>-https.service=<< service_name >>-web
+        - traefik.http.routers.<< service_name >>-https.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
+        - traefik.http.routers.<< service_name >>-https.entrypoints=<< traefik_tls_entrypoint >>
+        - traefik.http.routers.<< service_name >>-https.tls=true
+        - traefik.http.routers.<< service_name >>-https.tls.certresolver=<< traefik_tls_certresolver >>
+        <%- endif %>
+      <%- endif %>
+
+<%- if traefik_enabled %>
+networks:
+  << traefik_network >>:
+    external: true
+<%- endif %>
+
+<%- if volume_mode == 'local' %>
+volumes:
+  << service_name >>_config:
+  << service_name >>_images:
+  << service_name >>_icons:
+<%- elif volume_mode == 'nfs' %>
+volumes:
+  << service_name >>_config:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=<< volume_nfs_server >>,<< volume_nfs_options >>
+      device: ":<< volume_nfs_path >>/config"
+  << service_name >>_images:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=<< volume_nfs_server >>,<< volume_nfs_options >>
+      device: ":<< volume_nfs_path >>/images"
+  << service_name >>_icons:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=<< volume_nfs_server >>,<< volume_nfs_options >>
+      device: ":<< volume_nfs_path >>/icons"
+<%- endif %>

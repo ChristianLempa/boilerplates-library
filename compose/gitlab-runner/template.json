@@ -1,0 +1,112 @@
+{
+  "slug": "gitlab-runner",
+  "kind": "compose",
+  "metadata": {
+    "name": "Gitlab-Runner",
+    "description": "CI/CD build runner for GitLab pipelines. Executes jobs defined in .gitlab-ci.yml using the Docker executor.",
+    "guide": "## Overview\nCI/CD build runner for GitLab pipelines. Executes jobs defined in .gitlab-ci.yml using the Docker executor.\n\n## Prerequisites\n- Create the runner in GitLab first and copy the runner authentication token before first start.\n- Confirm the GitLab instance URL is reachable from the Docker host.\n- Decide which default Docker image the runner should use for jobs that do not specify their own image.\n\n## Deploy\n- Render `compose.yaml` and `config.toml`, review the runner URL and token, then start the stack with `docker compose up -d`.\n- Confirm the runner container stays healthy and check `docker compose logs -f` until it reports as online.\n\n## Post-Install\n- Verify the runner appears online in GitLab and execute a small test pipeline before assigning production jobs to it.\n- If you need Docker Hub rate-limit relief, replace the example `DOCKER_AUTH_CONFIG` block with your own credentials.\n\n## Docs\n- [GitLab Runner](https://docs.gitlab.com/runner/)\n- [Register a Runner](https://docs.gitlab.com/runner/register/)\n- [GitHub](https://github.com/gitlab/gitlab-runner)",
+    "tags": [],
+    "template_version": "alpine-v17.9.1",
+    "icon": {
+      "provider": "simple-icons",
+      "id": "gitlab"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "title": "General",
+      "variables": [
+        {
+          "name": "service_name",
+          "type": "str",
+          "title": "Service Name",
+          "required": false,
+          "default": "gitlab-runner",
+          "config": {
+            "placeholder": "gitlab-runner"
+          },
+          "description": "Name of the service."
+        },
+        {
+          "name": "container_name",
+          "type": "str",
+          "title": "Container Name",
+          "required": false,
+          "default": "gitlab-runner",
+          "config": {
+            "placeholder": "gitlab-runner"
+          },
+          "description": "Name to use for the container."
+        },
+        {
+          "name": "restart_policy",
+          "type": "enum",
+          "title": "Restart Policy",
+          "required": true,
+          "default": "unless-stopped",
+          "config": {
+            "options": [
+              "unless-stopped",
+              "always",
+              "on-failure",
+              "no"
+            ]
+          },
+          "description": "Policy used for Restart."
+        },
+        {
+          "name": "gitlab_url",
+          "type": "str",
+          "title": "GitLab URL",
+          "required": true,
+          "config": {
+            "placeholder": "https://gitlab.example.com/"
+          },
+          "description": "Base URL of the GitLab instance."
+        },
+        {
+          "name": "gitlab_runner_name",
+          "type": "str",
+          "title": "Runner Name",
+          "required": false,
+          "default": "gitlab-runner",
+          "config": {
+            "placeholder": "gitlab-runner"
+          },
+          "description": "Runner name shown in GitLab."
+        },
+        {
+          "name": "gitlab_runner_token",
+          "type": "secret",
+          "title": "Runner Authentication Token",
+          "required": true,
+          "description": "Runner authentication token created in GitLab."
+        },
+        {
+          "name": "gitlab_runner_concurrent",
+          "type": "int",
+          "title": "Concurrent Jobs",
+          "required": false,
+          "default": 4,
+          "description": "Maximum number of jobs the runner can process at the same time.",
+          "config": {
+            "placeholder": "4"
+          }
+        },
+        {
+          "name": "gitlab_executor_image",
+          "type": "str",
+          "title": "Default Executor Image",
+          "required": false,
+          "default": "alpine:latest",
+          "config": {
+            "placeholder": "alpine:latest"
+          },
+          "description": "Default Docker image used for jobs that do not specify one."
+        }
+      ],
+      "name": "general"
+    }
+  ]
+}

@@ -1,0 +1,200 @@
+---
+- name: Bootstrap K3s cluster with k3sup
+  hosts: all
+  gather_facts: false
+<%- if secrets_file %>
+  vars_files:
+    - << secrets_file >>
+<%- endif %>
+
+  vars:
+    k3s_server_target: "{{ hostvars['<< k3s_server_host >>'].ansible_host | default('<< k3s_server_host >>') }}"
+<%- if kubeconfig_destination_mode == 'remote' %>
+    k3s_generated_kubeconfig_path: "/tmp/<< k3s_context_name | default('homelab-k3s') >>-kubeconfig"
+<%- else %>
+    k3s_generated_kubeconfig_path: "<< local_kubeconfig_path >>"
+<%- endif %>
+
+  tasks:
+    - name: Gather control machine facts
+      ansible.builtin.setup:
+      delegate_to: localhost
+      run_once: true
+      register: localhost_facts
+
+    - name: Validate that the first server host exists in inventory
+      ansible.builtin.assert:
+        that:
+          - "'<< k3s_server_host >>' in hostvars"
+        fail_msg: "Inventory host '<< k3s_server_host >>' was not found."
+      run_once: true
+
+    - name: Resolve k3sup release asset
+      ansible.builtin.set_fact:
+        k3sup_release_asset: >-
+          {%- if localhost_facts.ansible_facts.ansible_system == 'Linux' and localhost_facts.ansible_facts.ansible_architecture in ['x86_64', 'amd64'] -%}
+          k3sup
+          {%- elif localhost_facts.ansible_facts.ansible_system == 'Linux' and localhost_facts.ansible_facts.ansible_architecture in ['aarch64', 'arm64'] -%}
+          k3sup-arm64
+          {%- elif localhost_facts.ansible_facts.ansible_system == 'Linux' and localhost_facts.ansible_facts.ansible_architecture in ['armv7l', 'armv6l'] -%}
+          k3sup-arm
+          {%- elif localhost_facts.ansible_facts.ansible_system == 'Darwin' and localhost_facts.ansible_facts.ansible_architecture in ['x86_64', 'amd64'] -%}
+          k3sup-darwin
+          {%- elif localhost_facts.ansible_facts.ansible_system == 'Darwin' and localhost_facts.ansible_facts.ansible_architecture in ['arm64', 'aarch64'] -%}
+          k3sup-darwin-arm64
+          {%- else -%}
+          unsupported
+          {%- endif -%}
+      when: install_k3sup_binary | default(false)
+      run_once: true
+
+    - name: Fail when k3sup binary installation is not supported for this control machine
+      ansible.builtin.fail:
+        msg: "Automatic k3sup installation is not supported for {{ localhost_facts.ansible_facts.ansible_system }}/{{ localhost_facts.ansible_facts.ansible_architecture }}. Set install_k3sup_binary=false and install k3sup manually."
+      when:
+        - install_k3sup_binary | default(false)
+        - k3sup_release_asset == "unsupported"
+      run_once: true
+
+    - name: Ensure local directory for k3sup exists
+      ansible.builtin.file:
+        path: "{{ '<< k3sup_install_path >>' | dirname }}"
+        state: directory
+        mode: "0755"
+      delegate_to: localhost
+      become: true
+      when: install_k3sup_binary | default(false)
+      run_once: true
+
+    - name: Install k3sup binary on the control machine
+      ansible.builtin.get_url:
+        url: "https://github.com/alexellis/k3sup/releases/download/<< k3sup_version >>/{{ k3sup_release_asset }}"
+        dest: "<< k3sup_install_path >>"
+        mode: "0755"
+      delegate_to: localhost
+      become: true
+      when: install_k3sup_binary | default(false)
+      run_once: true
+
+    - name: Verify k3sup is available
+      ansible.builtin.command:
+        cmd: "<< k3sup_install_path >> version"
+      changed_when: false
+      delegate_to: localhost
+      run_once: true
+
+    - name: Ensure local kubeconfig directory exists when using local destination mode
+      ansible.builtin.file:
+        path: "{{ k3s_generated_kubeconfig_path | dirname }}"
+        state: directory
+        mode: "0700"
+      delegate_to: localhost
+      when: "<< kubeconfig_destination_mode >>" == "local"
+      run_once: true
+
+    - name: Check whether K3s is already present on the first server
+      ansible.builtin.stat:
+        path: /etc/rancher/k3s/k3s.yaml
+      delegate_to: "<< k3s_server_host >>"
+      register: k3s_server_install_state
+      run_once: true
+
+    - name: Bootstrap the first K3s server with k3sup
+      ansible.builtin.command:
+        cmd: >-
+          << k3sup_install_path >> install
+          --ip {{ k3s_server_target }}
+          --user << k3s_server_user | default('ubuntu') >>
+          --ssh-port << k3s_server_ssh_port | default(22) >>
+          --local-path {{ k3s_generated_kubeconfig_path }}
+          --merge=false
+          --context << k3s_context_name | default('homelab-k3s') >>
+<%- if k3sup_use_sudo %>
+          --sudo
+<%- endif %>
+<%- if k3s_server_ssh_key_path %>
+          --ssh-key << k3s_server_ssh_key_path | quote >>
+<%- endif %>
+<%- if extra_server_args %>
+          --k3s-extra-args << extra_server_args | quote >>
+<%- endif %>
+      delegate_to: localhost
+      when:
+        - bootstrap_control_plane | default(true)
+        - not (k3s_server_install_state.stat.exists | default(false))
+      run_once: true
+
+    - name: Resolve inventory hosts for K3s agents
+      ansible.builtin.set_fact:
+        k3s_agent_inventory_hosts: "{{ query('inventory_hostnames', '<< k3s_agent_hosts_pattern >>') }}"
+      when: join_agent_nodes | default(true)
+      run_once: true
+
+    - name: Fail when agent join is enabled but no hosts match the inventory pattern
+      ansible.builtin.assert:
+        that:
+          - k3s_agent_inventory_hosts | length > 0
+        fail_msg: "No inventory hosts matched '<< k3s_agent_hosts_pattern >>'."
+      when: join_agent_nodes | default(true)
+      run_once: true
+
+    - name: Check whether K3s agent is already present on each node
+      ansible.builtin.stat:
+        path: /etc/systemd/system/k3s-agent.service
+      delegate_to: "{{ item }}"
+      loop: "{{ k3s_agent_inventory_hosts | default([]) }}"
+      loop_control:
+        label: "{{ item }}"
+      register: k3s_agent_install_state
+      when: join_agent_nodes | default(true)
+      run_once: true
+
+    - name: Join agent nodes to the K3s cluster with k3sup
+      ansible.builtin.command:
+        cmd: >-
+          << k3sup_install_path >> join
+          --ip {{ hostvars[item.item].ansible_host | default(item.item) }}
+          --server-ip {{ k3s_server_target }}
+          --user << k3s_agent_user | default('ubuntu') >>
+          --server-user << k3s_server_user | default('ubuntu') >>
+          --ssh-port << k3s_agent_ssh_port | default(22) >>
+          --server-ssh-port << k3s_server_ssh_port | default(22) >>
+<%- if k3sup_use_sudo %>
+          --sudo
+<%- endif %>
+<%- if k3s_server_ssh_key_path %>
+          --ssh-key << k3s_server_ssh_key_path | quote >>
+<%- endif %>
+<%- if extra_agent_args %>
+          --k3s-extra-args << extra_agent_args | quote >>
+<%- endif %>
+      delegate_to: localhost
+      loop: "{{ k3s_agent_install_state.results | default([]) }}"
+      loop_control:
+        label: "{{ item.item }}"
+      when:
+        - join_agent_nodes | default(true)
+        - not (item.stat.exists | default(false))
+      run_once: true
+
+    - name: Ensure remote kubeconfig directory exists
+      ansible.builtin.file:
+        path: "{{ '<< kubeconfig_remote_path >>' | dirname }}"
+        state: directory
+        mode: "0700"
+      delegate_to: "<< kubeconfig_remote_host | default('localhost') >>"
+      become: << kubeconfig_remote_become | default(false) >>
+      when: "<< kubeconfig_destination_mode >>" == "remote"
+      run_once: true
+
+    - name: Copy kubeconfig to the remote destination host
+      ansible.builtin.copy:
+        src: "{{ k3s_generated_kubeconfig_path }}"
+        dest: "<< kubeconfig_remote_path >>"
+        owner: "<< kubeconfig_remote_owner | default('ubuntu') >>"
+        group: "<< kubeconfig_remote_group | default('ubuntu') >>"
+        mode: "<< kubeconfig_remote_mode | default('0600') >>"
+      delegate_to: "<< kubeconfig_remote_host | default('localhost') >>"
+      become: << kubeconfig_remote_become | default(false) >>
+      when: "<< kubeconfig_destination_mode >>" == "remote"
+      run_once: true

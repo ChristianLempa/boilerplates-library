@@ -1,0 +1,177 @@
+{
+  "slug": "cloudflare-dns-record",
+  "kind": "terraform",
+  "metadata": {
+    "name": "Cloudflare DNS Record",
+    "description": "Creates a single Cloudflare DNS record for A, AAAA, CNAME, TXT, or MX with type-specific inputs, TTL, and proxying where supported.",
+    "guide": "## Overview\nCreates a single Cloudflare DNS record for A, AAAA, CNAME, TXT, or MX.\n\n## How to Use\nThis template renders `main.tf` as a file.\n\n1. Provide the Cloudflare zone ID and the DNS name you want to manage.\n2. Choose the `record_type` first, then fill in only the fields that apply to that record type.\n3. Render the Terraform file and run `terraform fmt`, `terraform plan`, and `terraform apply` in the target workspace.\n\n## Variable Guide\n### General\n- `resource_name`: Terraform resource name (alphanumeric and underscores only); optional; default: `dns_record`.\n- `cloudflare_zone_id`: Cloudflare Zone ID; required.\n- `name`: DNS record name (`@` for the zone apex); optional; default: `app`.\n- `record_type`: Record type to create; optional; default: `A`; options: `A`, `AAAA`, `CNAME`, `TXT`, `MX`.\n- `ttl`: Record TTL in seconds (`1` = automatic); optional; default: `1`.\n\n### A Record\n- `ipv4_address`: IPv4 address for `A` records; required when `record_type=A`.\n- `proxied`: Enable Cloudflare proxying; optional; default: `true`; shown only for `A`, `AAAA`, and `CNAME`.\n\n### AAAA Record\n- `ipv6_address`: IPv6 address for `AAAA` records; required when `record_type=AAAA`.\n- `proxied`: Enable Cloudflare proxying; optional; default: `true`; shown only for `A`, `AAAA`, and `CNAME`.\n\n### CNAME Record\n- `target_hostname`: Canonical hostname target for `CNAME` records; required when `record_type=CNAME`.\n- `proxied`: Enable Cloudflare proxying; optional; default: `true`; shown only for `A`, `AAAA`, and `CNAME`.\n\n### TXT Record\n- `text_value`: TXT value; required when `record_type=TXT`.\n\n### MX Record\n- `mail_server`: Mail server hostname for `MX` records; required when `record_type=MX`.\n- `priority`: MX priority (lower value = higher priority); required when `record_type=MX`; default: `10`.\n\n## Notes\n- Proxying only applies to record types Cloudflare supports for orange-cloud mode.\n- MX records require a mail server target plus priority.\n\n## References\n- [Cloudflare DNS](https://www.cloudflare.com/dns/)\n- [Terraform Provider](https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs/resources/dns_record)",
+    "icon": {
+      "provider": "selfhst",
+      "id": "cloudflare",
+      "color": "default"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "name": "terraform",
+      "title": "Terraform",
+      "variables": [
+        {
+          "name": "resource_name",
+          "title": "Resource Name",
+          "description": "Terraform resource name (alphanumeric and underscores only)",
+          "type": "str",
+          "default": "dns_record",
+          "config": {
+            "placeholder": "dns_record"
+          }
+        }
+      ]
+    },
+    {
+      "name": "record",
+      "title": "DNS Record",
+      "variables": [
+        {
+          "name": "cloudflare_zone_id",
+          "title": "Cloudflare Zone ID",
+          "description": "Cloudflare zone ID",
+          "type": "str",
+          "config": {
+            "placeholder": "123456789"
+          },
+          "required": true
+        },
+        {
+          "name": "name",
+          "title": "Record Name",
+          "description": "DNS record name (use @ for the root domain).",
+          "type": "str",
+          "default": "app",
+          "config": {
+            "placeholder": "app"
+          }
+        },
+        {
+          "name": "record_type",
+          "title": "DNS record type",
+          "description": "Record type to use.",
+          "type": "enum",
+          "default": "A",
+          "config": {
+            "options": [
+              "A",
+              "AAAA",
+              "CNAME",
+              "TXT",
+              "MX"
+            ]
+          }
+        },
+        {
+          "name": "ttl",
+          "title": "TTL",
+          "description": "Time to live (1 = automatic, or 60-86400 seconds)",
+          "type": "int",
+          "default": 1,
+          "config": {
+            "placeholder": "1",
+            "unit": "seconds"
+          }
+        },
+        {
+          "name": "ipv4_address",
+          "title": "IPv4 Address",
+          "description": "IPv4 address for an A record.",
+          "type": "str",
+          "required": true,
+          "needs": [
+            "record_type=A"
+          ],
+          "config": {
+            "placeholder": "192.0.2.1"
+          }
+        },
+        {
+          "name": "ipv6_address",
+          "title": "IPv6 Address",
+          "description": "IPv6 address for an AAAA record.",
+          "type": "str",
+          "required": true,
+          "needs": [
+            "record_type=AAAA"
+          ],
+          "config": {
+            "placeholder": "2001:db8::1"
+          }
+        },
+        {
+          "name": "target_hostname",
+          "title": "Target Hostname",
+          "description": "Canonical hostname target for a CNAME record.",
+          "type": "str",
+          "required": true,
+          "needs": [
+            "record_type=CNAME"
+          ],
+          "config": {
+            "placeholder": "origin.example.com"
+          }
+        },
+        {
+          "name": "text_value",
+          "title": "TXT Value",
+          "description": "Text value for a TXT record.",
+          "type": "str",
+          "required": true,
+          "needs": [
+            "record_type=TXT"
+          ],
+          "config": {
+            "placeholder": "v=spf1 include:_spf.example.com ~all",
+            "textarea": true
+          }
+        },
+        {
+          "name": "mail_server",
+          "title": "Mail Server",
+          "description": "Mail server hostname for an MX record.",
+          "type": "str",
+          "required": true,
+          "needs": [
+            "record_type=MX"
+          ],
+          "config": {
+            "placeholder": "mail.example.com"
+          }
+        },
+        {
+          "name": "priority",
+          "title": "Priority",
+          "description": "MX record priority (lower value = higher priority).",
+          "type": "int",
+          "default": 10,
+          "required": true,
+          "needs": [
+            "record_type=MX"
+          ],
+          "config": {
+            "placeholder": "10"
+          }
+        },
+        {
+          "name": "proxied",
+          "title": "Proxy",
+          "description": "Enable Cloudflare proxy (orange cloud).",
+          "type": "bool",
+          "default": true,
+          "needs": [
+            "record_type=A,AAAA,CNAME"
+          ]
+        }
+      ]
+    }
+  ],
+  "files": null
+}

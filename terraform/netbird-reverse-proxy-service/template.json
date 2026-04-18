@@ -1,0 +1,320 @@
+{
+  "slug": "netbird-reverse-proxy-service",
+  "kind": "terraform",
+  "metadata": {
+    "name": "NetBird Reverse Proxy Service",
+    "description": "Creates a NetBird reverse proxy service with one backend target and configurable authentication.",
+    "guide": "## Overview\nCreates a NetBird reverse proxy service with one backend target.\n\n## Prerequisites\n- Create an admin PAT for the NetBird management API before rendering `provider.tf`.\n- If `target_type=peer`, provide `target_peer_name`. The template looks up the peer in `main.tf` with `data \"netbird_peer\"` and uses its ID automatically.\n- If `target_type=host`, `domain`, or `subnet`, provide `target_network_name` plus the matching resource name field for the selected type. The template looks up the NetBird network with `data \"netbird_network\"`, then resolves the backend resource with `data \"netbird_network_resource\"` and uses that ID automatically.\n- For non-peer targets, the final reverse proxy `target_type` is inferred from the resolved network resource address to avoid host/domain/subnet mismatches during apply.\n- If the resolved target is a subnet, NetBird requires a backend host IP within that CIDR range. When `target_host` is empty, the template defaults it to the network resource address without the CIDR suffix.\n- If you choose `custom` domain mode, provide the validated domain name. The template resolves it with `data \"netbird_reverse_proxy_domain\"` before attaching it to the service.\n- If you use bearer auth distribution groups, provide `bearer_distribution_group_names` as a comma-separated list of existing NetBird group names. The template resolves them with `data \"netbird_group\"`.\n\n## Apply\n- Render `provider.tf` and `main.tf`.\n- Review the selected domain mode, target lookup inputs, and authentication method.\n- Run `terraform fmt`, `terraform plan`, and `terraform apply`.\n\n## Notes\n- This template renders one item inside the required `targets = [...]` list. If you need multiple backends, duplicate that object in the rendered `main.tf`.\n- `auth_mode=none` renders an empty `auth = {}` object for a public service.\n\n## References\n- [Reverse Proxy Authentication](https://docs.netbird.io/manage/reverse-proxy/authentication)\n- [Terraform Resource](https://github.com/netbirdio/terraform-provider-netbird/blob/main/docs/resources/reverse_proxy_service.md)\n- [Reverse Proxy Domain Data Source](https://github.com/netbirdio/terraform-provider-netbird/blob/main/docs/data-sources/reverse_proxy_domain.md)\n- [Peer Data Source](https://github.com/netbirdio/terraform-provider-netbird/blob/main/docs/data-sources/peer.md)\n- [Network Data Source](https://github.com/netbirdio/terraform-provider-netbird/blob/main/docs/data-sources/network.md)\n- [Network Resource Data Source](https://github.com/netbirdio/terraform-provider-netbird/blob/main/docs/data-sources/network_resource.md)\n- [Group Data Source](https://github.com/netbirdio/terraform-provider-netbird/blob/main/docs/data-sources/group.md)",
+    "tags": [
+      "netbird",
+      "terraform",
+      "reverse-proxy"
+    ],
+    "template_version": "0.0.17",
+    "icon": {
+      "provider": "selfhst",
+      "id": "netbird"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "title": "General",
+      "variables": [
+        {
+          "name": "service_name",
+          "type": "str",
+          "title": "Service Name",
+          "required": true,
+          "description": "Name of the reverse proxy service.",
+          "config": {
+            "placeholder": "web-app"
+          }
+        },
+        {
+          "name": "domain_mode",
+          "type": "enum",
+          "title": "Domain Mode",
+          "required": true,
+          "default": "free",
+          "description": "Use a free NetBird reverse proxy domain or a prevalidated custom domain.",
+          "config": {
+            "options": [
+              "free",
+              "custom"
+            ]
+          }
+        },
+        {
+          "name": "custom_domain",
+          "type": "str",
+          "title": "Custom Domain",
+          "required": true,
+          "description": "Validated custom domain for the reverse proxy service.",
+          "needs": [
+            "domain_mode=custom"
+          ],
+          "config": {
+            "placeholder": "app.example.com"
+          }
+        },
+        {
+          "name": "service_enabled",
+          "type": "bool",
+          "title": "Enabled",
+          "required": false,
+          "default": true,
+          "description": "Enable the service after creation."
+        },
+        {
+          "name": "pass_host_header",
+          "type": "bool",
+          "title": "Pass Host Header",
+          "required": false,
+          "default": false,
+          "description": "Pass the original client Host header through to the backend."
+        },
+        {
+          "name": "rewrite_redirects",
+          "type": "bool",
+          "title": "Rewrite Redirects",
+          "required": false,
+          "default": false,
+          "description": "Rewrite backend redirect locations to the public-facing service domain."
+        }
+      ],
+      "name": "general"
+    },
+    {
+      "title": "Target",
+      "variables": [
+        {
+          "name": "target_type",
+          "type": "enum",
+          "title": "Target Type",
+          "required": true,
+          "default": "peer",
+          "description": "Target type for the backend service.",
+          "config": {
+            "options": [
+              "peer",
+              "host",
+              "domain",
+              "subnet"
+            ]
+          }
+        },
+        {
+          "name": "target_peer_name",
+          "type": "str",
+          "title": "Peer Name",
+          "required": true,
+          "description": "Existing NetBird peer name to resolve via `data \"netbird_peer\"` when `target_type=peer`.",
+          "needs": [
+            "target_type=peer"
+          ],
+          "config": {
+            "placeholder": "web-app"
+          }
+        },
+        {
+          "name": "target_network_name",
+          "type": "str",
+          "title": "Network Name",
+          "required": true,
+          "description": "Existing NetBird network name that contains the selected host, domain, or subnet resource.",
+          "needs": [
+            "target_type=host,domain,subnet"
+          ],
+          "config": {
+            "placeholder": "production-network"
+          }
+        },
+        {
+          "name": "target_host_name",
+          "type": "str",
+          "title": "Host Resource Name",
+          "required": true,
+          "description": "Existing NetBird network resource name for a host target.",
+          "needs": [
+            "target_type=host"
+          ],
+          "config": {
+            "placeholder": "internal-app-host"
+          }
+        },
+        {
+          "name": "target_domain_name",
+          "type": "str",
+          "title": "Domain Resource Name",
+          "required": true,
+          "description": "Existing NetBird network resource name for a domain target.",
+          "needs": [
+            "target_type=domain"
+          ],
+          "config": {
+            "placeholder": "app.example.internal"
+          }
+        },
+        {
+          "name": "target_subnet_name",
+          "type": "str",
+          "title": "Subnet Resource Name",
+          "required": true,
+          "description": "Existing NetBird network resource name for a subnet target.",
+          "needs": [
+            "target_type=subnet"
+          ],
+          "config": {
+            "placeholder": "corp-lan"
+          }
+        },
+        {
+          "name": "target_port",
+          "type": "int",
+          "title": "Target Port",
+          "required": true,
+          "default": 8080,
+          "description": "Backend port for the target.",
+          "config": {
+            "placeholder": "8080"
+          }
+        },
+        {
+          "name": "target_protocol",
+          "type": "enum",
+          "title": "Target Protocol",
+          "required": true,
+          "default": "http",
+          "description": "Protocol used between the reverse proxy and the backend.",
+          "config": {
+            "options": [
+              "http",
+              "https"
+            ]
+          }
+        },
+        {
+          "name": "target_enabled",
+          "type": "bool",
+          "title": "Target Enabled",
+          "required": false,
+          "default": true,
+          "description": "Enable the backend target after creation."
+        },
+        {
+          "name": "target_host",
+          "type": "str",
+          "title": "Resolved Host",
+          "required": false,
+          "description": "Optional backend IP or domain override for the target. Subnet targets need a host IP within the CIDR range.",
+          "config": {
+            "placeholder": "10.20.30.40"
+          }
+        },
+        {
+          "name": "target_path",
+          "type": "str",
+          "title": "Path Prefix",
+          "required": false,
+          "description": "Optional URL path prefix for the backend target.",
+          "config": {
+            "placeholder": "/"
+          }
+        }
+      ],
+      "name": "target"
+    },
+    {
+      "title": "Authentication",
+      "variables": [
+        {
+          "name": "auth_mode",
+          "type": "enum",
+          "title": "Authentication Mode",
+          "required": true,
+          "default": "link",
+          "description": "Authentication method exposed by the reverse proxy service.",
+          "config": {
+            "options": [
+              "link",
+              "none",
+              "password",
+              "pin",
+              "bearer"
+            ]
+          }
+        },
+        {
+          "name": "auth_password",
+          "type": "secret",
+          "title": "Password",
+          "required": true,
+          "description": "Shared password for password-based access.",
+          "needs": [
+            "auth_mode=password"
+          ]
+        },
+        {
+          "name": "auth_pin",
+          "type": "secret",
+          "title": "PIN",
+          "required": true,
+          "description": "Shared PIN for PIN-based access.",
+          "needs": [
+            "auth_mode=pin"
+          ]
+        },
+        {
+          "name": "bearer_distribution_group_names",
+          "type": "str",
+          "title": "Bearer Distribution Groups",
+          "required": false,
+          "description": "Comma-separated existing NetBird group names allowed for bearer-auth access.",
+          "needs": [
+            "auth_mode=bearer"
+          ],
+          "config": {
+            "placeholder": "SRE,Incident Response",
+            "textarea": true
+          }
+        }
+      ],
+      "name": "authentication"
+    },
+    {
+      "title": "Provider Configuration",
+      "variables": [
+        {
+          "name": "netbird_management_url",
+          "type": "str",
+          "title": "Management URL",
+          "required": false,
+          "default": "https://api.netbird.io",
+          "description": "NetBird Management API URL. Trailing slashes are trimmed. TLS certificates must be trusted by the OpenTofu runner because the provider does not expose a skip-verification option.",
+          "config": {
+            "placeholder": "https://api.netbird.io"
+          }
+        },
+        {
+          "name": "netbird_pat",
+          "type": "secret",
+          "title": "Admin PAT",
+          "required": true,
+          "description": "NetBird admin personal access token (PAT)."
+        },
+        {
+          "name": "netbird_tenant_account",
+          "type": "str",
+          "title": "Tenant Account",
+          "required": false,
+          "description": "Optional tenant account ID for impersonation.",
+          "config": {
+            "placeholder": "account-id"
+          }
+        }
+      ],
+      "name": "provider"
+    }
+  ]
+}

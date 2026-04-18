@@ -1,0 +1,464 @@
+{
+  "slug": "proxmox-vm-qemu",
+  "kind": "terraform",
+  "metadata": {
+    "name": "Proxmox VM (QEMU)",
+    "description": "Creates a Proxmox virtual machine from a cloud-init-ready template with configurable clone, CPU, memory, disk, networking, and guest settings.",
+    "guide": "## Overview\nCreates a Proxmox QEMU virtual machine by cloning an existing cloud-init-ready template.\n\n## Prerequisites\n- A cloud-init-ready VM template must already exist in Proxmox.\n- The target node, bridge, and storage pools must already be available.\n- If you plan to access the guest immediately after first boot, include an SSH key and confirm the source template has cloud-init and the QEMU guest agent enabled.\n\n## Deploy\n- Render `provider.tf` and `main.tf`, then review the clone source, VMID, storage, and network settings.\n- Run `terraform fmt`, `terraform plan`, and `terraform apply` in the target workspace.\n\n## Post-Apply\n- Confirm the VM boots, receives the expected IP configuration, and completes cloud-init successfully.\n- Verify guest-agent reporting and any startup ordering before layering additional automation on top.\n\n## References\n- [Proxmox VE](https://www.proxmox.com/)\n- [Terraform Telmate Proxmox Provider](https://registry.terraform.io/providers/Telmate/proxmox/latest/docs/resources/vm_qemu)",
+    "tags": [],
+    "template_version": "3.0.2-rc07",
+    "icon": {
+      "provider": "selfhst",
+      "id": "proxmox"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "title": "Provider Configuration",
+      "variables": [
+        {
+          "name": "resource_name",
+          "type": "str",
+          "title": "Resource Name",
+          "required": false,
+          "default": "vmqemu",
+          "description": "Terraform resource name (alphanumeric and underscores only)",
+          "config": {
+            "placeholder": "vmqemu"
+          }
+        },
+        {
+          "name": "proxmox_api_url",
+          "type": "str",
+          "title": "Proxmox API URL",
+          "required": true,
+          "description": "URL for the Proxmox API.",
+          "config": {
+            "placeholder": "https://proxmox.home.arpa:8006/api2/json"
+          }
+        },
+        {
+          "name": "proxmox_api_token_id",
+          "type": "str",
+          "title": "API Token ID",
+          "required": true,
+          "description": "Proxmox API token ID",
+          "config": {
+            "placeholder": "terraform@pve!token"
+          }
+        },
+        {
+          "name": "proxmox_api_token_secret",
+          "type": "secret",
+          "title": "API Token Secret",
+          "required": true,
+          "description": "Proxmox API token secret"
+        },
+        {
+          "name": "proxmox_tls_insecure",
+          "type": "bool",
+          "title": "TLS Verify",
+          "required": false,
+          "default": false,
+          "description": "Skip TLS verification for the Proxmox API"
+        }
+      ],
+      "name": "provider"
+    },
+    {
+      "title": "VM Identity",
+      "variables": [
+        {
+          "name": "vm_name",
+          "type": "str",
+          "title": "Proxmox VM name",
+          "required": true,
+          "description": "Name of the VM.",
+          "config": {
+            "placeholder": "servername"
+          }
+        },
+        {
+          "name": "vm_id",
+          "type": "str",
+          "title": "Proxmox VMID",
+          "required": false,
+          "description": "Value used for the vm identity settings.",
+          "config": {
+            "placeholder": "20001"
+          }
+        },
+        {
+          "name": "description",
+          "type": "str",
+          "title": "VM description",
+          "required": false,
+          "description": "Description for the VM.",
+          "config": {
+            "placeholder": "Application server",
+            "textarea": true
+          }
+        },
+        {
+          "name": "tags",
+          "type": "str",
+          "title": "Tags",
+          "required": false,
+          "description": "Comma-separated Proxmox tags",
+          "config": {
+            "placeholder": "docker"
+          }
+        },
+        {
+          "name": "target_node",
+          "type": "str",
+          "title": "Target Node",
+          "required": true,
+          "description": "Proxmox node that will host the VM.",
+          "config": {
+            "placeholder": "proxmox-node"
+          }
+        }
+      ],
+      "name": "identity"
+    },
+    {
+      "title": "Clone Configuration",
+      "variables": [
+        {
+          "name": "clone_template",
+          "type": "str",
+          "title": "Template",
+          "required": true,
+          "description": "Source template name to clone",
+          "config": {
+            "placeholder": "pkr-ubuntu-noble-1"
+          }
+        },
+        {
+          "name": "full_clone",
+          "type": "bool",
+          "title": "Full Clone",
+          "required": false,
+          "default": true,
+          "description": "Create a full clone instead of a linked clone"
+        }
+      ],
+      "name": "clone"
+    },
+    {
+      "title": "Boot Settings",
+      "variables": [
+        {
+          "name": "onboot",
+          "type": "bool",
+          "title": "Auto Start",
+          "required": false,
+          "default": true,
+          "description": "Start the VM automatically with the node."
+        },
+        {
+          "name": "startup",
+          "type": "str",
+          "title": "Startup",
+          "required": false,
+          "description": "Proxmox startup order and delay string",
+          "config": {
+            "placeholder": "order=1,up=10"
+          }
+        },
+        {
+          "name": "automatic_reboot",
+          "type": "bool",
+          "title": "Auto Reboot",
+          "required": false,
+          "default": false,
+          "description": "Allow provider-triggered automatic reboot on change"
+        },
+        {
+          "name": "ci_user",
+          "type": "str",
+          "title": "Cloud-init user",
+          "required": false,
+          "default": "admin",
+          "description": "Username for the cloud init.",
+          "config": {
+            "placeholder": "admin"
+          }
+        },
+        {
+          "name": "ssh_key",
+          "type": "str",
+          "title": "SSH Key",
+          "required": false,
+          "description": "SSH public key passed to cloud-init",
+          "config": {
+            "placeholder": "SSH public key",
+            "textarea": true
+          }
+        },
+        {
+          "name": "ipconfig0",
+          "type": "str",
+          "title": "Network Config",
+          "required": false,
+          "default": "ip=dhcp",
+          "description": "Cloud-init network config for the first NIC",
+          "config": {
+            "placeholder": "ip=IP_ADDRESS/24,gw=GATEWAY"
+          }
+        },
+        {
+          "name": "nameserver",
+          "type": "str",
+          "title": "Nameserver",
+          "required": false,
+          "description": "DNS server for guest cloud-init config",
+          "config": {
+            "placeholder": "DNS_SERVER"
+          }
+        }
+      ],
+      "name": "guest"
+    },
+    {
+      "title": "Compute",
+      "variables": [
+        {
+          "name": "cpu_cores",
+          "type": "int",
+          "title": "CPU Cores",
+          "required": false,
+          "default": 2,
+          "description": "Number of CPU cores",
+          "config": {
+            "slider": true,
+            "min": 1,
+            "max": 32,
+            "step": 1,
+            "placeholder": "2",
+            "unit": "cores"
+          }
+        },
+        {
+          "name": "cpu_sockets",
+          "type": "int",
+          "title": "CPU Sockets",
+          "required": false,
+          "default": 1,
+          "description": "Number of CPU sockets",
+          "config": {
+            "slider": true,
+            "min": 1,
+            "max": 8,
+            "step": 1,
+            "placeholder": "1",
+            "unit": "sockets"
+          }
+        },
+        {
+          "name": "cpu_type",
+          "type": "str",
+          "title": "Proxmox CPU type",
+          "required": false,
+          "default": "host",
+          "description": "CPU type to use in Proxmox.",
+          "config": {
+            "placeholder": "host"
+          }
+        },
+        {
+          "name": "memory_mb",
+          "type": "int",
+          "title": "Memory",
+          "required": false,
+          "default": 4096,
+          "description": "Memory allocation in MB",
+          "config": {
+            "slider": true,
+            "min": 512,
+            "max": 262144,
+            "step": 512,
+            "placeholder": "4096",
+            "unit": "MB"
+          }
+        },
+        {
+          "name": "bios",
+          "type": "enum",
+          "title": "VM BIOS type",
+          "required": false,
+          "default": "seabios",
+          "description": "BIOS type for the VM.",
+          "config": {
+            "options": [
+              "seabios",
+              "ovmf"
+            ]
+          }
+        },
+        {
+          "name": "qemu_os",
+          "type": "str",
+          "title": "QEMU OS type",
+          "required": false,
+          "default": "other",
+          "description": "Guest OS type for QEMU.",
+          "config": {
+            "placeholder": "other"
+          }
+        }
+      ],
+      "name": "compute"
+    },
+    {
+      "title": "Storage and Network",
+      "variables": [
+        {
+          "name": "bridge",
+          "type": "str",
+          "title": "Bridge",
+          "required": false,
+          "default": "vmbr1",
+          "description": "Proxmox bridge for the first NIC",
+          "config": {
+            "placeholder": "vmbr1"
+          }
+        },
+        {
+          "name": "network_model",
+          "type": "str",
+          "title": "NIC model",
+          "required": false,
+          "default": "virtio",
+          "description": "Network adapter model.",
+          "config": {
+            "placeholder": "virtio"
+          }
+        },
+        {
+          "name": "disk_storage",
+          "type": "str",
+          "title": "Disk Storage",
+          "required": false,
+          "default": "local-lvm",
+          "description": "Storage pool for the main disk",
+          "config": {
+            "placeholder": "local-lvm"
+          }
+        },
+        {
+          "name": "cloudinit_storage",
+          "type": "str",
+          "title": "Cloud-init Storage",
+          "required": false,
+          "default": "local-lvm",
+          "description": "Storage pool for the cloud-init disk",
+          "config": {
+            "placeholder": "local-lvm"
+          }
+        },
+        {
+          "name": "disk_size_gb",
+          "type": "int",
+          "title": "Disk Size",
+          "required": false,
+          "default": 32,
+          "description": "Main disk size in GB",
+          "config": {
+            "slider": true,
+            "min": 8,
+            "max": 4096,
+            "step": 1,
+            "placeholder": "32",
+            "unit": "GB"
+          }
+        },
+        {
+          "name": "disk_iothread",
+          "type": "bool",
+          "title": "IO Thread",
+          "required": false,
+          "default": true,
+          "description": "Enable IO thread for the main disk"
+        },
+        {
+          "name": "disk_replicate",
+          "type": "bool",
+          "title": "Disk Replication",
+          "required": false,
+          "default": true,
+          "description": "Enable disk replication flag"
+        }
+      ],
+      "name": "storage-network"
+    },
+    {
+      "title": "Dependencies",
+      "variables": [
+        {
+          "name": "depends_on_enabled",
+          "type": "bool",
+          "title": "Dependencies",
+          "required": false,
+          "default": false,
+          "description": "Enable resource dependencies"
+        },
+        {
+          "name": "dependencies",
+          "type": "str",
+          "title": "Dependencies",
+          "required": false,
+          "default": "",
+          "description": "Comma-separated list of resource dependencies",
+          "config": {
+            "textarea": true
+          }
+        }
+      ],
+      "name": "depends-on"
+    },
+    {
+      "title": "Lifecycle",
+      "variables": [
+        {
+          "name": "lifecycle_enabled",
+          "type": "bool",
+          "title": "Lifecycle",
+          "required": false,
+          "default": false,
+          "description": "Enable lifecycle rules"
+        },
+        {
+          "name": "prevent_destroy",
+          "type": "bool",
+          "title": "Prevent resource destruction",
+          "required": false,
+          "default": false,
+          "description": "Prevent Terraform from destroying the resource."
+        },
+        {
+          "name": "create_before_destroy",
+          "type": "bool",
+          "title": "Precreate",
+          "required": false,
+          "default": false,
+          "description": "Create replacement before destroying"
+        },
+        {
+          "name": "ignore_changes",
+          "type": "str",
+          "title": "Ignore Changes",
+          "required": false,
+          "default": "",
+          "description": "Comma-separated list of attributes to ignore changes for",
+          "config": {
+            "textarea": true
+          }
+        }
+      ],
+      "name": "lifecycle"
+    }
+  ]
+}

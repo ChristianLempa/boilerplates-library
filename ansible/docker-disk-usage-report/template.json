@@ -1,0 +1,155 @@
+{
+  "slug": "docker-disk-usage-report",
+  "kind": "ansible",
+  "metadata": {
+    "name": "Docker Disk Usage Report",
+    "description": "Generates a Docker disk usage report on target hosts and optionally sends a summary to Discord via webhook.",
+    "guide": "## Overview\nThis playbook gathers Docker disk usage details and can optionally post a summary to Discord.\n\n## Prerequisites\n- Provide the Discord webhook values before running if you want notifications.\n- Confirm the report path is writable on the target hosts.\n\n## Run\n1. Render `main.yml` and review the report and notification settings.\n2. Run the playbook against the target hosts.\n3. Check the saved report or Discord message after the play completes.\n\n## Docs\n- [Docker System DF](https://docs.docker.com/reference/cli/docker/system/df/)",
+    "tags": [
+      "docker",
+      "report",
+      "disk",
+      "monitoring"
+    ],
+    "template_version": "1",
+    "icon": {
+      "provider": "mdi",
+      "id": "chart-box",
+      "color": "blue"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "title": "Report",
+      "variables": [
+        {
+          "name": "include_verbose_report",
+          "type": "bool",
+          "title": "Verbose Report",
+          "required": false,
+          "default": false,
+          "description": "Include docker system df -v output in local report"
+        }
+      ],
+      "name": "report"
+    },
+    {
+      "title": "Discord Webhook",
+      "variables": [
+        {
+          "name": "discord_enabled",
+          "type": "bool",
+          "title": "Discord",
+          "required": false,
+          "default": false,
+          "description": "Send a short report to Discord webhook"
+        },
+        {
+          "name": "discord_webhook_url",
+          "type": "str",
+          "title": "Discord Webhook URL",
+          "required": false,
+          "default": "",
+          "description": "Discord webhook endpoint URL"
+        },
+        {
+          "name": "discord_username",
+          "type": "str",
+          "title": "Discord Username",
+          "required": false,
+          "default": "Docker Reporter",
+          "description": "Sender name for webhook message",
+          "config": {
+            "placeholder": "Docker Reporter"
+          }
+        },
+        {
+          "name": "discord_message_prefix",
+          "type": "str",
+          "title": "Discord Message Prefix",
+          "required": false,
+          "default": "Docker Disk Usage Report",
+          "description": "Prefix line sent before report content",
+          "config": {
+            "placeholder": "Docker Disk Usage Report"
+          }
+        }
+      ],
+      "name": "discord"
+    },
+    {
+      "title": "Internal",
+      "variables": [
+        {
+          "name": "docker_df_verbose",
+          "type": "str",
+          "title": "Docker DF Verbose",
+          "required": false,
+          "default": "",
+          "description": "Value used for the internal settings."
+        },
+        {
+          "name": "report_file_name",
+          "type": "str",
+          "title": "Report File Name",
+          "required": false,
+          "default": "",
+          "description": "Name to use for the report file."
+        },
+        {
+          "name": "report_root",
+          "type": "str",
+          "title": "Report Root",
+          "required": false,
+          "default": "/reports",
+          "config": {
+            "placeholder": "/reports"
+          },
+          "description": "Value used for the internal settings."
+        },
+        {
+          "name": "docker_disk_usage_report_body",
+          "type": "str",
+          "title": "Report Body",
+          "required": false,
+          "default": "",
+          "description": "Disk Usage Report Body"
+        },
+        {
+          "name": "discord_disk_report_content",
+          "type": "str",
+          "title": "Discord Report",
+          "required": false,
+          "default": "",
+          "description": "Discord Disk Report Content"
+        },
+        {
+          "name": "inventory_hostname",
+          "type": "str",
+          "title": "Inventory Hostname",
+          "required": false,
+          "default": "",
+          "description": "Hostname used for Inventory."
+        },
+        {
+          "name": "report_timestamp",
+          "type": "str",
+          "title": "Report Timestamp",
+          "required": false,
+          "default": "",
+          "description": "Value used for the internal settings."
+        },
+        {
+          "name": "docker_df_summary",
+          "type": "str",
+          "title": "Docker DF Summary",
+          "required": false,
+          "default": "",
+          "description": "Value used for the internal settings."
+        }
+      ],
+      "name": "internal"
+    }
+  ]
+}

@@ -1,0 +1,111 @@
+{
+  "slug": "netbird-network-resource",
+  "kind": "terraform",
+  "metadata": {
+    "name": "NetBird Network Resource",
+    "description": "Creates a NetBird network resource and attaches it to one or more groups.",
+    "guide": "## Overview\nCreates a NetBird network resource inside an existing NetBird network.\n\n## Prerequisites\n- Create an admin PAT for the NetBird management API before rendering `provider.tf`.\n- Provide `network_name` for the parent network. The template resolves it with `data \"netbird_network\"`.\n- Provide `group_names` as a comma-separated list of existing NetBird group names. The template resolves them with `data \"netbird_group\"` before attaching the resource.\n\n## Apply\n- Render `provider.tf` and `main.tf`.\n- Review the network name, address, and resolved group memberships carefully.\n- Run `terraform fmt`, `terraform plan`, and `terraform apply`.\n\n## References\n- [NetBird Networks](https://docs.netbird.io/how-to/networks#resources)\n- [Terraform Resource](https://github.com/netbirdio/terraform-provider-netbird/blob/main/docs/resources/network_resource.md)\n- [Network Data Source](https://github.com/netbirdio/terraform-provider-netbird/blob/main/docs/data-sources/network.md)\n- [Group Data Source](https://github.com/netbirdio/terraform-provider-netbird/blob/main/docs/data-sources/group.md)",
+    "tags": [
+      "netbird",
+      "terraform"
+    ],
+    "template_version": "0.0.15",
+    "icon": {
+      "provider": "selfhst",
+      "id": "netbird"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "title": "General",
+      "variables": [
+        {
+          "name": "resource_name",
+          "type": "str",
+          "title": "Name",
+          "required": true,
+          "description": "Name of the NetBird network resource.",
+          "config": {
+            "placeholder": "My Network Resource"
+          }
+        },
+        {
+          "name": "network_name",
+          "type": "str",
+          "title": "Network Name",
+          "required": true,
+          "description": "Existing NetBird network name for the parent network resource lookup.",
+          "config": {
+            "placeholder": "production-network"
+          }
+        },
+        {
+          "name": "resource_address",
+          "type": "str",
+          "title": "Address",
+          "required": true,
+          "description": "Host, subnet, or domain address for the resource.",
+          "config": {
+            "placeholder": "10.20.0.0/24"
+          }
+        },
+        {
+          "name": "group_names",
+          "type": "str",
+          "title": "Group Names",
+          "required": true,
+          "description": "Comma-separated existing NetBird group names to attach to this resource.",
+          "config": {
+            "placeholder": "Administrators, DevOps",
+            "textarea": true
+          }
+        },
+        {
+          "name": "resource_description",
+          "type": "str",
+          "title": "Description",
+          "required": false,
+          "description": "Optional description for the NetBird network resource.",
+          "config": {
+            "placeholder": "Internal application endpoint",
+            "textarea": true
+          }
+        },
+        {
+          "name": "resource_enabled",
+          "type": "bool",
+          "title": "Enabled",
+          "required": false,
+          "default": true,
+          "description": "Enable the network resource after creation."
+        }
+      ],
+      "name": "general"
+    },
+    {
+      "title": "Provider Configuration",
+      "variables": [
+        {
+          "name": "netbird_management_url",
+          "type": "str",
+          "title": "Management URL",
+          "required": false,
+          "default": "https://api.netbird.io",
+          "description": "NetBird Management API URL. Trailing slashes are trimmed. TLS certificates must be trusted by the OpenTofu runner because the provider does not expose a skip-verification option.",
+          "config": {
+            "placeholder": "https://api.netbird.io"
+          }
+        },
+        {
+          "name": "netbird_pat",
+          "type": "secret",
+          "title": "Admin PAT",
+          "required": true,
+          "description": "NetBird admin personal access token (PAT)."
+        }
+      ],
+      "name": "provider"
+    }
+  ]
+}

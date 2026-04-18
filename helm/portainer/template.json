@@ -1,0 +1,112 @@
+{
+  "slug": "portainer-helm",
+  "kind": "helm",
+  "metadata": {
+    "name": "Portainer CE",
+    "description": "Helm chart for Portainer Community Edition, a web-based container management platform for Docker and Kubernetes environments.",
+    "guide": "## Overview\nHelm chart for Portainer Community Edition, a web-based container management platform for Docker and Kubernetes environments.\n\n## Prerequisites\n- Decide how Portainer should be exposed in-cluster and whether persistence should be chart-managed or backed by an existing PVC.\n- If you plan to manage external Docker or Kubernetes endpoints, prepare the Portainer Agent or edge connectivity separately.\n- Have your ingress hostname and TLS plan ready before enabling Traefik exposure.\n\n## Deploy\n- Render `values.yaml`, review the service, ingress, and persistence settings, then install or update the release with `helm upgrade --install`.\n- Wait until the Portainer pod is ready and the service or ingress responds successfully.\n\n## Post-Install\n- Complete the initial admin setup flow, then add the target environments you want Portainer to manage.\n- Confirm the persistent volume stays attached across a pod restart before relying on the instance.\n- If you expose Portainer publicly, verify TLS and restrict access before adding production endpoints.\n\n## References\n- [Portainer](https://www.portainer.io/)\n- [Documentation](https://docs.portainer.io/)\n- [Helm Chart](https://portainer.github.io/k8s/)",
+    "tags": [],
+    "template_version": "2.34.0",
+    "icon": {
+      "provider": "selfhst",
+      "id": "portainer"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "title": "Networking",
+      "variables": [
+        {
+          "name": "network_mode",
+          "type": "str",
+          "title": "Network Mode",
+          "required": false,
+          "default": "ClusterIP",
+          "description": "Network mode for service",
+          "config": {
+            "placeholder": "ClusterIP"
+          }
+        }
+      ],
+      "name": "networking"
+    },
+    {
+      "title": "Traefik Configuration",
+      "variables": [
+        {
+          "name": "traefik_enabled",
+          "type": "bool",
+          "title": "Traefik",
+          "required": false,
+          "default": false,
+          "description": "Enable Traefik ingress"
+        },
+        {
+          "name": "traefik_host",
+          "type": "str",
+          "title": "Traefik hostname",
+          "required": false,
+          "description": "Hostname used for Traefik.",
+          "config": {
+            "placeholder": "portainer.home.arpa"
+          }
+        },
+        {
+          "name": "traefik_tls_enabled",
+          "type": "bool",
+          "title": "TLS",
+          "required": false,
+          "default": false,
+          "description": "Enable TLS for Traefik ingress"
+        },
+        {
+          "name": "traefik_tls_secret",
+          "type": "str",
+          "title": "TLS Secret",
+          "required": false,
+          "default": "portainer-tls",
+          "description": "TLS secret name for Traefik ingress",
+          "config": {
+            "placeholder": "portainer-tls"
+          }
+        }
+      ],
+      "name": "traefik"
+    },
+    {
+      "title": "Volume Configuration",
+      "variables": [
+        {
+          "name": "volumes_mode",
+          "type": "enum",
+          "title": "Persistence mode",
+          "required": false,
+          "default": "chart-managed",
+          "description": "Mode used for Persistence.",
+          "config": {
+            "options": [
+              "chart-managed",
+              "existing-pvc"
+            ]
+          }
+        },
+        {
+          "name": "volumes_pvc_name",
+          "type": "str",
+          "title": "PVC Name",
+          "required": false,
+          "default": "portainer",
+          "description": "Name to use for the pvc.",
+          "needs": [
+            "volumes_mode=existing-pvc"
+          ],
+          "config": {
+            "placeholder": "portainer"
+          }
+        }
+      ],
+      "name": "volumes"
+    }
+  ]
+}

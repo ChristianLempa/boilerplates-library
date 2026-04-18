@@ -1,0 +1,19 @@
+---
+- name: Install Ubuntu VM core packages
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Install packages
+      ansible.builtin.apt:
+        name:
+          - prometheus-node-exporter
+          - nfs-common
+          - qemu-guest-agent
+        update_cache: true
+
+    - name: Start guest qemu-guest-agent
+      ansible.builtin.service:
+        name: qemu-guest-agent
+        state: started
+        enabled: true

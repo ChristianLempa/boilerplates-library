@@ -1,0 +1,62 @@
+services:
+  << service_name >>:
+    image: docker.io/grafana/alloy:v1.13.1
+    restart: << restart_policy >>
+    <%- if container_hostname %>
+    hostname: << container_hostname >>
+    <%- endif %>
+    <%- if traefik_enabled %>
+    networks:
+      << traefik_network >>:
+    <%- endif %>
+    command:
+      - run
+      - /etc/alloy/alloy.d/
+      - --server.http.listen-addr=127.0.0.1:12345
+    <%- if not traefik_enabled %>
+    ports:
+      - "<< ports_webui >>:12345"
+    <%- endif %>
+    volumes:
+      - << service_name >>_data:/alloy/data
+      - ./config:/etc/alloy/alloy.d/:ro
+      <%- if logs_enabled or metrics_enabled %>
+      - /:/rootfs:ro
+      - /sys:/sys:ro
+      <%- endif %>
+      <%- if logs_enabled and logs_system %>
+      - /run:/run:ro
+      - /var/log:/var/log:ro
+      <%- endif %>
+      <%- if (logs_enabled and logs_docker) or (metrics_enabled and metrics_docker) %>
+      - /var/lib/docker/:/var/lib/docker/:ro
+      <%- endif %>
+      <%- if metrics_enabled and metrics_system %>
+      - /run/udev/data:/run/udev/data:ro
+      <%- endif %>
+    <%- if traefik_enabled %>
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=<< traefik_network >>
+      - traefik.http.services.<< service_name >>-web.loadBalancer.server.port=12345
+      - traefik.http.routers.<< service_name >>-http.service=<< service_name >>-web
+      - traefik.http.routers.<< service_name >>-http.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
+      - traefik.http.routers.<< service_name >>-http.entrypoints=web
+      <%- if traefik_tls_enabled %>
+      - traefik.http.routers.<< service_name >>-https.service=<< service_name >>-web
+      - traefik.http.routers.<< service_name >>-https.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
+      - traefik.http.routers.<< service_name >>-https.entrypoints=websecure
+      - traefik.http.routers.<< service_name >>-https.tls=true
+      - traefik.http.routers.<< service_name >>-https.tls.certresolver=<< traefik_tls_certresolver >>
+      <%- endif %>
+    <%- endif %>
+
+<%- if traefik_enabled %>
+networks:
+  << traefik_network >>:
+    external: true
+<%- endif %>
+
+volumes:
+  << service_name >>_data:
+    driver: local

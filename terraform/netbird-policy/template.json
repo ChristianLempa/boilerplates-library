@@ -1,0 +1,228 @@
+{
+  "slug": "netbird-policy",
+  "kind": "terraform",
+  "metadata": {
+    "name": "NetBird Policy",
+    "description": "Creates a NetBird access policy with a single rule and optional posture checks.",
+    "guide": "## Overview\nCreates a NetBird access policy with one rule.\n\n## Prerequisites\n- Create an admin PAT for the NetBird management API before rendering `provider.tf`.\n- Provide `source_group_names` and `destination_group_names` as comma-separated existing NetBird group names. The template resolves them with `data \"netbird_group\"`.\n- If you use posture checks, provide `source_posture_check_names` as comma-separated existing NetBird posture check names. The template resolves them with `data \"netbird_posture_check\"`.\n- If `rule_protocol=netbird-ssh`, provide `authorized_group_entries` as a semicolon-separated list in the format `group_name|user1,user2`. The template resolves each group name with `data \"netbird_group\"` and builds the required ID map automatically.\n\n## Apply\n- Render `provider.tf` and `main.tf`.\n- Review the resolved source groups, destination groups, protocol, and optional posture checks.\n- Run `terraform fmt`, `terraform plan`, and `terraform apply`.\n\n## Notes\n- This template renders a single `rule` block. If you need more rules, duplicate the block in the rendered `main.tf`.\n- For `ports`, provide raw HCL list entries such as `\"443\", \"8443\"`.\n\n## References\n- [NetBird Policies](https://docs.netbird.io/how-to/manage-network-access#policies)\n- [Terraform Resource](https://github.com/netbirdio/terraform-provider-netbird/blob/main/docs/resources/policy.md)\n- [Group Data Source](https://github.com/netbirdio/terraform-provider-netbird/blob/main/docs/data-sources/group.md)\n- [Posture Check Data Source](https://github.com/netbirdio/terraform-provider-netbird/blob/main/docs/data-sources/posture_check.md)",
+    "tags": [
+      "netbird",
+      "terraform"
+    ],
+    "template_version": "0.0.12",
+    "icon": {
+      "provider": "selfhst",
+      "id": "netbird"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "title": "General",
+      "variables": [
+        {
+          "name": "policy_name",
+          "type": "str",
+          "title": "Policy Name",
+          "required": true,
+          "description": "Name of the NetBird policy.",
+          "config": {
+            "placeholder": "Allow Internal HTTPS"
+          }
+        },
+        {
+          "name": "policy_description",
+          "type": "str",
+          "title": "Description",
+          "required": false,
+          "description": "Optional description for the policy.",
+          "config": {
+            "placeholder": "Allow app traffic from users to services",
+            "textarea": true
+          }
+        },
+        {
+          "name": "policy_enabled",
+          "type": "bool",
+          "title": "Enabled",
+          "required": false,
+          "default": true,
+          "description": "Enable the policy after creation."
+        }
+      ],
+      "name": "general"
+    },
+    {
+      "title": "Rule",
+      "variables": [
+        {
+          "name": "rule_name",
+          "type": "str",
+          "title": "Rule Name",
+          "required": true,
+          "description": "Name of the policy rule.",
+          "config": {
+            "placeholder": "HTTPS"
+          }
+        },
+        {
+          "name": "rule_description",
+          "type": "str",
+          "title": "Rule Description",
+          "required": false,
+          "description": "Optional description for the rule.",
+          "config": {
+            "placeholder": "Allow HTTPS from users to the app group",
+            "textarea": true
+          }
+        },
+        {
+          "name": "rule_action",
+          "type": "enum",
+          "title": "Action",
+          "required": false,
+          "default": "accept",
+          "description": "Policy action to take.",
+          "config": {
+            "options": [
+              "accept",
+              "drop"
+            ]
+          }
+        },
+        {
+          "name": "rule_protocol",
+          "type": "enum",
+          "title": "Protocol",
+          "required": false,
+          "default": "tcp",
+          "description": "Protocol enforced by the policy rule.",
+          "config": {
+            "options": [
+              "tcp",
+              "udp",
+              "icmp",
+              "all",
+              "netbird-ssh"
+            ]
+          }
+        },
+        {
+          "name": "rule_bidirectional",
+          "type": "bool",
+          "title": "Bidirectional",
+          "required": false,
+          "default": true,
+          "description": "Allow traffic in both directions between the selected groups."
+        },
+        {
+          "name": "rule_enabled",
+          "type": "bool",
+          "title": "Rule Enabled",
+          "required": false,
+          "default": true,
+          "description": "Enable the rule after creation."
+        },
+        {
+          "name": "source_group_names",
+          "type": "str",
+          "title": "Source Group Names",
+          "required": true,
+          "description": "Comma-separated existing NetBird source group names.",
+          "config": {
+            "placeholder": "Users,Developers",
+            "textarea": true
+          }
+        },
+        {
+          "name": "destination_group_names",
+          "type": "str",
+          "title": "Destination Group Names",
+          "required": true,
+          "description": "Comma-separated existing NetBird destination group names.",
+          "config": {
+            "placeholder": "Services,Internal Apps",
+            "textarea": true
+          }
+        },
+        {
+          "name": "ports",
+          "type": "str",
+          "title": "Ports",
+          "required": false,
+          "description": "Raw HCL list entries for ports, for example `\"443\", \"8443\"`.",
+          "config": {
+            "placeholder": "\"443\"",
+            "textarea": true
+          }
+        },
+        {
+          "name": "authorized_group_entries",
+          "type": "str",
+          "title": "Authorized Group Entries",
+          "required": false,
+          "description": "Semicolon-separated `group_name|user1,user2` entries for NetBird SSH local-user authorization.",
+          "needs": [
+            "rule_protocol=netbird-ssh"
+          ],
+          "config": {
+            "placeholder": "Admins|ubuntu;SRE|root,ec2-user",
+            "textarea": true
+          }
+        }
+      ],
+      "name": "rule"
+    },
+    {
+      "title": "Posture Checks",
+      "variables": [
+        {
+          "name": "source_posture_check_names",
+          "type": "str",
+          "title": "Posture Check Names",
+          "required": false,
+          "description": "Comma-separated existing NetBird posture check names.",
+          "config": {
+            "placeholder": "Managed Devices,Minimum Version",
+            "textarea": true
+          }
+        }
+      ],
+      "name": "posture-checks"
+    },
+    {
+      "title": "Provider Configuration",
+      "variables": [
+        {
+          "name": "netbird_management_url",
+          "type": "str",
+          "title": "Management URL",
+          "required": false,
+          "default": "https://api.netbird.io",
+          "description": "NetBird Management API URL. Trailing slashes are trimmed. TLS certificates must be trusted by the OpenTofu runner because the provider does not expose a skip-verification option.",
+          "config": {
+            "placeholder": "https://api.netbird.io"
+          }
+        },
+        {
+          "name": "netbird_pat",
+          "type": "secret",
+          "title": "Admin PAT",
+          "required": true,
+          "description": "NetBird admin personal access token (PAT)."
+        },
+        {
+          "name": "netbird_tenant_account",
+          "type": "str",
+          "title": "Tenant Account",
+          "required": false,
+          "description": "Optional tenant account ID for impersonation.",
+          "config": {
+            "placeholder": "account-id"
+          }
+        }
+      ],
+      "name": "provider"
+    }
+  ]
+}

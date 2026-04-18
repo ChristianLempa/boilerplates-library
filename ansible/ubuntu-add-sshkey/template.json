@@ -1,0 +1,54 @@
+{
+  "slug": "ubuntu-add-sshkey",
+  "kind": "ansible",
+  "metadata": {
+    "name": "Add SSH Key and Configure Sudoers",
+    "description": "Installs a single SSH public key for a target user on the workload-selected hosts and can enable passwordless sudo for the Ubuntu sudo group.",
+    "guide": "## Overview\nThis playbook installs a single SSH public key for a target user and can enable passwordless sudo for the Ubuntu `sudo` group.\n\n## Prerequisites\n- Copy the SSH public key you want to trust on the selected workload hosts.\n- Confirm the target user already exists on those hosts.\n- Use a connection account with enough privileges to manage `authorized_keys` and sudoers state.\n\n## Run\n1. Render `main.yml` and review the target user, SSH public key, and passwordless sudo setting.\n2. Run the playbook against the intended Ubuntu workload hosts. The workload inventory already provides the host selection, so the playbook runs against `all` selected hosts.\n3. Test SSH login with the new key before removing older access methods.\n\n## Docs\n- [OpenSSH Manual](https://www.openssh.com/manual.html)",
+    "tags": [],
+    "template_version": "1.0.0",
+    "icon": {
+      "provider": "simple-icons",
+      "id": "ansible"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "title": "Access",
+      "variables": [
+        {
+          "name": "target_user",
+          "type": "str",
+          "title": "Target User",
+          "required": false,
+          "default": "ubuntu",
+          "description": "Linux user account that should receive the authorized SSH keys.",
+          "config": {
+            "placeholder": "ubuntu"
+          }
+        },
+        {
+          "name": "ssh_public_key",
+          "type": "str",
+          "title": "SSH Public Key",
+          "required": true,
+          "description": "SSH public key to add to the target user's authorized_keys file.",
+          "config": {
+            "textarea": true,
+            "placeholder": "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBExampleKey user@laptop"
+          }
+        },
+        {
+          "name": "configure_passwordless_sudo",
+          "type": "bool",
+          "title": "Passwordless Sudo",
+          "required": false,
+          "default": true,
+          "description": "Enable passwordless sudo for the Ubuntu sudo group."
+        }
+      ],
+      "name": "access"
+    }
+  ]
+}

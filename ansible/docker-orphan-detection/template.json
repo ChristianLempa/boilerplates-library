@@ -1,0 +1,165 @@
+{
+  "slug": "docker-orphan-detection",
+  "kind": "ansible",
+  "metadata": {
+    "name": "Docker Orphan Detection",
+    "description": "Detects orphaned Docker resources (dead/exited containers, dangling images, volumes, and networks) and optionally sends a report to Discord via webhook.",
+    "guide": "## Overview\nDetects orphaned Docker resources (dead/exited containers, dangling images, volumes, and networks) and optionally sends a report to Discord via webhook.\n\n## How to Use\nThis template renders `main.yml` as a file.\n\n1. Review the target hosts and authentication settings first.\n2. Fill in the required variables for the task you want to automate, then adjust optional safety or notification settings as needed.\n3. Render the playbook and run it against the intended inventory after validating the values for your environment.\n\n## Variable Guide\n### Discord Webhook\n- `discord_enabled`: Send orphan detection summary to Discord webhook; optional; default: false.\n- `discord_webhook_url`: Discord webhook endpoint URL; optional.\n- `discord_username`: Sender name for webhook message; optional; default: Docker Reporter.\n- `discord_message_prefix`: Prefix line sent before report content; optional; default: Docker Orphan Detection Report.\n\n### Internal\n- `report_root`: Report Root; optional; default: /path/to/reports.\n- `orphan_dead_containers`: Orphan Dead Containers; optional.\n- `orphan_dangling_images`: Orphan Dangling Images; optional.\n- `orphan_dangling_volumes`: Orphan Dangling Volumes; optional.\n- `docker_orphan_report_body`: Orphan Report Body; optional.\n- `report_timestamp`: Report Timestamp; optional.\n- `orphan_exited_containers`: Orphan Exited Containers; optional.\n- `orphan_dangling_networks`: Orphan Dangling Networks; optional.\n- `report_file_name`: Report File Name; optional.\n- `discord_orphan_report_content`: Discord Orphan Report Content; optional.\n- `inventory_hostname`: Inventory Hostname; optional.\n\n## References\n- [Docker System Commands](https://docs.docker.com/reference/cli/docker/system/)",
+    "tags": [
+      "docker",
+      "audit",
+      "orphan",
+      "report"
+    ],
+    "template_version": "1",
+    "icon": {
+      "provider": "mdi",
+      "id": "magnify",
+      "color": "fuchsia"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "title": "Discord Webhook",
+      "variables": [
+        {
+          "name": "discord_enabled",
+          "type": "bool",
+          "title": "Discord",
+          "required": false,
+          "default": false,
+          "description": "Send orphan detection summary to Discord webhook"
+        },
+        {
+          "name": "discord_webhook_url",
+          "type": "str",
+          "title": "Discord Webhook URL",
+          "required": false,
+          "default": "",
+          "description": "Discord webhook endpoint URL"
+        },
+        {
+          "name": "discord_username",
+          "type": "str",
+          "title": "Discord Username",
+          "required": false,
+          "default": "Docker Reporter",
+          "description": "Sender name for webhook message",
+          "config": {
+            "placeholder": "Docker Reporter"
+          }
+        },
+        {
+          "name": "discord_message_prefix",
+          "type": "str",
+          "title": "Discord Message Prefix",
+          "required": false,
+          "default": "Docker Orphan Detection Report",
+          "description": "Prefix line sent before report content",
+          "config": {
+            "placeholder": "Docker Orphan Detection Report"
+          }
+        }
+      ],
+      "name": "discord"
+    },
+    {
+      "title": "Internal",
+      "variables": [
+        {
+          "name": "report_root",
+          "type": "str",
+          "title": "Report Root",
+          "required": false,
+          "default": "/reports",
+          "config": {
+            "placeholder": "/reports"
+          },
+          "description": "Value used for the internal settings."
+        },
+        {
+          "name": "orphan_dead_containers",
+          "type": "str",
+          "title": "Orphan Dead Containers",
+          "required": false,
+          "default": "",
+          "description": "Value used for the internal settings."
+        },
+        {
+          "name": "orphan_dangling_images",
+          "type": "str",
+          "title": "Orphan Dangling Images",
+          "required": false,
+          "default": "",
+          "description": "Value used for the internal settings."
+        },
+        {
+          "name": "orphan_dangling_volumes",
+          "type": "str",
+          "title": "Orphan Dangling Volumes",
+          "required": false,
+          "default": "",
+          "description": "Value used for the internal settings."
+        },
+        {
+          "name": "docker_orphan_report_body",
+          "type": "str",
+          "title": "Orphan Report Body",
+          "required": false,
+          "default": "",
+          "description": "Value used for the internal settings."
+        },
+        {
+          "name": "report_timestamp",
+          "type": "str",
+          "title": "Report Timestamp",
+          "required": false,
+          "default": "",
+          "description": "Value used for the internal settings."
+        },
+        {
+          "name": "orphan_exited_containers",
+          "type": "str",
+          "title": "Orphan Exited Containers",
+          "required": false,
+          "default": "",
+          "description": "Value used for the internal settings."
+        },
+        {
+          "name": "orphan_dangling_networks",
+          "type": "str",
+          "title": "Orphan Dangling Networks",
+          "required": false,
+          "default": "",
+          "description": "Value used for the internal settings."
+        },
+        {
+          "name": "report_file_name",
+          "type": "str",
+          "title": "Report File Name",
+          "required": false,
+          "default": "",
+          "description": "Name to use for the report file."
+        },
+        {
+          "name": "discord_orphan_report_content",
+          "type": "str",
+          "title": "Orphan Report",
+          "required": false,
+          "default": "",
+          "description": "Discord Orphan Report Content"
+        },
+        {
+          "name": "inventory_hostname",
+          "type": "str",
+          "title": "Inventory Hostname",
+          "required": false,
+          "default": "",
+          "description": "Hostname used for Inventory."
+        }
+      ],
+      "name": "internal"
+    }
+  ]
+}

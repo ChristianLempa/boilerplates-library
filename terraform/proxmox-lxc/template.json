@@ -1,0 +1,286 @@
+{
+  "slug": "proxmox-lxc",
+  "kind": "terraform",
+  "metadata": {
+    "name": "Proxmox LXC",
+    "description": "Creates a Proxmox Linux container with configurable template, compute, root filesystem, and single-interface network settings.",
+    "guide": "## Overview\nCreates a Proxmox LXC container with configurable compute, root filesystem, and single-interface network settings.\n\n## Prerequisites\n- The referenced Proxmox container template (`ostemplate`) must already exist in storage.\n- The target node, bridge, and storage pool must already be available.\n- Review whether you want the container to be privileged or unprivileged before apply.\n\n## Apply\n- Render `provider.tf` and `main.tf`, then review the template, network, and root filesystem settings.\n- Run `terraform fmt`, `terraform plan`, and `terraform apply` in the target workspace.\n\n## Post-Apply\n- Verify the container boots, gets the expected IP settings, and can resolve DNS with the configured nameserver.\n- If you plan to manage some LXC settings directly in the Proxmox UI, keep the lifecycle ignore rules aligned with that workflow.\n\n## References\n- [Proxmox VE Linux Containers](https://pve.proxmox.com/pve-docs/chapter-pct.html)\n- [Terraform Telmate Proxmox Provider](https://registry.terraform.io/providers/Telmate/proxmox/latest/docs)",
+    "tags": [],
+    "template_version": "3.0.2-rc07",
+    "icon": {
+      "provider": "selfhst",
+      "id": "proxmox"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "title": "Provider Configuration",
+      "variables": [
+        {
+          "name": "resource_name",
+          "type": "str",
+          "title": "Resource Name",
+          "required": false,
+          "default": "lxc",
+          "description": "Terraform resource name (alphanumeric and underscores only)",
+          "config": {
+            "placeholder": "lxc"
+          }
+        },
+        {
+          "name": "proxmox_api_url",
+          "type": "str",
+          "title": "Proxmox API URL",
+          "required": true,
+          "description": "URL for the Proxmox API.",
+          "config": {
+            "placeholder": "https://proxmox.home.arpa:8006/api2/json"
+          }
+        },
+        {
+          "name": "proxmox_api_token_id",
+          "type": "str",
+          "title": "API Token ID",
+          "required": true,
+          "description": "Proxmox API token ID",
+          "config": {
+            "placeholder": "terraform@pve!token"
+          }
+        },
+        {
+          "name": "proxmox_api_token_secret",
+          "type": "secret",
+          "title": "API Token Secret",
+          "required": true,
+          "description": "Proxmox API token secret"
+        },
+        {
+          "name": "proxmox_tls_insecure",
+          "type": "bool",
+          "title": "TLS Verify",
+          "required": false,
+          "default": false,
+          "description": "Skip TLS verification for the Proxmox API"
+        }
+      ],
+      "name": "provider"
+    },
+    {
+      "title": "Container Identity",
+      "variables": [
+        {
+          "name": "hostname",
+          "type": "str",
+          "title": "Container hostname",
+          "required": true,
+          "description": "Hostname used for Container.",
+          "config": {
+            "placeholder": "Container Name"
+          }
+        },
+        {
+          "name": "description",
+          "type": "str",
+          "title": "Container description",
+          "required": false,
+          "description": "Add a description here...",
+          "config": {
+            "placeholder": "Application container",
+            "textarea": true
+          }
+        },
+        {
+          "name": "target_node",
+          "type": "str",
+          "title": "Target Node",
+          "required": true,
+          "description": "Proxmox node that will host the container",
+          "config": {
+            "placeholder": "Proxmox node"
+          }
+        },
+        {
+          "name": "unprivileged",
+          "type": "bool",
+          "title": "Unprivileged",
+          "required": false,
+          "default": false,
+          "description": "Create an unprivileged container"
+        },
+        {
+          "name": "ostemplate",
+          "type": "str",
+          "title": "Template",
+          "required": true,
+          "description": "Proxmox LXC template reference",
+          "config": {
+            "placeholder": "template reference"
+          }
+        }
+      ],
+      "name": "identity"
+    },
+    {
+      "title": "Compute",
+      "variables": [
+        {
+          "name": "cores",
+          "type": "int",
+          "title": "CPU Cores",
+          "required": false,
+          "default": 4,
+          "description": "Number of CPU cores",
+          "config": {
+            "slider": true,
+            "min": 1,
+            "max": 32,
+            "step": 1,
+            "placeholder": "4"
+          }
+        },
+        {
+          "name": "memory_mb",
+          "type": "int",
+          "title": "Memory",
+          "required": false,
+          "default": 8192,
+          "description": "Memory allocation in MB",
+          "config": {
+            "slider": true,
+            "min": 256,
+            "max": 262144,
+            "step": 256,
+            "placeholder": "8192",
+            "unit": "MB"
+          }
+        },
+        {
+          "name": "swap_mb",
+          "type": "int",
+          "title": "Swap",
+          "required": false,
+          "default": 512,
+          "description": "Swap allocation in MB",
+          "config": {
+            "slider": true,
+            "min": 0,
+            "max": 65536,
+            "step": 128,
+            "placeholder": "512",
+            "unit": "MB"
+          }
+        },
+        {
+          "name": "start_container",
+          "type": "bool",
+          "title": "Auto Start",
+          "required": false,
+          "default": true,
+          "description": "Start the container after creation"
+        }
+      ],
+      "name": "compute"
+    },
+    {
+      "title": "Storage and Network",
+      "variables": [
+        {
+          "name": "rootfs_storage",
+          "type": "str",
+          "title": "Rootfs Storage",
+          "required": false,
+          "default": "local-lvm",
+          "description": "Storage pool for the root filesystem",
+          "config": {
+            "placeholder": "local-lvm"
+          }
+        },
+        {
+          "name": "rootfs_size_gb",
+          "type": "int",
+          "title": "Rootfs Size",
+          "required": false,
+          "default": 256,
+          "description": "Root filesystem size in GB",
+          "config": {
+            "slider": true,
+            "min": 4,
+            "max": 4096,
+            "step": 1,
+            "placeholder": "256",
+            "unit": "GB"
+          }
+        },
+        {
+          "name": "nameserver",
+          "type": "str",
+          "title": "Container DNS server",
+          "required": true,
+          "description": "DNS server used by the container.",
+          "config": {
+            "placeholder": "DNS_SERVER"
+          }
+        },
+        {
+          "name": "searchdomain",
+          "type": "str",
+          "title": "Container search domain",
+          "required": false,
+          "default": "",
+          "description": "Search domain used by the container.",
+          "config": {
+            "placeholder": "home.arpa"
+          }
+        },
+        {
+          "name": "network_name",
+          "type": "str",
+          "title": "Network Name",
+          "required": false,
+          "default": "eth0",
+          "description": "Container network interface name",
+          "config": {
+            "placeholder": "eth0"
+          }
+        },
+        {
+          "name": "bridge",
+          "type": "str",
+          "title": "Proxmox bridge name",
+          "required": false,
+          "default": "vmbr1",
+          "description": "Bridge name to use in Proxmox.",
+          "config": {
+            "placeholder": "vmbr1"
+          }
+        },
+        {
+          "name": "ip_address",
+          "type": "str",
+          "title": "Container IP address",
+          "required": true,
+          "description": "IP address to use for the container ip.",
+          "config": {
+            "placeholder": "IP_ADDRESS"
+          }
+        }
+      ],
+      "name": "storage-network"
+    },
+    {
+      "title": "Lifecycle",
+      "variables": [
+        {
+          "name": "lifecycle_ignore_changes",
+          "type": "bool",
+          "title": "Ignore Changes",
+          "required": false,
+          "default": true,
+          "description": "Ignore rootfs, network, and cmode changes"
+        }
+      ],
+      "name": "lifecycle"
+    }
+  ]
+}

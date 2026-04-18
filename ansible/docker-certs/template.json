@@ -1,0 +1,61 @@
+{
+  "slug": "docker-certs",
+  "kind": "ansible",
+  "metadata": {
+    "name": "Generate Docker TLS Certificates",
+    "description": "Generates TLS certificates for the Docker daemon, including CA, server, and client certificates. Used to secure Docker remote API access.",
+    "guide": "## Overview\nThis playbook generates CA, server, and client certificates for Docker TLS.\n\n## Prerequisites\n- Know the Docker hosts and hostnames you want to secure before generating certificates.\n- Store the generated keys and certificates in a secure location.\n\n## Run\n1. Render `main.yml` and confirm the certificate path, validity period, and CA common name.\n2. Run the playbook against the Docker workload hosts where you want to create the certificate set. The workload inventory already provides the host selection, so the playbook runs against `all` selected hosts.\n3. Distribute the resulting server and client material only to systems that should access the Docker API.\n\n## Docs\n- [Docker TLS Documentation](https://docs.docker.com/engine/security/protect-access/)",
+    "tags": [],
+    "template_version": "1.0.0",
+    "icon": {
+      "provider": "simple-icons",
+      "id": "docker"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "title": "Certificate Configuration",
+      "variables": [
+        {
+          "name": "certs_path",
+          "type": "str",
+          "title": "Certs Path",
+          "required": false,
+          "default": "/root/docker-certs",
+          "description": "Path where certificates will be stored",
+          "config": {
+            "placeholder": "/root/docker-certs"
+          }
+        },
+        {
+          "name": "cert_validity_days",
+          "type": "int",
+          "title": "Validity Days",
+          "required": false,
+          "default": 3630,
+          "description": "Certificate validity period in days",
+          "config": {
+            "slider": true,
+            "min": 30,
+            "max": 3650,
+            "step": 30,
+            "placeholder": "3650",
+            "unit": "days"
+          }
+        },
+        {
+          "name": "cn_domain",
+          "type": "str",
+          "title": "CA Common Name",
+          "required": false,
+          "description": "Common Name (CN) for the CA certificate",
+          "config": {
+            "placeholder": "home.arpa.tld"
+          }
+        }
+      ],
+      "name": "certificates"
+    }
+  ]
+}

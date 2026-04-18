@@ -1,0 +1,101 @@
+{
+  "slug": "traefik-ipallowlist",
+  "kind": "kubernetes",
+  "metadata": {
+    "name": "Traefik IPAllowList Middleware",
+    "description": "Traefik Middleware CRD for restricting access to trusted source CIDR ranges, with optional client IP strategy controls for proxied deployments.",
+    "guide": "## Overview\nCreates a Traefik Middleware resource for `ipAllowList` so only trusted source ranges can access the attached routes.\n\n## Prerequisites\n- Traefik must be installed with the Kubernetes CRD provider enabled.\n- Confirm the source ranges and proxy chain match the actual client IP behavior in your environment.\n\n## Apply\n- Render `main.yaml`, review the source ranges and optional IP strategy settings, then apply it with `kubectl apply -f main.yaml`.\n- Attach the middleware to one non-critical route first so you can confirm clients are evaluated as expected.\n\n## Follow-Up\n- Test from an allowed IP and a denied IP before using the middleware on admin or dashboard routes.\n- Revisit the IP strategy settings if you place Traefik behind another reverse proxy or load balancer.\n\n## References\n- [IPAllowList Middleware](https://doc.traefik.io/traefik/middlewares/http/ipallowlist/)\n- [Traefik Kubernetes CRD](https://doc.traefik.io/traefik/routing/providers/kubernetes-crd/)",
+    "tags": [],
+    "template_version": "3.5.3",
+    "icon": {
+      "provider": "selfhst",
+      "id": "traefik"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "title": "General",
+      "name": "general",
+      "variables": [
+        {
+          "name": "resource_name",
+          "type": "str",
+          "title": "Middleware name",
+          "required": false,
+          "default": "allow-private-networks",
+          "description": "Name to use for the Middleware resource.",
+          "config": {
+            "placeholder": "allow-private-networks"
+          }
+        },
+        {
+          "name": "namespace",
+          "type": "str",
+          "title": "Namespace",
+          "required": false,
+          "default": "default",
+          "description": "Namespace for the Middleware resource.",
+          "config": {
+            "placeholder": "default"
+          }
+        }
+      ]
+    },
+    {
+      "title": "IP Allow List",
+      "name": "ipallowlist",
+      "variables": [
+        {
+          "name": "source_ranges",
+          "type": "str",
+          "title": "Source ranges",
+          "required": false,
+          "default": "192.168.0.0/16,10.0.0.0/8,172.16.0.0/12",
+          "description": "Comma-separated list of CIDR ranges allowed to access the route.",
+          "config": {
+            "placeholder": "192.168.0.0/16,10.0.0.0/8,172.16.0.0/12"
+          }
+        },
+        {
+          "name": "ip_strategy_depth_enabled",
+          "type": "bool",
+          "title": "Depth strategy",
+          "required": false,
+          "default": false,
+          "description": "Evaluate the client IP based on a specific position in the X-Forwarded-For chain."
+        },
+        {
+          "name": "ip_strategy_depth",
+          "type": "int",
+          "title": "Depth",
+          "required": false,
+          "default": 1,
+          "description": "Position from the right in the X-Forwarded-For chain.",
+          "config": {
+            "placeholder": "1"
+          }
+        },
+        {
+          "name": "excluded_ips_enabled",
+          "type": "bool",
+          "title": "Excluded IPs",
+          "required": false,
+          "default": false,
+          "description": "Exclude trusted proxy IPs from client IP evaluation."
+        },
+        {
+          "name": "excluded_ips",
+          "type": "str",
+          "title": "Excluded IPs list",
+          "required": false,
+          "default": "10.42.0.0/16,10.43.0.0/16",
+          "description": "Comma-separated list of trusted proxy ranges to ignore during client IP evaluation.",
+          "config": {
+            "placeholder": "10.42.0.0/16,10.43.0.0/16"
+          }
+        }
+      ]
+    }
+  ]
+}

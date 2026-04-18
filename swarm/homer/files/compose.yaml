@@ -1,0 +1,60 @@
+services:
+  << service_name >>:
+    image: docker.io/b4bz/homer:v25.11.1
+    <%- if container_timezone %>
+    environment:
+      - TZ=<< container_timezone >>
+    <%- endif %>
+    <%- if traefik_enabled %>
+    networks:
+      << traefik_network >>:
+    <%- endif %>
+    <%- if not traefik_enabled %>
+    ports:
+      - target: 8080
+        published: << ports_http >>
+        protocol: tcp
+        mode: host
+    <%- endif %>
+    volumes:
+      - ./assets:/www/assets
+    deploy:
+      mode: << swarm_placement_mode >>
+      <%- if swarm_placement_mode == 'replicated' %>
+      replicas: << swarm_replicas >>
+      <%- endif %>
+      <%- if swarm_placement_host %>
+      placement:
+        constraints:
+          - node.hostname == << swarm_placement_host >>
+      <%- endif %>
+      restart_policy:
+        condition: on-failure
+      <%- if traefik_enabled %>
+      labels:
+        - traefik.enable=true
+        - traefik.docker.network=<< traefik_network >>
+        - traefik.http.services.<< service_name >>-web.loadBalancer.server.port=8080
+        - traefik.http.routers.<< service_name >>-http.service=<< service_name >>-web
+        - traefik.http.routers.<< service_name >>-http.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
+        - traefik.http.routers.<< service_name >>-http.entrypoints=<< traefik_entrypoint >>
+        <%- if authentik_enabled %>
+        - traefik.http.routers.<< service_name >>-http.middlewares=<< authentik_traefik_middleware >>
+        <%- endif %>
+        <%- if traefik_tls_enabled %>
+        - traefik.http.routers.<< service_name >>-https.service=<< service_name >>-web
+        - traefik.http.routers.<< service_name >>-https.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
+        - traefik.http.routers.<< service_name >>-https.entrypoints=<< traefik_tls_entrypoint >>
+        - traefik.http.routers.<< service_name >>-https.tls=true
+        - traefik.http.routers.<< service_name >>-https.tls.certresolver=<< traefik_tls_certresolver >>
+        <%- if authentik_enabled %>
+        - traefik.http.routers.<< service_name >>-https.middlewares=<< authentik_traefik_middleware >>
+        <%- endif %>
+        <%- endif %>
+      <%- endif %>
+
+<%- if traefik_enabled %>
+networks:
+  << traefik_network >>:
+    external: true
+<%- endif %>

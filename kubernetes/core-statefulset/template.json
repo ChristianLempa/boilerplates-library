@@ -1,0 +1,417 @@
+{
+  "slug": "core-statefulset",
+  "kind": "kubernetes",
+  "metadata": {
+    "name": "Kubernetes StatefulSet",
+    "description": "Creates a Kubernetes StatefulSet with configurable image, replicas, optional service account, one container port, simple environment variables, optional resource requests and limits, and an optional volumeClaimTemplate for persistent storage.",
+    "guide": "## Overview\nCreates a Kubernetes StatefulSet resource for workloads that need stable pod identities and optional persistent storage.\n\n## Prerequisites\n- Create the Service referenced by `service_name` before depending on stable network identities.\n- Confirm the container image and any referenced storage class are available in the target cluster.\n\n## Apply\n- Render `main.yaml`, review the service name, storage settings, and update strategy, then apply it with `kubectl apply -f main.yaml`.\n- Use `kubectl rollout status statefulset/<name> -n <namespace>` to confirm the rollout succeeds.\n\n## Follow-Up\n- Pair the StatefulSet with a Service and any ingress resources required by the workload.\n- Verify persistent volume provisioning and application readiness before scaling beyond the first replica.\n\n## References\n- [StatefulSet Documentation](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/)",
+    "tags": [],
+    "template_version": "1.31.0",
+    "icon": {
+      "provider": "simple-icons",
+      "id": "kubernetes"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "title": "General",
+      "name": "general",
+      "variables": [
+        {
+          "name": "resource_name",
+          "type": "str",
+          "title": "StatefulSet name",
+          "required": false,
+          "default": "app-statefulset",
+          "description": "Name to use for the StatefulSet.",
+          "config": {
+            "placeholder": "app-statefulset"
+          }
+        },
+        {
+          "name": "namespace",
+          "type": "str",
+          "title": "Namespace",
+          "required": false,
+          "default": "default",
+          "description": "Namespace for the resource.",
+          "config": {
+            "placeholder": "default"
+          }
+        },
+        {
+          "name": "app_label",
+          "type": "str",
+          "title": "App Label",
+          "required": false,
+          "default": "app",
+          "description": "App label value used for selectors and Pod labels.",
+          "config": {
+            "placeholder": "app"
+          }
+        },
+        {
+          "name": "service_name",
+          "type": "str",
+          "title": "Service name",
+          "required": false,
+          "default": "app",
+          "description": "Service name referenced by the StatefulSet for stable network identity.",
+          "config": {
+            "placeholder": "app"
+          }
+        },
+        {
+          "name": "replicas",
+          "type": "int",
+          "title": "Replicas",
+          "required": false,
+          "default": 1,
+          "description": "Number of Pod replicas.",
+          "config": {
+            "slider": true,
+            "min": 1,
+            "max": 20,
+            "step": 1,
+            "placeholder": "1"
+          }
+        },
+        {
+          "name": "pod_management_policy",
+          "type": "enum",
+          "title": "Pod management policy",
+          "required": false,
+          "default": "OrderedReady",
+          "description": "Policy used for Pod startup and termination ordering.",
+          "config": {
+            "options": [
+              "OrderedReady",
+              "Parallel"
+            ]
+          }
+        },
+        {
+          "name": "update_strategy",
+          "type": "enum",
+          "title": "Update strategy",
+          "required": false,
+          "default": "RollingUpdate",
+          "description": "Strategy used when updating Pods.",
+          "config": {
+            "options": [
+              "RollingUpdate",
+              "OnDelete"
+            ]
+          }
+        },
+        {
+          "name": "service_account_name",
+          "type": "str",
+          "title": "ServiceAccount Name",
+          "required": false,
+          "description": "ServiceAccount name for the Pod spec.",
+          "config": {
+            "placeholder": "app-serviceaccount"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Container",
+      "name": "container",
+      "variables": [
+        {
+          "name": "container_name",
+          "type": "str",
+          "title": "Container name",
+          "required": false,
+          "default": "app",
+          "description": "Name to use for the container.",
+          "config": {
+            "placeholder": "app"
+          }
+        },
+        {
+          "name": "image",
+          "type": "str",
+          "title": "Container image reference",
+          "required": true,
+          "description": "Container image used by the StatefulSet.",
+          "config": {
+            "placeholder": "nginx:stable"
+          }
+        },
+        {
+          "name": "image_pull_policy",
+          "type": "enum",
+          "title": "Image pull policy",
+          "required": false,
+          "default": "IfNotPresent",
+          "description": "Policy used for image pulls.",
+          "config": {
+            "options": [
+              "Always",
+              "IfNotPresent",
+              "Never"
+            ]
+          }
+        },
+        {
+          "name": "ports_enabled",
+          "type": "bool",
+          "title": "Container Port",
+          "required": false,
+          "default": true,
+          "description": "Expose one container port."
+        },
+        {
+          "name": "container_port",
+          "type": "int",
+          "title": "Container port number",
+          "required": false,
+          "default": 8080,
+          "description": "Container port to expose.",
+          "config": {
+            "placeholder": "8080"
+          }
+        },
+        {
+          "name": "container_port_name",
+          "type": "str",
+          "title": "Port name",
+          "required": false,
+          "default": "http",
+          "description": "Name to use for the container port.",
+          "config": {
+            "placeholder": "http"
+          }
+        },
+        {
+          "name": "container_port_protocol",
+          "type": "enum",
+          "title": "Port protocol",
+          "required": false,
+          "default": "TCP",
+          "description": "Protocol used for the container port.",
+          "config": {
+            "options": [
+              "TCP",
+              "UDP",
+              "SCTP"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": "Environment",
+      "name": "environment",
+      "variables": [
+        {
+          "name": "env_literal_enabled",
+          "type": "bool",
+          "title": "Literal Env Var",
+          "required": false,
+          "default": false,
+          "description": "Add one literal environment variable."
+        },
+        {
+          "name": "env_literal_name",
+          "type": "str",
+          "title": "Literal Env Name",
+          "required": false,
+          "default": "APP_ENV",
+          "description": "Literal environment variable name.",
+          "config": {
+            "placeholder": "APP_ENV"
+          }
+        },
+        {
+          "name": "env_literal_value",
+          "type": "str",
+          "title": "Literal Env Value",
+          "required": false,
+          "default": "production",
+          "description": "Literal environment variable value.",
+          "config": {
+            "placeholder": "production"
+          }
+        },
+        {
+          "name": "env_secret_enabled",
+          "type": "bool",
+          "title": "Secret Env Var",
+          "required": false,
+          "default": false,
+          "description": "Add one secret-backed environment variable."
+        },
+        {
+          "name": "env_secret_name",
+          "type": "str",
+          "title": "Secret Env Name",
+          "required": false,
+          "default": "APP_SECRET",
+          "description": "Environment variable name sourced from a Secret.",
+          "config": {
+            "placeholder": "APP_SECRET"
+          }
+        },
+        {
+          "name": "env_secret_secret_name",
+          "type": "str",
+          "title": "Secret resource name",
+          "required": false,
+          "default": "app-secret",
+          "description": "Secret name containing the value.",
+          "config": {
+            "placeholder": "app-secret"
+          }
+        },
+        {
+          "name": "env_secret_secret_key",
+          "type": "str",
+          "title": "Secret key",
+          "required": false,
+          "default": "password",
+          "description": "Key within the Secret containing the value.",
+          "config": {
+            "placeholder": "password"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Storage",
+      "name": "storage",
+      "variables": [
+        {
+          "name": "persistence_enabled",
+          "type": "bool",
+          "title": "Persistent storage",
+          "required": false,
+          "default": true,
+          "description": "Create a volumeClaimTemplate and mount it into the container."
+        },
+        {
+          "name": "volume_claim_name",
+          "type": "str",
+          "title": "Volume claim template name",
+          "required": false,
+          "default": "data",
+          "description": "Name used for the generated volumeClaimTemplate.",
+          "config": {
+            "placeholder": "data"
+          }
+        },
+        {
+          "name": "mount_path",
+          "type": "str",
+          "title": "Mount path",
+          "required": false,
+          "default": "/data",
+          "description": "Container path where the claim is mounted.",
+          "config": {
+            "placeholder": "/data"
+          }
+        },
+        {
+          "name": "storage_class",
+          "type": "str",
+          "title": "Storage Class",
+          "required": false,
+          "default": "",
+          "description": "Storage class name. Leave empty to use the cluster default.",
+          "config": {
+            "placeholder": "longhorn"
+          }
+        },
+        {
+          "name": "storage_size",
+          "type": "str",
+          "title": "Storage Size",
+          "required": false,
+          "default": "10Gi",
+          "description": "Requested storage size.",
+          "config": {
+            "placeholder": "10Gi"
+          }
+        },
+        {
+          "name": "access_mode",
+          "type": "enum",
+          "title": "Access mode",
+          "required": false,
+          "default": "ReadWriteOnce",
+          "description": "Access mode used for the claim.",
+          "config": {
+            "options": [
+              "ReadWriteOnce",
+              "ReadOnlyMany",
+              "ReadWriteMany",
+              "ReadWriteOncePod"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": "Resources",
+      "name": "resources",
+      "variables": [
+        {
+          "name": "resources_enabled",
+          "type": "bool",
+          "title": "Resources",
+          "required": false,
+          "default": false,
+          "description": "Enable container resource requests and limits."
+        },
+        {
+          "name": "resources_cpu_limit",
+          "type": "str",
+          "title": "CPU limit",
+          "required": false,
+          "default": "1000m",
+          "description": "CPU limit for the container.",
+          "config": {
+            "placeholder": "1000m"
+          }
+        },
+        {
+          "name": "resources_cpu_request",
+          "type": "str",
+          "title": "CPU request",
+          "required": false,
+          "default": "250m",
+          "description": "CPU request for the container.",
+          "config": {
+            "placeholder": "250m"
+          }
+        },
+        {
+          "name": "resources_memory_limit",
+          "type": "str",
+          "title": "Memory limit",
+          "required": false,
+          "default": "1Gi",
+          "description": "Memory limit for the container.",
+          "config": {
+            "placeholder": "1Gi"
+          }
+        },
+        {
+          "name": "resources_memory_request",
+          "type": "str",
+          "title": "Memory request",
+          "required": false,
+          "default": "256Mi",
+          "description": "Memory request for the container.",
+          "config": {
+            "placeholder": "256Mi"
+          }
+        }
+      ]
+    }
+  ]
+}

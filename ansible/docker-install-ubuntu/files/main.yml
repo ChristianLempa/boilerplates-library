@@ -1,0 +1,84 @@
+---
+- name: Install Docker on Ubuntu
+  hosts: all
+  become: true
+  gather_facts: true
+
+  vars:
+    docker_apt_arch_map:
+      x86_64: amd64
+      aarch64: arm64
+      armv7l: armhf
+      ppc64le: ppc64el
+      s390x: s390x
+    docker_apt_arch: "{{ docker_apt_arch_map[ansible_architecture] | default('amd64') }}"
+
+  tasks:
+    - name: Remove conflicting packages
+      ansible.builtin.apt:
+        name:
+          - docker.io
+          - docker-compose
+          - docker-compose-v2
+          - docker-doc
+          - podman-docker
+          - containerd
+          - runc
+        state: absent
+
+    - name: Install prerequisite packages
+      ansible.builtin.apt:
+        name:
+          - ca-certificates
+          - curl
+        update_cache: true
+        state: present
+
+    - name: Create apt keyrings directory
+      ansible.builtin.file:
+        path: /etc/apt/keyrings
+        state: directory
+        mode: "0755"
+
+    - name: Download Docker GPG key
+      ansible.builtin.get_url:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        dest: /etc/apt/keyrings/docker.asc
+        mode: "0644"
+        force: true
+
+    - name: Add Docker apt repository list file
+      ansible.builtin.copy:
+        dest: /etc/apt/sources.list.d/docker.list
+        mode: "0644"
+        content: |
+          deb [arch={{ docker_apt_arch }} signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable
+
+    - name: Install Docker Engine packages
+      ansible.builtin.apt:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - docker-buildx-plugin
+          - docker-compose-plugin
+        update_cache: true
+        state: present
+
+    - name: Ensure Docker service is enabled and started
+      ansible.builtin.systemd:
+        name: docker
+        enabled: true
+        state: started
+
+    <%- if add_user_to_docker == true %>
+    - name: Add user to docker group
+      ansible.builtin.user:
+        name: "<< user >>"
+        groups: docker
+        append: true
+    <%- endif %>
+
+    - name: Verify Docker CLI is available
+      ansible.builtin.command: docker --version
+      changed_when: false

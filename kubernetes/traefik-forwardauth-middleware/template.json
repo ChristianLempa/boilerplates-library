@@ -1,0 +1,116 @@
+{
+  "slug": "traefik-forwardauth-middleware",
+  "kind": "kubernetes",
+  "metadata": {
+    "name": "Traefik ForwardAuth Middleware",
+    "description": "Traefik Middleware CRD for delegating request authentication to an external forward-auth endpoint such as Authentik, Authelia, or a custom identity proxy.",
+    "guide": "## Overview\nCreates a Traefik Middleware resource for `forwardAuth` so protected routes can delegate authentication to an external service.\n\n## Prerequisites\n- Traefik must be installed with the Kubernetes CRD provider enabled.\n- The forward-auth endpoint must already be reachable from the cluster.\n\n## Apply\n- Render `main.yaml`, review the endpoint URL, header forwarding, and TLS settings, then apply it with `kubectl apply -f main.yaml`.\n- Reference the rendered middleware from your IngressRoute or Traefik router after confirming the auth service responds correctly.\n\n## Follow-Up\n- Validate both authenticated and unauthenticated requests so you confirm redirect and header behavior.\n- Keep the generated header list aligned with the identity provider or upstream app you actually use.\n\n## References\n- [ForwardAuth Middleware](https://doc.traefik.io/traefik/middlewares/http/forwardauth/)\n- [Traefik Kubernetes CRD](https://doc.traefik.io/traefik/routing/providers/kubernetes-crd/)",
+    "tags": [],
+    "template_version": "3.5.3",
+    "icon": {
+      "provider": "selfhst",
+      "id": "traefik"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "title": "General",
+      "name": "general",
+      "variables": [
+        {
+          "name": "resource_name",
+          "type": "str",
+          "title": "Middleware name",
+          "required": false,
+          "default": "forwardauth",
+          "description": "Name to use for the Middleware resource.",
+          "config": {
+            "placeholder": "forwardauth"
+          }
+        },
+        {
+          "name": "namespace",
+          "type": "str",
+          "title": "Namespace",
+          "required": false,
+          "default": "default",
+          "description": "Namespace for the Middleware resource.",
+          "config": {
+            "placeholder": "default"
+          }
+        }
+      ]
+    },
+    {
+      "title": "ForwardAuth",
+      "name": "forwardauth",
+      "variables": [
+        {
+          "name": "address",
+          "type": "str",
+          "title": "ForwardAuth address",
+          "required": true,
+          "description": "HTTP or HTTPS endpoint Traefik should call for authentication decisions.",
+          "config": {
+            "placeholder": "https://auth.example.com/outpost.goauthentik.io/auth/traefik"
+          }
+        },
+        {
+          "name": "trust_forward_header",
+          "type": "bool",
+          "title": "Trust forwarded headers",
+          "required": false,
+          "default": true,
+          "description": "Trust X-Forwarded-* headers sent by the previous hop."
+        },
+        {
+          "name": "auth_response_headers_enabled",
+          "type": "bool",
+          "title": "Auth response headers",
+          "required": false,
+          "default": true,
+          "description": "Forward selected headers from the auth response to the upstream service."
+        },
+        {
+          "name": "auth_response_headers",
+          "type": "str",
+          "title": "Auth response headers list",
+          "required": false,
+          "default": "X-authentik-username,X-authentik-groups,X-authentik-email",
+          "description": "Comma-separated list of response headers Traefik should pass to the upstream service.",
+          "config": {
+            "placeholder": "X-authentik-username,X-authentik-groups,X-authentik-email"
+          }
+        },
+        {
+          "name": "auth_request_headers_enabled",
+          "type": "bool",
+          "title": "Auth request headers",
+          "required": false,
+          "default": false,
+          "description": "Restrict which request headers Traefik forwards to the auth service."
+        },
+        {
+          "name": "auth_request_headers",
+          "type": "str",
+          "title": "Auth request headers list",
+          "required": false,
+          "default": "Accept,X-Forwarded-Host,X-Forwarded-Method,X-Forwarded-Proto,X-Forwarded-Uri",
+          "description": "Comma-separated list of request headers Traefik should forward to the auth service.",
+          "config": {
+            "placeholder": "Accept,X-Forwarded-Host,X-Forwarded-Method,X-Forwarded-Proto,X-Forwarded-Uri"
+          }
+        },
+        {
+          "name": "tls_insecure_skip_verify",
+          "type": "bool",
+          "title": "Skip TLS verification",
+          "required": false,
+          "default": false,
+          "description": "Disable TLS certificate verification for the auth endpoint."
+        }
+      ]
+    }
+  ]
+}

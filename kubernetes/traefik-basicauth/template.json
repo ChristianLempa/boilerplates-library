@@ -1,0 +1,100 @@
+{
+  "slug": "traefik-basicauth",
+  "kind": "kubernetes",
+  "metadata": {
+    "name": "Traefik BasicAuth Middleware",
+    "description": "Traefik Middleware CRD for HTTP basic authentication using an htpasswd-formatted Kubernetes Secret.",
+    "guide": "## Overview\nCreates a Traefik Middleware resource for `basicAuth` so dashboards, internal tools, or staging routes can require simple username and password authentication.\n\n## Prerequisites\n- Traefik must be installed with the Kubernetes CRD provider enabled.\n- Create the referenced Kubernetes Secret with htpasswd-formatted credentials before attaching the middleware to a route.\n\n## Apply\n- Render `main.yaml`, review the secret name and header behavior, then apply it with `kubectl apply -f main.yaml`.\n- Attach the middleware to a test route and confirm the browser challenge and upstream headers behave the way you expect.\n\n## Follow-Up\n- Rotate the Secret contents with your normal secret-management workflow instead of editing the middleware.\n- Use stronger identity layers for high-risk public services and reserve basic auth for lightweight protection or transitional setups.\n\n## References\n- [BasicAuth Middleware](https://doc.traefik.io/traefik/middlewares/http/basicauth/)\n- [Traefik Kubernetes CRD](https://doc.traefik.io/traefik/routing/providers/kubernetes-crd/)",
+    "tags": [],
+    "template_version": "3.5.3",
+    "icon": {
+      "provider": "selfhst",
+      "id": "traefik"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "title": "General",
+      "name": "general",
+      "variables": [
+        {
+          "name": "resource_name",
+          "type": "str",
+          "title": "Middleware name",
+          "required": false,
+          "default": "basic-auth",
+          "description": "Name to use for the Middleware resource.",
+          "config": {
+            "placeholder": "basic-auth"
+          }
+        },
+        {
+          "name": "namespace",
+          "type": "str",
+          "title": "Namespace",
+          "required": false,
+          "default": "default",
+          "description": "Namespace for the Middleware resource.",
+          "config": {
+            "placeholder": "default"
+          }
+        }
+      ]
+    },
+    {
+      "title": "BasicAuth",
+      "name": "basicauth",
+      "variables": [
+        {
+          "name": "secret_name",
+          "type": "str",
+          "title": "Secret name",
+          "required": true,
+          "description": "Kubernetes Secret containing htpasswd-formatted credentials.",
+          "config": {
+            "placeholder": "basic-auth-users"
+          }
+        },
+        {
+          "name": "realm",
+          "type": "str",
+          "title": "Realm",
+          "required": false,
+          "default": "Protected Area",
+          "description": "Realm string presented in the browser authentication prompt.",
+          "config": {
+            "placeholder": "Protected Area"
+          }
+        },
+        {
+          "name": "remove_header",
+          "type": "bool",
+          "title": "Remove Authorization header",
+          "required": false,
+          "default": true,
+          "description": "Strip the Authorization header before forwarding the request upstream."
+        },
+        {
+          "name": "header_field_enabled",
+          "type": "bool",
+          "title": "Header field",
+          "required": false,
+          "default": false,
+          "description": "Write the authenticated username into a custom request header."
+        },
+        {
+          "name": "header_field",
+          "type": "str",
+          "title": "Header field name",
+          "required": false,
+          "default": "X-WebAuth-User",
+          "description": "Request header name used for the authenticated username.",
+          "config": {
+            "placeholder": "X-WebAuth-User"
+          }
+        }
+      ]
+    }
+  ]
+}

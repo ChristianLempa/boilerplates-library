@@ -1,0 +1,155 @@
+{
+  "slug": "loki",
+  "kind": "compose",
+  "metadata": {
+    "name": "Loki",
+    "description": "Horizontally scalable, multi-tenant log aggregation system by Grafana, inspired by Prometheus. Indexes metadata rather than log content for efficient storage.",
+    "guide": "## Overview\nHorizontally scalable, multi-tenant log aggregation system by Grafana, inspired by Prometheus. Indexes metadata rather than log content for efficient storage.\n\n## Deploy\n- Render `compose.yaml`, review the generated files, then start the stack with `docker compose up -d`.\n- Confirm the containers are healthy with `docker compose ps` and follow `docker compose logs -f` during the first boot if initialization is still running.\n\n## Docs\n- [Loki](https://grafana.com/oss/loki/)\n- [Documentation](https://grafana.com/docs/loki/latest/)\n- [GitHub](https://github.com/grafana/loki)",
+    "tags": [
+      "traefik",
+      "authentik"
+    ],
+    "template_version": "3.6.5",
+    "icon": {
+      "provider": "selfhst",
+      "id": "loki"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "title": "General",
+      "variables": [
+        {
+          "name": "service_name",
+          "type": "str",
+          "title": "Service Name",
+          "required": false,
+          "default": "loki",
+          "config": {
+            "placeholder": "loki"
+          },
+          "description": "Name of the service."
+        },
+        {
+          "name": "restart_policy",
+          "type": "enum",
+          "title": "Restart Policy",
+          "required": true,
+          "default": "unless-stopped",
+          "config": {
+            "options": [
+              "unless-stopped",
+              "always",
+              "on-failure",
+              "no"
+            ]
+          },
+          "description": "Policy used for Restart."
+        },
+        {
+          "name": "data_retention_days",
+          "type": "int",
+          "title": "Retention Days",
+          "required": false,
+          "default": 7,
+          "description": "Number of days to retain logs",
+          "config": {
+            "slider": true,
+            "min": 1,
+            "max": 365,
+            "step": 1,
+            "placeholder": "7",
+            "unit": "days"
+          }
+        }
+      ],
+      "name": "general"
+    },
+    {
+      "title": "Ports",
+      "variables": [
+        {
+          "name": "ports_http",
+          "type": "str",
+          "title": "HTTP Port",
+          "required": false,
+          "default": 3100,
+          "config": {
+            "placeholder": "3100"
+          },
+          "description": "Host port exposed for HTTP."
+        }
+      ],
+      "name": "ports"
+    },
+    {
+      "title": "Traefik",
+      "variables": [
+        {
+          "name": "traefik_enabled",
+          "type": "bool",
+          "title": "Traefik",
+          "required": false,
+          "default": false,
+          "description": "Enable Traefik integration"
+        },
+        {
+          "name": "traefik_host",
+          "type": "str",
+          "title": "Host",
+          "required": false,
+          "config": {
+            "placeholder": "loki"
+          },
+          "description": "Hostname used for Traefik."
+        },
+        {
+          "name": "traefik_domain",
+          "type": "str",
+          "title": "Domain",
+          "required": true,
+          "config": {
+            "placeholder": "home.arpa"
+          },
+          "description": "Domain used for Traefik."
+        },
+        {
+          "name": "traefik_network",
+          "type": "str",
+          "title": "Network",
+          "required": true,
+          "default": "traefik",
+          "config": {
+            "placeholder": "traefik"
+          },
+          "description": "Network used for Traefik."
+        },
+        {
+          "name": "traefik_tls_enabled",
+          "type": "bool",
+          "title": "TLS",
+          "required": false,
+          "default": false,
+          "description": "Enable Traefik TLS"
+        },
+        {
+          "name": "traefik_tls_certresolver",
+          "type": "str",
+          "title": "Cert Resolver",
+          "required": true,
+          "default": "cloudflare",
+          "config": {
+            "placeholder": "cloudflare"
+          },
+          "description": "Traefik Tls Certresolver",
+          "needs": [
+            "traefik_tls_enabled=true"
+          ]
+        }
+      ],
+      "name": "traefik",
+      "toggle": "traefik_enabled"
+    }
+  ]
+}

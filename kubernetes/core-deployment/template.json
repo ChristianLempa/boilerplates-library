@@ -1,0 +1,294 @@
+{
+  "slug": "core-deployment",
+  "kind": "kubernetes",
+  "metadata": {
+    "name": "Kubernetes Deployment",
+    "description": "Creates a Kubernetes Deployment with configurable image, replicas, service account, container port, simple environment variables, and optional resource requests and limits.",
+    "guide": "## Overview\nCreates a Kubernetes Deployment resource for running a replicated set of Pods.\n\n## Prerequisites\n- The container image must be reachable from the cluster.\n- If you reference a ServiceAccount, create it before applying the Deployment.\n\n## Apply\n- Render `main.yaml`, apply it, then wait for rollout completion with `kubectl rollout status deployment/<name> -n <namespace>`.\n- Review image pull behavior, labels, and resource requests before promoting the manifest to shared environments.\n\n## Follow-Up\n- Pair the Deployment with a Service, Ingress, or IngressRoute when the workload needs network exposure.\n- Check Pod logs and events if the rollout stalls or image pulls fail.\n\n## References\n- [Deployment Documentation](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)",
+    "tags": [],
+    "template_version": "1.31.0",
+    "icon": {
+      "provider": "simple-icons",
+      "id": "kubernetes"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "title": "General",
+      "variables": [
+        {
+          "name": "resource_name",
+          "type": "str",
+          "title": "Deployment name",
+          "required": false,
+          "default": "app-deployment",
+          "description": "Name to use for the deployment.",
+          "config": {
+            "placeholder": "app-deployment"
+          }
+        },
+        {
+          "name": "namespace",
+          "type": "str",
+          "title": "Namespace",
+          "required": false,
+          "default": "default",
+          "description": "Value used for the general settings.",
+          "config": {
+            "placeholder": "default"
+          }
+        },
+        {
+          "name": "app_label",
+          "type": "str",
+          "title": "App Label",
+          "required": false,
+          "default": "app",
+          "description": "App label value used for selector and pod labels",
+          "config": {
+            "placeholder": "app"
+          }
+        },
+        {
+          "name": "replicas",
+          "type": "int",
+          "title": "Replicas",
+          "required": false,
+          "default": 1,
+          "description": "Number of pod replicas",
+          "config": {
+            "slider": true,
+            "min": 1,
+            "max": 20,
+            "step": 1,
+            "placeholder": "1"
+          }
+        },
+        {
+          "name": "service_account_name",
+          "type": "str",
+          "title": "ServiceAccount Name",
+          "required": false,
+          "description": "ServiceAccount name for the Pod spec",
+          "config": {
+            "placeholder": "app-serviceaccount"
+          }
+        }
+      ],
+      "name": "general"
+    },
+    {
+      "title": "Container",
+      "variables": [
+        {
+          "name": "container_name",
+          "type": "str",
+          "title": "Container name",
+          "required": false,
+          "default": "app",
+          "description": "Name to use for the container.",
+          "config": {
+            "placeholder": "app"
+          }
+        },
+        {
+          "name": "image",
+          "type": "str",
+          "title": "Container image reference",
+          "required": true,
+          "description": "Value used for the container settings.",
+          "config": {
+            "placeholder": "nginx:stable"
+          }
+        },
+        {
+          "name": "image_pull_policy",
+          "type": "enum",
+          "title": "Image pull policy",
+          "required": false,
+          "default": "IfNotPresent",
+          "description": "Policy used for Image Pull.",
+          "config": {
+            "options": [
+              "Always",
+              "IfNotPresent",
+              "Never"
+            ]
+          }
+        },
+        {
+          "name": "ports_enabled",
+          "type": "bool",
+          "title": "Container Port",
+          "required": false,
+          "default": true,
+          "description": "Expose one container port"
+        },
+        {
+          "name": "container_port",
+          "type": "int",
+          "title": "Container port number",
+          "required": false,
+          "default": 8080,
+          "description": "Value used for the container settings.",
+          "config": {
+            "placeholder": "8080"
+          }
+        },
+        {
+          "name": "container_port_name",
+          "type": "str",
+          "title": "Port name",
+          "required": false,
+          "default": "http",
+          "description": "Name to use for the port.",
+          "config": {
+            "placeholder": "http"
+          }
+        },
+        {
+          "name": "container_port_protocol",
+          "type": "enum",
+          "title": "Port protocol",
+          "required": false,
+          "default": "TCP",
+          "description": "Value used for the container settings.",
+          "config": {
+            "options": [
+              "TCP",
+              "UDP",
+              "SCTP"
+            ]
+          }
+        }
+      ],
+      "name": "container"
+    },
+    {
+      "title": "Environment",
+      "variables": [
+        {
+          "name": "env_literal_enabled",
+          "type": "bool",
+          "title": "Env Var",
+          "required": false,
+          "default": false,
+          "description": "Add one literal environment variable"
+        },
+        {
+          "name": "env_literal_name",
+          "type": "str",
+          "title": "Env Name",
+          "required": false,
+          "default": "APP_ENV",
+          "description": "Literal environment variable name",
+          "config": {
+            "placeholder": "APP_ENV"
+          }
+        },
+        {
+          "name": "env_literal_value",
+          "type": "str",
+          "title": "Env Value",
+          "required": false,
+          "default": "production",
+          "description": "Literal environment variable value",
+          "config": {
+            "placeholder": "production"
+          }
+        },
+        {
+          "name": "env_fieldref_enabled",
+          "type": "bool",
+          "title": "FieldRef Var",
+          "required": false,
+          "default": false,
+          "description": "Add one fieldRef environment variable"
+        },
+        {
+          "name": "env_fieldref_name",
+          "type": "str",
+          "title": "FieldRef Name",
+          "required": false,
+          "default": "POD_IP",
+          "description": "FieldRef environment variable name",
+          "config": {
+            "placeholder": "POD_IP"
+          }
+        },
+        {
+          "name": "env_fieldref_field_path",
+          "type": "str",
+          "title": "Field Path",
+          "required": false,
+          "default": "status.podIP",
+          "description": "Kubernetes field path for the fieldRef environment variable",
+          "config": {
+            "placeholder": "status.podIP"
+          }
+        }
+      ],
+      "name": "environment"
+    },
+    {
+      "title": "Resources",
+      "toggle": "resources_enabled",
+      "variables": [
+        {
+          "name": "resources_enabled",
+          "type": "bool",
+          "title": "Resources",
+          "required": false,
+          "default": false,
+          "description": "Enable resource requests and limits"
+        },
+        {
+          "name": "resources_cpu_limit",
+          "type": "str",
+          "title": "CPU limit",
+          "required": false,
+          "default": "500m",
+          "description": "Value used for the resources settings.",
+          "config": {
+            "placeholder": "500m"
+          }
+        },
+        {
+          "name": "resources_cpu_request",
+          "type": "str",
+          "title": "CPU request",
+          "required": false,
+          "default": "100m",
+          "description": "Value used for the resources settings.",
+          "config": {
+            "placeholder": "100m"
+          }
+        },
+        {
+          "name": "resources_memory_limit",
+          "type": "str",
+          "title": "Memory limit",
+          "required": false,
+          "default": "512Mi",
+          "description": "Value used for the resources settings.",
+          "config": {
+            "placeholder": "512Mi"
+          }
+        },
+        {
+          "name": "resources_memory_request",
+          "type": "str",
+          "title": "Memory request",
+          "required": false,
+          "default": "128Mi",
+          "description": "Value used for the resources settings.",
+          "config": {
+            "placeholder": "128Mi"
+          }
+        }
+      ],
+      "name": "resources"
+    }
+  ]
+}

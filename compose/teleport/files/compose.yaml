@@ -1,0 +1,39 @@
+services:
+  << service_name >>:
+    image: public.ecr.aws/gravitational/teleport-distroless:18.7.3
+    container_name: << container_name >>
+    ports:
+      - "<< ports_web >>:<< ports_web >>"
+      - "<< ports_ssh_proxy >>:<< ports_ssh_proxy >>"
+      - "<< ports_reverse_tunnel >>:<< ports_reverse_tunnel >>"
+      - "<< ports_auth >>:<< ports_auth >>"
+    volumes:
+      - ./config:/etc/teleport
+      - << data_host_path >>:/var/lib/teleport
+<%- if traefik_enabled %>
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.<< service_name >>.rule=HostRegexp(`^(?i)(?:[[:alnum:]]+(?:-+[[:alnum:]]+)*\\.)?<< teleport_public_host >>(?::\\d+)?$`)
+<%- if traefik_tls_enabled %>
+      - traefik.http.routers.<< service_name >>.entrypoints=websecure
+      - traefik.http.routers.<< service_name >>.tls=true
+      - traefik.http.routers.<< service_name >>.tls.certresolver=<< traefik_tls_certresolver >>
+      - traefik.http.routers.<< service_name >>.tls.domains[0].main=<< teleport_public_host >>
+      - traefik.http.routers.<< service_name >>.tls.domains[0].sans=*.<< teleport_public_host >>
+<%- else %>
+      - traefik.http.routers.<< service_name >>.entrypoints=web
+<%- endif %>
+      - traefik.http.services.<< service_name >>.loadbalancer.server.port=<< ports_web >>
+      - traefik.http.services.<< service_name >>.loadbalancer.server.scheme=https
+<%- endif %>
+    networks:
+      - << network_name >>
+    restart: << restart_policy >>
+
+networks:
+  << network_name >>:
+<%- if network_external %>
+    external: true
+<%- else %>
+    driver: bridge
+<%- endif %>

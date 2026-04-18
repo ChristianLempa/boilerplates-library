@@ -1,0 +1,26 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: << resource_name >>
+  namespace: << namespace >>
+spec:
+  forwardAuth:
+    address: "<< address >>"
+    trustForwardHeader: << trust_forward_header | lower >>
+<%- if auth_response_headers_enabled %>
+    authResponseHeaders:
+<%- for header in auth_response_headers.split(',') %>
+      - << header.strip() >>
+<%- endfor %>
+<%- endif %>
+<%- if auth_request_headers_enabled %>
+    authRequestHeaders:
+<%- for header in auth_request_headers.split(',') %>
+      - << header.strip() >>
+<%- endfor %>
+<%- endif %>
+<%- if tls_insecure_skip_verify %>
+    tls:
+      insecureSkipVerify: true
+<%- endif %>

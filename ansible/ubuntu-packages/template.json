@@ -1,0 +1,155 @@
+{
+  "slug": "ubuntu-packages",
+  "kind": "ansible",
+  "metadata": {
+    "name": "Install Ubuntu Packages",
+    "description": "Installs a curated set of useful Ubuntu packages with per-package switches for scripting, package management, monitoring, NFS, and VM guest integration.",
+    "guide": "## Overview\nThis playbook installs a curated package set for Ubuntu hosts with one switch per package.\n\n## What It Does\n- Validates that the target hosts are Ubuntu systems using APT.\n- Builds the package list from the enabled switches.\n- Installs the selected packages with `apt`.\n- Starts and enables `prometheus-node-exporter` and `qemu-guest-agent` when those packages are selected.\n\n## Run\n1. Render `main.yml` and review the package switches.\n2. Run the playbook against the intended Ubuntu hosts. The workload inventory already provides the host selection, so the playbook runs against `all` selected hosts.\n3. Verify the selected packages and any enabled services after the play completes.\n\n## Notes\n- The base scripting and utility packages are enabled by default.\n- `prometheus-node-exporter`, `nfs-common`, and `qemu-guest-agent` are optional and disabled by default.\n- `qemu-guest-agent` only makes sense on virtual machines that support it.\n\n## Docs\n- [Ubuntu Server Documentation](https://ubuntu.com/server/docs)\n- [APT User Guide](https://manpages.ubuntu.com/manpages/jammy/man8/apt-get.8.html)\n- [Prometheus Node Exporter](https://github.com/prometheus/node_exporter)",
+    "tags": [
+      "ubuntu",
+      "apt",
+      "packages",
+      "ansible"
+    ],
+    "template_version": "1.0.0",
+    "icon": {
+      "provider": "simple-icons",
+      "id": "ansible"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "title": "Base Packages",
+      "name": "base_packages",
+      "variables": [
+        {
+          "name": "install_python3_venv",
+          "type": "bool",
+          "title": "python3-venv",
+          "required": false,
+          "default": true,
+          "description": "Install Python virtual environment support."
+        },
+        {
+          "name": "install_python3_pip",
+          "type": "bool",
+          "title": "python3-pip",
+          "required": false,
+          "default": true,
+          "description": "Install pip for Python 3."
+        },
+        {
+          "name": "install_python3_apt",
+          "type": "bool",
+          "title": "python3-apt",
+          "required": false,
+          "default": true,
+          "description": "Install Python bindings for APT."
+        },
+        {
+          "name": "install_curl",
+          "type": "bool",
+          "title": "curl",
+          "required": false,
+          "default": true,
+          "description": "Install curl for HTTP requests and downloads."
+        },
+        {
+          "name": "install_wget",
+          "type": "bool",
+          "title": "wget",
+          "required": false,
+          "default": true,
+          "description": "Install wget for scripted downloads."
+        },
+        {
+          "name": "install_git",
+          "type": "bool",
+          "title": "git",
+          "required": false,
+          "default": true,
+          "description": "Install Git for source control and repository operations."
+        },
+        {
+          "name": "install_jq",
+          "type": "bool",
+          "title": "jq",
+          "required": false,
+          "default": true,
+          "description": "Install jq for JSON parsing in shell scripts."
+        },
+        {
+          "name": "install_rsync",
+          "type": "bool",
+          "title": "rsync",
+          "required": false,
+          "default": true,
+          "description": "Install rsync for file synchronization and copy jobs."
+        },
+        {
+          "name": "install_unzip",
+          "type": "bool",
+          "title": "unzip",
+          "required": false,
+          "default": true,
+          "description": "Install unzip for archive extraction."
+        },
+        {
+          "name": "install_ca_certificates",
+          "type": "bool",
+          "title": "ca-certificates",
+          "required": false,
+          "default": true,
+          "description": "Install CA certificates for HTTPS trust."
+        },
+        {
+          "name": "install_gnupg",
+          "type": "bool",
+          "title": "gnupg",
+          "required": false,
+          "default": true,
+          "description": "Install GnuPG for repository keys and signing workflows."
+        },
+        {
+          "name": "install_lsb_release",
+          "type": "bool",
+          "title": "lsb-release",
+          "required": false,
+          "default": true,
+          "description": "Install lsb-release for distro detection in scripts."
+        }
+      ]
+    },
+    {
+      "title": "Optional Packages",
+      "name": "optional_packages",
+      "variables": [
+        {
+          "name": "install_prometheus_node_exporter",
+          "type": "bool",
+          "title": "prometheus-node-exporter",
+          "required": false,
+          "default": false,
+          "description": "Install Prometheus node exporter and enable its service."
+        },
+        {
+          "name": "install_nfs_common",
+          "type": "bool",
+          "title": "nfs-common",
+          "required": false,
+          "default": false,
+          "description": "Install NFS client utilities."
+        },
+        {
+          "name": "install_qemu_guest_agent",
+          "type": "bool",
+          "title": "qemu-guest-agent",
+          "required": false,
+          "default": false,
+          "description": "Install the QEMU guest agent and enable its service."
+        }
+      ]
+    }
+  ]
+}

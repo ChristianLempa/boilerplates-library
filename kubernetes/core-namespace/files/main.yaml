@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: << namespace_name >>
+<%- if labels_enabled %>
+  labels:
+    "<< label_key >>": "<< label_value >>"
+<%- endif %>
+<%- if annotations_enabled %>
+  annotations:
+    "<< annotation_key >>": "<< annotation_value >>"
+<%- endif %>

@@ -1,0 +1,201 @@
+{
+  "slug": "core-persistentvolume",
+  "kind": "kubernetes",
+  "metadata": {
+    "name": "Kubernetes PersistentVolume",
+    "description": "Kubernetes PersistentVolume for provisioning cluster-wide storage resources. Cluster-scoped, typically created by administrators.",
+    "guide": "## Overview\nKubernetes PersistentVolume for provisioning cluster-wide storage resources. Cluster-scoped, typically created by administrators.\n\n## How to Use\nThis template renders `main.yaml` as a file.\n\n1. Start with the resource name, namespace, and any required networking or storage settings.\n2. Fill in required fields first, then enable optional sections such as TLS, annotations, or extra selectors only when they match your cluster setup.\n3. Render the manifest and apply it to the target cluster after confirming the generated resource matches your platform conventions.\n\n## Variable Guide\n### General\n- `resource_name`: Resource Name; optional; default: pv-nfs.\n- `storage_class`: Storage class name; optional.\n- `storage_size`: Storage capacity (e.g., 10Gi, 1Ti); optional; default: 10Gi.\n- `access_mode`: Access mode; optional; default: ReadWriteMany; options: ReadWriteOnce, ReadOnlyMany, ReadWriteMany, ReadWriteOncePod.\n- `reclaim_policy`: Reclaim policy; optional; default: Retain; options: Retain, Recycle, Delete.\n- `host_path`: Host path for local storage (e.g., /path/to/data); optional; default: /path/to/data.\n\n### Resource Limits\n- `resources_enabled`: Enable resource limits and requests; optional; default: false.\n- `resources_cpu_limit`: CPU limit; optional; default: 100m.\n- `resources_cpu_request`: CPU request; optional; default: 50m.\n- `resources_memory_limit`: Memory limit; optional; default: 128Mi.\n- `resources_memory_request`: Memory request; optional; default: 64Mi.\n\n### Traefik Integration\n- `traefik_enabled`: Enable Traefik integration; optional; default: false.\n- `traefik_host`: Traefik host; optional.\n- `traefik_domain`: Traefik domain; optional.\n- `traefik_tls_enabled`: Enable TLS; optional; default: true.\n- `traefik_tls_certresolver`: TLS certificate resolver; optional; default: letsencrypt-prod.\n\n## References\n- [PersistentVolume Documentation](https://kubernetes.io/docs/concepts/storage/persistent-volumes/)",
+    "tags": [],
+    "template_version": "1.31.0",
+    "icon": {
+      "provider": "simple-icons",
+      "id": "kubernetes"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "title": "General",
+      "variables": [
+        {
+          "name": "resource_name",
+          "type": "str",
+          "title": "Resource Name",
+          "required": false,
+          "default": "pv-nfs",
+          "config": {
+            "placeholder": "pv-nfs"
+          },
+          "description": "Terraform resource name."
+        },
+        {
+          "name": "storage_class",
+          "type": "str",
+          "title": "Storage class name",
+          "required": false,
+          "default": "",
+          "description": "Name to use for the storage class."
+        },
+        {
+          "name": "storage_size",
+          "type": "str",
+          "title": "Storage Size",
+          "required": false,
+          "default": "10Gi",
+          "description": "Storage capacity (e.g., 10Gi, 1Ti)",
+          "config": {
+            "placeholder": "10Gi"
+          }
+        },
+        {
+          "name": "access_mode",
+          "type": "enum",
+          "title": "Access mode",
+          "required": false,
+          "default": "ReadWriteMany",
+          "description": "Mode used for Access.",
+          "config": {
+            "options": [
+              "ReadWriteOnce",
+              "ReadOnlyMany",
+              "ReadWriteMany",
+              "ReadWriteOncePod"
+            ]
+          }
+        },
+        {
+          "name": "reclaim_policy",
+          "type": "enum",
+          "title": "Reclaim policy",
+          "required": false,
+          "default": "Retain",
+          "description": "Policy used for Reclaim.",
+          "config": {
+            "options": [
+              "Retain",
+              "Recycle",
+              "Delete"
+            ]
+          }
+        },
+        {
+          "name": "host_path",
+          "type": "str",
+          "title": "Host Path",
+          "required": false,
+          "default": "/data",
+          "description": "Host path for local storage (e.g., /path/to/data)",
+          "config": {
+            "placeholder": "/data"
+          }
+        }
+      ],
+      "name": "general"
+    },
+    {
+      "title": "Resource Limits",
+      "variables": [
+        {
+          "name": "resources_enabled",
+          "type": "bool",
+          "title": "Resources",
+          "required": false,
+          "default": false,
+          "description": "Enable resource limits and requests"
+        },
+        {
+          "name": "resources_cpu_limit",
+          "type": "str",
+          "title": "CPU limit",
+          "required": false,
+          "default": "100m",
+          "description": "Value used for the resource limits settings.",
+          "config": {
+            "placeholder": "100m"
+          }
+        },
+        {
+          "name": "resources_cpu_request",
+          "type": "str",
+          "title": "CPU request",
+          "required": false,
+          "default": "50m",
+          "description": "Value used for the resource limits settings.",
+          "config": {
+            "placeholder": "50m"
+          }
+        },
+        {
+          "name": "resources_memory_limit",
+          "type": "str",
+          "title": "Memory limit",
+          "required": false,
+          "default": "128Mi",
+          "description": "Value used for the resource limits settings.",
+          "config": {
+            "placeholder": "128Mi"
+          }
+        },
+        {
+          "name": "resources_memory_request",
+          "type": "str",
+          "title": "Memory request",
+          "required": false,
+          "default": "64Mi",
+          "description": "Value used for the resource limits settings.",
+          "config": {
+            "placeholder": "64Mi"
+          }
+        }
+      ],
+      "name": "resources"
+    },
+    {
+      "title": "Traefik Integration",
+      "variables": [
+        {
+          "name": "traefik_enabled",
+          "type": "bool",
+          "title": "Traefik",
+          "required": false,
+          "default": false,
+          "description": "Enable Traefik integration"
+        },
+        {
+          "name": "traefik_host",
+          "type": "str",
+          "title": "Traefik host",
+          "required": false,
+          "description": "Hostname used for Traefik."
+        },
+        {
+          "name": "traefik_domain",
+          "type": "str",
+          "title": "Traefik domain",
+          "required": false,
+          "description": "Domain used for Traefik."
+        },
+        {
+          "name": "traefik_tls_enabled",
+          "type": "bool",
+          "title": "TLS",
+          "required": false,
+          "default": true,
+          "description": "Enable TLS"
+        },
+        {
+          "name": "traefik_tls_certresolver",
+          "type": "str",
+          "title": "TLS certificate resolver",
+          "required": false,
+          "default": "letsencrypt-prod",
+          "description": "Certificate resolver name.",
+          "config": {
+            "placeholder": "letsencrypt-prod"
+          }
+        }
+      ],
+      "name": "traefik"
+    }
+  ]
+}

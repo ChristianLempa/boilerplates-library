@@ -1,0 +1,383 @@
+{
+  "slug": "flux-bootstrap",
+  "kind": "kubernetes",
+  "metadata": {
+    "name": "Flux Bootstrap",
+    "description": "Draft Flux bootstrap manifests for wiring an already-installed Flux control plane to a Git repository and root Kustomization, with optional Helm source and release resources.",
+    "guide": "## Overview\nBootstraps Flux after the controllers are already installed in the cluster. The template creates a `GitRepository` and root `Kustomization`, with optional `HelmRepository` and `HelmRelease` resources for teams that want a small starter example in the same render.\n\n## Typical Use\n- Install Flux controllers first using `flux install`, Helm, or your platform installer.\n- Point the `GitRepository` at the repo that contains your cluster state.\n- Set the Kustomization path to your cluster root such as `./clusters/prod`.\n- Enable SOPS decryption only after the referenced secret already exists in the Flux namespace.\n\n## Notes\n- `targetNamespace` is optional but useful when the rendered Kustomization should force resources into a specific namespace.\n- `dependsOn` is intentionally kept lightweight with a single dependency placeholder so the template stays readable.\n- The optional Helm resources are a convenience stub, not a full GitOps platform layout.\n\n## References\n- [Flux GitRepository](https://fluxcd.io/flux/components/source/gitrepositories/)\n- [Flux Kustomization](https://fluxcd.io/flux/components/kustomize/kustomizations/)\n- [Flux Helm Releases](https://fluxcd.io/flux/guides/helmreleases/)",
+    "tags": [],
+    "template_version": "2.7.5",
+    "icon": {
+      "provider": "simple-icons",
+      "id": "flux"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "title": "General",
+      "name": "general",
+      "variables": [
+        {
+          "name": "namespace",
+          "type": "str",
+          "title": "Flux namespace",
+          "required": false,
+          "default": "flux-system",
+          "description": "Namespace where Flux source and Kustomization resources live.",
+          "config": {
+            "placeholder": "flux-system"
+          }
+        },
+        {
+          "name": "create_namespace",
+          "type": "bool",
+          "title": "Create namespace",
+          "required": false,
+          "default": false,
+          "description": "Render the Flux namespace manifest as part of this file."
+        },
+        {
+          "name": "git_repository_name",
+          "type": "str",
+          "title": "GitRepository name",
+          "required": false,
+          "default": "homelab-cluster",
+          "description": "Name of the Flux GitRepository resource.",
+          "config": {
+            "placeholder": "homelab-cluster"
+          }
+        },
+        {
+          "name": "git_repository_url",
+          "type": "str",
+          "title": "Git repository URL",
+          "required": false,
+          "default": "https://github.com/example/homelab-gitops",
+          "description": "HTTPS or SSH URL for the GitOps repository.",
+          "config": {
+            "placeholder": "https://github.com/example/homelab-gitops"
+          }
+        },
+        {
+          "name": "git_branch",
+          "type": "str",
+          "title": "Git branch",
+          "required": false,
+          "default": "main",
+          "description": "Branch Flux should reconcile from.",
+          "config": {
+            "placeholder": "main"
+          }
+        },
+        {
+          "name": "git_interval",
+          "type": "str",
+          "title": "Git interval",
+          "required": false,
+          "default": "5m0s",
+          "description": "How often Flux fetches the Git repository.",
+          "config": {
+            "placeholder": "5m0s"
+          }
+        },
+        {
+          "name": "git_timeout",
+          "type": "str",
+          "title": "Git timeout",
+          "required": false,
+          "default": "60s",
+          "description": "Timeout for Git clone and fetch operations.",
+          "config": {
+            "placeholder": "60s"
+          }
+        },
+        {
+          "name": "kustomization_name",
+          "type": "str",
+          "title": "Kustomization name",
+          "required": false,
+          "default": "cluster-root",
+          "description": "Name of the root Flux Kustomization resource.",
+          "config": {
+            "placeholder": "cluster-root"
+          }
+        },
+        {
+          "name": "kustomization_path",
+          "type": "str",
+          "title": "Kustomization path",
+          "required": false,
+          "default": "./clusters/production",
+          "description": "Path inside the Git repository that contains the root kustomization.",
+          "config": {
+            "placeholder": "./clusters/production"
+          }
+        },
+        {
+          "name": "kustomization_interval",
+          "type": "str",
+          "title": "Kustomization interval",
+          "required": false,
+          "default": "10m0s",
+          "description": "How often Flux reconciles the root Kustomization.",
+          "config": {
+            "placeholder": "10m0s"
+          }
+        },
+        {
+          "name": "kustomization_timeout",
+          "type": "str",
+          "title": "Kustomization timeout",
+          "required": false,
+          "default": "5m0s",
+          "description": "Timeout for apply and health-check operations.",
+          "config": {
+            "placeholder": "5m0s"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Reconciliation",
+      "name": "reconciliation",
+      "variables": [
+        {
+          "name": "kustomization_prune",
+          "type": "bool",
+          "title": "Prune",
+          "required": false,
+          "default": true,
+          "description": "Remove resources from the cluster when they disappear from Git."
+        },
+        {
+          "name": "kustomization_wait",
+          "type": "bool",
+          "title": "Wait",
+          "required": false,
+          "default": true,
+          "description": "Wait for reconciled resources to become healthy."
+        },
+        {
+          "name": "kustomization_force",
+          "type": "bool",
+          "title": "Force",
+          "required": false,
+          "default": false,
+          "description": "Force apply resources when immutable field changes require replacement."
+        },
+        {
+          "name": "target_namespace_enabled",
+          "type": "bool",
+          "title": "Target namespace",
+          "required": false,
+          "default": false,
+          "description": "Override the namespace for resources reconciled by this Kustomization."
+        },
+        {
+          "name": "target_namespace",
+          "type": "str",
+          "title": "Target namespace value",
+          "required": false,
+          "default": "platform",
+          "description": "Namespace applied to resources when target namespace is enabled.",
+          "config": {
+            "placeholder": "platform"
+          }
+        },
+        {
+          "name": "depends_on_enabled",
+          "type": "bool",
+          "title": "Depends on",
+          "required": false,
+          "default": false,
+          "description": "Add a single Flux Kustomization dependency before this root applies."
+        },
+        {
+          "name": "depends_on_name",
+          "type": "str",
+          "title": "Dependency name",
+          "required": false,
+          "default": "cluster-prereqs",
+          "description": "Name of the upstream Flux Kustomization dependency.",
+          "config": {
+            "placeholder": "cluster-prereqs"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Authentication and Decryption",
+      "name": "security",
+      "variables": [
+        {
+          "name": "git_secret_ref_enabled",
+          "type": "bool",
+          "title": "Git secretRef",
+          "required": false,
+          "default": false,
+          "description": "Reference a Kubernetes secret for Git authentication."
+        },
+        {
+          "name": "git_secret_ref_name",
+          "type": "str",
+          "title": "Git secret name",
+          "required": false,
+          "default": "flux-system",
+          "description": "Name of the secret used for HTTPS or SSH Git credentials.",
+          "config": {
+            "placeholder": "flux-system"
+          }
+        },
+        {
+          "name": "decryption_enabled",
+          "type": "bool",
+          "title": "SOPS decryption",
+          "required": false,
+          "default": false,
+          "description": "Enable Flux SOPS decryption for encrypted secrets in the Kustomization path."
+        },
+        {
+          "name": "decryption_secret_name",
+          "type": "str",
+          "title": "Decryption secret",
+          "required": false,
+          "default": "sops-age",
+          "description": "Secret name containing the SOPS decryption key material.",
+          "config": {
+            "placeholder": "sops-age"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Optional Helm Release",
+      "name": "helm",
+      "variables": [
+        {
+          "name": "helm_repository_enabled",
+          "type": "bool",
+          "title": "HelmRepository",
+          "required": false,
+          "default": false,
+          "description": "Render a HelmRepository resource alongside the bootstrap objects."
+        },
+        {
+          "name": "helm_repository_name",
+          "type": "str",
+          "title": "HelmRepository name",
+          "required": false,
+          "default": "podinfo",
+          "description": "Name of the HelmRepository resource or existing source reference.",
+          "config": {
+            "placeholder": "podinfo"
+          }
+        },
+        {
+          "name": "helm_repository_url",
+          "type": "str",
+          "title": "HelmRepository URL",
+          "required": false,
+          "default": "https://stefanprodan.github.io/podinfo",
+          "description": "Chart repository URL used by the optional Helm source.",
+          "config": {
+            "placeholder": "https://stefanprodan.github.io/podinfo"
+          }
+        },
+        {
+          "name": "helm_repository_interval",
+          "type": "str",
+          "title": "HelmRepository interval",
+          "required": false,
+          "default": "15m0s",
+          "description": "How often Flux refreshes the Helm repository index.",
+          "config": {
+            "placeholder": "15m0s"
+          }
+        },
+        {
+          "name": "helm_release_enabled",
+          "type": "bool",
+          "title": "HelmRelease",
+          "required": false,
+          "default": false,
+          "description": "Render a starter HelmRelease managed by Flux."
+        },
+        {
+          "name": "helm_release_name",
+          "type": "str",
+          "title": "HelmRelease name",
+          "required": false,
+          "default": "podinfo",
+          "description": "Name of the optional HelmRelease resource.",
+          "config": {
+            "placeholder": "podinfo"
+          }
+        },
+        {
+          "name": "helm_release_namespace",
+          "type": "str",
+          "title": "HelmRelease namespace",
+          "required": false,
+          "default": "flux-system",
+          "description": "Namespace where the HelmRelease custom resource should live.",
+          "config": {
+            "placeholder": "flux-system"
+          }
+        },
+        {
+          "name": "helm_release_interval",
+          "type": "str",
+          "title": "HelmRelease interval",
+          "required": false,
+          "default": "15m0s",
+          "description": "How often Flux reconciles the optional Helm release.",
+          "config": {
+            "placeholder": "15m0s"
+          }
+        },
+        {
+          "name": "helm_chart_name",
+          "type": "str",
+          "title": "Chart name",
+          "required": false,
+          "default": "podinfo",
+          "description": "Chart name inside the optional Helm repository.",
+          "config": {
+            "placeholder": "podinfo"
+          }
+        },
+        {
+          "name": "helm_chart_version",
+          "type": "str",
+          "title": "Chart version",
+          "required": false,
+          "default": "6.9.3",
+          "description": "Chart version for the optional HelmRelease.",
+          "config": {
+            "placeholder": "6.9.3"
+          }
+        },
+        {
+          "name": "helm_target_namespace_enabled",
+          "type": "bool",
+          "title": "Release target namespace",
+          "required": false,
+          "default": true,
+          "description": "Install the optional Helm chart into a different namespace."
+        },
+        {
+          "name": "helm_target_namespace",
+          "type": "str",
+          "title": "Release target namespace value",
+          "required": false,
+          "default": "apps",
+          "description": "Namespace where the Helm release should be deployed.",
+          "config": {
+            "placeholder": "apps"
+          }
+        }
+      ]
+    }
+  ]
+}

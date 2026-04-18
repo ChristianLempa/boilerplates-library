@@ -1,0 +1,416 @@
+{
+  "slug": "gitlab",
+  "kind": "compose",
+  "metadata": {
+    "name": "GitLab",
+    "description": "Complete DevOps platform providing Git repository management, CI/CD pipelines, issue tracking, and an optional container registry in a single application.",
+    "guide": "## Overview\nComplete DevOps platform providing Git repository management, CI/CD pipelines, issue tracking, and an optional container registry in a single application.\n\n## How to Use\nThis template renders `compose.yaml` as a file.\n\n1. Decide on service names, ports, volumes, credentials, and optional integrations before rendering the stack.\n2. Fill in the required variables first, then enable optional sections such as Traefik, metrics, or extra services only when needed.\n3. Render the Compose project, review the generated files, and start it with Docker Compose in the target directory.\n\n## Variable Guide\n### General\n- `service_name`: Docker service name; optional; default: gitlab.\n- `external_url`: External URL for GitLab; optional; default: http://localhost.\n- `root_email`: Initial root user email address; optional.\n- `root_password`: Initial root user password (only used on first initialization); optional.\n- `default_theme`: Default GitLab UI theme (2 = dark mode); optional; default: 2.\n- `default_color_mode`: Default color mode (2 = dark mode); optional; default: 2.\n- `disable_usage_data`: Disable product usage metrics upload to GitLab; optional; default: true.\n- `restart_policy`: Policy used for Restart; required; default: unless-stopped; options: unless-stopped, always, on-failure, no.\n\n### Advanced Settings\n- `performance_preset`: Value used for the advanced settings settings; optional; default: homelab; options: homelab, default.\n- `prometheus_enabled`: Enable Prometheus monitoring; optional; default: false.\n\n### Ports\n- `ports_http`: Host port exposed for HTTP; optional; default: 80.\n- `ports_ssh`: Value used for the ports settings; optional; default: 2424.\n- `ports_registry`: Port used for Container Registry; optional; default: 5000.\n\n### Registry\n- `registry_enabled`: Enable GitLab Container Registry; optional; default: false.\n- `registry_external_url`: External URL for Container Registry; optional; default: http://localhost:5000.\n\n### Traefik\n- `traefik_enabled`: Enable Traefik integration; optional; default: false.\n- `traefik_host`: Hostname used for Traefik; optional.\n- `traefik_registry_host`: Hostname for Container Registry in Traefik (if enabled); optional; default: registry.home.arpa; shown when: registry_enabled=true.\n- `traefik_domain`: Domain used for Traefik; required.\n- `traefik_network`: Network used for Traefik; required; default: traefik.\n- `traefik_tls_enabled`: Enable Traefik TLS; optional; default: false.\n- `traefik_tls_certresolver`: Traefik Tls Certresolver; required; default: cloudflare; shown when: traefik_tls_enabled=true.\n\n### Email\n- `email_enabled`: Enable email server configuration; optional; default: false.\n- `email_host`: Hostname used for SMTP Server; optional; default: .\n- `email_port`: Port used for SMTP Server; optional; default: 587.\n- `email_username`: Username for the smtp; optional; default: .\n- `email_password`: Password for the smtp; optional; default: .\n- `email_from`: IP address to use for the from email; optional; default: .\n- `email_use_tls`: Use TLS encryption; optional; default: true.\n- `email_use_ssl`: Use SSL encryption; optional; default: false.\n\n### Authentik\n- `authentik_enabled`: Enable Authentik SSO integration; optional; default: false.\n- `authentik_url`: Authentik base URL (e.g., https://auth.home.arpa); optional; default: https://auth.home.arpa.\n- `authentik_slug`: Value used for the authentik settings; optional; default: gitlab.\n- `authentik_client_id`: OAuth client ID from Authentik provider; optional; default: .\n- `authentik_client_secret`: OAuth client secret from Authentik provider; optional; default: .\n\n## References\n- [GitLab](https://about.gitlab.com/)\n- [Documentation](https://docs.gitlab.com/)\n- [Community Forum](https://forum.gitlab.com/)\n## Notes\n### Variables\n- `performance_preset` - `homelab` optimizes for low-resource environments (reduced workers and PostgreSQL buffers), `default` uses standard production settings.\n- `external_url` - Set to your public domain (e.g. `https://gitlab.home.arpa`) for proper clone URLs, SSH clone paths, and email notification links.\n- `registry_enabled` - Enable if you need private Docker image hosting. Requires a separate `registry_external_url`.\n\n## Post-Installation Steps\n1. **Start GitLab**:\n  ```bash\n  docker compose up -d\n  ```\n2. **Wait for\\\n  \\ initialization** (2-5 minutes):\n    ```bash\n    docker compose logs -f gitlab\n    ```\n    Wait for message: `gitlab\\\n  \\ Reconfigured!`\n  3. **Access the web interface**:\n    <% if traefik_enabled -%>\n    - Via Traefik: https://<< traefik_host\\\n  \\ >>\n    <% if not traefik_enabled and network_mode == 'bridge' %>- Direct access: http://localhost:<< ports_http >><%\\\n  \\ endif %>\n    <%- else -%>\n    - Open << external_url >> in your browser\n    <% if network_mode == 'bridge' %>- Or: http://localhost:<<\\\n  \\ ports_http >><% endif %>\n    <%- endif %>\n  4. **Initial login credentials**:\n    - **Username**: `root`\n    - **Password**:\\\n  \\ `<< root_password >>`\n    > **Important**: This password only works on FIRST initialization.\n    > Change it immediately\\\n  \\ after first login via GitLab's web interface!\n  5. **Configure SSH** (optional):\n    - SSH clone URLs will use port `<<\\\n  \\ ports_ssh >>`\n    - Update your Git remote if needed\n  ## Additional Resources\n  - Documentation: https://docs.gitlab.com/\n  \\\n  - GitLab Runner: https://docs.gitlab.com/runner/",
+    "tags": [
+      "traefik"
+    ],
+    "template_version": "18.8.4-ce.0",
+    "icon": {
+      "provider": "selfhst",
+      "id": "gitlab"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "title": "General",
+      "variables": [
+        {
+          "name": "service_name",
+          "type": "str",
+          "title": "Service Name",
+          "required": false,
+          "default": "gitlab",
+          "description": "Docker service name",
+          "config": {
+            "placeholder": "gitlab"
+          }
+        },
+        {
+          "name": "external_url",
+          "type": "str",
+          "title": "External URL",
+          "required": false,
+          "default": "http://localhost",
+          "description": "External URL for GitLab",
+          "config": {
+            "placeholder": "http://localhost"
+          }
+        },
+        {
+          "name": "root_email",
+          "type": "str",
+          "title": "Root Email",
+          "required": false,
+          "description": "Initial root user email address",
+          "config": {
+            "placeholder": "admin@home.arpa"
+          }
+        },
+        {
+          "name": "root_password",
+          "type": "secret",
+          "title": "Root Password",
+          "required": false,
+          "description": "Initial root user password (only used on first initialization)",
+          "config": {
+            "autogenerated": true
+          }
+        },
+        {
+          "name": "default_theme",
+          "type": "int",
+          "title": "UI Theme",
+          "required": false,
+          "default": 2,
+          "description": "Default GitLab UI theme (2 = dark mode)",
+          "config": {
+            "placeholder": "2"
+          }
+        },
+        {
+          "name": "default_color_mode",
+          "type": "int",
+          "title": "Color Mode",
+          "required": false,
+          "default": 2,
+          "description": "Default color mode (2 = dark mode)",
+          "config": {
+            "placeholder": "2"
+          }
+        },
+        {
+          "name": "disable_usage_data",
+          "type": "bool",
+          "title": "Usage Data",
+          "required": false,
+          "default": true,
+          "description": "Disable product usage metrics upload to GitLab"
+        },
+        {
+          "name": "restart_policy",
+          "type": "enum",
+          "title": "Restart Policy",
+          "required": true,
+          "default": "unless-stopped",
+          "config": {
+            "options": [
+              "unless-stopped",
+              "always",
+              "on-failure",
+              "no"
+            ]
+          },
+          "description": "Policy used for Restart."
+        }
+      ],
+      "name": "general"
+    },
+    {
+      "title": "Advanced Settings",
+      "variables": [
+        {
+          "name": "performance_preset",
+          "type": "enum",
+          "title": "Performance optimization profile",
+          "required": false,
+          "default": "homelab",
+          "description": "Value used for the advanced settings settings.",
+          "config": {
+            "options": [
+              "homelab",
+              "default"
+            ]
+          }
+        },
+        {
+          "name": "prometheus_enabled",
+          "type": "bool",
+          "title": "Prometheus",
+          "required": false,
+          "default": false,
+          "description": "Enable Prometheus monitoring"
+        }
+      ],
+      "name": "advanced"
+    },
+    {
+      "title": "Ports",
+      "variables": [
+        {
+          "name": "ports_http",
+          "type": "str",
+          "title": "HTTP Port",
+          "required": false,
+          "default": 80,
+          "config": {
+            "placeholder": "80"
+          },
+          "description": "Host port exposed for HTTP."
+        },
+        {
+          "name": "ports_ssh",
+          "type": "str",
+          "title": "Ports Ssh",
+          "required": false,
+          "default": 2424,
+          "config": {
+            "placeholder": "2424"
+          },
+          "description": "Value used for the ports settings."
+        },
+        {
+          "name": "ports_registry",
+          "type": "int",
+          "title": "Container Registry port",
+          "required": false,
+          "default": 5000,
+          "description": "Port used for Container Registry.",
+          "config": {
+            "placeholder": "5000"
+          }
+        }
+      ],
+      "name": "ports"
+    },
+    {
+      "title": "Registry",
+      "toggle": "registry_enabled",
+      "variables": [
+        {
+          "name": "registry_enabled",
+          "type": "bool",
+          "title": "Registry",
+          "required": false,
+          "default": false,
+          "description": "Enable GitLab Container Registry"
+        },
+        {
+          "name": "registry_external_url",
+          "type": "str",
+          "title": "Registry URL",
+          "required": false,
+          "default": "http://localhost:5000",
+          "description": "External URL for Container Registry",
+          "config": {
+            "placeholder": "http://localhost:5000"
+          }
+        }
+      ],
+      "name": "registry"
+    },
+    {
+      "title": "Traefik",
+      "variables": [
+        {
+          "name": "traefik_enabled",
+          "type": "bool",
+          "title": "Traefik",
+          "required": false,
+          "default": false,
+          "description": "Enable Traefik integration"
+        },
+        {
+          "name": "traefik_host",
+          "type": "str",
+          "title": "Host",
+          "required": false,
+          "config": {
+            "placeholder": "gitlab.home.arpa"
+          },
+          "description": "Hostname used for Traefik."
+        },
+        {
+          "name": "traefik_registry_host",
+          "type": "str",
+          "title": "Registry Host",
+          "required": false,
+          "default": "registry.home.arpa",
+          "description": "Hostname for Container Registry in Traefik (if enabled)",
+          "needs": [
+            "registry_enabled=true"
+          ],
+          "config": {
+            "placeholder": "registry.home.arpa"
+          }
+        },
+        {
+          "name": "traefik_domain",
+          "type": "str",
+          "title": "Domain",
+          "required": true,
+          "config": {
+            "placeholder": "home.arpa"
+          },
+          "description": "Domain used for Traefik."
+        },
+        {
+          "name": "traefik_network",
+          "type": "str",
+          "title": "Network",
+          "required": true,
+          "default": "traefik",
+          "config": {
+            "placeholder": "traefik"
+          },
+          "description": "Network used for Traefik."
+        },
+        {
+          "name": "traefik_tls_enabled",
+          "type": "bool",
+          "title": "TLS",
+          "required": false,
+          "default": false,
+          "description": "Enable Traefik TLS"
+        },
+        {
+          "name": "traefik_tls_certresolver",
+          "type": "str",
+          "title": "Cert Resolver",
+          "required": true,
+          "default": "cloudflare",
+          "config": {
+            "placeholder": "cloudflare"
+          },
+          "description": "Traefik Tls Certresolver",
+          "needs": [
+            "traefik_tls_enabled=true"
+          ]
+        }
+      ],
+      "name": "traefik",
+      "toggle": "traefik_enabled"
+    },
+    {
+      "title": "Email",
+      "toggle": "email_enabled",
+      "variables": [
+        {
+          "name": "email_enabled",
+          "type": "bool",
+          "title": "Email",
+          "required": false,
+          "default": false,
+          "description": "Enable email server configuration"
+        },
+        {
+          "name": "email_host",
+          "type": "str",
+          "title": "SMTP server hostname",
+          "required": false,
+          "default": "",
+          "description": "Hostname used for SMTP Server."
+        },
+        {
+          "name": "email_port",
+          "type": "int",
+          "title": "SMTP server port",
+          "required": false,
+          "default": 587,
+          "description": "Port used for SMTP Server.",
+          "config": {
+            "placeholder": "587"
+          }
+        },
+        {
+          "name": "email_username",
+          "type": "str",
+          "title": "SMTP username",
+          "required": false,
+          "default": "",
+          "description": "Username for the smtp."
+        },
+        {
+          "name": "email_password",
+          "type": "secret",
+          "title": "SMTP password",
+          "required": false,
+          "default": "",
+          "description": "Password for the smtp."
+        },
+        {
+          "name": "email_from",
+          "type": "str",
+          "title": "From email address",
+          "required": false,
+          "default": "",
+          "description": "IP address to use for the from email."
+        },
+        {
+          "name": "email_use_tls",
+          "type": "bool",
+          "title": "SMTP TLS",
+          "required": false,
+          "default": true,
+          "description": "Use TLS encryption"
+        },
+        {
+          "name": "email_use_ssl",
+          "type": "bool",
+          "title": "SMTP SSL",
+          "required": false,
+          "default": false,
+          "description": "Use SSL encryption"
+        }
+      ],
+      "name": "email"
+    },
+    {
+      "title": "Authentik",
+      "toggle": "authentik_enabled",
+      "variables": [
+        {
+          "name": "authentik_enabled",
+          "type": "bool",
+          "title": "Authentik SSO",
+          "required": false,
+          "default": false,
+          "description": "Enable Authentik SSO integration"
+        },
+        {
+          "name": "authentik_url",
+          "type": "str",
+          "title": "Auth URL",
+          "required": false,
+          "default": "https://auth.home.arpa",
+          "description": "Authentik base URL (e.g., https://auth.home.arpa)",
+          "config": {
+            "placeholder": "https://auth.home.arpa"
+          }
+        },
+        {
+          "name": "authentik_slug",
+          "type": "str",
+          "title": "Authentik application slug",
+          "required": false,
+          "default": "gitlab",
+          "description": "Value used for the authentik settings.",
+          "config": {
+            "placeholder": "gitlab"
+          }
+        },
+        {
+          "name": "authentik_client_id",
+          "type": "str",
+          "title": "Client ID",
+          "required": false,
+          "default": "",
+          "description": "OAuth client ID from Authentik provider"
+        },
+        {
+          "name": "authentik_client_secret",
+          "type": "secret",
+          "title": "Client Secret",
+          "required": false,
+          "default": "",
+          "description": "OAuth client secret from Authentik provider"
+        }
+      ],
+      "name": "authentik"
+    }
+  ]
+}

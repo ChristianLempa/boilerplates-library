@@ -1,0 +1,281 @@
+{
+  "slug": "grafana",
+  "kind": "compose",
+  "metadata": {
+    "name": "Grafana",
+    "description": "Open-source observability platform for visualizing and analyzing metrics, logs, and traces from various data sources through flexible, customizable dashboards.",
+    "guide": "## Overview\nOpen-source observability platform for visualizing and analyzing metrics, logs, and traces from various data sources through flexible, customizable dashboards.\n\n## How to Use\nThis template renders `compose.yaml` and `.env` as files.\n\n1. Decide on service names, ports, volumes, credentials, and optional integrations before rendering the stack.\n2. Fill in the required variables first, then enable optional sections such as Traefik, metrics, or extra services only when needed.\n3. Render the Compose project, review the generated files, and start it with Docker Compose in the target directory.\n\n## Variable Guide\n### General\n- `service_name`: Name of the service; optional; default: grafana.\n- `restart_policy`: Policy used for Restart; required; default: unless-stopped; options: unless-stopped, always, on-failure, no.\n\n### Ports\n- `ports_http`: Host port exposed for HTTP; optional; default: 3000.\n\n### Authentik\n- `authentik_enabled`: Enable Authentik SSO integration; optional; default: false.\n- `authentik_url`: URL used for Authentik; required; default: https://auth.home.arpa; shown when: authentik_enabled=true.\n- `authentik_slug`: Value used for the authentik settings; required; default: grafana; shown when: authentik_enabled=true.\n- `authentik_client_id`: Identifier for the authentik client; required; shown when: authentik_enabled=true.\n- `authentik_client_secret`: Secret value for the authentik client; required; shown when: authentik_enabled=true.\n\n### Traefik\n- `traefik_enabled`: Enable Traefik integration; optional; default: false.\n- `traefik_host`: Hostname used for Traefik; optional.\n- `traefik_domain`: Domain used for Traefik; required.\n- `traefik_network`: Network used for Traefik; required; default: traefik.\n- `traefik_tls_enabled`: Enable Traefik TLS; optional; default: false.\n- `traefik_tls_certresolver`: Traefik Tls Certresolver; required; default: cloudflare; shown when: traefik_tls_enabled=true.\n\n### Database\n- `database_type`: Database engine to use; optional; options: sqlite, postgres.\n- `database_external`: Use external database; optional; default: false; shown when: database_type=postgres.\n- `database_name`: Name of the database; optional; default: grafana; shown when: database_type=postgres.\n- `database_user`: Username for the database; optional; default: grafana; shown when: database_type=postgres.\n- `database_password`: Password for the database; required; shown when: database_type=postgres.\n- `database_host`: Hostname used for Database; required; shown when: database_type=postgres and database_external=true.\n\n## References\n- [Grafana](https://grafana.com/)\n- [Documentation](https://grafana.com/docs/grafana/latest/)\n- [GitHub](https://github.com/grafana/grafana)\n\n## Next Steps\nLog in with the initial admin user:\n```bash\nUsername: admin\nPassword: admin\n```",
+    "tags": [
+      "traefik",
+      "authentik"
+    ],
+    "template_version": "12.3.3",
+    "icon": {
+      "provider": "selfhst",
+      "id": "grafana"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "title": "General",
+      "variables": [
+        {
+          "name": "service_name",
+          "type": "str",
+          "title": "Service Name",
+          "required": false,
+          "default": "grafana",
+          "config": {
+            "placeholder": "grafana"
+          },
+          "description": "Name of the service."
+        },
+        {
+          "name": "restart_policy",
+          "type": "enum",
+          "title": "Restart Policy",
+          "required": true,
+          "default": "unless-stopped",
+          "config": {
+            "options": [
+              "unless-stopped",
+              "always",
+              "on-failure",
+              "no"
+            ]
+          },
+          "description": "Policy used for Restart."
+        }
+      ],
+      "name": "general"
+    },
+    {
+      "title": "Ports",
+      "variables": [
+        {
+          "name": "ports_http",
+          "type": "str",
+          "title": "HTTP Port",
+          "required": false,
+          "default": 3000,
+          "config": {
+            "placeholder": "3000"
+          },
+          "description": "Host port exposed for HTTP."
+        }
+      ],
+      "name": "ports"
+    },
+    {
+      "title": "Authentik",
+      "toggle": "authentik_enabled",
+      "variables": [
+        {
+          "name": "authentik_enabled",
+          "type": "bool",
+          "title": "Authentik SSO",
+          "required": false,
+          "default": false,
+          "description": "Enable Authentik SSO integration"
+        },
+        {
+          "name": "authentik_url",
+          "type": "str",
+          "title": "Authentik Url",
+          "required": true,
+          "default": "https://auth.home.arpa",
+          "needs": [
+            "authentik_enabled=true"
+          ],
+          "config": {
+            "placeholder": "https://auth.home.arpa"
+          },
+          "description": "URL used for Authentik."
+        },
+        {
+          "name": "authentik_slug",
+          "type": "str",
+          "title": "Authentik Slug",
+          "required": true,
+          "default": "grafana",
+          "needs": [
+            "authentik_enabled=true"
+          ],
+          "config": {
+            "placeholder": "grafana"
+          },
+          "description": "Value used for the authentik settings."
+        },
+        {
+          "name": "authentik_client_id",
+          "type": "secret",
+          "title": "Authentik Client Id",
+          "required": true,
+          "needs": [
+            "authentik_enabled=true"
+          ],
+          "description": "Identifier for the authentik client."
+        },
+        {
+          "name": "authentik_client_secret",
+          "type": "secret",
+          "title": "Authentik Client Secret",
+          "required": true,
+          "needs": [
+            "authentik_enabled=true"
+          ],
+          "description": "Secret value for the authentik client."
+        }
+      ],
+      "name": "authentik"
+    },
+    {
+      "title": "Traefik",
+      "variables": [
+        {
+          "name": "traefik_enabled",
+          "type": "bool",
+          "title": "Traefik",
+          "required": false,
+          "default": false,
+          "description": "Enable Traefik integration"
+        },
+        {
+          "name": "traefik_host",
+          "type": "str",
+          "title": "Host",
+          "required": false,
+          "config": {
+            "placeholder": "grafana"
+          },
+          "description": "Hostname used for Traefik."
+        },
+        {
+          "name": "traefik_domain",
+          "type": "str",
+          "title": "Domain",
+          "required": true,
+          "config": {
+            "placeholder": "home.arpa"
+          },
+          "description": "Domain used for Traefik."
+        },
+        {
+          "name": "traefik_network",
+          "type": "str",
+          "title": "Network",
+          "required": true,
+          "default": "traefik",
+          "config": {
+            "placeholder": "traefik"
+          },
+          "description": "Network used for Traefik."
+        },
+        {
+          "name": "traefik_tls_enabled",
+          "type": "bool",
+          "title": "TLS",
+          "required": false,
+          "default": false,
+          "description": "Enable Traefik TLS"
+        },
+        {
+          "name": "traefik_tls_certresolver",
+          "type": "str",
+          "title": "Cert Resolver",
+          "required": true,
+          "default": "cloudflare",
+          "config": {
+            "placeholder": "cloudflare"
+          },
+          "description": "Traefik Tls Certresolver",
+          "needs": [
+            "traefik_tls_enabled=true"
+          ]
+        }
+      ],
+      "name": "traefik",
+      "toggle": "traefik_enabled"
+    },
+    {
+      "title": "Database",
+      "variables": [
+        {
+          "name": "database_type",
+          "type": "enum",
+          "title": "Database Type",
+          "required": false,
+          "config": {
+            "options": [
+              "sqlite",
+              "postgres"
+            ]
+          },
+          "description": "Database engine to use."
+        },
+        {
+          "name": "database_external",
+          "type": "bool",
+          "title": "External Database",
+          "required": false,
+          "default": false,
+          "description": "Use external database",
+          "needs": [
+            "database_type=postgres"
+          ]
+        },
+        {
+          "name": "database_name",
+          "type": "str",
+          "title": "Database Name",
+          "required": false,
+          "default": "grafana",
+          "needs": [
+            "database_type=postgres"
+          ],
+          "config": {
+            "placeholder": "grafana"
+          },
+          "description": "Name of the database."
+        },
+        {
+          "name": "database_user",
+          "type": "str",
+          "title": "Database User",
+          "required": false,
+          "default": "grafana",
+          "needs": [
+            "database_type=postgres"
+          ],
+          "config": {
+            "placeholder": "grafana"
+          },
+          "description": "Username for the database."
+        },
+        {
+          "name": "database_password",
+          "type": "secret",
+          "title": "Database Password",
+          "required": true,
+          "needs": [
+            "database_type=postgres"
+          ],
+          "description": "Password for the database."
+        },
+        {
+          "name": "database_host",
+          "type": "str",
+          "title": "Database Host",
+          "required": true,
+          "needs": [
+            "database_type=postgres",
+            "database_external=true"
+          ],
+          "description": "Hostname used for Database."
+        }
+      ],
+      "name": "database"
+    }
+  ]
+}

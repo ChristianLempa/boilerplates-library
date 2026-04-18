@@ -1,0 +1,88 @@
+{
+  "slug": "checkmk-install-agent",
+  "kind": "ansible",
+  "metadata": {
+    "name": "Install Checkmk Agent",
+    "description": "Installs and registers the Checkmk monitoring agent on target hosts using the checkmk.general.agent Ansible role.",
+    "guide": "## Overview\nInstalls and registers the Checkmk monitoring agent on the workload-selected hosts using the `checkmk.general.agent` Ansible role.\n\n## How to Use\nThis template renders `main.yml` as a file.\n\n1. Review the authentication and registration settings first.\n2. Fill in the required variables for the task you want to automate, then adjust optional safety or notification settings as needed.\n3. Render the playbook and run it against the intended inventory after validating the values for your environment. The workload inventory already provides the host selection, so the playbook runs against `all` selected hosts.\n\n## Variable Guide\n### Checkmk Configuration\n- `checkmk_server`: Checkmk Server; required.\n- `checkmk_protocol`: Checkmk Server Protocol; required; default: https.\n- `checkmk_site`: Checkmk Site; required; default: cmk.\n- `checkmk_auto_activate`: Auto Activate Agent; optional.\n- `checkmk_tls`: Use TLS for Agent Communication; optional.\n- `checkmk_user`: Checkmk Automation User; required.\n- `checkmk_pass`: Checkmk Automation User Password; required.\n- `checkmk_host`: Checkmk Host Name; required.\n\n## References\n- [Checkmk Ansible Collection](https://github.com/Checkmk/ansible-collection-checkmk.general)\n- [Checkmk Documentation](https://docs.checkmk.com/)\n## Pre-Requisites\n- A running Checkmk server with API access\n- Automation user credentials configured on the Checkmk server",
+    "tags": [],
+    "template_version": "2.4.0",
+    "icon": {
+      "provider": "selfhst",
+      "id": "checkmk"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "title": "Checkmk Configuration",
+      "variables": [
+        {
+          "name": "checkmk_server",
+          "type": "str",
+          "title": "Checkmk Server",
+          "required": true,
+          "description": "Value used for the checkmk configuration settings."
+        },
+        {
+          "name": "checkmk_protocol",
+          "type": "str",
+          "title": "Protocol",
+          "required": true,
+          "default": "https",
+          "description": "Checkmk Server Protocol",
+          "config": {
+            "placeholder": "https"
+          }
+        },
+        {
+          "name": "checkmk_site",
+          "type": "str",
+          "title": "Checkmk Site",
+          "required": true,
+          "default": "cmk",
+          "description": "Value used for the checkmk configuration settings.",
+          "config": {
+            "placeholder": "cmk"
+          }
+        },
+        {
+          "name": "checkmk_auto_activate",
+          "type": "bool",
+          "title": "Auto Activate Agent",
+          "required": false,
+          "description": "Enable or disable auto activate agent."
+        },
+        {
+          "name": "checkmk_tls",
+          "type": "bool",
+          "title": "TLS",
+          "required": false,
+          "description": "Use TLS for Agent Communication"
+        },
+        {
+          "name": "checkmk_user",
+          "type": "str",
+          "title": "Checkmk Automation User",
+          "required": true,
+          "description": "Username for the checkmk automation."
+        },
+        {
+          "name": "checkmk_pass",
+          "type": "secret",
+          "title": "Automation Password",
+          "required": true,
+          "description": "Checkmk Automation User Password"
+        },
+        {
+          "name": "checkmk_host",
+          "type": "str",
+          "title": "Checkmk Host Name",
+          "required": true,
+          "description": "Name to use for the checkmk host."
+        }
+      ],
+      "name": "checkmk"
+    }
+  ]
+}

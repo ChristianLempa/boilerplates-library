@@ -1,0 +1,232 @@
+{
+  "slug": "postgres",
+  "kind": "compose",
+  "metadata": {
+    "name": "PostgreSQL",
+    "description": "Powerful open-source object-relational database system with over 35 years of active development, known for reliability, feature robustness, and performance.",
+    "guide": "## Overview\nPowerful open-source object-relational database system with over 35 years of active development, known for reliability, feature robustness, and performance.\n\n## Prerequisites\n- Decide whether PostgreSQL should be exposed on a host port or kept private on the Docker network.\n- Choose the persistence mode and confirm the target storage path or NFS export is ready before first start.\n- Define the bootstrap database, user, and password up front and make sure they are captured in your secret store.\n\n## Deploy\n- Render the generated files, review the storage and network settings, and start the stack with `docker compose up -d`.\n- Watch the logs until PostgreSQL finishes initialization and begins accepting connections.\n\n## Post-Install\n- Create any application-specific roles, schemas, and extensions after the bootstrap database is online.\n- Verify backups and at least one restore path before storing real data on the instance.\n- Keep this deployment single-primary unless you add a separate replication or failover design around it.\n\n## References\n- [PostgreSQL](https://www.postgresql.org/)\n- [Documentation](https://www.postgresql.org/docs/)\n- [GitHub](https://github.com/postgres/postgres)",
+    "tags": [],
+    "template_version": "18.2",
+    "icon": {
+      "provider": "selfhst",
+      "id": "postgresql"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "title": "General",
+      "variables": [
+        {
+          "name": "service_name",
+          "type": "str",
+          "title": "Service Name",
+          "required": false,
+          "default": "postgres",
+          "config": {
+            "placeholder": "postgres"
+          },
+          "description": "Name of the service."
+        },
+        {
+          "name": "container_name",
+          "type": "str",
+          "title": "Container Name",
+          "required": false,
+          "default": "postgres",
+          "config": {
+            "placeholder": "postgres"
+          },
+          "description": "Name to use for the container."
+        },
+        {
+          "name": "container_hostname",
+          "type": "str",
+          "title": "Container Hostname",
+          "required": false,
+          "description": "Hostname used inside the container."
+        },
+        {
+          "name": "container_timezone",
+          "type": "str",
+          "title": "Container Timezone",
+          "required": false,
+          "description": "Timezone used inside the container."
+        },
+        {
+          "name": "restart_policy",
+          "type": "enum",
+          "title": "Restart Policy",
+          "required": true,
+          "default": "unless-stopped",
+          "config": {
+            "options": [
+              "unless-stopped",
+              "always",
+              "on-failure",
+              "no"
+            ]
+          },
+          "description": "Policy used for Restart."
+        },
+        {
+          "name": "postgres_initdb_args",
+          "type": "str",
+          "title": "Postgres Initdb Args",
+          "required": false,
+          "default": "",
+          "description": "Value used for the general settings."
+        },
+        {
+          "name": "postgres_host_auth_method",
+          "type": "str",
+          "title": "Host Auth",
+          "required": false,
+          "default": "",
+          "description": "Postgres Host Auth Method"
+        }
+      ],
+      "name": "general"
+    },
+    {
+      "title": "Ports",
+      "variables": [
+        {
+          "name": "ports_postgres",
+          "type": "int",
+          "title": "PostgreSQL port",
+          "required": false,
+          "default": 5432,
+          "description": "Port used for Postgresql.",
+          "config": {
+            "placeholder": "5432"
+          }
+        }
+      ],
+      "name": "ports"
+    },
+    {
+      "title": "Network",
+      "variables": [
+        {
+          "name": "network_mode",
+          "type": "str",
+          "title": "Network Mode",
+          "required": false,
+          "description": "Mode used for Network."
+        },
+        {
+          "name": "network_name",
+          "type": "str",
+          "title": "Network Name",
+          "required": false,
+          "default": "postgres_network",
+          "config": {
+            "placeholder": "postgres_network"
+          },
+          "description": "Name to use for the network."
+        },
+        {
+          "name": "network_external",
+          "type": "bool",
+          "title": "External Network",
+          "required": false,
+          "default": false,
+          "description": "Whether the network is external"
+        }
+      ],
+      "name": "network"
+    },
+    {
+      "title": "Volume",
+      "variables": [
+        {
+          "name": "volume_mode",
+          "type": "enum",
+          "title": "Volume Mode",
+          "required": false,
+          "default": "local",
+          "description": "Volume mounting mode (local, mount, nfs)",
+          "config": {
+            "options": [
+              "local",
+              "mount",
+              "nfs"
+            ]
+          }
+        },
+        {
+          "name": "volume_mount_path",
+          "type": "str",
+          "title": "Bind Path",
+          "required": false,
+          "default": "/var/lib/postgresql/data",
+          "description": "Path for bind mounts when volume_mode is 'mount'",
+          "config": {
+            "placeholder": "/var/lib/postgresql/data"
+          }
+        },
+        {
+          "name": "volume_nfs_server",
+          "type": "str",
+          "title": "NFS Server",
+          "required": false,
+          "default": "",
+          "description": "NFS server address when volume_mode is 'nfs'"
+        },
+        {
+          "name": "volume_nfs_path",
+          "type": "str",
+          "title": "NFS Path",
+          "required": false,
+          "default": "",
+          "description": "NFS path when volume_mode is 'nfs'"
+        },
+        {
+          "name": "volume_nfs_options",
+          "type": "str",
+          "title": "NFS Options",
+          "required": false,
+          "default": "rw",
+          "description": "NFS mount options when volume_mode is 'nfs'",
+          "config": {
+            "placeholder": "rw"
+          }
+        }
+      ],
+      "name": "volume"
+    },
+    {
+      "title": "Database",
+      "variables": [
+        {
+          "name": "database_name",
+          "type": "str",
+          "title": "Database Name",
+          "required": true,
+          "default": "app",
+          "description": "Name of the database."
+        },
+        {
+          "name": "database_user",
+          "type": "str",
+          "title": "Database User",
+          "required": true,
+          "default": "app",
+          "description": "Username for the database."
+        },
+        {
+          "name": "database_password",
+          "type": "secret",
+          "title": "Database password",
+          "required": true,
+          "description": "Password for the database.",
+          "config": {
+            "autogenerated": true
+          }
+        }
+      ],
+      "name": "database"
+    }
+  ]
+}

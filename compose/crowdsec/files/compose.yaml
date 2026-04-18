@@ -1,0 +1,63 @@
+services:
+  << service_name >>:
+    image: crowdsecurity/crowdsec:<< image_tag >>
+    container_name: << container_name >>
+    environment:
+      - TZ=<< container_timezone >>
+      - COLLECTIONS=<< collections_core >><%- if collections_extra %> << collections_extra >><%- endif %><%- if appsec_enabled %> crowdsecurity/appsec-virtual-patching crowdsecurity/appsec-generic-rules<%- endif %>
+      <%- if docker_logs_enabled %>
+      - GID=<< docker_group_id >>
+      <%- endif %>
+      <%- if console_enrollment_enabled %>
+      - ENROLL_KEY=${ENROLL_KEY}
+      - ENROLL_INSTANCE_NAME=<< console_enrollment_name >>
+      <%- if console_enrollment_tags %>
+      - ENROLL_TAGS=<< console_enrollment_tags >>
+      <%- endif %>
+      <%- endif %>
+      <%- if bouncer_traefik_key %>
+      - BOUNCER_KEY_TRAEFIK=${BOUNCER_KEY_TRAEFIK}
+      <%- endif %>
+    volumes:
+      - ./config/acquis.yaml:/etc/crowdsec/acquis.yaml:ro
+      - ./config/acquis.d:/etc/crowdsec/acquis.d:ro
+      - crowdsec_data:/var/lib/crowdsec/data
+      - /var/log:/var/log-host:ro
+      <%- if docker_logs_enabled %>
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      <%- endif %>
+      <%- if traefik_accesslog_enabled %>
+      - << traefik_accesslog_mount_path >>:/var/log/traefik:ro
+      <%- endif %>
+    <%- if lapi_expose_enabled or (appsec_enabled and appsec_expose_enabled) %>
+    ports:
+      <%- if lapi_expose_enabled %>
+      - "<< lapi_bind_address >>:<< lapi_port >>:8080"
+      <%- endif %>
+      <%- if appsec_enabled and appsec_expose_enabled %>
+      - "<< appsec_bind_address >>:<< appsec_port >>:7422"
+      <%- endif %>
+    <%- endif %>
+    restart: << restart_policy >>
+    networks:
+      - crowdsec
+      <%- if traefik_network_enabled %>
+      - << traefik_network >>
+      <%- endif %>
+
+networks:
+  crowdsec:
+    driver: bridge
+  <%- if traefik_network_enabled %>
+  << traefik_network >>:
+    <%- if traefik_network_external %>
+    external: true
+    <%- else %>
+    driver: bridge
+    name: << traefik_network >>
+    <%- endif %>
+  <%- endif %>
+
+volumes:
+  crowdsec_data:
+    driver: local

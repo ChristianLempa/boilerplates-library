@@ -1,0 +1,418 @@
+{
+  "slug": "core-cronjob",
+  "kind": "kubernetes",
+  "metadata": {
+    "name": "Kubernetes CronJob",
+    "description": "Creates a Kubernetes CronJob with configurable schedule, image, command and args lists, simple environment variables, optional PVC mounting, and optional resource requests and limits.",
+    "guide": "## Overview\nCreates a Kubernetes CronJob resource for recurring backups, sync jobs, maintenance tasks, and scheduled application workflows.\n\n## Prerequisites\n- Confirm the image, schedule, and any referenced ServiceAccount or PersistentVolumeClaim exist before applying the manifest.\n- If the job touches external systems, make sure the target credentials and network policy are already in place.\n\n## Apply\n- Render `main.yaml`, review the schedule, command, retry behavior, and any mounted PVC, then apply it with `kubectl apply -f main.yaml`.\n- Use `kubectl get cronjob <name> -n <namespace>` and `kubectl get jobs -n <namespace>` to confirm the schedule behaves as expected.\n\n## Follow-Up\n- Trigger a manual run from the rendered spec if you want to validate the job before waiting for the next schedule.\n- Review logs from the created Job Pods to verify backups or maintenance steps completed successfully.\n\n## References\n- [CronJob Documentation](https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/)",
+    "tags": [],
+    "template_version": "1.31.0",
+    "icon": {
+      "provider": "simple-icons",
+      "id": "kubernetes"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "title": "General",
+      "name": "general",
+      "variables": [
+        {
+          "name": "resource_name",
+          "type": "str",
+          "title": "CronJob name",
+          "required": false,
+          "default": "app-cronjob",
+          "description": "Name to use for the CronJob.",
+          "config": {
+            "placeholder": "app-cronjob"
+          }
+        },
+        {
+          "name": "namespace",
+          "type": "str",
+          "title": "Namespace",
+          "required": false,
+          "default": "default",
+          "description": "Namespace for the resource.",
+          "config": {
+            "placeholder": "default"
+          }
+        },
+        {
+          "name": "app_label",
+          "type": "str",
+          "title": "App Label",
+          "required": false,
+          "default": "app",
+          "description": "App label value used for Job Pods.",
+          "config": {
+            "placeholder": "app"
+          }
+        },
+        {
+          "name": "schedule",
+          "type": "str",
+          "title": "Schedule",
+          "required": false,
+          "default": "0 3 * * *",
+          "description": "Cron expression used by the CronJob.",
+          "config": {
+            "placeholder": "0 3 * * *"
+          }
+        },
+        {
+          "name": "suspend",
+          "type": "bool",
+          "title": "Suspend",
+          "required": false,
+          "default": false,
+          "description": "Suspend future scheduled runs."
+        },
+        {
+          "name": "concurrency_policy",
+          "type": "enum",
+          "title": "Concurrency policy",
+          "required": false,
+          "default": "Forbid",
+          "description": "Policy used when a scheduled run overlaps with a previous run.",
+          "config": {
+            "options": [
+              "Allow",
+              "Forbid",
+              "Replace"
+            ]
+          }
+        },
+        {
+          "name": "successful_jobs_history_limit",
+          "type": "int",
+          "title": "Successful jobs history limit",
+          "required": false,
+          "default": 3,
+          "description": "Number of successful Job resources to retain.",
+          "config": {
+            "placeholder": "3"
+          }
+        },
+        {
+          "name": "failed_jobs_history_limit",
+          "type": "int",
+          "title": "Failed jobs history limit",
+          "required": false,
+          "default": 1,
+          "description": "Number of failed Job resources to retain.",
+          "config": {
+            "placeholder": "1"
+          }
+        },
+        {
+          "name": "backoff_limit",
+          "type": "int",
+          "title": "Backoff limit",
+          "required": false,
+          "default": 1,
+          "description": "Number of retries before the Job is marked failed.",
+          "config": {
+            "placeholder": "1"
+          }
+        },
+        {
+          "name": "restart_policy",
+          "type": "enum",
+          "title": "Restart policy",
+          "required": false,
+          "default": "OnFailure",
+          "description": "Restart policy used for Job Pods.",
+          "config": {
+            "options": [
+              "Never",
+              "OnFailure"
+            ]
+          }
+        },
+        {
+          "name": "service_account_name",
+          "type": "str",
+          "title": "ServiceAccount Name",
+          "required": false,
+          "description": "ServiceAccount name for the Job Pod spec.",
+          "config": {
+            "placeholder": "backup-serviceaccount"
+          }
+        },
+        {
+          "name": "ttl_seconds_after_finished_enabled",
+          "type": "bool",
+          "title": "Job TTL",
+          "required": false,
+          "default": false,
+          "description": "Set a TTL for finished Jobs."
+        },
+        {
+          "name": "ttl_seconds_after_finished",
+          "type": "int",
+          "title": "TTL seconds after finished",
+          "required": false,
+          "default": 86400,
+          "description": "TTL in seconds for finished Jobs.",
+          "config": {
+            "placeholder": "86400"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Container",
+      "name": "container",
+      "variables": [
+        {
+          "name": "container_name",
+          "type": "str",
+          "title": "Container name",
+          "required": false,
+          "default": "job",
+          "description": "Name to use for the container.",
+          "config": {
+            "placeholder": "job"
+          }
+        },
+        {
+          "name": "image",
+          "type": "str",
+          "title": "Container image reference",
+          "required": true,
+          "description": "Container image used by the CronJob.",
+          "config": {
+            "placeholder": "alpine:3.21"
+          }
+        },
+        {
+          "name": "image_pull_policy",
+          "type": "enum",
+          "title": "Image pull policy",
+          "required": false,
+          "default": "IfNotPresent",
+          "description": "Policy used for image pulls.",
+          "config": {
+            "options": [
+              "Always",
+              "IfNotPresent",
+              "Never"
+            ]
+          }
+        },
+        {
+          "name": "command_enabled",
+          "type": "bool",
+          "title": "Command",
+          "required": false,
+          "default": false,
+          "description": "Render a custom command list."
+        },
+        {
+          "name": "command_items",
+          "type": "str",
+          "title": "Command items",
+          "required": false,
+          "default": "sh,-c,echo hello from cronjob",
+          "description": "Comma-separated command list rendered as the container command array.",
+          "config": {
+            "placeholder": "sh,-c,echo hello from cronjob"
+          }
+        },
+        {
+          "name": "args_enabled",
+          "type": "bool",
+          "title": "Args",
+          "required": false,
+          "default": false,
+          "description": "Render a custom args list."
+        },
+        {
+          "name": "args_items",
+          "type": "str",
+          "title": "Args items",
+          "required": false,
+          "default": "--verbose,--all",
+          "description": "Comma-separated args list rendered as the container args array.",
+          "config": {
+            "placeholder": "--verbose,--all"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Environment",
+      "name": "environment",
+      "variables": [
+        {
+          "name": "env_literal_enabled",
+          "type": "bool",
+          "title": "Literal Env Var",
+          "required": false,
+          "default": false,
+          "description": "Add one literal environment variable."
+        },
+        {
+          "name": "env_literal_name",
+          "type": "str",
+          "title": "Literal Env Name",
+          "required": false,
+          "default": "APP_ENV",
+          "description": "Literal environment variable name.",
+          "config": {
+            "placeholder": "APP_ENV"
+          }
+        },
+        {
+          "name": "env_literal_value",
+          "type": "str",
+          "title": "Literal Env Value",
+          "required": false,
+          "default": "production",
+          "description": "Literal environment variable value.",
+          "config": {
+            "placeholder": "production"
+          }
+        },
+        {
+          "name": "env_secret_enabled",
+          "type": "bool",
+          "title": "Secret Env Var",
+          "required": false,
+          "default": false,
+          "description": "Add one secret-backed environment variable."
+        },
+        {
+          "name": "env_secret_name",
+          "type": "str",
+          "title": "Secret Env Name",
+          "required": false,
+          "default": "APP_SECRET",
+          "description": "Environment variable name sourced from a Secret.",
+          "config": {
+            "placeholder": "APP_SECRET"
+          }
+        },
+        {
+          "name": "env_secret_secret_name",
+          "type": "str",
+          "title": "Secret resource name",
+          "required": false,
+          "default": "app-secret",
+          "description": "Secret name containing the value.",
+          "config": {
+            "placeholder": "app-secret"
+          }
+        },
+        {
+          "name": "env_secret_secret_key",
+          "type": "str",
+          "title": "Secret key",
+          "required": false,
+          "default": "password",
+          "description": "Key within the Secret containing the value.",
+          "config": {
+            "placeholder": "password"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Storage",
+      "name": "storage",
+      "variables": [
+        {
+          "name": "pvc_mount_enabled",
+          "type": "bool",
+          "title": "PersistentVolumeClaim mount",
+          "required": false,
+          "default": false,
+          "description": "Mount an existing PersistentVolumeClaim into the Job Pod."
+        },
+        {
+          "name": "pvc_claim_name",
+          "type": "str",
+          "title": "PersistentVolumeClaim name",
+          "required": false,
+          "default": "app-pvc",
+          "description": "Existing claim name to mount.",
+          "config": {
+            "placeholder": "app-pvc"
+          }
+        },
+        {
+          "name": "pvc_mount_path",
+          "type": "str",
+          "title": "Mount path",
+          "required": false,
+          "default": "/data",
+          "description": "Container path where the claim is mounted.",
+          "config": {
+            "placeholder": "/data"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Resources",
+      "name": "resources",
+      "variables": [
+        {
+          "name": "resources_enabled",
+          "type": "bool",
+          "title": "Resources",
+          "required": false,
+          "default": false,
+          "description": "Enable container resource requests and limits."
+        },
+        {
+          "name": "resources_cpu_limit",
+          "type": "str",
+          "title": "CPU limit",
+          "required": false,
+          "default": "500m",
+          "description": "CPU limit for the container.",
+          "config": {
+            "placeholder": "500m"
+          }
+        },
+        {
+          "name": "resources_cpu_request",
+          "type": "str",
+          "title": "CPU request",
+          "required": false,
+          "default": "100m",
+          "description": "CPU request for the container.",
+          "config": {
+            "placeholder": "100m"
+          }
+        },
+        {
+          "name": "resources_memory_limit",
+          "type": "str",
+          "title": "Memory limit",
+          "required": false,
+          "default": "512Mi",
+          "description": "Memory limit for the container.",
+          "config": {
+            "placeholder": "512Mi"
+          }
+        },
+        {
+          "name": "resources_memory_request",
+          "type": "str",
+          "title": "Memory request",
+          "required": false,
+          "default": "128Mi",
+          "description": "Memory request for the container.",
+          "config": {
+            "placeholder": "128Mi"
+          }
+        }
+      ]
+    }
+  ]
+}

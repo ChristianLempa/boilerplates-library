@@ -1,0 +1,78 @@
+http:
+  middlewares:
+    <%- if security_headers_enabled %>
+    security-headers:
+      headers:
+        contentTypeNosniff: true
+        frameDeny: true
+        browserXssFilter: true
+        referrerPolicy: same-origin
+        stsSeconds: 31536000
+        stsIncludeSubdomains: true
+        stsPreload: true
+        customResponseHeaders:
+          X-Robots-Tag: none
+    <%- endif %>
+    <%- if dashboard_basicauth_enabled %>
+    dashboard-basicauth:
+      basicAuth:
+        users:
+          - << dashboard_basicauth_users >>
+    <%- endif %>
+    <%- if ipallowlist_enabled %>
+    dashboard-ipallowlist:
+      ipAllowList:
+        sourceRange:
+          - << ipallowlist_range_1 >>
+          <%- if ipallowlist_range_2 %>
+          - << ipallowlist_range_2 >>
+          <%- endif %>
+          <%- if ipallowlist_range_3 %>
+          - << ipallowlist_range_3 >>
+          <%- endif %>
+    default-ipallowlist:
+      ipAllowList:
+        sourceRange:
+          - << ipallowlist_range_1 >>
+          <%- if ipallowlist_range_2 %>
+          - << ipallowlist_range_2 >>
+          <%- endif %>
+          <%- if ipallowlist_range_3 %>
+          - << ipallowlist_range_3 >>
+          <%- endif %>
+    <%- endif %>
+    <%- if forwardauth_enabled %>
+    forward-auth:
+      forwardAuth:
+        address: "<< forwardauth_address >>"
+        trustForwardHeader: << forwardauth_trust_forward_header | lower >>
+        authResponseHeadersRegex: "<< forwardauth_response_headers_regex >>"
+    <%- endif %>
+    <%- if crowdsec_middleware_enabled %>
+    crowdsec-bouncer:
+      plugin:
+        crowdsec-bouncer-traefik-plugin:
+          enabled: true
+          crowdsecMode: << crowdsec_mode >>
+          crowdsecLapiScheme: http
+          crowdsecLapiHost: << crowdsec_lapi_host >>
+          crowdsecLapiKey: << crowdsec_bouncer_key >>
+          <%- if crowdsec_trusted_ip_1 or crowdsec_trusted_ip_2 or crowdsec_trusted_ip_3 %>
+          forwardedHeadersTrustedIPs:
+            <%- if crowdsec_trusted_ip_1 %>
+            - << crowdsec_trusted_ip_1 >>
+            <%- endif %>
+            <%- if crowdsec_trusted_ip_2 %>
+            - << crowdsec_trusted_ip_2 >>
+            <%- endif %>
+            <%- if crowdsec_trusted_ip_3 %>
+            - << crowdsec_trusted_ip_3 >>
+            <%- endif %>
+          <%- endif %>
+          crowdsecAppsecEnabled: << crowdsec_appsec_enabled | lower >>
+          <%- if crowdsec_appsec_enabled %>
+          crowdsecAppsecHost: << crowdsec_appsec_host >>
+          crowdsecAppsecFailureBlock: << crowdsec_appsec_failure_block | lower >>
+          crowdsecAppsecUnreachableBlock: << crowdsec_appsec_unreachable_block | lower >>
+          <%- endif %>
+    <%- endif %>

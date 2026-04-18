@@ -1,0 +1,121 @@
+{
+  "slug": "docker-volume-restore",
+  "kind": "bash",
+  "metadata": {
+    "name": "Docker Volume Restore",
+    "description": "One-shot Bash restore script for extracting a .tar.gz container-path backup back into a Docker container through a helper container with optional stop/start, wipe-target, confirmation, and dry-run controls.",
+    "guide": "## Overview\nThis template renders a standalone `main.sh` restore script for Docker volume or bind-mounted data paths.\n\n## What It Does\n- Validates Docker, the target container, archive format, helper image, and target path before extracting data.\n- Uses a temporary helper container with `--volumes-from` so the restore writes through the same mounts as the application container.\n- Supports optional stop/start, optional wipe of the target path before extraction, interactive confirmation, `--yes`, and `--dry-run`.\n\n## Prerequisites\n- The archive should be a `.tar.gz` or `.tgz` created from the target container path, ideally by the complementary backup template.\n- The helper image must be available locally or pullable by the Docker host.\n- If you stop the application container for consistency, make sure the service can tolerate the maintenance window.\n\n## Run\n1. Render the template and confirm the container name, archive path, target path, and safety defaults.\n2. Run `bash main.sh --help` to review flags.\n3. Execute the restore with prompts enabled or pass `--yes` for automation.\n\n## Notes\n- Archives created by this repo preserve the full container path. The target path should usually match the original backed-up path.\n- `--dry-run` prints the actions that would run without changing the target container data.\n\n## Docs\n- [Docker Volumes](https://docs.docker.com/storage/volumes/)\n- [tar Manual](https://www.gnu.org/software/tar/manual/tar.html)",
+    "tags": [
+      "docker",
+      "restore",
+      "volume",
+      "container",
+      "bash"
+    ],
+    "template_version": "1.0.0",
+    "icon": {
+      "provider": "mdi",
+      "id": "harddisk",
+      "color": "emerald"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "title": "Restore",
+      "variables": [
+        {
+          "name": "container_name",
+          "type": "str",
+          "title": "Container Name",
+          "required": true,
+          "default": "app",
+          "description": "Name of the target Docker container.",
+          "config": {
+            "placeholder": "app"
+          }
+        },
+        {
+          "name": "archive_path",
+          "type": "str",
+          "title": "Archive Path",
+          "required": true,
+          "default": "/backups/backup_app_latest.tar.gz",
+          "description": "Absolute path to the .tar.gz or .tgz archive on the Docker host.",
+          "config": {
+            "placeholder": "/backups/backup_app_latest.tar.gz"
+          }
+        },
+        {
+          "name": "restore_container_path",
+          "type": "str",
+          "title": "Container Path",
+          "required": true,
+          "default": "/config",
+          "description": "Container path that should receive the restored files.",
+          "config": {
+            "placeholder": "/config"
+          }
+        },
+        {
+          "name": "helper_image",
+          "type": "str",
+          "title": "Helper Image",
+          "required": false,
+          "default": "busybox:1.36.1",
+          "description": "Temporary helper image used to extract the archive through the target container mounts.",
+          "config": {
+            "placeholder": "busybox:1.36.1"
+          }
+        }
+      ],
+      "name": "restore"
+    },
+    {
+      "title": "Safety",
+      "variables": [
+        {
+          "name": "stop_container_during_restore",
+          "type": "bool",
+          "title": "Stop Container",
+          "required": false,
+          "default": true,
+          "description": "Stop the target container before restore if it is currently running."
+        },
+        {
+          "name": "start_container_after_restore",
+          "type": "bool",
+          "title": "Restart After Restore",
+          "required": false,
+          "default": true,
+          "description": "Start the container again after restore if this script stopped it."
+        },
+        {
+          "name": "wipe_target_path",
+          "type": "bool",
+          "title": "Wipe Target Path",
+          "required": false,
+          "default": false,
+          "description": "Delete existing files under the target path before extraction."
+        },
+        {
+          "name": "dry_run",
+          "type": "bool",
+          "title": "Dry Run",
+          "required": false,
+          "default": false,
+          "description": "Print planned actions without changing the target."
+        },
+        {
+          "name": "auto_yes",
+          "type": "bool",
+          "title": "Auto Approve",
+          "required": false,
+          "default": false,
+          "description": "Skip the interactive confirmation prompt."
+        }
+      ],
+      "name": "safety"
+    }
+  ]
+}

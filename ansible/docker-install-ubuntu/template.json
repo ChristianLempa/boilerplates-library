@@ -1,0 +1,44 @@
+{
+  "slug": "docker-install-ubuntu",
+  "kind": "ansible",
+  "metadata": {
+    "name": "Install Docker on Ubuntu",
+    "description": "Installs Docker Engine on Ubuntu systems using the official Docker APT repository.",
+    "guide": "## Overview\nThis playbook installs Docker Engine on Ubuntu from Docker's official APT repository.\n\n## Prerequisites\n- Target hosts must be supported Ubuntu releases with outbound package repository access.\n- Decide whether you want to add a non-root user to the `docker` group after install.\n\n## Run\n1. Render `main.yml` and confirm the target hosts and post-install user settings.\n2. Run the playbook against the Ubuntu hosts.\n3. Reconnect the target user session if you add it to the `docker` group.\n\n## Docs\n- [Docker Engine Install (Ubuntu)](https://docs.docker.com/engine/install/ubuntu/)\n- [Docker Documentation](https://docs.docker.com/)",
+    "tags": [],
+    "template_version": "1",
+    "icon": {
+      "provider": "simple-icons",
+      "id": "docker",
+      "color": "blue"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "title": "User Access",
+      "variables": [
+        {
+          "name": "add_user_to_docker",
+          "type": "bool",
+          "title": "Docker Group",
+          "required": false,
+          "default": false,
+          "description": "Add a user to the docker group"
+        },
+        {
+          "name": "user",
+          "type": "str",
+          "title": "User",
+          "required": false,
+          "default": "",
+          "description": "Username to add to docker group",
+          "needs": [
+            "add_user_to_docker=true"
+          ]
+        }
+      ],
+      "name": "postinstall"
+    }
+  ]
+}

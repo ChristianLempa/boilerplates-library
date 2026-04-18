@@ -1,0 +1,352 @@
+{
+  "slug": "core-daemonset",
+  "kind": "kubernetes",
+  "metadata": {
+    "name": "Kubernetes DaemonSet",
+    "description": "Creates a Kubernetes DaemonSet with configurable image, optional host networking, one container port, simple environment variables, an optional hostPath mount, optional control-plane tolerations, and optional resource requests and limits.",
+    "guide": "## Overview\nCreates a Kubernetes DaemonSet resource for agents, log shippers, metrics collectors, and other workloads that need one Pod per node.\n\n## Prerequisites\n- Confirm the container image, service account, and any host paths referenced by the template are valid for the target nodes.\n- Enable control-plane tolerations only when the workload is intended to run on those nodes.\n\n## Apply\n- Render `main.yaml`, review host networking, tolerations, and any hostPath mount settings, then apply it with `kubectl apply -f main.yaml`.\n- Use `kubectl rollout status daemonset/<name> -n <namespace>` to validate the rollout across nodes.\n\n## Follow-Up\n- Check Pod placement and logs on at least one worker and one control-plane node when that toleration is enabled.\n- Pair the DaemonSet with a ServiceMonitor, NetworkPolicy, or Service when the workload needs integration with the rest of the cluster.\n\n## References\n- [DaemonSet Documentation](https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/)",
+    "tags": [],
+    "template_version": "1.31.0",
+    "icon": {
+      "provider": "simple-icons",
+      "id": "kubernetes"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "title": "General",
+      "name": "general",
+      "variables": [
+        {
+          "name": "resource_name",
+          "type": "str",
+          "title": "DaemonSet name",
+          "required": false,
+          "default": "app-daemonset",
+          "description": "Name to use for the DaemonSet.",
+          "config": {
+            "placeholder": "app-daemonset"
+          }
+        },
+        {
+          "name": "namespace",
+          "type": "str",
+          "title": "Namespace",
+          "required": false,
+          "default": "default",
+          "description": "Namespace for the resource.",
+          "config": {
+            "placeholder": "default"
+          }
+        },
+        {
+          "name": "app_label",
+          "type": "str",
+          "title": "App Label",
+          "required": false,
+          "default": "app",
+          "description": "App label value used for selectors and Pod labels.",
+          "config": {
+            "placeholder": "app"
+          }
+        },
+        {
+          "name": "update_strategy",
+          "type": "enum",
+          "title": "Update strategy",
+          "required": false,
+          "default": "RollingUpdate",
+          "description": "Strategy used when updating Pods.",
+          "config": {
+            "options": [
+              "RollingUpdate",
+              "OnDelete"
+            ]
+          }
+        },
+        {
+          "name": "service_account_name",
+          "type": "str",
+          "title": "ServiceAccount Name",
+          "required": false,
+          "description": "ServiceAccount name for the Pod spec.",
+          "config": {
+            "placeholder": "agent-serviceaccount"
+          }
+        },
+        {
+          "name": "host_network_enabled",
+          "type": "bool",
+          "title": "Host network",
+          "required": false,
+          "default": false,
+          "description": "Run Pods on the host network namespace."
+        },
+        {
+          "name": "control_plane_toleration_enabled",
+          "type": "bool",
+          "title": "Control-plane toleration",
+          "required": false,
+          "default": false,
+          "description": "Allow scheduling on control-plane nodes."
+        }
+      ]
+    },
+    {
+      "title": "Container",
+      "name": "container",
+      "variables": [
+        {
+          "name": "container_name",
+          "type": "str",
+          "title": "Container name",
+          "required": false,
+          "default": "agent",
+          "description": "Name to use for the container.",
+          "config": {
+            "placeholder": "agent"
+          }
+        },
+        {
+          "name": "image",
+          "type": "str",
+          "title": "Container image reference",
+          "required": true,
+          "description": "Container image used by the DaemonSet.",
+          "config": {
+            "placeholder": "prom/node-exporter:v1.9.1"
+          }
+        },
+        {
+          "name": "image_pull_policy",
+          "type": "enum",
+          "title": "Image pull policy",
+          "required": false,
+          "default": "IfNotPresent",
+          "description": "Policy used for image pulls.",
+          "config": {
+            "options": [
+              "Always",
+              "IfNotPresent",
+              "Never"
+            ]
+          }
+        },
+        {
+          "name": "ports_enabled",
+          "type": "bool",
+          "title": "Container Port",
+          "required": false,
+          "default": false,
+          "description": "Expose one container port."
+        },
+        {
+          "name": "container_port",
+          "type": "int",
+          "title": "Container port number",
+          "required": false,
+          "default": 9100,
+          "description": "Container port to expose.",
+          "config": {
+            "placeholder": "9100"
+          }
+        },
+        {
+          "name": "container_port_name",
+          "type": "str",
+          "title": "Port name",
+          "required": false,
+          "default": "metrics",
+          "description": "Name to use for the container port.",
+          "config": {
+            "placeholder": "metrics"
+          }
+        },
+        {
+          "name": "container_port_protocol",
+          "type": "enum",
+          "title": "Port protocol",
+          "required": false,
+          "default": "TCP",
+          "description": "Protocol used for the container port.",
+          "config": {
+            "options": [
+              "TCP",
+              "UDP",
+              "SCTP"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": "Environment",
+      "name": "environment",
+      "variables": [
+        {
+          "name": "env_literal_enabled",
+          "type": "bool",
+          "title": "Literal Env Var",
+          "required": false,
+          "default": false,
+          "description": "Add one literal environment variable."
+        },
+        {
+          "name": "env_literal_name",
+          "type": "str",
+          "title": "Literal Env Name",
+          "required": false,
+          "default": "APP_ENV",
+          "description": "Literal environment variable name.",
+          "config": {
+            "placeholder": "APP_ENV"
+          }
+        },
+        {
+          "name": "env_literal_value",
+          "type": "str",
+          "title": "Literal Env Value",
+          "required": false,
+          "default": "production",
+          "description": "Literal environment variable value.",
+          "config": {
+            "placeholder": "production"
+          }
+        },
+        {
+          "name": "env_fieldref_enabled",
+          "type": "bool",
+          "title": "FieldRef Var",
+          "required": false,
+          "default": false,
+          "description": "Add one fieldRef environment variable."
+        },
+        {
+          "name": "env_fieldref_name",
+          "type": "str",
+          "title": "FieldRef Name",
+          "required": false,
+          "default": "NODE_NAME",
+          "description": "FieldRef environment variable name.",
+          "config": {
+            "placeholder": "NODE_NAME"
+          }
+        },
+        {
+          "name": "env_fieldref_field_path",
+          "type": "str",
+          "title": "FieldRef field path",
+          "required": false,
+          "default": "spec.nodeName",
+          "description": "Field path used for the fieldRef.",
+          "config": {
+            "placeholder": "spec.nodeName"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Storage",
+      "name": "storage",
+      "variables": [
+        {
+          "name": "host_path_enabled",
+          "type": "bool",
+          "title": "HostPath mount",
+          "required": false,
+          "default": false,
+          "description": "Mount a hostPath into the container."
+        },
+        {
+          "name": "host_path",
+          "type": "str",
+          "title": "Host path",
+          "required": false,
+          "default": "/var/log",
+          "description": "Host path mounted into the container.",
+          "config": {
+            "placeholder": "/var/log"
+          }
+        },
+        {
+          "name": "mount_path",
+          "type": "str",
+          "title": "Mount path",
+          "required": false,
+          "default": "/var/log/host",
+          "description": "Container path where the hostPath is mounted.",
+          "config": {
+            "placeholder": "/var/log/host"
+          }
+        },
+        {
+          "name": "host_path_read_only",
+          "type": "bool",
+          "title": "Read-only mount",
+          "required": false,
+          "default": true,
+          "description": "Mount the hostPath read-only inside the container."
+        }
+      ]
+    },
+    {
+      "title": "Resources",
+      "name": "resources",
+      "variables": [
+        {
+          "name": "resources_enabled",
+          "type": "bool",
+          "title": "Resources",
+          "required": false,
+          "default": false,
+          "description": "Enable container resource requests and limits."
+        },
+        {
+          "name": "resources_cpu_limit",
+          "type": "str",
+          "title": "CPU limit",
+          "required": false,
+          "default": "200m",
+          "description": "CPU limit for the container.",
+          "config": {
+            "placeholder": "200m"
+          }
+        },
+        {
+          "name": "resources_cpu_request",
+          "type": "str",
+          "title": "CPU request",
+          "required": false,
+          "default": "50m",
+          "description": "CPU request for the container.",
+          "config": {
+            "placeholder": "50m"
+          }
+        },
+        {
+          "name": "resources_memory_limit",
+          "type": "str",
+          "title": "Memory limit",
+          "required": false,
+          "default": "256Mi",
+          "description": "Memory limit for the container.",
+          "config": {
+            "placeholder": "256Mi"
+          }
+        },
+        {
+          "name": "resources_memory_request",
+          "type": "str",
+          "title": "Memory request",
+          "required": false,
+          "default": "64Mi",
+          "description": "Memory request for the container.",
+          "config": {
+            "placeholder": "64Mi"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,214 @@
+{
+  "slug": "certmanager-certificate",
+  "kind": "kubernetes",
+  "metadata": {
+    "name": "Cert-Manager Certificate",
+    "description": "Cert-manager Certificate resource for requesting TLS certificates from an Issuer or ClusterIssuer. The certificate is stored in a Kubernetes Secret.",
+    "guide": "## Overview\nCert-manager Certificate resource for requesting TLS certificates from an Issuer or ClusterIssuer. The certificate is stored in a Kubernetes Secret.\n\n## How to Use\nThis template renders `main.yaml` as a file.\n\n1. Start with the resource name, namespace, and any required networking or storage settings.\n2. Fill in required fields first, then enable optional sections such as TLS, annotations, or extra selectors only when they match your cluster setup.\n3. Render the manifest and apply it to the target cluster after confirming the generated resource matches your platform conventions.\n\n## Variable Guide\n### General\n- `resource_name`: Resource Name; optional; default: tls-certificate.\n- `namespace`: Namespace; optional; default: default.\n- `secret_name`: Name of secret to store the certificate; optional; default: tls-secret.\n- `dns_name`: Dns Name; optional.\n\n### Resource Limits\n- `resources_enabled`: Enable resource limits and requests; optional; default: false.\n- `resources_cpu_limit`: CPU limit; optional; default: 100m.\n- `resources_cpu_request`: CPU request; optional; default: 50m.\n- `resources_memory_limit`: Memory limit; optional; default: 128Mi.\n- `resources_memory_request`: Memory request; optional; default: 64Mi.\n\n### Traefik Integration\n- `traefik_enabled`: Enable Traefik integration; optional; default: false.\n- `traefik_host`: Traefik host; optional.\n- `traefik_domain`: Traefik domain; optional.\n- `traefik_tls_enabled`: Enable TLS; optional; default: true.\n- `traefik_tls_certresolver`: TLS certificate resolver; optional; default: letsencrypt-prod.\n\n### DNS Settings\n- `dns_names`: DNS names for certificate (comma-separated, e.g., home.arpa,*.home.arpa); optional.\n\n### Cert-Manager Settings\n- `certmanager_issuer`: Cert-manager Issuer or ClusterIssuer name; optional; default: letsencrypt-prod.\n- `certmanager_issuer_kind`: Issuer type; optional; default: ClusterIssuer; options: Issuer, ClusterIssuer.\n\n## References\n- [cert-manager Certificates](https://cert-manager.io/docs/usage/certificate/)\n- [cert-manager](https://cert-manager.io)\n## Pre-Requisites\n- cert-manager installed in the cluster\n- An Issuer or ClusterIssuer resource configured",
+    "tags": [],
+    "template_version": "1.16.2",
+    "icon": {
+      "provider": "mdi",
+      "id": "certificate-outline"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "title": "General",
+      "variables": [
+        {
+          "name": "resource_name",
+          "type": "str",
+          "title": "Resource Name",
+          "required": false,
+          "default": "tls-certificate",
+          "config": {
+            "placeholder": "tls-certificate"
+          },
+          "description": "Terraform resource name."
+        },
+        {
+          "name": "namespace",
+          "type": "str",
+          "title": "Namespace",
+          "required": false,
+          "default": "default",
+          "config": {
+            "placeholder": "default"
+          },
+          "description": "Value used for the general settings."
+        },
+        {
+          "name": "secret_name",
+          "type": "str",
+          "title": "Secret Name",
+          "required": false,
+          "default": "tls-secret",
+          "description": "Name of secret to store the certificate",
+          "config": {
+            "placeholder": "tls-secret"
+          }
+        },
+        {
+          "name": "dns_name",
+          "type": "str",
+          "title": "Dns Name",
+          "required": false,
+          "default": "",
+          "description": "Name to use for the dns."
+        }
+      ],
+      "name": "general"
+    },
+    {
+      "title": "Resource Limits",
+      "variables": [
+        {
+          "name": "resources_enabled",
+          "type": "bool",
+          "title": "Resources",
+          "required": false,
+          "default": false,
+          "description": "Enable resource limits and requests"
+        },
+        {
+          "name": "resources_cpu_limit",
+          "type": "str",
+          "title": "CPU limit",
+          "required": false,
+          "default": "100m",
+          "description": "Value used for the resource limits settings.",
+          "config": {
+            "placeholder": "100m"
+          }
+        },
+        {
+          "name": "resources_cpu_request",
+          "type": "str",
+          "title": "CPU request",
+          "required": false,
+          "default": "50m",
+          "description": "Value used for the resource limits settings.",
+          "config": {
+            "placeholder": "50m"
+          }
+        },
+        {
+          "name": "resources_memory_limit",
+          "type": "str",
+          "title": "Memory limit",
+          "required": false,
+          "default": "128Mi",
+          "description": "Value used for the resource limits settings.",
+          "config": {
+            "placeholder": "128Mi"
+          }
+        },
+        {
+          "name": "resources_memory_request",
+          "type": "str",
+          "title": "Memory request",
+          "required": false,
+          "default": "64Mi",
+          "description": "Value used for the resource limits settings.",
+          "config": {
+            "placeholder": "64Mi"
+          }
+        }
+      ],
+      "name": "resources"
+    },
+    {
+      "title": "Traefik Integration",
+      "variables": [
+        {
+          "name": "traefik_enabled",
+          "type": "bool",
+          "title": "Traefik",
+          "required": false,
+          "default": false,
+          "description": "Enable Traefik integration"
+        },
+        {
+          "name": "traefik_host",
+          "type": "str",
+          "title": "Traefik host",
+          "required": false,
+          "description": "Hostname used for Traefik."
+        },
+        {
+          "name": "traefik_domain",
+          "type": "str",
+          "title": "Traefik domain",
+          "required": false,
+          "description": "Domain used for Traefik."
+        },
+        {
+          "name": "traefik_tls_enabled",
+          "type": "bool",
+          "title": "TLS",
+          "required": false,
+          "default": true,
+          "description": "Enable TLS"
+        },
+        {
+          "name": "traefik_tls_certresolver",
+          "type": "str",
+          "title": "TLS certificate resolver",
+          "required": false,
+          "default": "letsencrypt-prod",
+          "description": "Certificate resolver name.",
+          "config": {
+            "placeholder": "letsencrypt-prod"
+          }
+        }
+      ],
+      "name": "traefik"
+    },
+    {
+      "title": "DNS Settings",
+      "variables": [
+        {
+          "name": "dns_names",
+          "type": "str",
+          "title": "DNS Names",
+          "required": false,
+          "description": "DNS names for certificate (comma-separated, e.g., home.arpa,*.home.arpa)"
+        }
+      ],
+      "name": "dns"
+    },
+    {
+      "title": "Cert-Manager Settings",
+      "variables": [
+        {
+          "name": "certmanager_issuer",
+          "type": "str",
+          "title": "Issuer",
+          "required": false,
+          "default": "letsencrypt-prod",
+          "description": "Cert-manager Issuer or ClusterIssuer name",
+          "config": {
+            "placeholder": "letsencrypt-prod"
+          }
+        },
+        {
+          "name": "certmanager_issuer_kind",
+          "type": "enum",
+          "title": "Issuer type",
+          "required": false,
+          "default": "ClusterIssuer",
+          "description": "Type used for Issuer.",
+          "config": {
+            "options": [
+              "Issuer",
+              "ClusterIssuer"
+            ]
+          }
+        }
+      ],
+      "name": "certmanager"
+    }
+  ]
+}

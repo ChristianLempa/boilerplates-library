@@ -1,0 +1,585 @@
+{
+  "slug": "n8n-swarm",
+  "kind": "swarm",
+  "metadata": {
+    "name": "N8N",
+    "description": "Source-available workflow automation tool that connects apps and services to automate tasks through a visual drag-and-drop node editor.",
+    "guide": "## Overview\nSource-available workflow automation tool that connects apps and services to automate tasks through a visual drag-and-drop node editor.\n\n## Prerequisites\n- Set a stable encryption key and decide which Docker secrets will carry sensitive values before deployment.\n- Use an external PostgreSQL or MySQL database for production workloads, and add Redis before enabling queue mode.\n- Decide on placement constraints, ingress exposure, and webhook URLs before you deploy the stack.\n\n## Deploy\n- Render the generated files, review the secret references, queue settings, and placement rules, then deploy with `docker stack deploy -c compose.yaml <stack-name>`.\n- Watch the service logs until the editor is reachable and the workers finish bootstrapping.\n\n## Post-Install\n- Complete the initial owner setup flow, then store the encryption key and secret names with your operational runbook.\n- Test one manual execution and one webhook-triggered workflow before onboarding real automations.\n- If metrics are enabled, add the `/metrics` endpoint to your monitoring stack.\n\n## References\n- [n8n](https://n8n.io/)\n- [Documentation](https://docs.n8n.io/)\n- [GitHub](https://github.com/n8n-io/n8n)",
+    "tags": [
+      "traefik",
+      "database"
+    ],
+    "template_version": "2.8.3",
+    "icon": {
+      "provider": "selfhst",
+      "id": "n8n"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "title": "General",
+      "variables": [
+        {
+          "name": "service_name",
+          "type": "str",
+          "title": "Service Name",
+          "required": false,
+          "default": "n8n",
+          "config": {
+            "placeholder": "n8n"
+          },
+          "description": "Name of the service."
+        },
+        {
+          "name": "container_timezone",
+          "type": "str",
+          "title": "Container Timezone",
+          "required": false,
+          "description": "Timezone used inside the container."
+        },
+        {
+          "name": "container_loglevel",
+          "type": "enum",
+          "title": "Log Level",
+          "required": false,
+          "config": {
+            "options": [
+              "debug",
+              "info",
+              "warn",
+              "error"
+            ]
+          },
+          "description": "Container Loglevel"
+        },
+        {
+          "name": "traefik_tls_entrypoint",
+          "type": "str",
+          "title": "Traefik Tls Entrypoint",
+          "required": false,
+          "default": "",
+          "description": "Traefik TLS entrypoint name.",
+          "needs": [
+            "traefik_enabled=true",
+            "traefik_tls_enabled=true"
+          ],
+          "config": {
+            "placeholder": "websecure"
+          }
+        },
+        {
+          "name": "database_password_secret_name",
+          "type": "str",
+          "title": "DB Password Secret",
+          "required": false,
+          "default": "",
+          "description": "Database Password Secret Name",
+          "needs": [
+            "database_enabled=true"
+          ],
+          "config": {
+            "placeholder": "n8n-db-password"
+          }
+        },
+        {
+          "name": "encryption_key_secret_name",
+          "type": "str",
+          "title": "Encryption Key Secret",
+          "required": false,
+          "default": "",
+          "description": "Encryption Key Secret Name",
+          "config": {
+            "placeholder": "n8n-encryption-key"
+          }
+        },
+        {
+          "name": "traefik_entrypoint",
+          "type": "str",
+          "title": "Traefik Entrypoint",
+          "required": false,
+          "default": "",
+          "description": "Traefik entrypoint name.",
+          "needs": [
+            "traefik_enabled=true",
+            "traefik_tls_enabled=false"
+          ],
+          "config": {
+            "placeholder": "web"
+          }
+        }
+      ],
+      "name": "general"
+    },
+    {
+      "title": "Queue Mode",
+      "variables": [
+        {
+          "name": "queue_enabled",
+          "type": "bool",
+          "title": "Queue Mode",
+          "required": false,
+          "default": false,
+          "description": "Enable queue mode (requires Redis)"
+        },
+        {
+          "name": "queue_redis_external",
+          "type": "bool",
+          "title": "External Redis",
+          "required": false,
+          "default": false,
+          "description": "Use external Redis instance",
+          "needs": [
+            "queue_enabled=true"
+          ]
+        },
+        {
+          "name": "queue_redis_host",
+          "type": "str",
+          "title": "Redis host",
+          "required": false,
+          "default": "redis",
+          "description": "Hostname used for Redis.",
+          "needs": [
+            "queue_enabled=true"
+          ],
+          "config": {
+            "placeholder": "redis"
+          }
+        },
+        {
+          "name": "queue_redis_port",
+          "type": "int",
+          "title": "Redis port",
+          "required": false,
+          "default": 6379,
+          "description": "Port used for Redis.",
+          "needs": [
+            "queue_enabled=true"
+          ],
+          "config": {
+            "placeholder": "6379"
+          }
+        },
+        {
+          "name": "queue_embedded_worker",
+          "type": "bool",
+          "title": "Embedded Worker",
+          "required": false,
+          "default": false,
+          "description": "Include embedded worker in this deployment",
+          "needs": [
+            "queue_enabled=true"
+          ]
+        }
+      ],
+      "name": "queue",
+      "toggle": "queue_enabled"
+    },
+    {
+      "title": "Database",
+      "variables": [
+        {
+          "name": "database_enabled",
+          "type": "bool",
+          "title": "External Database",
+          "required": false,
+          "default": false,
+          "description": "Use external database"
+        },
+        {
+          "name": "database_type",
+          "type": "enum",
+          "title": "Database type",
+          "required": false,
+          "default": "postgres",
+          "description": "Database engine to use.",
+          "needs": [
+            "database_enabled=true"
+          ],
+          "config": {
+            "options": [
+              "postgres",
+              "mysql"
+            ]
+          }
+        },
+        {
+          "name": "database_host",
+          "type": "str",
+          "title": "Database host",
+          "required": false,
+          "default": "postgres",
+          "description": "Hostname of the database server.",
+          "needs": [
+            "database_enabled=true"
+          ],
+          "config": {
+            "placeholder": "postgres"
+          }
+        },
+        {
+          "name": "database_port",
+          "type": "int",
+          "title": "Database port",
+          "required": false,
+          "default": 5432,
+          "description": "Port used by the database server.",
+          "needs": [
+            "database_enabled=true"
+          ],
+          "config": {
+            "placeholder": "5432"
+          }
+        },
+        {
+          "name": "database_name",
+          "type": "str",
+          "title": "Database name",
+          "required": false,
+          "default": "n8n",
+          "description": "Name of the database.",
+          "needs": [
+            "database_enabled=true"
+          ],
+          "config": {
+            "placeholder": "n8n"
+          }
+        },
+        {
+          "name": "database_user",
+          "type": "str",
+          "title": "Database username",
+          "required": false,
+          "default": "n8n",
+          "description": "Username for the database.",
+          "needs": [
+            "database_enabled=true"
+          ],
+          "config": {
+            "placeholder": "n8n"
+          }
+        },
+        {
+          "name": "database_password",
+          "type": "secret",
+          "title": "Database password",
+          "required": false,
+          "description": "Password for the database.",
+          "needs": [
+            "database_enabled=true"
+          ]
+        }
+      ],
+      "name": "database",
+      "toggle": "database_enabled"
+    },
+    {
+      "title": "Security",
+      "variables": [
+        {
+          "name": "encryption_key",
+          "type": "secret",
+          "title": "Encryption Key",
+          "required": false,
+          "description": "N8N encryption key for credentials",
+          "config": {
+            "autogenerated": true
+          }
+        },
+        {
+          "name": "proxy_hops",
+          "type": "int",
+          "title": "Proxy Hops",
+          "required": false,
+          "default": 1,
+          "description": "Number of proxy hops (X-Forwarded-For)",
+          "config": {
+            "placeholder": "1",
+            "unit": "hops"
+          }
+        }
+      ],
+      "name": "security"
+    },
+    {
+      "title": "Webhooks",
+      "variables": [
+        {
+          "name": "webhook_url",
+          "type": "str",
+          "title": "Webhook base URL",
+          "required": false,
+          "default": "",
+          "description": "Base URL used for webhooks.",
+          "config": {
+            "placeholder": "https://n8n.home.arpa/"
+          }
+        }
+      ],
+      "name": "webhooks"
+    },
+    {
+      "title": "Metrics",
+      "variables": [
+        {
+          "name": "metrics_enabled",
+          "type": "bool",
+          "title": "Prometheus",
+          "required": false,
+          "default": false,
+          "description": "Enable Prometheus metrics"
+        },
+        {
+          "name": "metrics_detailed",
+          "type": "bool",
+          "title": "Detailed Metrics",
+          "required": false,
+          "default": false,
+          "description": "Include detailed metrics (workflows, nodes, API endpoints)",
+          "needs": [
+            "metrics_enabled=true"
+          ]
+        }
+      ],
+      "name": "metrics",
+      "toggle": "metrics_enabled"
+    },
+    {
+      "title": "Execution Settings",
+      "variables": [
+        {
+          "name": "execution_save_on_error",
+          "type": "enum",
+          "title": "Save on Error",
+          "required": false,
+          "default": "all",
+          "description": "Save execution data on error",
+          "config": {
+            "options": [
+              "all",
+              "none"
+            ]
+          }
+        },
+        {
+          "name": "execution_save_on_success",
+          "type": "enum",
+          "title": "Save on Success",
+          "required": false,
+          "default": "none",
+          "description": "Save execution data on success",
+          "config": {
+            "options": [
+              "all",
+              "none"
+            ]
+          }
+        }
+      ],
+      "name": "execution"
+    },
+    {
+      "title": "Network",
+      "variables": [
+        {
+          "name": "network_mode",
+          "type": "enum",
+          "title": "Network Mode",
+          "required": false,
+          "description": "Mode used for Network.",
+          "default": "bridge",
+          "config": {
+            "options": [
+              "bridge",
+              "host"
+            ]
+          }
+        },
+        {
+          "name": "network_name",
+          "type": "str",
+          "title": "Network Name",
+          "required": false,
+          "default": "n8n_network",
+          "config": {
+            "placeholder": "n8n_network"
+          },
+          "description": "Name to use for the network.",
+          "needs": [
+            "network_mode=bridge"
+          ]
+        },
+        {
+          "name": "network_external",
+          "type": "bool",
+          "title": "External Network",
+          "required": false,
+          "default": false,
+          "description": "Whether the network is external",
+          "needs": [
+            "network_mode=bridge"
+          ]
+        }
+      ],
+      "name": "network"
+    },
+    {
+      "title": "Traefik",
+      "variables": [
+        {
+          "name": "traefik_enabled",
+          "type": "bool",
+          "title": "Traefik Enabled",
+          "required": false,
+          "default": false,
+          "needs": [
+            "network_mode=bridge"
+          ],
+          "description": "Enable or disable traefik enabled."
+        },
+        {
+          "name": "traefik_host",
+          "type": "str",
+          "title": "Host",
+          "required": false,
+          "config": {
+            "placeholder": "n8n"
+          },
+          "description": "Hostname used for Traefik."
+        },
+        {
+          "name": "traefik_webhook_host",
+          "type": "str",
+          "title": "Webhook Host",
+          "required": false,
+          "default": "",
+          "description": "Separate hostname for webhooks (optional)",
+          "needs": [
+            "traefik_enabled=true"
+          ],
+          "config": {
+            "placeholder": "hooks.n8n.home.arpa"
+          }
+        },
+        {
+          "name": "traefik_network",
+          "type": "str",
+          "title": "Traefik network name",
+          "required": false,
+          "default": "traefik",
+          "description": "Name to use for the traefik network.",
+          "needs": [
+            "traefik_enabled=true"
+          ],
+          "config": {
+            "placeholder": "traefik"
+          }
+        },
+        {
+          "name": "traefik_network_external",
+          "type": "bool",
+          "title": "External Traefik Network",
+          "required": false,
+          "default": true,
+          "description": "Use external Traefik network",
+          "needs": [
+            "traefik_enabled=true"
+          ]
+        },
+        {
+          "name": "traefik_domain",
+          "type": "str",
+          "title": "Domain",
+          "required": true,
+          "config": {
+            "placeholder": "home.arpa"
+          },
+          "description": "Domain used for Traefik."
+        }
+      ],
+      "name": "traefik",
+      "toggle": "traefik_enabled"
+    },
+    {
+      "title": "Ports",
+      "variables": [
+        {
+          "name": "ports_http",
+          "type": "int",
+          "title": "External HTTP port",
+          "required": false,
+          "default": 5678,
+          "description": "Port used for External HTTP.",
+          "needs": [
+            "traefik_enabled=false",
+            "network_mode=bridge"
+          ],
+          "config": {
+            "placeholder": "5678"
+          }
+        }
+      ],
+      "name": "ports"
+    },
+    {
+      "title": "Swarm",
+      "variables": [
+        {
+          "name": "swarm_replicas",
+          "type": "int",
+          "title": "Replicas",
+          "required": false,
+          "default": 1,
+          "description": "Number of server replicas",
+          "config": {
+            "slider": true,
+            "min": 1,
+            "max": 20,
+            "step": 1,
+            "placeholder": "1",
+            "unit": "replicas"
+          }
+        },
+        {
+          "name": "swarm_placement_host",
+          "type": "str",
+          "title": "Placement Host",
+          "required": false,
+          "default": "",
+          "description": "Target hostname for placement constraint",
+          "config": {
+            "placeholder": "swarm-node-1"
+          }
+        }
+      ],
+      "name": "swarm"
+    },
+    {
+      "title": "Traefik TLS",
+      "variables": [
+        {
+          "name": "traefik_tls_certresolver",
+          "type": "str",
+          "title": "Cert Resolver",
+          "required": true,
+          "default": "cloudflare",
+          "config": {
+            "placeholder": "cloudflare"
+          },
+          "description": "Traefik Tls Certresolver"
+        },
+        {
+          "name": "traefik_tls_enabled",
+          "type": "bool",
+          "title": "TLS",
+          "required": false,
+          "default": false,
+          "description": "Enable Traefik TLS"
+        }
+      ],
+      "name": "traefik-tls",
+      "toggle": "traefik_tls_enabled"
+    }
+  ]
+}

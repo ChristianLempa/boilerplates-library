@@ -1,0 +1,24 @@
+datasources:
+  postgres:
+    url: << postgres_jdbc_url >>
+    driverClassName: org.postgresql.Driver
+    username: << postgres_username >>
+    password: << postgres_password >>
+kestra:
+  server:
+    basic-auth:
+      enabled: false
+  repository:
+    type: postgres
+  storage:
+    type: local
+    local:
+      base-path: "/app/storage"
+  queue:
+    type: postgres
+  tasks:
+    tmp-dir:
+      path: /tmp/kestra-wd/tmp
+  url: << kestra_public_url >>
+  tutorial-flows:
+    enabled: << tutorial_flows_enabled | lower >>

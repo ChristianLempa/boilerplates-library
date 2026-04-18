@@ -1,0 +1,26 @@
+<%- if host_logs_enabled %>
+filenames:
+  - /var/log-host/auth.log
+  - /var/log-host/syslog
+labels:
+  type: syslog
+<%- endif %>
+<%- if host_logs_enabled and (docker_logs_enabled or traefik_accesslog_enabled) %>
+---
+<%- endif %>
+<%- if docker_logs_enabled %>
+source: docker
+container_name_regexp:
+  - << docker_container_name_regexp >>
+labels:
+  type: << docker_log_type >>
+<%- endif %>
+<%- if docker_logs_enabled and traefik_accesslog_enabled %>
+---
+<%- endif %>
+<%- if traefik_accesslog_enabled %>
+filenames:
+  - /var/log/traefik/<< traefik_accesslog_filename >>
+labels:
+  type: traefik
+<%- endif %>

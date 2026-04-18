@@ -1,0 +1,18 @@
+---
+- name: Manage Checkmk host
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: "Create or update host in Checkmk"
+      checkmk.general.host:
+        server_url: "<< checkmk_protocol >>://<< checkmk_server >>"
+        site: << checkmk_site >>
+        automation_user: << checkmk_user >>
+        automation_secret: << checkmk_pass >>
+        name: << host_name >>
+        attributes:
+          ipaddress: << host_ip >>
+        folder: << host_folder >>
+        state: "present"
+      delegate_to: localhost
+      run_once: true

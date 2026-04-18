@@ -1,0 +1,211 @@
+{
+  "slug": "core-service",
+  "kind": "kubernetes",
+  "metadata": {
+    "name": "Kubernetes Service",
+    "description": "Kubernetes Service for exposing applications running on a set of Pods. Provides stable network endpoints and load balancing.",
+    "guide": "## Overview\nKubernetes Service for exposing applications running on a set of Pods. Provides stable network endpoints and load balancing.\n\n## How to Use\nThis template renders `main.yaml` as a file.\n\n1. Start with the resource name, namespace, and any required networking or storage settings.\n2. Fill in required fields first, then enable optional sections such as TLS, annotations, or extra selectors only when they match your cluster setup.\n3. Render the manifest and apply it to the target cluster after confirming the generated resource matches your platform conventions.\n\n## Variable Guide\n### General\n- `resource_name`: Resource Name; optional; default: app-service.\n- `namespace`: Namespace; optional; default: default.\n- `service_type`: Service type; optional; default: ClusterIP; options: ClusterIP, NodePort, LoadBalancer, ExternalName.\n- `service_port`: Service port; optional; default: 80.\n- `target_port`: Target port on pods; optional; default: 8080.\n- `protocol`: Protocol; optional; default: TCP; options: TCP, UDP, SCTP.\n\n### Resource Limits\n- `resources_enabled`: Enable resource limits and requests; optional; default: false.\n- `resources_cpu_limit`: CPU limit; optional; default: 100m.\n- `resources_cpu_request`: CPU request; optional; default: 50m.\n- `resources_memory_limit`: Memory limit; optional; default: 128Mi.\n- `resources_memory_request`: Memory request; optional; default: 64Mi.\n\n### Traefik Integration\n- `traefik_enabled`: Enable Traefik integration; optional; default: false.\n- `traefik_host`: Traefik host; optional.\n- `traefik_domain`: Traefik domain; optional.\n- `traefik_tls_enabled`: Enable TLS; optional; default: true.\n- `traefik_tls_certresolver`: TLS certificate resolver; optional; default: letsencrypt-prod.\n- `app_selector`: App label selector (e.g., app.kubernetes.io/name value); optional.\n\n## References\n- [Service Documentation](https://kubernetes.io/docs/concepts/services-networking/service/)",
+    "tags": [],
+    "template_version": "1.31.0",
+    "icon": {
+      "provider": "simple-icons",
+      "id": "kubernetes"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "title": "General",
+      "variables": [
+        {
+          "name": "resource_name",
+          "type": "str",
+          "title": "Resource Name",
+          "required": false,
+          "default": "app-service",
+          "config": {
+            "placeholder": "app-service"
+          },
+          "description": "Terraform resource name."
+        },
+        {
+          "name": "namespace",
+          "type": "str",
+          "title": "Namespace",
+          "required": false,
+          "default": "default",
+          "config": {
+            "placeholder": "default"
+          },
+          "description": "Value used for the general settings."
+        },
+        {
+          "name": "service_type",
+          "type": "enum",
+          "title": "Service type",
+          "required": false,
+          "default": "ClusterIP",
+          "description": "Type used for Service.",
+          "config": {
+            "options": [
+              "ClusterIP",
+              "NodePort",
+              "LoadBalancer",
+              "ExternalName"
+            ]
+          }
+        },
+        {
+          "name": "service_port",
+          "type": "int",
+          "title": "Service port",
+          "required": false,
+          "default": 80,
+          "description": "Port used for Service.",
+          "config": {
+            "placeholder": "80"
+          }
+        },
+        {
+          "name": "target_port",
+          "type": "int",
+          "title": "Target Port",
+          "required": false,
+          "default": 8080,
+          "description": "Target port on pods",
+          "config": {
+            "placeholder": "8080"
+          }
+        },
+        {
+          "name": "protocol",
+          "type": "enum",
+          "title": "Protocol",
+          "required": false,
+          "default": "TCP",
+          "description": "Value used for the general settings.",
+          "config": {
+            "options": [
+              "TCP",
+              "UDP",
+              "SCTP"
+            ]
+          }
+        }
+      ],
+      "name": "general"
+    },
+    {
+      "title": "Resource Limits",
+      "variables": [
+        {
+          "name": "resources_enabled",
+          "type": "bool",
+          "title": "Resources",
+          "required": false,
+          "default": false,
+          "description": "Enable resource limits and requests"
+        },
+        {
+          "name": "resources_cpu_limit",
+          "type": "str",
+          "title": "CPU limit",
+          "required": false,
+          "default": "100m",
+          "description": "Value used for the resource limits settings.",
+          "config": {
+            "placeholder": "100m"
+          }
+        },
+        {
+          "name": "resources_cpu_request",
+          "type": "str",
+          "title": "CPU request",
+          "required": false,
+          "default": "50m",
+          "description": "Value used for the resource limits settings.",
+          "config": {
+            "placeholder": "50m"
+          }
+        },
+        {
+          "name": "resources_memory_limit",
+          "type": "str",
+          "title": "Memory limit",
+          "required": false,
+          "default": "128Mi",
+          "description": "Value used for the resource limits settings.",
+          "config": {
+            "placeholder": "128Mi"
+          }
+        },
+        {
+          "name": "resources_memory_request",
+          "type": "str",
+          "title": "Memory request",
+          "required": false,
+          "default": "64Mi",
+          "description": "Value used for the resource limits settings.",
+          "config": {
+            "placeholder": "64Mi"
+          }
+        }
+      ],
+      "name": "resources"
+    },
+    {
+      "title": "Traefik Integration",
+      "variables": [
+        {
+          "name": "traefik_enabled",
+          "type": "bool",
+          "title": "Traefik",
+          "required": false,
+          "default": false,
+          "description": "Enable Traefik integration"
+        },
+        {
+          "name": "traefik_host",
+          "type": "str",
+          "title": "Traefik host",
+          "required": false,
+          "description": "Hostname used for Traefik."
+        },
+        {
+          "name": "traefik_domain",
+          "type": "str",
+          "title": "Traefik domain",
+          "required": false,
+          "description": "Domain used for Traefik."
+        },
+        {
+          "name": "traefik_tls_enabled",
+          "type": "bool",
+          "title": "TLS",
+          "required": false,
+          "default": true,
+          "description": "Enable TLS"
+        },
+        {
+          "name": "traefik_tls_certresolver",
+          "type": "str",
+          "title": "TLS certificate resolver",
+          "required": false,
+          "default": "letsencrypt-prod",
+          "description": "Certificate resolver name.",
+          "config": {
+            "placeholder": "letsencrypt-prod"
+          }
+        },
+        {
+          "name": "app_selector",
+          "type": "str",
+          "title": "App Selector",
+          "required": false,
+          "description": "App label selector (e.g., app.kubernetes.io/name value)"
+        }
+      ],
+      "name": "traefik"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+<%- if create_namespace %>
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: << namespace >>
+<%- endif %>
+---
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: << pool_name >>
+  namespace: << namespace >>
+spec:
+  addresses:
+    - << address_range >>
+  autoAssign: << auto_assign | lower >>
+  avoidBuggyIPs: << avoid_buggy_ips | lower >>
+---
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  name: << advertisement_name >>
+  namespace: << namespace >>
+spec:
+  ipAddressPools:
+    - << pool_name >>
+<%- if node_selector_enabled %>
+  nodeSelectors:
+    - matchLabels:
+        << node_selector_key >>: << node_selector_value >>
+<%- endif %>
+<%- if bind_interfaces_enabled %>
+  interfaces:
+    - << bind_interface >>
+<%- endif %>

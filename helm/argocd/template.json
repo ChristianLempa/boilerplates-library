@@ -1,0 +1,301 @@
+{
+  "slug": "argocd",
+  "kind": "helm",
+  "metadata": {
+    "name": "Argo CD",
+    "description": "Helm values template for Argo CD with ingress, TLS, controller or repo-server sizing, Dex, Redis, and metrics toggles for homelab GitOps clusters.",
+    "guide": "## Overview\nHelm chart values template for Argo CD.\n\nThis template gives you a practical starting point for a homelab or small-cluster Argo CD deployment with ingress, TLS, optional Dex, bundled Redis, and per-component metrics toggles.\n\n## Prerequisites\n- Install the Argo Helm repository and decide which namespace and release name you want to use before rendering this values file.\n- If you enable ingress, prepare the hostname, ingress class, and any Traefik middlewares or certificate issuers first.\n- If you disable bundled Redis, wire an external Redis or Redis HA deployment separately before rollout.\n\n## Deploy\n- Render `values.yaml`, review the public URL, ingress, and metrics settings, then install or update the release with `helm upgrade --install`.\n- Wait for the `argocd-server`, `argocd-repo-server`, and `argocd-application-controller` pods to become ready.\n\n## Post-Install\n- Retrieve the initial admin password and log in once to rotate credentials and configure SSO or repository credentials.\n- If you enable metrics, verify that your monitoring stack can scrape the enabled endpoints or ServiceMonitors.\n- Create one non-critical application first so you validate repo access, sync permissions, and ingress routing before onboarding the rest of the cluster.\n\n## References\n- [Argo CD](https://argo-cd.readthedocs.io/)\n- [Documentation](https://argo-cd.readthedocs.io/)\n- [Helm Chart](https://github.com/argoproj/argo-helm/tree/main/charts/argo-cd)\n\n## Next Steps\nAfter installation, retrieve the initial admin password:\n```bash\nkubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath='{.data.password}' | base64 -d\n```",
+    "tags": [
+      "gitops",
+      "kubernetes",
+      "traefik"
+    ],
+    "template_version": "9.2.4",
+    "icon": {
+      "provider": "selfhst",
+      "id": "argo-cd"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "title": "General",
+      "variables": [
+        {
+          "name": "public_url",
+          "type": "str",
+          "title": "Public URL",
+          "required": true,
+          "default": "https://argocd.home.arpa",
+          "description": "Public URL Argo CD should advertise to users and callbacks.",
+          "config": {
+            "placeholder": "https://argocd.home.arpa"
+          }
+        },
+        {
+          "name": "server_insecure",
+          "type": "bool",
+          "title": "Server Insecure",
+          "required": false,
+          "default": true,
+          "description": "Let the ingress controller terminate TLS in front of `argocd-server`."
+        }
+      ],
+      "name": "general"
+    },
+    {
+      "title": "Ingress",
+      "toggle": "ingress_enabled",
+      "variables": [
+        {
+          "name": "ingress_enabled",
+          "type": "bool",
+          "title": "Ingress",
+          "required": false,
+          "default": true,
+          "description": "Expose Argo CD through a Kubernetes ingress."
+        },
+        {
+          "name": "ingress_class_name",
+          "type": "str",
+          "title": "Ingress Class",
+          "required": true,
+          "default": "traefik",
+          "description": "IngressClass name used for the Argo CD server ingress.",
+          "needs": [
+            "ingress_enabled=true"
+          ],
+          "config": {
+            "placeholder": "traefik"
+          }
+        },
+        {
+          "name": "ingress_hostname",
+          "type": "str",
+          "title": "Ingress Hostname",
+          "required": true,
+          "default": "argocd.home.arpa",
+          "description": "Hostname used for the Argo CD ingress.",
+          "needs": [
+            "ingress_enabled=true"
+          ],
+          "config": {
+            "placeholder": "argocd.home.arpa"
+          }
+        },
+        {
+          "name": "ingress_path",
+          "type": "str",
+          "title": "Ingress Path",
+          "required": true,
+          "default": "/",
+          "description": "Path exposed by the Argo CD ingress.",
+          "needs": [
+            "ingress_enabled=true"
+          ],
+          "config": {
+            "placeholder": "/"
+          }
+        },
+        {
+          "name": "ingress_entrypoints",
+          "type": "str",
+          "title": "Traefik Entrypoints",
+          "required": false,
+          "default": "websecure",
+          "description": "Traefik entrypoints annotation for the ingress.",
+          "needs": [
+            "ingress_enabled=true"
+          ],
+          "config": {
+            "placeholder": "websecure"
+          }
+        },
+        {
+          "name": "ingress_middleware",
+          "type": "str",
+          "title": "Traefik Middleware",
+          "required": false,
+          "default": "",
+          "description": "Optional Traefik middleware reference attached to the Argo CD ingress.",
+          "needs": [
+            "ingress_enabled=true"
+          ],
+          "config": {
+            "placeholder": "traefik-dashboard-secured@kubernetescrd"
+          }
+        },
+        {
+          "name": "ingress_tls_enabled",
+          "type": "bool",
+          "title": "Ingress TLS",
+          "required": false,
+          "default": true,
+          "description": "Enable TLS for the Argo CD ingress.",
+          "needs": [
+            "ingress_enabled=true"
+          ]
+        },
+        {
+          "name": "ingress_tls_secret",
+          "type": "str",
+          "title": "TLS Secret",
+          "required": true,
+          "default": "argocd-server-tls",
+          "description": "TLS secret name used when cert-manager is not managing the ingress certificate.",
+          "needs": [
+            "ingress_enabled=true",
+            "ingress_tls_enabled=true"
+          ],
+          "config": {
+            "placeholder": "argocd-server-tls"
+          }
+        },
+        {
+          "name": "ingress_cert_manager_enabled",
+          "type": "bool",
+          "title": "Cert-Manager",
+          "required": false,
+          "default": false,
+          "description": "Annotate the ingress for cert-manager certificate issuance.",
+          "needs": [
+            "ingress_enabled=true",
+            "ingress_tls_enabled=true"
+          ]
+        },
+        {
+          "name": "ingress_cluster_issuer",
+          "type": "str",
+          "title": "ClusterIssuer",
+          "required": true,
+          "default": "letsencrypt-production",
+          "description": "ClusterIssuer used when cert-manager handles ingress certificates.",
+          "needs": [
+            "ingress_enabled=true",
+            "ingress_tls_enabled=true",
+            "ingress_cert_manager_enabled=true"
+          ],
+          "config": {
+            "placeholder": "letsencrypt-production"
+          }
+        }
+      ],
+      "name": "ingress"
+    },
+    {
+      "title": "Components",
+      "variables": [
+        {
+          "name": "controller_replicas",
+          "type": "int",
+          "title": "Controller Replicas",
+          "required": false,
+          "default": 1,
+          "description": "Number of Argo CD application controller replicas.",
+          "config": {
+            "placeholder": "1"
+          }
+        },
+        {
+          "name": "repo_server_replicas",
+          "type": "int",
+          "title": "Repo Server Replicas",
+          "required": false,
+          "default": 1,
+          "description": "Number of Argo CD repo-server replicas.",
+          "config": {
+            "placeholder": "1"
+          }
+        },
+        {
+          "name": "server_replicas",
+          "type": "int",
+          "title": "Server Replicas",
+          "required": false,
+          "default": 1,
+          "description": "Number of Argo CD API server replicas.",
+          "config": {
+            "placeholder": "1"
+          }
+        },
+        {
+          "name": "dex_enabled",
+          "type": "bool",
+          "title": "Dex",
+          "required": false,
+          "default": true,
+          "description": "Deploy bundled Dex for SSO scenarios that still use the Argo CD Dex component."
+        },
+        {
+          "name": "redis_enabled",
+          "type": "bool",
+          "title": "Bundled Redis",
+          "required": false,
+          "default": true,
+          "description": "Deploy bundled Redis. Disable only if you provide Redis separately."
+        }
+      ],
+      "name": "components"
+    },
+    {
+      "title": "Metrics",
+      "variables": [
+        {
+          "name": "metrics_service_monitor_enabled",
+          "type": "bool",
+          "title": "ServiceMonitor",
+          "required": false,
+          "default": false,
+          "description": "Create ServiceMonitor resources for enabled component metrics."
+        },
+        {
+          "name": "controller_metrics_enabled",
+          "type": "bool",
+          "title": "Controller Metrics",
+          "required": false,
+          "default": true,
+          "description": "Expose metrics from the application controller."
+        },
+        {
+          "name": "repo_server_metrics_enabled",
+          "type": "bool",
+          "title": "Repo Server Metrics",
+          "required": false,
+          "default": true,
+          "description": "Expose metrics from the repo-server."
+        },
+        {
+          "name": "server_metrics_enabled",
+          "type": "bool",
+          "title": "Server Metrics",
+          "required": false,
+          "default": true,
+          "description": "Expose metrics from the Argo CD API server."
+        },
+        {
+          "name": "dex_metrics_enabled",
+          "type": "bool",
+          "title": "Dex Metrics",
+          "required": false,
+          "default": false,
+          "description": "Expose metrics from Dex when Dex is enabled.",
+          "needs": [
+            "dex_enabled=true"
+          ]
+        },
+        {
+          "name": "redis_metrics_enabled",
+          "type": "bool",
+          "title": "Redis Metrics",
+          "required": false,
+          "default": false,
+          "description": "Expose metrics from bundled Redis when Redis is enabled.",
+          "needs": [
+            "redis_enabled=true"
+          ]
+        }
+      ],
+      "name": "metrics"
+    }
+  ]
+}

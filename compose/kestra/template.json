@@ -1,0 +1,289 @@
+{
+  "slug": "kestra",
+  "kind": "compose",
+  "metadata": {
+    "name": "Kestra",
+    "description": "Runs Kestra in Docker Compose with a companion configuration file, PostgreSQL datasource settings, and persistent storage.",
+    "guide": "## Overview\nRuns Kestra in Docker Compose with a companion configuration file and persistent storage.\n\n## Prerequisites\n- Provide a reachable PostgreSQL datasource before first start.\n- Mount the Docker socket only on a trusted host because flows can execute Docker-based tasks.\n- If you expose Kestra through Traefik or another identity layer, make sure the referenced middleware and network already exist.\n\n## Deploy\n- Render `compose.yaml` and `config/config.yaml`, then fill in the PostgreSQL datasource settings.\n- Start the stack with `docker compose up -d` and watch the logs until the web service is listening.\n\n## Post-Install\n- Add workflow-specific secrets to your `.env` or environment configuration before enabling flows that depend on them.\n- Import or sync your flows after the instance is healthy and verify the storage and temp paths are writable.\n- If you do not front Kestra with SSO, extend the config with your preferred authentication settings before exposing it publicly.\n\n## References\n- [Kestra Documentation](https://kestra.io/docs)\n- [Kestra Configuration](https://kestra.io/docs/configuration)\n- [Kestra Docker Deployment](https://kestra.io/docs/installation/docker)",
+    "tags": [],
+    "template_version": "v1.0.0",
+    "icon": {
+      "provider": "selfhst",
+      "id": "kestra"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "title": "General",
+      "variables": [
+        {
+          "name": "service_name",
+          "type": "str",
+          "title": "Compose service name",
+          "required": false,
+          "default": "kestra",
+          "description": "Name to use for the compose service.",
+          "config": {
+            "placeholder": "kestra"
+          }
+        },
+        {
+          "name": "container_name",
+          "type": "str",
+          "title": "Container name",
+          "required": false,
+          "default": "kestra",
+          "description": "Name to use for the container.",
+          "config": {
+            "placeholder": "kestra"
+          }
+        },
+        {
+          "name": "restart_policy",
+          "type": "enum",
+          "title": "Container restart policy",
+          "required": true,
+          "default": "unless-stopped",
+          "description": "Policy used for Container Restart.",
+          "config": {
+            "options": [
+              "unless-stopped",
+              "always",
+              "on-failure",
+              "no"
+            ]
+          }
+        },
+        {
+          "name": "container_user",
+          "type": "str",
+          "title": "Container runtime user",
+          "required": false,
+          "default": "root",
+          "description": "Username for the container runtime.",
+          "config": {
+            "placeholder": "root"
+          }
+        },
+        {
+          "name": "worker_threads",
+          "type": "int",
+          "title": "Worker Threads",
+          "required": false,
+          "default": 128,
+          "description": "Kestra worker thread count",
+          "config": {
+            "slider": true,
+            "min": 4,
+            "max": 256,
+            "step": 4,
+            "placeholder": "128"
+          }
+        }
+      ],
+      "name": "general"
+    },
+    {
+      "title": "Runtime",
+      "variables": [
+        {
+          "name": "docker_socket_enabled",
+          "type": "bool",
+          "title": "Docker Socket",
+          "required": false,
+          "default": true,
+          "description": "Mount the Docker socket into Kestra"
+        },
+        {
+          "name": "tmp_workdir_host",
+          "type": "str",
+          "title": "Temp Workdir",
+          "required": false,
+          "default": "/tmp/kestra-wd",
+          "description": "Host path for Kestra temporary working directory",
+          "config": {
+            "placeholder": "/tmp/kestra-wd"
+          }
+        },
+        {
+          "name": "storage_volume_name",
+          "type": "str",
+          "title": "Storage Volume",
+          "required": false,
+          "default": "kestra-data",
+          "description": "Named volume for Kestra storage",
+          "config": {
+            "placeholder": "kestra-data"
+          }
+        },
+        {
+          "name": "env_file_enabled",
+          "type": "bool",
+          "title": "Env File",
+          "required": false,
+          "default": true,
+          "description": "Load environment variables from an env file"
+        },
+        {
+          "name": "env_file_path",
+          "type": "str",
+          "title": "Env File Path",
+          "required": false,
+          "default": ".env",
+          "description": "Path used for Env File.",
+          "config": {
+            "placeholder": ".env"
+          }
+        },
+        {
+          "name": "kestra_public_url",
+          "type": "str",
+          "title": "Public Kestra URL",
+          "required": true,
+          "description": "URL used for Public Kestra.",
+          "config": {
+            "placeholder": "https://kestra.home.arpa/"
+          }
+        },
+        {
+          "name": "tutorial_flows_enabled",
+          "type": "bool",
+          "title": "Tutorial Flows",
+          "required": false,
+          "default": false,
+          "description": "Enable Kestra tutorial flows"
+        }
+      ],
+      "name": "runtime"
+    },
+    {
+      "title": "PostgreSQL Datasource",
+      "variables": [
+        {
+          "name": "postgres_jdbc_url",
+          "type": "str",
+          "title": "PostgreSQL JDBC URL",
+          "required": true,
+          "description": "URL used for Postgresql Jdbc.",
+          "config": {
+            "placeholder": "jdbc:postgresql://database:5432/kestra"
+          }
+        },
+        {
+          "name": "postgres_username",
+          "type": "str",
+          "title": "PostgreSQL username",
+          "required": true,
+          "description": "Username for the postgresql.",
+          "config": {
+            "placeholder": "kestra"
+          }
+        },
+        {
+          "name": "postgres_password",
+          "type": "secret",
+          "title": "PostgreSQL password",
+          "required": true,
+          "description": "Password for the postgresql."
+        }
+      ],
+      "name": "postgres"
+    },
+    {
+      "title": "Network",
+      "variables": [
+        {
+          "name": "network_name",
+          "type": "str",
+          "title": "Network Name",
+          "required": true,
+          "default": "proxy",
+          "description": "Docker network name",
+          "config": {
+            "placeholder": "proxy"
+          }
+        },
+        {
+          "name": "network_external",
+          "type": "bool",
+          "title": "External Network",
+          "required": false,
+          "default": true,
+          "description": "Use an existing external Docker network"
+        }
+      ],
+      "name": "network"
+    },
+    {
+      "title": "Traefik",
+      "variables": [
+        {
+          "name": "traefik_enabled",
+          "type": "bool",
+          "title": "Traefik",
+          "required": false,
+          "default": true,
+          "description": "Enable Traefik labels"
+        },
+        {
+          "name": "public_hostname",
+          "type": "str",
+          "title": "Primary public hostname",
+          "required": false,
+          "default": "kestra.home.arpa",
+          "description": "Hostname used for Primary Public.",
+          "config": {
+            "placeholder": "kestra.home.arpa"
+          }
+        },
+        {
+          "name": "secondary_hostname",
+          "type": "str",
+          "title": "Secondary Hostname",
+          "required": false,
+          "default": "",
+          "description": "Optional secondary public hostname",
+          "config": {
+            "placeholder": "kp1web.home.arpa"
+          }
+        },
+        {
+          "name": "traefik_middleware",
+          "type": "str",
+          "title": "Traefik Middleware",
+          "required": false,
+          "default": "",
+          "description": "Optional Traefik middleware reference",
+          "config": {
+            "placeholder": "authentik@file"
+          }
+        },
+        {
+          "name": "traefik_tls_enabled",
+          "type": "bool",
+          "title": "TLS",
+          "required": false,
+          "default": true,
+          "description": "Enable Traefik TLS"
+        },
+        {
+          "name": "traefik_tls_certresolver",
+          "type": "str",
+          "title": "Cert Resolver",
+          "required": false,
+          "default": "cloudflare",
+          "description": "Traefik certificate resolver name",
+          "config": {
+            "placeholder": "cloudflare"
+          },
+          "needs": [
+            "traefik_tls_enabled=true"
+          ]
+        }
+      ],
+      "name": "traefik",
+      "toggle": "traefik_enabled"
+    }
+  ]
+}

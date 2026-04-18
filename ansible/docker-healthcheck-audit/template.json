@@ -1,0 +1,87 @@
+{
+  "slug": "docker-healthcheck-audit",
+  "kind": "ansible",
+  "metadata": {
+    "name": "Docker Healthcheck Audit",
+    "description": "Audits Docker containers for missing healthchecks and optionally fails the playbook when violations are found. Can save a JSON audit report to the target host.",
+    "guide": "## Overview\nThis playbook audits containers for missing Docker healthchecks.\n\n## Prerequisites\n- Decide whether the playbook should fail when missing healthchecks are found.\n- Confirm the report path is writable if you plan to save the audit output.\n\n## Run\n1. Render `main.yml` and review the failure and report options.\n2. Run the playbook against the target Docker hosts.\n3. Review the output and update the affected container definitions as needed.\n\n## Docs\n- [Docker HEALTHCHECK](https://docs.docker.com/engine/reference/builder/#healthcheck)",
+    "tags": [
+      "docker",
+      "audit",
+      "healthcheck",
+      "compliance"
+    ],
+    "template_version": "1",
+    "icon": {
+      "provider": "mdi",
+      "id": "stethoscope",
+      "color": "blue"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "title": "Audit",
+      "variables": [
+        {
+          "name": "audit_fail_on_missing",
+          "type": "bool",
+          "title": "Fail Missing Checks",
+          "required": false,
+          "default": false,
+          "description": "Fail the play if one or more containers are missing a healthcheck"
+        },
+        {
+          "name": "audit_save_report",
+          "type": "bool",
+          "title": "Save JSON Report",
+          "required": false,
+          "default": true,
+          "description": "Save audit report to a JSON file on the target host"
+        },
+        {
+          "name": "audit_report_path",
+          "type": "str",
+          "title": "Audit Report Path",
+          "required": false,
+          "default": "/tmp/docker-healthcheck-audit.json",
+          "description": "Path to store the generated JSON report",
+          "config": {
+            "placeholder": "/tmp/docker-healthcheck-audit.json"
+          }
+        }
+      ],
+      "name": "audit"
+    },
+    {
+      "title": "Internal",
+      "variables": [
+        {
+          "name": "containers_missing_healthcheck",
+          "type": "str",
+          "title": "Containers Missing Healthcheck",
+          "required": false,
+          "default": "",
+          "description": "Value used for the internal settings."
+        },
+        {
+          "name": "docker_healthcheck_audit_report",
+          "type": "str",
+          "title": "Healthcheck Audit Report",
+          "required": false,
+          "default": "",
+          "description": "Value used for the internal settings."
+        },
+        {
+          "name": "docker_host_info",
+          "type": "str",
+          "title": "Docker Host Info",
+          "required": false,
+          "default": "",
+          "description": "Value used for the internal settings."
+        }
+      ],
+      "name": "internal"
+    }
+  ]
+}

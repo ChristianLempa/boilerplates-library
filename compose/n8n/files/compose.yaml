@@ -1,0 +1,209 @@
+services:
+<%- if queue_enabled and not queue_redis_external -%>
+  redis:
+    image: redis:8-alpine
+    container_name: << service_name >>-redis
+    volumes:
+      - redis_data:/data
+    <%- if network_mode == 'bridge' -%>
+    networks:
+      - << network_name >>
+    <%- else -%>
+    network_mode: << network_mode >>
+    <%- endif -%>
+    restart: << restart_policy >>
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  <%- endif -%>
+  << service_name >>:
+    image: n8nio/n8n:2.8.3
+    container_name: << container_name >>
+    hostname: << container_hostname >>
+    environment:
+      - N8N_LOG_LEVEL=<< container_loglevel >>
+      - GENERIC_TIMEZONE=<< container_timezone >>
+      - TZ=<< container_timezone >>
+      - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
+      - N8N_RUNNERS_ENABLED=true
+      <%- if traefik_enabled -%>
+      - N8N_HOST=<< traefik_host >>.<< traefik_domain >>
+      <%- if traefik_tls_enabled -%>
+      - N8N_PROTOCOL=https
+      - N8N_EDITOR_BASE_URL=https://<< traefik_host >>.<< traefik_domain >>
+      <%- else -%>
+      - N8N_PROTOCOL=http
+      - N8N_EDITOR_BASE_URL=http://<< traefik_host >>.<< traefik_domain >>
+      <%- endif -%>
+      <%- endif -%>
+      - NODE_ENV=production
+      <%- if database_enabled -%>
+      <%- if database_type == 'postgres' -%>
+      - DB_TYPE=postgresdb
+      - DB_POSTGRESDB_HOST=<< database_host >>
+      - DB_POSTGRESDB_PORT=<< database_port >>
+      - DB_POSTGRESDB_DATABASE=<< database_name >>
+      - DB_POSTGRESDB_USER=${DATABASE_USER}
+      - DB_POSTGRESDB_PASSWORD=${DATABASE_PASSWORD}
+      <%- elif database_type == 'mysql' -%>
+      - DB_TYPE=mysqldb
+      - DB_MYSQLDB_HOST=<< database_host >>
+      - DB_MYSQLDB_PORT=<< database_port >>
+      - DB_MYSQLDB_DATABASE=<< database_name >>
+      - DB_MYSQLDB_USER=${DATABASE_USER}
+      - DB_MYSQLDB_PASSWORD=${DATABASE_PASSWORD}
+      <%- endif -%>
+      <%- endif -%>
+      - N8N_ENCRYPTION_KEY=${N8N_ENCRYPTION_KEY}
+      <%- if webhook_url -%>
+      - WEBHOOK_URL=<< webhook_url >>
+      <%- endif -%>
+      - N8N_PROXY_HOPS=<< proxy_hops >>
+      <%- if metrics_enabled -%>
+      - N8N_METRICS=true
+      <%- if metrics_detailed -%>
+      - N8N_METRICS_INCLUDE_WORKFLOW_ID_LABELS=true
+      - N8N_METRICS_INCLUDE_NODE_TYPE_LABEL=true
+      - N8N_METRICS_INCLUDE_API_ENDPOINTS=true
+      - N8N_METRICS_INCLUDE_API_STATUS_CODE_LABELS=true
+      - N8N_METRICS_INCLUDE_CREDENTIAL_TYPE_LABEL=true
+      <%- endif -%>
+      <%- endif -%>
+      - EXECUTIONS_DATA_SAVE_ON_ERROR=<< execution_save_on_error >>
+      - EXECUTIONS_DATA_SAVE_ON_SUCCESS=<< execution_save_on_success >>
+      <%- if queue_enabled -%>
+      - EXECUTIONS_MODE=queue
+      - QUEUE_BULL_REDIS_HOST=<< queue_redis_host >>
+      - QUEUE_BULL_REDIS_PORT=<< queue_redis_port >>
+      - QUEUE_HEALTH_CHECK_ACTIVE=true
+      <%- if metrics_enabled -%>
+      - N8N_METRICS_INCLUDE_QUEUE_METRICS=true
+      <%- endif -%>
+      <%- endif -%>
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - data:/home/node/.n8n
+    <%- if network_mode == 'bridge' -%>
+    networks:
+      <%- if traefik_enabled -%>
+      - << traefik_network >>
+      <%- endif -%>
+      - << network_name >>
+    <%- else -%>
+    network_mode: << network_mode >>
+    <%- endif -%>
+    <%- if not traefik_enabled and network_mode == 'bridge' -%>
+    ports:
+      - "<< ports_http >>:5678"
+    <%- endif -%>
+    <%- if queue_enabled and not queue_redis_external -%>
+    depends_on:
+      redis:
+        condition: service_healthy
+    <%- endif -%>
+    <%- if traefik_enabled -%>
+    labels:
+      - traefik.enable=true
+      <%- if network_mode == 'bridge' -%>
+      - traefik.docker.network=<< traefik_network >>
+      <%- endif -%>
+      <%- if traefik_webhook_host -%>
+      - traefik.http.routers.<< service_name >>.rule=Host(`<< traefik_host >>.<< traefik_domain >>`) || Host(`<< traefik_webhook_host >>`)
+      <%- else -%>
+      - traefik.http.routers.<< service_name >>.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
+      <%- endif -%>
+      <%- if traefik_tls_enabled -%>
+      - traefik.http.routers.<< service_name >>.entrypoints=<< traefik_tls_entrypoint >>
+      - traefik.http.routers.<< service_name >>.tls=true
+      - traefik.http.routers.<< service_name >>.tls.certresolver=<< traefik_tls_certresolver >>
+      <%- else -%>
+      - traefik.http.routers.<< service_name >>.entrypoints=<< traefik_entrypoint >>
+      <%- endif -%>
+      - traefik.http.services.<< service_name >>-web.loadbalancer.server.port=5678
+      - traefik.http.routers.<< service_name >>.service=<< service_name >>-web
+    <%- endif -%>
+    restart: << restart_policy >>
+<%- if queue_enabled and queue_embedded_worker -%>
+
+  << service_name >>-worker:
+    image: n8nio/n8n:2.8.3
+    command: worker
+    container_name: << container_name >>-worker
+    environment:
+      - N8N_LOG_LEVEL=<< container_loglevel >>
+      - GENERIC_TIMEZONE=<< container_timezone >>
+      - TZ=<< container_timezone >>
+      <%- if database_enabled -%>
+      <%- if database_type == 'postgres' -%>
+      - DB_TYPE=postgresdb
+      - DB_POSTGRESDB_HOST=<< database_host >>
+      - DB_POSTGRESDB_PORT=<< database_port >>
+      - DB_POSTGRESDB_DATABASE=<< database_name >>
+      - DB_POSTGRESDB_USER=${DATABASE_USER}
+      - DB_POSTGRESDB_PASSWORD=${DATABASE_PASSWORD}
+      <%- elif database_type == 'mysql' -%>
+      - DB_TYPE=mysqldb
+      - DB_MYSQLDB_HOST=<< database_host >>
+      - DB_MYSQLDB_PORT=<< database_port >>
+      - DB_MYSQLDB_DATABASE=<< database_name >>
+      - DB_MYSQLDB_USER=${DATABASE_USER}
+      - DB_MYSQLDB_PASSWORD=${DATABASE_PASSWORD}
+      <%- endif -%>
+      <%- endif -%>
+      - N8N_ENCRYPTION_KEY=${N8N_ENCRYPTION_KEY}
+      - EXECUTIONS_MODE=queue
+      - QUEUE_BULL_REDIS_HOST=<< queue_redis_host >>
+      - QUEUE_BULL_REDIS_PORT=<< queue_redis_port >>
+      - QUEUE_HEALTH_CHECK_ACTIVE=true
+      <%- if metrics_enabled -%>
+      - N8N_METRICS=true
+      <%- if metrics_detailed -%>
+      - N8N_METRICS_INCLUDE_WORKFLOW_ID_LABELS=true
+      - N8N_METRICS_INCLUDE_NODE_TYPE_LABEL=true
+      <%- endif -%>
+      <%- endif -%>
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - data:/home/node/.n8n
+    <%- if network_mode == 'bridge' -%>
+    networks:
+      - << network_name >>
+    <%- else -%>
+    network_mode: << network_mode >>
+    <%- endif -%>
+    <%- if not queue_redis_external -%>
+    depends_on:
+      redis:
+        condition: service_healthy
+    <%- endif -%>
+    restart: << restart_policy >>
+<%- endif -%>
+
+volumes:
+  data:
+    driver: local
+<%- if queue_enabled and not queue_redis_external -%>
+  redis_data:
+    driver: local
+<%- endif -%>
+
+<%- if network_mode == 'bridge' -%>
+networks:
+  << network_name >>:
+  <%- if network_external -%>
+    external: true
+  <%- else -%>
+    driver: bridge
+  <%- endif -%>
+  <%- if traefik_enabled -%>
+  << traefik_network >>:
+  <%- if traefik_network_external -%>
+    external: true
+  <%- else -%>
+    driver: bridge
+  <%- endif -%>
+  <%- endif -%>
+<%- endif -%>

@@ -1,0 +1,402 @@
+{
+  "slug": "pihole-swarm",
+  "kind": "swarm",
+  "metadata": {
+    "name": "Pihole",
+    "description": "Network-wide DNS-based ad and tracker blocker that acts as a DNS sinkhole. Filters content at the DNS level for all devices on your network.",
+    "guide": "## Overview\nNetwork-wide DNS-based ad and tracker blocker that acts as a DNS sinkhole. Filters content at the DNS level for all devices on your network.\n\n## How to Use\nThis template renders `compose.yaml` as a file.\n\n1. Decide on stack naming, networking, ports, and persistent storage before rendering the stack.\n2. Fill in required service settings first, then enable optional integrations such as Traefik, databases, or metrics only when needed.\n3. Render the stack files, review placement and secret handling, and deploy them with Docker Swarm in the target environment.\n\n## Variable Guide\n### General\n- `service_name`: Service Name; optional; default: pihole.\n- `container_hostname`: Container Hostname; optional.\n- `container_timezone`: Container Timezone; optional.\n- `user_uid`: User Uid; optional; default: 1000.\n- `user_gid`: User Gid; optional; default: 1000.\n\n### Admin Settings\n- `webpassword`: Web interface admin password; optional.\n\n### Ports\n- `ports_dns`: DNS port for Pi-hole; required; default: 53.\n- `ports_http`: HTTP port for Pi-hole; optional; default: 80.\n- `ports_https`: HTTPS port for Pi-hole; optional; default: 443.\n- `ports_ntp`: External NTP port; required; default: 123.\n\n### Traefik\n- `traefik_host`: Traefik Host; optional; default: pihole.\n- `traefik_network`: Traefik Network; required; default: traefik.\n- `traefik_domain`: Traefik Domain; required; default: home.arpa.\n- `traefik_enabled`: Enable Traefik integration; optional; default: false.\n\n### Traefik TLS\n- `traefik_tls_certresolver`: Traefik Tls Certresolver; required; default: cloudflare.\n- `traefik_tls_enabled`: Enable Traefik TLS; optional; default: false.\n\n### Network\n- `network_mode`: Network Mode; optional.\n- `network_name`: Network Name; optional; default: pihole_network.\n- `network_macvlan_ipv4_address`: Network Macvlan Ipv4 Address; required; default: 192.0.2.11; shown when: network_mode=macvlan.\n- `network_macvlan_parent_interface`: Network Macvlan Parent Interface; required; default: eth0; shown when: network_mode=macvlan.\n- `network_macvlan_subnet`: Network Macvlan Subnet; required; default: 192.0.2.0/24; shown when: network_mode=macvlan.\n- `network_macvlan_gateway`: Network Macvlan Gateway; required; default: 192.0.2.1; shown when: network_mode=macvlan.\n- `network_external`: Whether the network is external; optional; default: false.\n\n### Docker Swarm\n- `swarm_placement_host`: Swarm Placement Host; required.\n\n### Volume\n- `volume_mode`: Volume Mode; required; default: local; options: local, mount, nfs.\n- `volume_mount_path`: Volume Mount Path; required; default: /path/to/storage; shown when: volume_mode=mount.\n- `volume_nfs_server`: Volume Nfs Server; required; default: 192.0.2.1; shown when: volume_mode=nfs.\n- `volume_nfs_path`: Volume Nfs Path; required; default: /path/to/export; shown when: volume_mode=nfs.\n- `volume_nfs_options`: Volume Nfs Options; required; default: rw,nolock,soft; shown when: volume_mode=nfs.\n\n## References\n- [Pi-hole](https://pi-hole.net/)\n- [Documentation](https://docs.pi-hole.net/)\n- [GitHub](https://github.com/pi-hole/pi-hole)\n## Notes\n- Pi-hole does NOT support multiple replicas. This template enforces a single instance with node placement constraints to ensure stable DNS resolution.\n\n## Next Steps\nLog in with your initial admin user:\n```bash\nUsername: admin\nPassword: << webpassword >>\n```",
+    "tags": [
+      "traefik",
+      "network",
+      "volume"
+    ],
+    "template_version": "2025.11.1",
+    "icon": {
+      "provider": "selfhst",
+      "id": "pi-hole"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "title": "General",
+      "variables": [
+        {
+          "name": "service_name",
+          "type": "str",
+          "title": "Service Name",
+          "required": false,
+          "default": "pihole",
+          "config": {
+            "placeholder": "pihole"
+          },
+          "description": "Name of the service."
+        },
+        {
+          "name": "container_hostname",
+          "type": "str",
+          "title": "Container Hostname",
+          "required": false,
+          "description": "Hostname used inside the container."
+        },
+        {
+          "name": "container_timezone",
+          "type": "str",
+          "title": "Container Timezone",
+          "required": false,
+          "description": "Timezone used inside the container."
+        },
+        {
+          "name": "user_uid",
+          "type": "int",
+          "title": "User Uid",
+          "required": false,
+          "default": 1000,
+          "config": {
+            "placeholder": "1000"
+          },
+          "description": "Value used for the general settings."
+        },
+        {
+          "name": "user_gid",
+          "type": "int",
+          "title": "User Gid",
+          "required": false,
+          "default": 1000,
+          "config": {
+            "placeholder": "1000"
+          },
+          "description": "Value used for the general settings."
+        }
+      ],
+      "name": "general"
+    },
+    {
+      "title": "Admin Settings",
+      "variables": [
+        {
+          "name": "webpassword",
+          "type": "secret",
+          "title": "Admin Password",
+          "required": false,
+          "description": "Web interface admin password",
+          "config": {
+            "autogenerated": true
+          }
+        }
+      ],
+      "name": "admin-settings"
+    },
+    {
+      "title": "Ports",
+      "variables": [
+        {
+          "name": "ports_dns",
+          "type": "int",
+          "title": "DNS Port",
+          "required": true,
+          "default": 53,
+          "description": "DNS port for Pi-hole",
+          "config": {
+            "placeholder": "53"
+          }
+        },
+        {
+          "name": "ports_http",
+          "type": "int",
+          "title": "HTTP Port",
+          "required": false,
+          "default": 80,
+          "description": "HTTP port for Pi-hole",
+          "config": {
+            "placeholder": "80"
+          }
+        },
+        {
+          "name": "ports_https",
+          "type": "int",
+          "title": "HTTPS Port",
+          "required": false,
+          "default": 443,
+          "description": "HTTPS port for Pi-hole",
+          "config": {
+            "placeholder": "443"
+          }
+        },
+        {
+          "name": "ports_ntp",
+          "type": "int",
+          "title": "External NTP port",
+          "required": true,
+          "default": 123,
+          "description": "Port used for External NTP.",
+          "config": {
+            "placeholder": "123"
+          }
+        }
+      ],
+      "name": "ports"
+    },
+    {
+      "title": "Traefik",
+      "variables": [
+        {
+          "name": "traefik_host",
+          "type": "str",
+          "title": "Host",
+          "required": false,
+          "config": {
+            "placeholder": "pihole"
+          },
+          "description": "Hostname used for Traefik."
+        },
+        {
+          "name": "traefik_network",
+          "type": "str",
+          "title": "Network",
+          "required": true,
+          "default": "traefik",
+          "config": {
+            "placeholder": "traefik"
+          },
+          "description": "Network used for Traefik."
+        },
+        {
+          "name": "traefik_domain",
+          "type": "str",
+          "title": "Domain",
+          "required": true,
+          "config": {
+            "placeholder": "home.arpa"
+          },
+          "description": "Domain used for Traefik."
+        },
+        {
+          "name": "traefik_enabled",
+          "type": "bool",
+          "title": "Traefik",
+          "required": false,
+          "default": false,
+          "description": "Enable Traefik integration"
+        }
+      ],
+      "name": "traefik",
+      "toggle": "traefik_enabled"
+    },
+    {
+      "title": "Traefik TLS",
+      "variables": [
+        {
+          "name": "traefik_tls_certresolver",
+          "type": "str",
+          "title": "Cert Resolver",
+          "required": true,
+          "default": "cloudflare",
+          "config": {
+            "placeholder": "cloudflare"
+          },
+          "description": "Traefik Tls Certresolver"
+        },
+        {
+          "name": "traefik_tls_enabled",
+          "type": "bool",
+          "title": "TLS",
+          "required": false,
+          "default": false,
+          "description": "Enable Traefik TLS"
+        }
+      ],
+      "name": "traefik-tls",
+      "toggle": "traefik_tls_enabled"
+    },
+    {
+      "title": "Network",
+      "variables": [
+        {
+          "name": "network_mode",
+          "type": "enum",
+          "title": "Network Mode",
+          "required": false,
+          "description": "Mode used for Network.",
+          "default": "bridge",
+          "config": {
+            "options": [
+              "bridge",
+              "host",
+              "macvlan"
+            ]
+          }
+        },
+        {
+          "name": "network_name",
+          "type": "str",
+          "title": "Network Name",
+          "required": false,
+          "default": "pihole_network",
+          "config": {
+            "placeholder": "pihole_network"
+          },
+          "description": "Name to use for the network."
+        },
+        {
+          "name": "network_macvlan_ipv4_address",
+          "type": "str",
+          "title": "IPv4 Address",
+          "required": true,
+          "default": "IP_ADDRESS",
+          "needs": [
+            "network_mode=macvlan"
+          ],
+          "config": {
+            "placeholder": "IP_ADDRESS"
+          },
+          "description": "Network Macvlan Ipv4 Address"
+        },
+        {
+          "name": "network_macvlan_parent_interface",
+          "type": "str",
+          "title": "Parent Interface",
+          "required": true,
+          "default": "eth0",
+          "needs": [
+            "network_mode=macvlan"
+          ],
+          "config": {
+            "placeholder": "eth0"
+          },
+          "description": "Network Macvlan Parent Interface"
+        },
+        {
+          "name": "network_macvlan_subnet",
+          "type": "str",
+          "title": "Subnet",
+          "required": true,
+          "default": "IP_RANGE",
+          "needs": [
+            "network_mode=macvlan"
+          ],
+          "config": {
+            "placeholder": "IP_RANGE"
+          },
+          "description": "Network Macvlan Subnet"
+        },
+        {
+          "name": "network_macvlan_gateway",
+          "type": "str",
+          "title": "Gateway",
+          "required": true,
+          "default": "GATEWAY",
+          "needs": [
+            "network_mode=macvlan"
+          ],
+          "config": {
+            "placeholder": "GATEWAY"
+          },
+          "description": "Network Macvlan Gateway"
+        },
+        {
+          "name": "network_external",
+          "type": "bool",
+          "title": "External Network",
+          "required": false,
+          "default": false,
+          "description": "Whether the network is external"
+        }
+      ],
+      "name": "network"
+    },
+    {
+      "title": "Docker Swarm",
+      "variables": [
+        {
+          "name": "swarm_placement_host",
+          "type": "str",
+          "title": "Swarm Placement Host",
+          "required": true,
+          "description": "Hostname used for Swarm Placement.",
+          "config": {
+            "placeholder": "swarm-node-1"
+          }
+        }
+      ],
+      "name": "swarm"
+    },
+    {
+      "title": "Volume",
+      "variables": [
+        {
+          "name": "volume_mode",
+          "type": "enum",
+          "title": "Volume Mode",
+          "required": true,
+          "default": "local",
+          "config": {
+            "options": [
+              "local",
+              "mount",
+              "nfs"
+            ]
+          },
+          "description": "Mode used for Volume."
+        },
+        {
+          "name": "volume_mount_path",
+          "type": "str",
+          "title": "Volume Mount Path",
+          "required": true,
+          "default": "/data",
+          "needs": [
+            "volume_mode=mount"
+          ],
+          "config": {
+            "placeholder": "/data"
+          },
+          "description": "Mount path used for the volume."
+        },
+        {
+          "name": "volume_nfs_server",
+          "type": "str",
+          "title": "Volume Nfs Server",
+          "required": true,
+          "default": "NFS_SERVER",
+          "needs": [
+            "volume_mode=nfs"
+          ],
+          "config": {
+            "placeholder": "NFS_SERVER"
+          },
+          "description": "Hostname or IP address of the NFS server."
+        },
+        {
+          "name": "volume_nfs_path",
+          "type": "str",
+          "title": "Volume Nfs Path",
+          "required": true,
+          "default": "/export",
+          "needs": [
+            "volume_mode=nfs"
+          ],
+          "config": {
+            "placeholder": "/export"
+          },
+          "description": "Export path on the NFS server."
+        },
+        {
+          "name": "volume_nfs_options",
+          "type": "str",
+          "title": "Volume Nfs Options",
+          "required": true,
+          "default": "rw,nolock,soft",
+          "needs": [
+            "volume_mode=nfs"
+          ],
+          "config": {
+            "placeholder": "rw,nolock,soft"
+          },
+          "description": "Mount options for the NFS volume."
+        }
+      ],
+      "name": "volume"
+    }
+  ]
+}

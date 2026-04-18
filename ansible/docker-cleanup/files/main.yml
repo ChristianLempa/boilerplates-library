@@ -1,0 +1,17 @@
+---
+- name: Docker prune safe
+  hosts: all
+  become: true
+  gather_facts: false
+
+  tasks:
+    - name: Prune Docker resources with safe defaults
+      community.docker.docker_prune:
+        containers: << prune_stopped_containers | default(false) >>
+        images: true
+        images_filters:
+          dangling: << not (prune_include_unused_tagged_images | default(false)) >>
+        networks: << prune_unused_networks | default(false) >>
+        volumes: << prune_unused_volumes | default(false) >>
+        builder_cache: << prune_builder_cache | default(false) >>
+        builder_cache_keep_storage: "<< prune_keep_storage_mb | default(1024) >>M"

@@ -1,0 +1,25 @@
+<%- if webserver_enabled %>
+<< webserver_domain >> {
+	root * /srv
+	file_server
+	<%- if webserver_custom_config_content %>
+	<%- for line in webserver_custom_config_content.split('\n') %>
+	<< line >>
+	<%- endfor %>
+	<%- endif %>
+}
+<%- endif %>
+
+<%- if reverse_proxy_enabled %>
+<< reverse_proxy_domain >> {
+	<%- if reverse_proxy_custom_config_content %>
+	reverse_proxy << reverse_proxy_upstream >> {
+		<%- for line in reverse_proxy_custom_config_content.split('\n') %>
+		<< line >>
+		<%- endfor %>
+	}
+	<%- else %>
+	reverse_proxy << reverse_proxy_upstream >>
+	<%- endif %>
+}
+<%- endif %>

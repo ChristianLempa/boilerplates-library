@@ -1,0 +1,47 @@
+services:
+  << service_name >>:
+    image: docker.io/library/caddy:2.11.2-alpine
+    restart: << restart_policy >>
+    <%- if container_timezone %>
+    environment:
+      - TZ=<< container_timezone >>
+    <%- endif %>
+    ports:
+      - "<< ports_http >>:80"
+      - "<< ports_https >>:443"
+      - "<< ports_https >>:443/udp"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./config:/etc/caddy/config:ro
+      <%- if webserver_enabled %>
+      <%- if webserver_content_type == 'mount' %>
+      - << webserver_content_mount_path >>:/srv:ro
+      <%- elif webserver_content_type == 'nfs' %>
+      - caddy_site:/srv:ro
+      <%- endif %>
+      <%- endif %>
+      - caddy_data:/data
+      - caddy_config:/config
+    networks:
+      - << docker_network >>
+
+networks:
+  << docker_network >>:
+    <%- if docker_network_external %>
+    external: true
+    <%- else %>
+    driver: bridge
+    name: << docker_network >>
+    <%- endif %>
+
+volumes:
+<%- if webserver_enabled and webserver_content_type == 'nfs' %>
+  caddy_site:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=<< webserver_content_nfs_server >>,nfsvers=4,<< webserver_content_nfs_options >>
+      device: ":<< webserver_content_nfs_path >>"
+<%- endif %>
+  caddy_data:
+  caddy_config:

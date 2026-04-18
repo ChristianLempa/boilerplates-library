@@ -1,0 +1,18 @@
+services:
+  << service_name >>:
+    image: cloudflare/cloudflared:2026.3.0
+    container_name: << container_name >>
+    environment:
+      - TUNNEL_TOKEN=${TUNNEL_TOKEN}
+    command: << tunnel_run_command >>
+    networks:
+      - << network_name >>
+    restart: << restart_policy >>
+
+networks:
+  << network_name >>:
+<%- if network_external %>
+    external: true
+<%- else %>
+    driver: bridge
+<%- endif %>

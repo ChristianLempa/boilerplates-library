@@ -1,0 +1,24 @@
+---
+- name: Add SSH authorized keys
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Install SSH public key
+      ansible.posix.authorized_key:
+        user: "<< target_user >>"
+        state: present
+        key: "<< ssh_public_key >>"
+        manage_dir: true
+
+<%- if configure_passwordless_sudo %>
+    - name: Enable passwordless sudo for the sudo group
+      ansible.builtin.copy:
+        dest: /etc/sudoers.d/90-sudo-nopasswd
+        content: |
+          %sudo ALL=(ALL:ALL) NOPASSWD: ALL
+        owner: root
+        group: root
+        mode: "0440"
+        validate: /usr/sbin/visudo -cf %s
+<%- endif %>

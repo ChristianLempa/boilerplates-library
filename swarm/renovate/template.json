@@ -1,0 +1,318 @@
+{
+  "slug": "renovate-swarm",
+  "kind": "swarm",
+  "metadata": {
+    "name": "Renovate",
+    "description": "Self-hosted Mend Renovate CE worker for GitLab that scans repositories and opens dependency update merge requests.",
+    "guide": "## Overview\nSelf-hosted Mend Renovate CE worker for GitLab that scans repositories and opens dependency update merge requests.\n\n## Prerequisites\n- Prepare a Mend Renovate CE license key and a GitLab personal access token with the API scope required for the target repositories.\n- Confirm the GitLab API endpoint is reachable from the Swarm nodes, especially for self-hosted GitLab instances.\n- Decide whether the service should run in replicated or global mode and whether the UI will be exposed through Traefik.\n\n## Deploy\n- Render the generated files, review the placement mode, endpoint, and authentication values, then deploy with `docker stack deploy -c compose.yaml <stack-name>`.\n- Watch the service logs until Renovate authenticates to GitLab and reports a healthy startup.\n\n## Post-Install\n- Test the worker against one non-critical repository before enabling autodiscovery across a larger group.\n- If you expose the web interface, configure the matching GitLab webhook secret and validate delivery.\n- Review onboarding and schedule behavior so update PR volume matches your maintenance window.\n\n## References\n- [Renovate](https://www.mend.io/renovate/)\n- [Documentation](https://docs.renovatebot.com/)\n- [GitHub](https://github.com/renovatebot/renovate)",
+    "tags": [
+      "traefik"
+    ],
+    "template_version": "13.6.0-full",
+    "icon": {
+      "provider": "selfhst",
+      "id": "mend-renovate"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "title": "General",
+      "variables": [
+        {
+          "name": "service_name",
+          "type": "str",
+          "title": "Service Name",
+          "required": false,
+          "default": "renovate",
+          "config": {
+            "placeholder": "renovate"
+          },
+          "description": "Name of the service."
+        },
+        {
+          "name": "container_hostname",
+          "type": "str",
+          "title": "Container Hostname",
+          "required": false,
+          "default": "renovate",
+          "config": {
+            "placeholder": "renovate"
+          },
+          "description": "Hostname used inside the container."
+        },
+        {
+          "name": "container_timezone",
+          "type": "str",
+          "title": "Container Timezone",
+          "required": false,
+          "default": "UTC",
+          "config": {
+            "placeholder": "UTC"
+          },
+          "description": "Timezone used inside the container."
+        },
+        {
+          "name": "container_loglevel",
+          "type": "enum",
+          "title": "Log Level",
+          "required": false,
+          "config": {
+            "options": [
+              "debug",
+              "info",
+              "warn",
+              "error"
+            ]
+          },
+          "description": "Container Loglevel"
+        },
+        {
+          "name": "traefik_tls_certresolver",
+          "type": "str",
+          "title": "Cert Resolver",
+          "required": false,
+          "default": "",
+          "description": "Traefik Tls Certresolver",
+          "config": {
+            "placeholder": "cloudflare"
+          },
+          "needs": [
+            "traefik_enabled=true",
+            "traefik_tls_enabled=true"
+          ]
+        },
+        {
+          "name": "traefik_tls_entrypoint",
+          "type": "str",
+          "title": "Traefik Tls Entrypoint",
+          "required": false,
+          "default": "",
+          "description": "Traefik TLS entrypoint name.",
+          "config": {
+            "placeholder": "websecure"
+          },
+          "needs": [
+            "traefik_enabled=true",
+            "traefik_tls_enabled=true"
+          ]
+        }
+      ],
+      "name": "general"
+    },
+    {
+      "title": "Renovate Settings",
+      "variables": [
+        {
+          "name": "renovate_platform",
+          "type": "enum",
+          "title": "Git Platform",
+          "required": false,
+          "default": "gitlab",
+          "description": "Type used for Git Platform.",
+          "config": {
+            "options": [
+              "gitlab"
+            ]
+          }
+        },
+        {
+          "name": "renovate_endpoint",
+          "type": "str",
+          "title": "Git Endpoint",
+          "required": false,
+          "default": "https://gitlab.com/api/v4/",
+          "description": "Git Platform Endpoint URL",
+          "config": {
+            "placeholder": "https://gitlab.com/api/v4/"
+          }
+        },
+        {
+          "name": "renovate_autodiscover",
+          "type": "bool",
+          "title": "Auto-discover repositories",
+          "required": false,
+          "default": false,
+          "description": "Enable or disable auto-discover repositories."
+        }
+      ],
+      "name": "renovate-settings"
+    },
+    {
+      "title": "Authentication",
+      "variables": [
+        {
+          "name": "git_token",
+          "type": "secret",
+          "title": "Git Token",
+          "required": false,
+          "description": "GitLab Personal Access Token"
+        },
+        {
+          "name": "license_key",
+          "type": "secret",
+          "title": "License Key",
+          "required": false,
+          "description": "Mend Renovate CE License Key"
+        },
+        {
+          "name": "webhook_secret",
+          "type": "secret",
+          "title": "Webhook Secret",
+          "required": false,
+          "default": "renovate",
+          "description": "Webhook secret for platform integration",
+          "config": {
+            "placeholder": "renovate"
+          }
+        }
+      ],
+      "name": "authentication"
+    },
+    {
+      "title": "Ports",
+      "variables": [
+        {
+          "name": "ports_http",
+          "type": "int",
+          "title": "HTTP Port",
+          "required": false,
+          "default": 8080,
+          "description": "External HTTP port for web interface",
+          "config": {
+            "placeholder": "8080"
+          }
+        }
+      ],
+      "name": "ports"
+    },
+    {
+      "title": "Traefik",
+      "variables": [
+        {
+          "name": "traefik_enabled",
+          "type": "bool",
+          "title": "Traefik Enabled",
+          "required": false,
+          "default": false,
+          "description": "Enable or disable traefik enabled."
+        },
+        {
+          "name": "traefik_network",
+          "type": "str",
+          "title": "Network",
+          "required": false,
+          "default": "traefik",
+          "config": {
+            "placeholder": "traefik"
+          },
+          "description": "Network used for Traefik."
+        },
+        {
+          "name": "traefik_host",
+          "type": "str",
+          "title": "Host",
+          "required": false,
+          "config": {
+            "placeholder": "renovate"
+          },
+          "description": "Hostname used for Traefik."
+        },
+        {
+          "name": "traefik_domain",
+          "type": "str",
+          "title": "Domain",
+          "required": false,
+          "config": {
+            "placeholder": "home.arpa"
+          },
+          "description": "Domain used for Traefik."
+        },
+        {
+          "name": "traefik_entrypoint",
+          "type": "str",
+          "title": "Traefik Entrypoint",
+          "required": false,
+          "default": "web",
+          "description": "Traefik entrypoint name.",
+          "config": {
+            "placeholder": "web"
+          },
+          "needs": [
+            "traefik_enabled=true"
+          ]
+        }
+      ],
+      "name": "traefik",
+      "toggle": "traefik_enabled"
+    },
+    {
+      "title": "Traefik TLS",
+      "toggle": "traefik_tls_enabled",
+      "variables": [
+        {
+          "name": "traefik_tls_enabled",
+          "type": "bool",
+          "title": "TLS",
+          "required": false,
+          "default": false,
+          "description": "Enable Traefik TLS"
+        }
+      ],
+      "name": "traefik-tls"
+    },
+    {
+      "title": "Swarm",
+      "variables": [
+        {
+          "name": "swarm_placement_mode",
+          "type": "enum",
+          "title": "Swarm Placement Mode",
+          "required": false,
+          "default": "replicated",
+          "config": {
+            "options": [
+              "replicated",
+              "global"
+            ]
+          },
+          "description": "Mode used for Swarm Placement."
+        },
+        {
+          "name": "swarm_replicas",
+          "type": "int",
+          "title": "Swarm Replicas",
+          "required": false,
+          "default": 1,
+          "needs": [
+            "swarm_placement_mode=replicated"
+          ],
+          "config": {
+            "slider": true,
+            "min": 1,
+            "max": 10,
+            "step": 1,
+            "placeholder": "1",
+            "unit": "replicas"
+          },
+          "description": "Number of replicas to run."
+        },
+        {
+          "name": "swarm_placement_host",
+          "type": "str",
+          "title": "Swarm Placement Host",
+          "required": false,
+          "default": "",
+          "needs": [
+            "swarm_placement_mode=replicated"
+          ],
+          "description": "Hostname used for Swarm Placement.",
+          "config": {
+            "placeholder": "swarm-node-1"
+          }
+        }
+      ],
+      "name": "swarm"
+    }
+  ]
+}

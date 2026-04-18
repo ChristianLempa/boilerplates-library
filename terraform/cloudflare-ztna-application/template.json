@@ -1,0 +1,242 @@
+{
+  "slug": "cloudflare-ztna-application",
+  "kind": "terraform",
+  "metadata": {
+    "name": "Cloudflare Zero Trust Access Application",
+    "description": "Creates a Cloudflare Zero Trust Access application with service token and IP-based access policies.",
+    "guide": "## Overview\nCreates a Cloudflare Zero Trust Access application with optional service token and IP-based access policies.\n\n## Prerequisites\n- Have the target Cloudflare account and zone IDs ready before rendering the Terraform files.\n- If you enable the service token policy, create the Cloudflare service token first and capture its ID.\n- If you enable the IP policy, review the allowed CIDR ranges carefully and decide whether any lifecycle or dependency rules are required in your workspace.\n\n## Apply\n- Render the Terraform files, then run `terraform fmt`, `terraform plan`, and `terraform apply` in the target workspace.\n- Review the generated access policies before apply so the final rule set matches the intended access model.\n\n## Follow-Up\n- Test both allowed and denied access paths from real client networks after the application is created.\n- Rotate service tokens through your normal change workflow and keep the Terraform state aligned with any policy updates.\n- Confirm the protected hostname is routed where you expect before putting users behind the application.\n\n## References\n- [Cloudflare Zero Trust](https://www.cloudflare.com/zero-trust/)\n- [Terraform Provider](https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs/resources/zero_trust_access_application)",
+    "tags": [],
+    "template_version": "5.12.0",
+    "icon": {
+      "provider": "selfhst",
+      "id": "cloudflare-zero-trust"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "title": "Application",
+      "variables": [
+        {
+          "name": "app_name",
+          "type": "str",
+          "title": "Application name",
+          "required": false,
+          "default": "application",
+          "description": "Name to use for the application.",
+          "config": {
+            "placeholder": "application"
+          }
+        },
+        {
+          "name": "domain",
+          "type": "str",
+          "title": "Application domain",
+          "required": false,
+          "description": "Domain used for Application.",
+          "config": {
+            "placeholder": "app.home.arpa"
+          }
+        },
+        {
+          "name": "session_duration",
+          "type": "str",
+          "title": "Session Duration",
+          "required": false,
+          "default": "15m",
+          "description": "Session duration (e.g., 15m, 1h, 24h)",
+          "config": {
+            "placeholder": "15m"
+          }
+        }
+      ],
+      "name": "application"
+    },
+    {
+      "title": "General",
+      "variables": [
+        {
+          "name": "account_id_value",
+          "type": "str",
+          "title": "Cloudflare Account ID",
+          "required": false,
+          "description": "Cloudflare account identifier."
+        },
+        {
+          "name": "resource_name",
+          "type": "str",
+          "title": "Resource Name",
+          "required": false,
+          "default": "ztna_app",
+          "description": "Terraform resource name (alphanumeric and underscores only)",
+          "config": {
+            "placeholder": "ztna_app"
+          }
+        },
+        {
+          "name": "zone_id_value",
+          "type": "str",
+          "title": "Cloudflare Zone ID",
+          "required": false,
+          "description": "Cloudflare zone identifier."
+        }
+      ],
+      "name": "general"
+    },
+    {
+      "title": "IP-Based Policy",
+      "variables": [
+        {
+          "name": "ip_policy_enabled",
+          "type": "bool",
+          "title": "IP Policy",
+          "required": false,
+          "default": false,
+          "description": "Enable IP-based policy"
+        },
+        {
+          "name": "ip_policy_name",
+          "type": "str",
+          "title": "IP Policy Name",
+          "required": false,
+          "default": "ip_policy",
+          "description": "Policy name for IP-based access",
+          "config": {
+            "placeholder": "ip_policy"
+          }
+        },
+        {
+          "name": "ip_ranges",
+          "type": "str",
+          "title": "IP Ranges",
+          "required": false,
+          "default": "IP_RANGE",
+          "description": "Comma-separated list of IP ranges (CIDR notation)",
+          "needs": [
+            "ip_policy_enabled=true"
+          ],
+          "config": {
+            "placeholder": "IP_RANGE"
+          }
+        }
+      ],
+      "name": "ip-policy"
+    },
+    {
+      "title": "Service Token Policy",
+      "variables": [
+        {
+          "name": "service_token_enabled",
+          "type": "bool",
+          "title": "Service Token",
+          "required": false,
+          "default": false,
+          "description": "Enable service token policy"
+        },
+        {
+          "name": "service_token_id",
+          "type": "str",
+          "title": "Service Token ID",
+          "required": false,
+          "description": "Cloudflare service token ID",
+          "needs": [
+            "service_token_enabled=true"
+          ]
+        },
+        {
+          "name": "service_token_policy_name",
+          "type": "str",
+          "title": "Service Token Name",
+          "required": false,
+          "default": "service_token_policy",
+          "description": "Name to use for the service token.",
+          "needs": [
+            "service_token_enabled=true"
+          ],
+          "config": {
+            "placeholder": "service_token_policy"
+          }
+        }
+      ],
+      "name": "service-token-policy"
+    },
+    {
+      "title": "Dependencies",
+      "variables": [
+        {
+          "name": "depends_on_enabled",
+          "type": "bool",
+          "title": "Dependencies",
+          "required": false,
+          "default": false,
+          "description": "Enable resource dependencies"
+        },
+        {
+          "name": "dependencies",
+          "type": "str",
+          "title": "Dependencies",
+          "required": false,
+          "default": "",
+          "description": "Comma-separated list of resource dependencies",
+          "needs": [
+            "depends_on_enabled=true"
+          ],
+          "config": {
+            "textarea": true
+          }
+        }
+      ],
+      "name": "depends-on"
+    },
+    {
+      "title": "Lifecycle",
+      "variables": [
+        {
+          "name": "lifecycle_enabled",
+          "type": "bool",
+          "title": "Lifecycle",
+          "required": false,
+          "default": false,
+          "description": "Enable lifecycle rules"
+        },
+        {
+          "name": "prevent_destroy",
+          "type": "bool",
+          "title": "Prevent resource destruction",
+          "required": false,
+          "default": false,
+          "description": "Prevent Terraform from destroying the resource.",
+          "needs": [
+            "lifecycle_enabled=true"
+          ]
+        },
+        {
+          "name": "create_before_destroy",
+          "type": "bool",
+          "title": "Precreate",
+          "required": false,
+          "default": false,
+          "description": "Create replacement before destroying",
+          "needs": [
+            "lifecycle_enabled=true"
+          ]
+        },
+        {
+          "name": "ignore_changes",
+          "type": "str",
+          "title": "Ignore Changes",
+          "required": false,
+          "default": "",
+          "description": "Comma-separated list of attributes to ignore changes for",
+          "needs": [
+            "lifecycle_enabled=true"
+          ],
+          "config": {
+            "textarea": true
+          }
+        }
+      ],
+      "name": "lifecycle"
+    }
+  ]
+}

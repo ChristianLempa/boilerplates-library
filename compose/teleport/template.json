@@ -1,0 +1,262 @@
+{
+  "slug": "teleport",
+  "kind": "compose",
+  "metadata": {
+    "name": "Teleport",
+    "description": "Runs Teleport in Docker Compose with local auth and proxy services plus a companion Teleport configuration file.",
+    "guide": "## Overview\nRuns Teleport in Docker Compose with local auth and proxy services enabled.\n\n## Prerequisites\n- Reserve the public Teleport hostname and point it at the host running this stack.\n- Provide persistent storage for `/var/lib/teleport` so cluster identity survives container restarts.\n- If you front Teleport with Traefik, make sure the referenced network and TLS resolver already exist.\n\n## Deploy\n- Render `compose.yaml` and `config/teleport.yaml`, then start the stack with `docker compose up -d`.\n- Watch the container logs until the auth and proxy services are healthy.\n\n## Post-Install\n- Create the initial admin user with Teleport's user onboarding workflow after the cluster starts.\n- Complete MFA or WebAuthn enrollment and verify browser access through the public Teleport hostname.\n- Add nodes, apps, or Kubernetes integrations separately after the base cluster is working.\n\n## References\n- [Teleport Documentation](https://goteleport.com/docs/)\n- [Teleport Configuration Reference](https://goteleport.com/docs/reference/config/)",
+    "tags": [],
+    "template_version": "18.7.3",
+    "icon": {
+      "provider": "selfhst",
+      "id": "teleport"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "title": "General",
+      "variables": [
+        {
+          "name": "service_name",
+          "type": "str",
+          "title": "Compose service name",
+          "required": false,
+          "default": "teleport",
+          "description": "Name to use for the compose service.",
+          "config": {
+            "placeholder": "teleport"
+          }
+        },
+        {
+          "name": "container_name",
+          "type": "str",
+          "title": "Container name",
+          "required": false,
+          "default": "teleport",
+          "description": "Name to use for the container.",
+          "config": {
+            "placeholder": "teleport"
+          }
+        },
+        {
+          "name": "restart_policy",
+          "type": "enum",
+          "title": "Container restart policy",
+          "required": true,
+          "default": "unless-stopped",
+          "description": "Policy used for Container Restart.",
+          "config": {
+            "options": [
+              "unless-stopped",
+              "always",
+              "on-failure",
+              "no"
+            ]
+          }
+        },
+        {
+          "name": "data_host_path",
+          "type": "str",
+          "title": "Data Path",
+          "required": false,
+          "default": "./data",
+          "description": "Host path for persistent Teleport data",
+          "config": {
+            "placeholder": "./data"
+          }
+        }
+      ],
+      "name": "general"
+    },
+    {
+      "title": "Configuration",
+      "variables": [
+        {
+          "name": "teleport_node_name",
+          "type": "str",
+          "title": "Teleport node name",
+          "required": false,
+          "default": "teleport-prod-1",
+          "description": "Name to use for the teleport node.",
+          "config": {
+            "placeholder": "teleport-prod-1"
+          }
+        },
+        {
+          "name": "teleport_public_host",
+          "type": "str",
+          "title": "Public Teleport hostname",
+          "required": true,
+          "description": "Hostname used for Public Teleport.",
+          "config": {
+            "placeholder": "tp.home.arpa"
+          }
+        },
+        {
+          "name": "teleport_log_level",
+          "type": "enum",
+          "title": "Teleport log level",
+          "required": false,
+          "default": "INFO",
+          "description": "Logging level used for Teleport Log.",
+          "config": {
+            "options": [
+              "DEBUG",
+              "INFO",
+              "WARN",
+              "ERROR"
+            ]
+          }
+        },
+        {
+          "name": "teleport_second_factor",
+          "type": "enum",
+          "title": "2FA Mode",
+          "required": false,
+          "default": "on",
+          "description": "Teleport second factor mode",
+          "config": {
+            "options": [
+              "on",
+              "off",
+              "otp"
+            ]
+          }
+        },
+        {
+          "name": "teleport_connector_name",
+          "type": "str",
+          "title": "Connector Name",
+          "required": false,
+          "default": "passwordless",
+          "description": "Connector name for the local auth workflow",
+          "config": {
+            "placeholder": "passwordless"
+          }
+        },
+        {
+          "name": "app_service_enabled",
+          "type": "bool",
+          "title": "App Service",
+          "required": false,
+          "default": false,
+          "description": "Enable Teleport app service block"
+        }
+      ],
+      "name": "configuration"
+    },
+    {
+      "title": "Ports",
+      "variables": [
+        {
+          "name": "ports_web",
+          "type": "int",
+          "title": "Teleport web port",
+          "required": false,
+          "default": 3080,
+          "description": "Port used for Teleport Web.",
+          "config": {
+            "placeholder": "3080"
+          }
+        },
+        {
+          "name": "ports_ssh_proxy",
+          "type": "int",
+          "title": "SSH Proxy Port",
+          "required": false,
+          "default": 3023,
+          "description": "Teleport SSH proxy port",
+          "config": {
+            "placeholder": "3023"
+          }
+        },
+        {
+          "name": "ports_reverse_tunnel",
+          "type": "int",
+          "title": "Tunnel Port",
+          "required": false,
+          "default": 3024,
+          "description": "Teleport reverse tunnel port",
+          "config": {
+            "placeholder": "3024"
+          }
+        },
+        {
+          "name": "ports_auth",
+          "type": "int",
+          "title": "Teleport auth port",
+          "required": false,
+          "default": 3025,
+          "description": "Port used for Teleport Auth.",
+          "config": {
+            "placeholder": "3025"
+          }
+        }
+      ],
+      "name": "ports"
+    },
+    {
+      "title": "Network",
+      "variables": [
+        {
+          "name": "network_name",
+          "type": "str",
+          "title": "Network Name",
+          "required": true,
+          "default": "proxy",
+          "description": "Docker network name",
+          "config": {
+            "placeholder": "proxy"
+          }
+        },
+        {
+          "name": "network_external",
+          "type": "bool",
+          "title": "External Network",
+          "required": false,
+          "default": true,
+          "description": "Use an existing external Docker network"
+        }
+      ],
+      "name": "network"
+    },
+    {
+      "title": "Traefik",
+      "variables": [
+        {
+          "name": "traefik_enabled",
+          "type": "bool",
+          "title": "Traefik",
+          "required": false,
+          "default": true,
+          "description": "Enable Traefik labels"
+        },
+        {
+          "name": "traefik_tls_enabled",
+          "type": "bool",
+          "title": "TLS",
+          "required": false,
+          "default": true,
+          "description": "Enable Traefik TLS"
+        },
+        {
+          "name": "traefik_tls_certresolver",
+          "type": "str",
+          "title": "Cert Resolver",
+          "required": false,
+          "default": "cloudflare",
+          "description": "Traefik certificate resolver name",
+          "config": {
+            "placeholder": "cloudflare"
+          },
+          "needs": [
+            "traefik_tls_enabled=true"
+          ]
+        }
+      ],
+      "name": "traefik",
+      "toggle": "traefik_enabled"
+    }
+  ]
+}

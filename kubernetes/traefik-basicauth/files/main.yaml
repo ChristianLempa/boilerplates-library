@@ -1,0 +1,14 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: << resource_name >>
+  namespace: << namespace >>
+spec:
+  basicAuth:
+    secret: << secret_name >>
+    realm: "<< realm >>"
+    removeHeader: << remove_header | lower >>
+<%- if header_field_enabled %>
+    headerField: << header_field >>
+<%- endif %>

@@ -1,0 +1,64 @@
+---
+services:
+  << service_name >>:
+    image: ghcr.io/mend/renovate-ce:13.6.0-full
+    hostname: << container_hostname >>
+    <%- if traefik_enabled %>
+    networks:
+      << traefik_network >>:
+    <%- endif %>
+    <%- if not traefik_enabled %>
+    ports:
+      - "<< ports_http >>:8080"
+    <%- endif %>
+    environment:
+      - MEND_RNV_ACCEPT_TOS=y
+      - MEND_RNV_LICENSE_KEY=<< license_key >>
+      - MEND_RNV_PLATFORM=<< renovate_platform >>
+      - MEND_RNV_ENDPOINT=<< renovate_endpoint >>
+      - MEND_RNV_GITLAB_PAT=<< git_token >>
+      - MEND_RNV_WEBHOOK_SECRET=<< webhook_secret >>
+      - MEND_RNV_SERVER_PORT=8080
+      - RENOVATE_AUTODISCOVER=<< renovate_autodiscover | lower >>
+      <%- if container_timezone %>
+      - TZ=<< container_timezone >>
+      <%- endif %>
+      <%- if container_loglevel %>
+      - LOG_LEVEL=<< container_loglevel >>
+      <%- endif %>
+    deploy:
+      mode: << swarm_placement_mode >>
+      <%- if swarm_placement_mode == 'replicated' %>
+      replicas: << swarm_replicas >>
+      <%- endif %>
+      <%- if swarm_placement_host %>
+      placement:
+        constraints:
+          - node.hostname == << swarm_placement_host >>
+      <%- endif %>
+      <%- if traefik_enabled %>
+      labels:
+        - traefik.enable=true
+        - traefik.docker.network=<< traefik_network >>
+        - traefik.http.services.<< service_name >>.loadbalancer.server.port=8080
+        - traefik.http.routers.<< service_name >>-http.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
+        - traefik.http.routers.<< service_name >>-http.entrypoints=<< traefik_entrypoint >>
+        <%- if traefik_tls_enabled %>
+        - traefik.http.routers.<< service_name >>-https.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
+        - traefik.http.routers.<< service_name >>-https.entrypoints=<< traefik_tls_entrypoint >>
+        - traefik.http.routers.<< service_name >>-https.tls=true
+        - traefik.http.routers.<< service_name >>-https.tls.certresolver=<< traefik_tls_certresolver >>
+        <%- endif %>
+      <%- endif %>
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+<%- if traefik_enabled %>
+networks:
+  << traefik_network >>:
+    external: true
+<%- endif %>

@@ -1,0 +1,454 @@
+{
+  "slug": "crowdsec",
+  "kind": "compose",
+  "metadata": {
+    "name": "CrowdSec",
+    "description": "Standalone CrowdSec Security Engine deployment for a single Docker host, with host and reverse-proxy log acquisition, optional AppSec exposure, and console or bouncer enrollment placeholders.",
+    "guide": "## Overview\nStandalone CrowdSec Security Engine deployment for a single Docker host.\n\nThis template renders a Compose stack plus acquisition files so you can protect host services, ingest reverse-proxy logs, and optionally expose the Local API or AppSec listener to trusted peers.\n\n## Prerequisites\n- Decide which logs CrowdSec should read before first start. By default this template targets host auth and syslog data.\n- If you enable Docker log acquisition, make sure the container can access the Docker socket group on the target host.\n- If you plan to use the Traefik plugin or another remediation component, generate and store a long random bouncer key before rollout.\n- If you enable console enrollment, create the enrollment key in CrowdSec Console first.\n\n## Deploy\n- Render `compose.yaml`, `.env`, and the files under `config/`.\n- Review the acquisition rules so the enabled collections match the logs you actually ingest.\n- Start the stack with `docker compose up -d` and confirm CrowdSec starts without acquisition or collection mismatch warnings.\n\n## Post-Install\n- Use `docker compose exec crowdsec cscli metrics` and `docker compose exec crowdsec cscli alerts list` to verify data is being parsed.\n- If you enable Local API exposure, keep it bound to loopback or a trusted LAN segment only.\n- If you enable AppSec for Traefik, point your Traefik CrowdSec plugin at `crowdsec:7422` on the shared Docker network.\n\n## References\n- [CrowdSec](https://www.crowdsec.net/)\n- [Documentation](https://docs.crowdsec.net/)\n- [Docker Installation](https://docs.crowdsec.net/u/getting_started/installation/docker/)\n\n## Next Steps\nValidate ingestion and installed collections after startup:\n```bash\ndocker compose exec crowdsec cscli metrics\ndocker compose exec crowdsec cscli collections list\ndocker compose exec crowdsec cscli alerts list\n```",
+    "tags": [
+      "security",
+      "logging",
+      "traefik"
+    ],
+    "template_version": "v1.7.6",
+    "icon": {
+      "provider": "selfhst",
+      "id": "crowdsec"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "title": "General",
+      "variables": [
+        {
+          "name": "service_name",
+          "type": "str",
+          "title": "Service Name",
+          "required": false,
+          "default": "crowdsec",
+          "description": "Compose service name for CrowdSec.",
+          "config": {
+            "placeholder": "crowdsec"
+          }
+        },
+        {
+          "name": "container_name",
+          "type": "str",
+          "title": "Container Name",
+          "required": false,
+          "default": "crowdsec",
+          "description": "Container name for CrowdSec.",
+          "config": {
+            "placeholder": "crowdsec"
+          }
+        },
+        {
+          "name": "image_tag",
+          "type": "str",
+          "title": "Image Tag",
+          "required": true,
+          "default": "v1.7.6",
+          "description": "CrowdSec image tag to deploy.",
+          "config": {
+            "placeholder": "v1.7.6"
+          }
+        },
+        {
+          "name": "container_timezone",
+          "type": "str",
+          "title": "Container Timezone",
+          "required": true,
+          "default": "UTC",
+          "description": "Timezone used inside the container.",
+          "config": {
+            "placeholder": "UTC"
+          }
+        },
+        {
+          "name": "restart_policy",
+          "type": "enum",
+          "title": "Restart Policy",
+          "required": true,
+          "default": "unless-stopped",
+          "description": "Policy used for container restart.",
+          "config": {
+            "options": [
+              "unless-stopped",
+              "always",
+              "on-failure",
+              "no"
+            ]
+          }
+        }
+      ],
+      "name": "general"
+    },
+    {
+      "title": "Collections",
+      "variables": [
+        {
+          "name": "collections_core",
+          "type": "str",
+          "title": "Core Collections",
+          "required": true,
+          "default": "crowdsecurity/linux crowdsecurity/sshd",
+          "description": "Space-separated base collections to install on startup.",
+          "config": {
+            "placeholder": "crowdsecurity/linux crowdsecurity/sshd"
+          }
+        },
+        {
+          "name": "collections_extra",
+          "type": "str",
+          "title": "Extra Collections",
+          "required": false,
+          "default": "crowdsecurity/traefik",
+          "description": "Additional space-separated collections to install, for example a reverse-proxy parser.",
+          "config": {
+            "placeholder": "crowdsecurity/traefik"
+          }
+        }
+      ],
+      "name": "collections"
+    },
+    {
+      "title": "Acquisition",
+      "variables": [
+        {
+          "name": "host_logs_enabled",
+          "type": "bool",
+          "title": "Host Logs",
+          "required": false,
+          "default": true,
+          "description": "Ingest host auth and syslog files from `/var/log`."
+        },
+        {
+          "name": "docker_logs_enabled",
+          "type": "bool",
+          "title": "Docker Logs",
+          "required": false,
+          "default": false,
+          "description": "Read logs from a matching Docker container through the Docker socket."
+        },
+        {
+          "name": "docker_group_id",
+          "type": "int",
+          "title": "Docker Group ID",
+          "required": true,
+          "default": 998,
+          "description": "Host Docker group ID so the container can access the socket.",
+          "needs": [
+            "docker_logs_enabled=true"
+          ],
+          "config": {
+            "placeholder": "998"
+          }
+        },
+        {
+          "name": "docker_container_name_regexp",
+          "type": "str",
+          "title": "Docker Container Regex",
+          "required": true,
+          "default": ".*traefik.*",
+          "description": "Regular expression used to match the Docker container whose logs should be parsed.",
+          "needs": [
+            "docker_logs_enabled=true"
+          ],
+          "config": {
+            "placeholder": ".*traefik.*"
+          }
+        },
+        {
+          "name": "docker_log_type",
+          "type": "str",
+          "title": "Docker Log Type",
+          "required": true,
+          "default": "traefik",
+          "description": "Parser type label for the Docker datasource.",
+          "needs": [
+            "docker_logs_enabled=true"
+          ],
+          "config": {
+            "placeholder": "traefik"
+          }
+        }
+      ],
+      "name": "acquisition"
+    },
+    {
+      "title": "Traefik",
+      "variables": [
+        {
+          "name": "traefik_network_enabled",
+          "type": "bool",
+          "title": "Shared Traefik Network",
+          "required": false,
+          "default": false,
+          "description": "Attach CrowdSec to an existing Docker network shared with Traefik or other bouncers."
+        },
+        {
+          "name": "traefik_network",
+          "type": "str",
+          "title": "Traefik Network",
+          "required": true,
+          "default": "traefik",
+          "description": "Docker network shared with Traefik or other remediation components.",
+          "needs": [
+            "traefik_network_enabled=true"
+          ],
+          "config": {
+            "placeholder": "traefik"
+          }
+        },
+        {
+          "name": "traefik_network_external",
+          "type": "bool",
+          "title": "External Network",
+          "required": false,
+          "default": true,
+          "description": "Use an existing external Docker network for shared access.",
+          "needs": [
+            "traefik_network_enabled=true"
+          ]
+        },
+        {
+          "name": "traefik_accesslog_enabled",
+          "type": "bool",
+          "title": "Traefik Access Log",
+          "required": false,
+          "default": false,
+          "description": "Read Traefik access logs from a mounted host path."
+        },
+        {
+          "name": "traefik_accesslog_mount_path",
+          "type": "str",
+          "title": "Traefik Log Path",
+          "required": true,
+          "default": "/var/log/traefik",
+          "description": "Host directory containing Traefik access logs.",
+          "needs": [
+            "traefik_accesslog_enabled=true"
+          ],
+          "config": {
+            "placeholder": "/var/log/traefik"
+          }
+        },
+        {
+          "name": "traefik_accesslog_filename",
+          "type": "str",
+          "title": "Traefik Log File",
+          "required": true,
+          "default": "access.log",
+          "description": "Filename of the Traefik access log inside the mounted directory.",
+          "needs": [
+            "traefik_accesslog_enabled=true"
+          ],
+          "config": {
+            "placeholder": "access.log"
+          }
+        }
+      ],
+      "name": "traefik"
+    },
+    {
+      "title": "Local API",
+      "toggle": "lapi_expose_enabled",
+      "variables": [
+        {
+          "name": "lapi_expose_enabled",
+          "type": "bool",
+          "title": "Expose Local API",
+          "required": false,
+          "default": false,
+          "description": "Publish CrowdSec Local API on the host."
+        },
+        {
+          "name": "lapi_bind_address",
+          "type": "str",
+          "title": "Local API Bind Address",
+          "required": true,
+          "default": "127.0.0.1",
+          "description": "Host address used for the Local API port binding.",
+          "needs": [
+            "lapi_expose_enabled=true"
+          ],
+          "config": {
+            "placeholder": "127.0.0.1"
+          }
+        },
+        {
+          "name": "lapi_port",
+          "type": "int",
+          "title": "Local API Port",
+          "required": true,
+          "default": 8080,
+          "description": "Host port used for the Local API binding.",
+          "needs": [
+            "lapi_expose_enabled=true"
+          ],
+          "config": {
+            "placeholder": "8080"
+          }
+        }
+      ],
+      "name": "lapi"
+    },
+    {
+      "title": "AppSec",
+      "toggle": "appsec_enabled",
+      "variables": [
+        {
+          "name": "appsec_enabled",
+          "type": "bool",
+          "title": "Enable AppSec",
+          "required": false,
+          "default": false,
+          "description": "Enable CrowdSec AppSec listener for WAF-capable remediation components."
+        },
+        {
+          "name": "appsec_name",
+          "type": "str",
+          "title": "AppSec Name",
+          "required": true,
+          "default": "traefik-appsec",
+          "description": "Friendly name for the AppSec component.",
+          "needs": [
+            "appsec_enabled=true"
+          ],
+          "config": {
+            "placeholder": "traefik-appsec"
+          }
+        },
+        {
+          "name": "appsec_path",
+          "type": "str",
+          "title": "AppSec Path",
+          "required": true,
+          "default": "/",
+          "description": "Request path handled by the AppSec listener.",
+          "needs": [
+            "appsec_enabled=true"
+          ],
+          "config": {
+            "placeholder": "/"
+          }
+        },
+        {
+          "name": "appsec_expose_enabled",
+          "type": "bool",
+          "title": "Expose AppSec",
+          "required": false,
+          "default": false,
+          "description": "Publish the AppSec listener on the host.",
+          "needs": [
+            "appsec_enabled=true"
+          ]
+        },
+        {
+          "name": "appsec_bind_address",
+          "type": "str",
+          "title": "AppSec Bind Address",
+          "required": true,
+          "default": "127.0.0.1",
+          "description": "Host address used for the AppSec port binding.",
+          "needs": [
+            "appsec_enabled=true",
+            "appsec_expose_enabled=true"
+          ],
+          "config": {
+            "placeholder": "127.0.0.1"
+          }
+        },
+        {
+          "name": "appsec_port",
+          "type": "int",
+          "title": "AppSec Port",
+          "required": true,
+          "default": 7422,
+          "description": "Host port used for the AppSec port binding.",
+          "needs": [
+            "appsec_enabled=true",
+            "appsec_expose_enabled=true"
+          ],
+          "config": {
+            "placeholder": "7422"
+          }
+        }
+      ],
+      "name": "appsec"
+    },
+    {
+      "title": "Console Enrollment",
+      "toggle": "console_enrollment_enabled",
+      "variables": [
+        {
+          "name": "console_enrollment_enabled",
+          "type": "bool",
+          "title": "Console Enrollment",
+          "required": false,
+          "default": false,
+          "description": "Enroll this CrowdSec instance into CrowdSec Console."
+        },
+        {
+          "name": "console_enrollment_name",
+          "type": "str",
+          "title": "Instance Name",
+          "required": true,
+          "default": "crowdsec-homelab",
+          "description": "Human-readable name shown in CrowdSec Console.",
+          "needs": [
+            "console_enrollment_enabled=true"
+          ],
+          "config": {
+            "placeholder": "crowdsec-homelab"
+          }
+        },
+        {
+          "name": "console_enrollment_tags",
+          "type": "str",
+          "title": "Enrollment Tags",
+          "required": false,
+          "default": "homelab,edge",
+          "description": "Comma-separated tags assigned during console enrollment.",
+          "needs": [
+            "console_enrollment_enabled=true"
+          ],
+          "config": {
+            "placeholder": "homelab,edge"
+          }
+        },
+        {
+          "name": "console_enrollment_key",
+          "type": "secret",
+          "title": "Enrollment Key",
+          "required": true,
+          "description": "Enrollment key generated by CrowdSec Console.",
+          "needs": [
+            "console_enrollment_enabled=true"
+          ],
+          "config": {
+            "autogenerated": false
+          }
+        }
+      ],
+      "name": "console"
+    },
+    {
+      "title": "Bouncers",
+      "variables": [
+        {
+          "name": "bouncer_traefik_key",
+          "type": "secret",
+          "title": "Traefik Bouncer Key",
+          "required": false,
+          "description": "Optional seed key for a Traefik bouncer or plugin.",
+          "config": {
+            "autogenerated": true
+          }
+        }
+      ],
+      "name": "bouncers"
+    }
+  ]
+}

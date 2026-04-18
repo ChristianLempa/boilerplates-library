@@ -1,0 +1,177 @@
+services:
+  <%- if traefik_enabled and traefik_mode == 'integrated' %>
+  traefik:
+    image: docker.io/library/traefik:v3.6
+    restart: << restart_policy >>
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "500m"
+        max-file: "2"
+    command:
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--providers.docker.network=netbird"
+      - "--entrypoints.web.address=:80"
+      <%- if traefik_tls_enabled %>
+      - "--entrypoints.<< traefik_tls_entrypoint >>.address=:443"
+      - "--entrypoints.<< traefik_tls_entrypoint >>.transport.respondingTimeouts.readTimeout=0"
+      - "--entrypoints.web.http.redirections.entrypoint.to=<< traefik_tls_entrypoint >>"
+      - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
+      - "--certificatesresolvers.<< traefik_tls_certresolver >>.acme.tlschallenge=true"
+      - "--certificatesresolvers.<< traefik_tls_certresolver >>.acme.email=<< letsencrypt_email >>"
+      - "--certificatesresolvers.<< traefik_tls_certresolver >>.acme.storage=/letsencrypt/acme.json"
+      <%- endif %>
+    ports:
+      - "80:80"
+      <%- if traefik_tls_enabled %>
+      - "443:443"
+      <%- endif %>
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      <%- if traefik_tls_enabled %>
+      - netbird_traefik_letsencrypt:/letsencrypt
+      <%- endif %>
+    networks:
+      - netbird
+  <%- endif %>
+
+  dashboard:
+    image: docker.io/netbirdio/dashboard:latest
+    restart: << restart_policy >>
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "500m"
+        max-file: "2"
+    depends_on:
+      - netbird-server
+    environment:
+      <%- if traefik_tls_enabled %>
+      - NETBIRD_MGMT_API_ENDPOINT=https://<< public_hostname >>
+      - NETBIRD_MGMT_GRPC_API_ENDPOINT=https://<< public_hostname >>
+      <%- else %>
+      - NETBIRD_MGMT_API_ENDPOINT=http://<< public_hostname >>
+      - NETBIRD_MGMT_GRPC_API_ENDPOINT=http://<< public_hostname >>
+      <%- endif %>
+      - AUTH_AUDIENCE=netbird-dashboard
+      - AUTH_CLIENT_ID=netbird-dashboard
+      - AUTH_CLIENT_SECRET=
+      <%- if traefik_tls_enabled %>
+      - AUTH_AUTHORITY=https://<< public_hostname >>/oauth2
+      <%- else %>
+      - AUTH_AUTHORITY=http://<< public_hostname >>/oauth2
+      <%- endif %>
+      - USE_AUTH0=false
+      - AUTH_SUPPORTED_SCOPES=openid profile email groups
+      - AUTH_REDIRECT_URI=/nb-auth
+      - AUTH_SILENT_REDIRECT_URI=/nb-silent-auth
+      <%- if traefik_tls_enabled %>
+      - NGINX_SSL_PORT=443
+      <%- else %>
+      - NGINX_SSL_PORT=80
+      <%- endif %>
+      - LETSENCRYPT_DOMAIN=none
+    <%- if not traefik_enabled %>
+    ports:
+      - "127.0.0.1:8080:80"
+    <%- endif %>
+    <%- if traefik_enabled %>
+    labels:
+      - "traefik.enable=true"
+      <%- if traefik_mode == 'integrated' %>
+      - "traefik.docker.network=netbird"
+      <%- elif traefik_mode == 'existing' %>
+      - "traefik.docker.network=<< traefik_network >>"
+      <%- endif %>
+      - "traefik.http.routers.netbird-dashboard.rule=Host(`<< public_hostname >>`)"
+      <%- if traefik_tls_enabled %>
+      - "traefik.http.routers.netbird-dashboard.entrypoints=<< traefik_tls_entrypoint >>"
+      - "traefik.http.routers.netbird-dashboard.tls=true"
+      - "traefik.http.routers.netbird-dashboard.tls.certresolver=<< traefik_tls_certresolver >>"
+      <%- else %>
+      - "traefik.http.routers.netbird-dashboard.entrypoints=web"
+      <%- endif %>
+      - "traefik.http.routers.netbird-dashboard.priority=1"
+      - "traefik.http.services.netbird-dashboard.loadbalancer.server.port=80"
+    <%- endif %>
+    networks:
+      - netbird
+      <%- if traefik_enabled and traefik_mode == 'existing' %>
+      - << traefik_network >>
+      <%- endif %>
+
+  netbird-server:
+    image: docker.io/netbirdio/netbird-server:latest
+    restart: << restart_policy >>
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "500m"
+        max-file: "2"
+    command:
+      - --config
+      - /etc/netbird/config.yaml
+    ports:
+      <%- if not traefik_enabled %>
+      - "127.0.0.1:8081:80"
+      <%- endif %>
+      - "<< stun_port >>:<< stun_port >>/udp"
+    volumes:
+      - netbird_data:/var/lib/netbird
+      - ./config:/etc/netbird:ro
+    <%- if traefik_enabled %>
+    labels:
+      - "traefik.enable=true"
+      <%- if traefik_mode == 'integrated' %>
+      - "traefik.docker.network=netbird"
+      <%- elif traefik_mode == 'existing' %>
+      - "traefik.docker.network=<< traefik_network >>"
+      <%- endif %>
+      # gRPC traffic needs an h2c backend service.
+      - "traefik.http.routers.netbird-grpc.rule=Host(`<< public_hostname >>`) && (PathPrefix(`/signalexchange.SignalExchange/`) || PathPrefix(`/management.ManagementService/`) || PathPrefix(`/management.ProxyService/`))"
+      <%- if traefik_tls_enabled %>
+      - "traefik.http.routers.netbird-grpc.entrypoints=<< traefik_tls_entrypoint >>"
+      - "traefik.http.routers.netbird-grpc.tls=true"
+      - "traefik.http.routers.netbird-grpc.tls.certresolver=<< traefik_tls_certresolver >>"
+      <%- else %>
+      - "traefik.http.routers.netbird-grpc.entrypoints=web"
+      <%- endif %>
+      - "traefik.http.routers.netbird-grpc.service=netbird-server-h2c"
+      - "traefik.http.routers.netbird-backend.rule=Host(`<< public_hostname >>`) && (PathPrefix(`/relay`) || PathPrefix(`/ws-proxy/`) || PathPrefix(`/api`) || PathPrefix(`/oauth2`))"
+      <%- if traefik_tls_enabled %>
+      - "traefik.http.routers.netbird-backend.entrypoints=<< traefik_tls_entrypoint >>"
+      - "traefik.http.routers.netbird-backend.tls=true"
+      - "traefik.http.routers.netbird-backend.tls.certresolver=<< traefik_tls_certresolver >>"
+      <%- else %>
+      - "traefik.http.routers.netbird-backend.entrypoints=web"
+      <%- endif %>
+      - "traefik.http.routers.netbird-backend.service=netbird-server"
+      - "traefik.http.services.netbird-server.loadbalancer.server.port=80"
+      - "traefik.http.services.netbird-server-h2c.loadbalancer.server.port=80"
+      - "traefik.http.services.netbird-server-h2c.loadbalancer.server.scheme=h2c"
+    <%- endif %>
+    networks:
+      - netbird
+      <%- if traefik_enabled and traefik_mode == 'existing' %>
+      - << traefik_network >>
+      <%- endif %>
+
+networks:
+  netbird:
+    name: netbird
+    driver: bridge
+  <%- if traefik_enabled and traefik_mode == 'existing' %>
+  << traefik_network >>:
+    external: true
+  <%- endif %>
+
+volumes:
+  netbird_data:
+    name: << data_volume_name >>
+    driver: local
+  <%- if traefik_enabled and traefik_mode == 'integrated' and traefik_tls_enabled %>
+  netbird_traefik_letsencrypt:
+    name: << letsencrypt_volume_name >>
+    driver: local
+  <%- endif %>

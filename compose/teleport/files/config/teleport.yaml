@@ -1,0 +1,40 @@
+version: v2
+teleport:
+  nodename: << teleport_node_name >>
+  data_dir: /var/lib/teleport
+  log:
+    output: stderr
+    severity: << teleport_log_level >>
+    format:
+      output: text
+
+auth_service:
+  enabled: true
+  listen_addr: 0.0.0.0:<< ports_auth >>
+  proxy_listener_mode: multiplex
+  cluster_name: << teleport_public_host >>
+  authentication:
+    type: local
+    second_factor: << teleport_second_factor >>
+    webauthn:
+      rp_id: << teleport_public_host >>
+    connector_name: << teleport_connector_name >>
+
+ssh_service:
+  enabled: false
+
+proxy_service:
+  enabled: true
+  web_listen_addr: 0.0.0.0:<< ports_web >>
+  public_addr: ['<< teleport_public_host >>:443']
+  https_keypairs: []
+  acme: {}
+
+app_service:
+  enabled: << app_service_enabled | lower >>
+<%- if app_service_enabled %>
+  # apps:
+  #   - name: "yourapp"
+  #     uri: "http://your-app-url"
+  #     insecure_skip_verify: false
+<%- endif %>

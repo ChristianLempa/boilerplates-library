@@ -1,0 +1,42 @@
+{
+  "slug": "cloudflare-zone-data",
+  "kind": "terraform",
+  "metadata": {
+    "name": "Cloudflare Zone (datasource)",
+    "description": "",
+    "guide": "",
+    "icon": {
+      "provider": "selfhst",
+      "id": "cloudflare",
+      "color": "default"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "name": "terraform",
+      "title": "Terraform",
+      "variables": [
+        {
+          "name": "resource_name",
+          "title": "Resource Name",
+          "description": "Terraform resource name (alphanumeric and underscores only)",
+          "type": "str",
+          "config": {
+            "placeholder": "my_cloudflare_zone"
+          }
+        },
+        {
+          "name": "cloudflare_zone_id",
+          "title": "Cloudflare Zone ID",
+          "type": "str",
+          "config": {
+            "placeholder": "123456789"
+          },
+          "required": true
+        }
+      ]
+    }
+  ],
+  "files": null
+}

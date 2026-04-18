@@ -1,0 +1,191 @@
+{
+  "slug": "traefik-ingressroute",
+  "kind": "kubernetes",
+  "metadata": {
+    "name": "Traefik IngressRoute",
+    "description": "Traefik IngressRoute CRD for HTTP/HTTPS routing with advanced features like middleware chains, weighted round-robin, and header-based routing.",
+    "guide": "## Overview\nTraefik IngressRoute CRD for HTTP/HTTPS routing with advanced features like middleware chains, weighted round-robin, and header-based routing.\n\n## How to Use\nThis template renders `main.yaml` as a file.\n\n1. Start with the resource name, namespace, and any required networking or storage settings.\n2. Fill in required fields first, then enable optional sections such as TLS, annotations, or extra selectors only when they match your cluster setup.\n3. Render the manifest and apply it to the target cluster after confirming the generated resource matches your platform conventions.\n\n## Variable Guide\n### General\n- `resource_name`: Resource Name; optional; default: app-ingressroute.\n- `namespace`: Namespace; optional; default: default.\n- `traefik_entrypoint`: Traefik entrypoint for HTTP (e.g., web); optional; default: web.\n- `traefik_tls_entrypoint`: Traefik entrypoint for HTTPS (e.g., websecure); optional; default: websecure.\n- `traefik_service_name`: Kubernetes service name to route traffic to; optional.\n- `traefik_service_port`: Kubernetes service port; optional; default: 80.\n\n### Resource Limits\n- `resources_enabled`: Enable resource limits and requests; optional; default: false.\n- `resources_cpu_limit`: CPU limit; optional; default: 100m.\n- `resources_cpu_request`: CPU request; optional; default: 50m.\n- `resources_memory_limit`: Memory limit; optional; default: 128Mi.\n- `resources_memory_request`: Memory request; optional; default: 64Mi.\n\n### Traefik Configuration\n- `traefik_enabled`: Enable Traefik integration; optional; default: true.\n- `traefik_host`: Domain name for the IngressRoute; optional.\n- `traefik_domain`: Traefik domain; optional.\n- `traefik_tls_enabled`: Enable TLS; optional; default: true.\n- `traefik_tls_certresolver`: TLS certificate resolver; optional; default: letsencrypt-prod.\n\n## References\n- [Traefik Kubernetes CRD](https://doc.traefik.io/traefik/routing/providers/kubernetes-crd/)\n- [Traefik](https://traefik.io)\n## Pre-Requisites\n- Traefik installed as the Ingress controller",
+    "tags": [],
+    "template_version": "3.5.3",
+    "icon": {
+      "provider": "selfhst",
+      "id": "traefik"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "title": "General",
+      "variables": [
+        {
+          "name": "resource_name",
+          "type": "str",
+          "title": "Resource Name",
+          "required": false,
+          "default": "app-ingressroute",
+          "config": {
+            "placeholder": "app-ingressroute"
+          },
+          "description": "Terraform resource name."
+        },
+        {
+          "name": "namespace",
+          "type": "str",
+          "title": "Namespace",
+          "required": false,
+          "default": "default",
+          "config": {
+            "placeholder": "default"
+          },
+          "description": "Value used for the general settings."
+        },
+        {
+          "name": "traefik_entrypoint",
+          "type": "str",
+          "title": "HTTP Entrypoint",
+          "required": false,
+          "default": "web",
+          "description": "Traefik entrypoint for HTTP (e.g., web)",
+          "config": {
+            "placeholder": "web"
+          }
+        },
+        {
+          "name": "traefik_tls_entrypoint",
+          "type": "str",
+          "title": "HTTPS Entrypoint",
+          "required": false,
+          "default": "websecure",
+          "description": "Traefik entrypoint for HTTPS (e.g., websecure)",
+          "config": {
+            "placeholder": "websecure"
+          }
+        },
+        {
+          "name": "traefik_service_name",
+          "type": "str",
+          "title": "Service Name",
+          "required": false,
+          "description": "Kubernetes service name to route traffic to"
+        },
+        {
+          "name": "traefik_service_port",
+          "type": "int",
+          "title": "Service Port",
+          "required": false,
+          "default": 80,
+          "description": "Kubernetes service port",
+          "config": {
+            "placeholder": "80"
+          }
+        }
+      ],
+      "name": "general"
+    },
+    {
+      "title": "Resource Limits",
+      "variables": [
+        {
+          "name": "resources_enabled",
+          "type": "bool",
+          "title": "Resources",
+          "required": false,
+          "default": false,
+          "description": "Enable resource limits and requests"
+        },
+        {
+          "name": "resources_cpu_limit",
+          "type": "str",
+          "title": "CPU limit",
+          "required": false,
+          "default": "100m",
+          "description": "Value used for the resource limits settings.",
+          "config": {
+            "placeholder": "100m"
+          }
+        },
+        {
+          "name": "resources_cpu_request",
+          "type": "str",
+          "title": "CPU request",
+          "required": false,
+          "default": "50m",
+          "description": "Value used for the resource limits settings.",
+          "config": {
+            "placeholder": "50m"
+          }
+        },
+        {
+          "name": "resources_memory_limit",
+          "type": "str",
+          "title": "Memory limit",
+          "required": false,
+          "default": "128Mi",
+          "description": "Value used for the resource limits settings.",
+          "config": {
+            "placeholder": "128Mi"
+          }
+        },
+        {
+          "name": "resources_memory_request",
+          "type": "str",
+          "title": "Memory request",
+          "required": false,
+          "default": "64Mi",
+          "description": "Value used for the resource limits settings.",
+          "config": {
+            "placeholder": "64Mi"
+          }
+        }
+      ],
+      "name": "resources"
+    },
+    {
+      "title": "Traefik Configuration",
+      "variables": [
+        {
+          "name": "traefik_enabled",
+          "type": "bool",
+          "title": "Traefik",
+          "required": false,
+          "default": true,
+          "description": "Enable Traefik integration"
+        },
+        {
+          "name": "traefik_host",
+          "type": "str",
+          "title": "Ingress Host",
+          "required": false,
+          "description": "Domain name for the IngressRoute"
+        },
+        {
+          "name": "traefik_domain",
+          "type": "str",
+          "title": "Traefik domain",
+          "required": false,
+          "description": "Domain used for Traefik."
+        },
+        {
+          "name": "traefik_tls_enabled",
+          "type": "bool",
+          "title": "TLS",
+          "required": false,
+          "default": true,
+          "description": "Enable TLS"
+        },
+        {
+          "name": "traefik_tls_certresolver",
+          "type": "str",
+          "title": "TLS certificate resolver",
+          "required": false,
+          "default": "letsencrypt-prod",
+          "description": "Certificate resolver name.",
+          "config": {
+            "placeholder": "letsencrypt-prod"
+          }
+        }
+      ],
+      "name": "traefik"
+    }
+  ]
+}

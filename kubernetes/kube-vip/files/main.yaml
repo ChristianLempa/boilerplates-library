@@ -1,0 +1,147 @@
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: << service_account_name >>
+  namespace: << namespace >>
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: << service_account_name >>
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - services
+      - services/status
+      - nodes
+      - endpoints
+      - pods
+    verbs:
+      - list
+      - get
+      - watch
+      - update
+      - patch
+  - apiGroups:
+      - discovery.k8s.io
+    resources:
+      - endpointslices
+    verbs:
+      - list
+      - get
+      - watch
+  - apiGroups:
+      - coordination.k8s.io
+    resources:
+      - leases
+    verbs:
+      - list
+      - get
+      - watch
+      - update
+      - create
+      - patch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: << service_account_name >>
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: << service_account_name >>
+subjects:
+  - kind: ServiceAccount
+    name: << service_account_name >>
+    namespace: << namespace >>
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: << daemonset_name >>
+  namespace: << namespace >>
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: kube-vip
+      app.kubernetes.io/instance: << daemonset_name >>
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: kube-vip
+        app.kubernetes.io/instance: << daemonset_name >>
+    spec:
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
+      serviceAccountName: << service_account_name >>
+<%- if control_plane_only %>
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: node-role.kubernetes.io/master
+                    operator: Exists
+              - matchExpressions:
+                  - key: node-role.kubernetes.io/control-plane
+                    operator: Exists
+<%- endif %>
+      tolerations:
+        - operator: Exists
+          effect: NoSchedule
+        - operator: Exists
+          effect: NoExecute
+      containers:
+        - name: kube-vip
+          image: << image >>
+          imagePullPolicy: IfNotPresent
+          args:
+            - manager
+          env:
+            - name: vip_arp
+              value: "true"
+            - name: port
+              value: "<< control_plane_port >>"
+            - name: vip_interface
+              value: "<< interface >>"
+            - name: vip_subnet
+              value: "<< vip_subnet >>"
+            - name: cp_enable
+              value: "<< control_plane_enabled | lower >>"
+            - name: cp_namespace
+              value: "<< namespace >>"
+            - name: vip_ddns
+              value: "false"
+            - name: svc_enable
+              value: "<< services_enabled | lower >>"
+            - name: svc_election
+              value: "<< service_election_enabled | lower >>"
+            - name: vip_leaderelection
+              value: "<< leader_election_enabled | lower >>"
+            - name: vip_leaseduration
+              value: "<< lease_duration >>"
+            - name: vip_renewdeadline
+              value: "<< renew_deadline >>"
+            - name: vip_retryperiod
+              value: "<< retry_period >>"
+<%- if control_plane_enabled %>
+            - name: address
+              value: "<< vip_address >>"
+<%- endif %>
+<%- if services_interface_enabled %>
+            - name: vip_servicesinterface
+              value: "<< services_interface >>"
+<%- endif %>
+<%- if watch_services_namespace_enabled %>
+            - name: svc_namespace
+              value: "<< watch_services_namespace >>"
+<%- endif %>
+          securityContext:
+            capabilities:
+              add:
+                - NET_ADMIN
+                - NET_RAW
+                - SYS_TIME
+          resources: {}

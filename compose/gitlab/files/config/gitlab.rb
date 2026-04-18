@@ -1,0 +1,94 @@
+# GitLab Configuration
+external_url '<< external_url >>'
+
+# Initial root user configuration (only used on first initialization)
+gitlab_rails['initial_root_password'] = '<< root_password >>'
+gitlab_rails['initial_root_email'] = '<< root_email >>'
+
+# GitLab Shell SSH settings
+gitlab_rails['gitlab_shell_ssh_port'] = << ports_ssh >>
+
+# Let's Encrypt and built-in TLS settings are currently not supported by the template
+# as we are using Traefik as a reverse proxy
+letsencrypt['enable'] = false
+nginx['listen_port']  = 80
+nginx['listen_https'] = false
+
+<%- if traefik_tls_enabled %>
+# Traefik settings, to redirect http to https
+nginx['redirect_http_to_https'] = true
+<%- endif %>
+
+<%- if registry_enabled %>
+# Container Registry settings
+registry_external_url '<< registry_external_url >>'
+gitlab_rails['registry_enabled']  = true
+registry_nginx['listen_https']    = false
+registry_nginx['listen_port']     = 5000
+<%- endif %>
+
+<%- if authentik_enabled %>
+# Authentik SSO settings
+gitlab_rails['omniauth_auto_link_user'] = ['openid_connect']
+gitlab_rails['omniauth_providers'] = [
+  {
+    name: "openid_connect",
+    label: "Authentik",
+    icon: "https://avatars.githubusercontent.com/u/82976448?s=200&v=4",
+    args: {
+      name: "openid_connect",
+      scope: ["openid","profile","email"],
+      response_type: "code",
+      issuer: "<< authentik_url >>/application/o/<< authentik_slug >>/",
+      discovery: true,
+      client_auth_method: "query",
+      uid_field: "email",
+      send_scope_to_token_endpoint: "false",
+      pkce: true,
+      client_options: {
+        identifier: "<< authentik_client_id >>",
+        secret: "<< authentik_client_secret >>",
+        redirect_uri: "<< external_url >>/users/auth/openid_connect/callback"
+      }
+    }
+  }
+]
+<%- endif %>
+
+<%- if email_enabled %>
+# SMTP settings
+gitlab_rails['smtp_enable']           = true
+gitlab_rails['smtp_address']          = "<< email_host >>"
+gitlab_rails['smtp_port']             = << email_port >>
+gitlab_rails['smtp_user_name']        = "<< email_username >>"
+gitlab_rails['smtp_password']         = "<< email_password >>"
+gitlab_rails['smtp_authentication']   = "login"
+<%- if email_use_ssl %>
+gitlab_rails['smtp_ssl']              = true
+gitlab_rails['smtp_force_ssl']        = true
+<%- elif email_use_tls %>
+gitlab_rails['smtp_tls']              = true
+<%- endif %>
+gitlab_rails['gitlab_email_from']     = '<< email_from >>'
+gitlab_rails['gitlab_email_reply_to'] = '<< email_from >>'
+<%- endif %>
+
+<%- if performance_preset == 'homelab' %>
+# Performance optimizations for homelab/low-resource environments
+# NOTE: These settings reduce resource usage but may impact performance under high load
+postgresql['shared_buffers'] = "256MB"
+sidekiq['max_concurrency'] = 4
+sidekiq['concurrency'] = 1
+puma['worker_timeout'] = 120
+puma['worker_processes'] = 1
+<%- endif %>
+
+# Prometheus monitoring
+prometheus_monitoring['enable'] = << prometheus_enabled | lower >>
+
+# Default UI settings
+gitlab_rails['gitlab_default_theme'] = << default_theme >>
+gitlab_rails['gitlab_default_color_mode'] = << default_color_mode >>
+
+# Product usage data
+gitlab_rails['initial_gitlab_product_usage_data'] = <%- if disable_usage_data %>false<%- else %>true<%- endif %>

@@ -1,0 +1,175 @@
+{
+  "slug": "prometheus",
+  "kind": "compose",
+  "metadata": {
+    "name": "Prometheus",
+    "description": "Open-source systems monitoring and alerting toolkit. Collects and stores metrics as time series data, with a powerful query language (PromQL) and integration with visualization tools like Grafana.",
+    "guide": "## Overview\nOpen-source systems monitoring and alerting toolkit. Collects and stores metrics as time series data, with a powerful query language (PromQL) and integration with visualization tools like Grafana.\n\n## Deploy\n- Render `compose.yaml`, review the generated files, then start the stack with `docker compose up -d`.\n- Confirm the containers are healthy with `docker compose ps` and follow `docker compose logs -f` during the first boot if initialization is still running.\n\n## Post-Install\n- Add or adjust scrape targets in the rendered Prometheus config and reload Prometheus after changes.\n\n## Docs\n- [Prometheus](https://prometheus.io/)\n- [Documentation](https://prometheus.io/docs/)\n- [GitHub](https://github.com/prometheus/prometheus)\n\n## Next Steps\n1. Start Prometheus with Docker Compose:\n   docker compose up -d\n2. Access Prometheus:\n   <%- if traefik_enabled %> https://<< traefik_host >>\n   <%- else %> http://localhost:<< ports_http >><%- endif %>\n3. Edit config/prometheus.yaml to add scrape targets\n4. Reload configuration: docker exec << container_name >> kill -HUP 1\n",
+    "tags": [
+      "traefik",
+      "authentik"
+    ],
+    "template_version": "v3.9.1",
+    "icon": {
+      "provider": "selfhst",
+      "id": "prometheus"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "title": "General",
+      "variables": [
+        {
+          "name": "service_name",
+          "type": "str",
+          "title": "Service Name",
+          "required": false,
+          "default": "prometheus",
+          "config": {
+            "placeholder": "prometheus"
+          },
+          "description": "Name of the service."
+        },
+        {
+          "name": "restart_policy",
+          "type": "enum",
+          "title": "Restart Policy",
+          "required": true,
+          "default": "unless-stopped",
+          "config": {
+            "options": [
+              "unless-stopped",
+              "always",
+              "on-failure",
+              "no"
+            ]
+          },
+          "description": "Policy used for Restart."
+        }
+      ],
+      "name": "general"
+    },
+    {
+      "title": "Metrics & Storage",
+      "variables": [
+        {
+          "name": "metrics_retention_time",
+          "type": "str",
+          "title": "Retention Time",
+          "required": false,
+          "default": "15d",
+          "description": "How long to retain samples (e.g., 15d, 30d, 1y)",
+          "config": {
+            "placeholder": "15d"
+          }
+        },
+        {
+          "name": "metrics_retention_size",
+          "type": "str",
+          "title": "Retention Size",
+          "required": false,
+          "default": "0",
+          "description": "Maximum storage size (e.g., 5GB, 10GB, 1TB)",
+          "config": {
+            "placeholder": "0"
+          }
+        },
+        {
+          "name": "metrics_enable_remote_write",
+          "type": "bool",
+          "title": "Remote Write Receiver",
+          "required": false,
+          "default": false,
+          "description": "Enable remote write receiver (allows pushing metrics via /api/v1/write)"
+        }
+      ],
+      "name": "metrics"
+    },
+    {
+      "title": "Ports",
+      "variables": [
+        {
+          "name": "ports_http",
+          "type": "str",
+          "title": "HTTP Port",
+          "required": false,
+          "default": 9090,
+          "config": {
+            "placeholder": "9090"
+          },
+          "description": "Host port exposed for HTTP."
+        }
+      ],
+      "name": "ports"
+    },
+    {
+      "title": "Traefik",
+      "variables": [
+        {
+          "name": "traefik_enabled",
+          "type": "bool",
+          "title": "Traefik",
+          "required": false,
+          "default": false,
+          "description": "Enable Traefik integration"
+        },
+        {
+          "name": "traefik_host",
+          "type": "str",
+          "title": "Host",
+          "required": false,
+          "config": {
+            "placeholder": "prometheus"
+          },
+          "description": "Hostname used for Traefik."
+        },
+        {
+          "name": "traefik_domain",
+          "type": "str",
+          "title": "Domain",
+          "required": true,
+          "config": {
+            "placeholder": "home.arpa"
+          },
+          "description": "Domain used for Traefik."
+        },
+        {
+          "name": "traefik_network",
+          "type": "str",
+          "title": "Network",
+          "required": true,
+          "default": "traefik",
+          "config": {
+            "placeholder": "traefik"
+          },
+          "description": "Network used for Traefik."
+        },
+        {
+          "name": "traefik_tls_enabled",
+          "type": "bool",
+          "title": "TLS",
+          "required": false,
+          "default": false,
+          "description": "Enable Traefik TLS"
+        },
+        {
+          "name": "traefik_tls_certresolver",
+          "type": "str",
+          "title": "Cert Resolver",
+          "required": true,
+          "default": "cloudflare",
+          "config": {
+            "placeholder": "cloudflare"
+          },
+          "description": "Traefik Tls Certresolver",
+          "needs": [
+            "traefik_tls_enabled=true"
+          ]
+        }
+      ],
+      "name": "traefik",
+      "toggle": "traefik_enabled"
+    }
+  ]
+}

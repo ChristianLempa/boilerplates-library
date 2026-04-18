@@ -1,0 +1,86 @@
+{
+  "slug": "docker-cleanup",
+  "kind": "ansible",
+  "metadata": {
+    "name": "Docker Cleanup",
+    "description": "Safely prunes Docker resources on target hosts. Only removes resources that are explicitly enabled in the configuration, keeping a conservative default.",
+    "guide": "## Overview\nSafely prunes Docker resources on target hosts. Only removes resources that are explicitly enabled in the configuration, keeping a conservative default.\n\n## How to Use\nThis template renders `main.yml` as a file.\n\n1. Review the target hosts and authentication settings first.\n2. Fill in the required variables for the task you want to automate, then adjust optional safety or notification settings as needed.\n3. Render the playbook and run it against the intended inventory after validating the values for your environment.\n\n## Variable Guide\n### Prune Options\n- `prune_include_unused_tagged_images`: Enable pruning of unused tagged images in addition to dangling images; optional; default: false.\n- `prune_stopped_containers`: Remove stopped containers; optional; default: false.\n- `prune_unused_volumes`: Remove unused volumes; optional; default: false.\n- `prune_unused_networks`: Remove unused networks; optional; default: false.\n- `prune_builder_cache`: Remove unused build cache; optional; default: false.\n- `prune_keep_storage_mb`: Minimum amount of cache/storage to keep when pruning (where supported); optional; default: 1024.\n\n## References\n- [Docker System Prune](https://docs.docker.com/engine/reference/commandline/system_prune/)\n## Notes\n### Variables\n- `prune_include_unused_tagged_images` - By default only dangling (untagged) images are removed. Enable this to also prune unused tagged images.",
+    "tags": [
+      "docker",
+      "cleanup",
+      "prune",
+      "maintenance"
+    ],
+    "template_version": "1",
+    "icon": {
+      "provider": "mdi",
+      "id": "broom",
+      "color": "fuchsia"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "title": "Prune Options",
+      "variables": [
+        {
+          "name": "prune_include_unused_tagged_images",
+          "type": "bool",
+          "title": "Tagged Images",
+          "required": false,
+          "default": false,
+          "description": "Enable pruning of unused tagged images in addition to dangling images"
+        },
+        {
+          "name": "prune_stopped_containers",
+          "type": "bool",
+          "title": "Prune Stopped Containers",
+          "required": false,
+          "default": false,
+          "description": "Remove stopped containers"
+        },
+        {
+          "name": "prune_unused_volumes",
+          "type": "bool",
+          "title": "Prune Unused Volumes",
+          "required": false,
+          "default": false,
+          "description": "Remove unused volumes"
+        },
+        {
+          "name": "prune_unused_networks",
+          "type": "bool",
+          "title": "Prune Unused Networks",
+          "required": false,
+          "default": false,
+          "description": "Remove unused networks"
+        },
+        {
+          "name": "prune_builder_cache",
+          "type": "bool",
+          "title": "Prune Builder Cache",
+          "required": false,
+          "default": false,
+          "description": "Remove unused build cache"
+        },
+        {
+          "name": "prune_keep_storage_mb",
+          "type": "int",
+          "title": "Keep Storage",
+          "required": false,
+          "default": 1024,
+          "description": "Minimum amount of cache/storage to keep when pruning (where supported)",
+          "config": {
+            "slider": true,
+            "min": 256,
+            "max": 102400,
+            "step": 256,
+            "placeholder": "1024",
+            "unit": "MB"
+          }
+        }
+      ],
+      "name": "prune"
+    }
+  ]
+}

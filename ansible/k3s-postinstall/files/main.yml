@@ -1,0 +1,404 @@
+---
+- name: Configure K3s post-install platform services - Fetch kubeconfig
+  hosts: all
+  gather_facts: false
+  become: true
+<%- if secrets_file %>
+  vars_files:
+    - << secrets_file >>
+<%- endif %>
+
+  vars:
+    kubeconfig_path: "<< kubeconfig_local_path >>"
+    kubeconfig_server_target: "<< kubeconfig_server_endpoint >>"
+
+  tasks:
+    - name: Validate that the kubeconfig source host exists in inventory
+      ansible.builtin.assert:
+        that:
+          - "'<< kubeconfig_source_host | default('k3s-server-01') >>' in hostvars"
+        fail_msg: "Inventory host '<< kubeconfig_source_host | default('k3s-server-01') >>' was not found."
+      run_once: true
+
+    - name: Read kubeconfig from the primary K3s server
+      ansible.builtin.slurp:
+        src: "<< kubeconfig_source_path | default('/etc/rancher/k3s/k3s.yaml') >>"
+      delegate_to: "<< kubeconfig_source_host | default('k3s-server-01') >>"
+      register: k3s_source_kubeconfig
+      when: fetch_kubeconfig | default(true)
+      run_once: true
+
+    - name: Ensure local kubeconfig directory exists
+      ansible.builtin.file:
+        path: "{{ kubeconfig_path | dirname }}"
+        state: directory
+        mode: "0700"
+      delegate_to: localhost
+      run_once: true
+      when: fetch_kubeconfig | default(true)
+
+    - name: Write kubeconfig to the control machine
+      ansible.builtin.copy:
+        dest: "{{ kubeconfig_path }}"
+        mode: "0600"
+        content: "{{ (k3s_source_kubeconfig.content | b64decode) | regex_replace('https://127\\.0\\.0\\.1:6443', 'https://' ~ kubeconfig_server_target ~ ':6443') }}"
+      delegate_to: localhost
+      run_once: true
+      when: fetch_kubeconfig | default(true)
+
+- name: Configure K3s post-install platform services - Prepare Longhorn prerequisites
+  hosts: all
+  gather_facts: false
+  become: true
+<%- if secrets_file %>
+  vars_files:
+    - << secrets_file >>
+<%- endif %>
+  vars:
+    longhorn_target_hosts: "{{ query('inventory_hostnames', '<< longhorn_node_hosts >>') }}"
+
+  tasks:
+    - name: Validate Longhorn target host pattern
+      ansible.builtin.assert:
+        that:
+          - longhorn_target_hosts | length > 0
+        fail_msg: "No inventory hosts matched '<< longhorn_node_hosts >>'."
+      when: longhorn_prerequisites_enabled | default(false)
+      run_once: true
+
+    - name: Install Longhorn prerequisite packages
+      ansible.builtin.apt:
+        name:
+          - open-iscsi
+          - nfs-common
+          - cryptsetup
+          - util-linux
+        state: present
+        update_cache: true
+      when:
+        - longhorn_prerequisites_enabled | default(false)
+        - inventory_hostname in longhorn_target_hosts
+
+    - name: Ensure iscsid service is enabled and running
+      ansible.builtin.service:
+        name: iscsid
+        state: started
+        enabled: true
+      when:
+        - longhorn_prerequisites_enabled | default(false)
+        - inventory_hostname in longhorn_target_hosts
+
+    - name: Ensure open-iscsi service is enabled and running when present
+      ansible.builtin.service:
+        name: open-iscsi
+        state: started
+        enabled: true
+      failed_when: false
+      when:
+        - longhorn_prerequisites_enabled | default(false)
+        - inventory_hostname in longhorn_target_hosts
+
+    - name: Persist dm_crypt kernel module for Longhorn
+      ansible.builtin.copy:
+        dest: /etc/modules-load.d/longhorn.conf
+        mode: "0644"
+        content: |
+          dm_crypt
+      when:
+        - longhorn_prerequisites_enabled | default(false)
+        - inventory_hostname in longhorn_target_hosts
+
+    - name: Load dm_crypt kernel module immediately
+      community.general.modprobe:
+        name: dm_crypt
+        state: present
+      when:
+        - longhorn_prerequisites_enabled | default(false)
+        - inventory_hostname in longhorn_target_hosts
+
+    - name: Disable multipathd when the environment does not use multipath storage
+      ansible.builtin.service:
+        name: multipathd
+        state: stopped
+        enabled: false
+      failed_when: false
+      when:
+        - longhorn_prerequisites_enabled | default(false)
+        - longhorn_disable_multipathd | default(false)
+        - inventory_hostname in longhorn_target_hosts
+
+- name: Configure K3s post-install platform services - Configure cluster add-ons
+  hosts: all
+  gather_facts: false
+<%- if secrets_file %>
+  vars_files:
+    - << secrets_file >>
+<%- endif %>
+
+  vars:
+    kubeconfig_path: "<< kubeconfig_local_path >>"
+
+  tasks:
+    - block:
+        - name: Ensure the kubeconfig file exists before applying cluster resources
+          ansible.builtin.stat:
+            path: "{{ kubeconfig_path }}"
+          register: kubeconfig_stat
+
+        - name: Fail when the kubeconfig file is missing
+          ansible.builtin.fail:
+            msg: "Kubeconfig not found at {{ kubeconfig_path }}. Enable fetch_kubeconfig or provide an existing kubeconfig path."
+          when: not (kubeconfig_stat.stat.exists | default(false))
+
+        - name: Verify Helm is available on the control machine when required
+          ansible.builtin.command:
+            cmd: helm version --short
+          changed_when: false
+          when: (cert_manager_install_enabled | default(false)) or (metrics_server_install_enabled | default(false)) or (longhorn_install_enabled | default(false))
+
+        - name: Validate ACME email when ClusterIssuer creation is enabled
+          ansible.builtin.assert:
+            that:
+              - (cert_manager_acme_email | default('')) | length > 0
+            fail_msg: "cert_manager_acme_email must be set when cert_manager_clusterissuer_enabled=true."
+          when: cert_manager_clusterissuer_enabled | default(false)
+
+        - name: Build namespace list for enabled platform components
+          ansible.builtin.set_fact:
+            managed_namespaces: >-
+              {{
+                (
+                  (extra_namespaces_yaml | default('[]') | from_yaml)
+                  + ([cert_manager_namespace | default('cert-manager')] if cert_manager_install_enabled | default(false) or cert_manager_create_cloudflare_secret | default(false) or cert_manager_clusterissuer_enabled | default(false) else [])
+                  + ([longhorn_namespace | default('longhorn-system')] if longhorn_install_enabled | default(false) else [])
+                  + ([traefik_dashboard_namespace | default('traefik')] if traefik_dashboard_exposure_enabled | default(false) else [])
+                ) | unique
+              }}
+          when: ensure_namespaces | default(true)
+
+        - name: Ensure selected namespaces exist
+          kubernetes.core.k8s:
+            kubeconfig: "{{ kubeconfig_path }}"
+            state: present
+            definition:
+              apiVersion: v1
+              kind: Namespace
+              metadata:
+                name: "{{ item }}"
+          loop: "{{ managed_namespaces | default([]) }}"
+          loop_control:
+            label: "{{ item }}"
+          when:
+            - ensure_namespaces | default(true)
+            - item | length > 0
+
+        - name: Add cert-manager Helm repository
+          kubernetes.core.helm_repository:
+            name: jetstack
+            repo_url: https://charts.jetstack.io
+          when: cert_manager_install_enabled | default(false)
+
+        - name: Install cert-manager
+          kubernetes.core.helm:
+            kubeconfig: "{{ kubeconfig_path }}"
+            name: cert-manager
+            chart_ref: jetstack/cert-manager
+            chart_version: "<< cert_manager_chart_version | default('1.18.2') >>"
+            release_namespace: "<< cert_manager_namespace | default('cert-manager') >>"
+            create_namespace: true
+            wait: true
+            values:
+              crds:
+                enabled: true
+          when: cert_manager_install_enabled | default(false)
+
+        - name: Create Cloudflare API token secret placeholder for cert-manager
+          kubernetes.core.k8s:
+            kubeconfig: "{{ kubeconfig_path }}"
+            state: present
+            definition:
+              apiVersion: v1
+              kind: Secret
+              metadata:
+                name: "<< cert_manager_cloudflare_secret_name | default('cloudflare-api-token-secret') >>"
+                namespace: "<< cert_manager_namespace | default('cert-manager') >>"
+              type: Opaque
+              stringData:
+                << cert_manager_cloudflare_secret_key | default('api-token') >>: "<< cert_manager_cloudflare_api_token | default('replace-me-with-your-cloudflare-api-token') >>"
+          when: cert_manager_create_cloudflare_secret | default(false)
+
+        - name: Create cert-manager ClusterIssuer
+          kubernetes.core.k8s:
+            kubeconfig: "{{ kubeconfig_path }}"
+            state: present
+            definition:
+              apiVersion: cert-manager.io/v1
+              kind: ClusterIssuer
+              metadata:
+                name: "<< cert_manager_clusterissuer_name | default('letsencrypt-production') >>"
+              spec:
+                acme:
+                  email: "<< cert_manager_acme_email >>"
+                  server: "<< cert_manager_acme_server | default('https://acme-v02.api.letsencrypt.org/directory') >>"
+                  privateKeySecretRef:
+                    name: "<< cert_manager_clusterissuer_name | default('letsencrypt-production') >>-account-key"
+                  solvers:
+                    - dns01:
+                        cloudflare:
+                          apiTokenSecretRef:
+                            name: "<< cert_manager_cloudflare_secret_name | default('cloudflare-api-token-secret') >>"
+                            key: "<< cert_manager_cloudflare_secret_key | default('api-token') >>"
+          when: cert_manager_clusterissuer_enabled | default(false)
+
+        - name: Add metrics-server Helm repository
+          kubernetes.core.helm_repository:
+            name: metrics-server
+            repo_url: https://kubernetes-sigs.github.io/metrics-server/
+          when: metrics_server_install_enabled | default(false)
+
+        - name: Install metrics-server
+          kubernetes.core.helm:
+            kubeconfig: "{{ kubeconfig_path }}"
+            name: metrics-server
+            chart_ref: metrics-server/metrics-server
+            chart_version: "<< metrics_server_chart_version | default('3.13.0') >>"
+            release_namespace: "<< metrics_server_namespace | default('kube-system') >>"
+            create_namespace: true
+            wait: true
+<%- if metrics_server_kubelet_insecure_tls %>
+            values:
+              args:
+                - --kubelet-insecure-tls
+<%- endif %>
+          when: metrics_server_install_enabled | default(false)
+
+        - name: Add Longhorn Helm repository
+          kubernetes.core.helm_repository:
+            name: longhorn
+            repo_url: https://charts.longhorn.io
+          when: longhorn_install_enabled | default(false)
+
+        - name: Install Longhorn
+          kubernetes.core.helm:
+            kubeconfig: "{{ kubeconfig_path }}"
+            name: longhorn
+            chart_ref: longhorn/longhorn
+            chart_version: "<< longhorn_chart_version | default('1.9.1') >>"
+            release_namespace: "<< longhorn_namespace | default('longhorn-system') >>"
+            create_namespace: true
+            wait: true
+            values:
+              defaultSettings:
+                defaultDataPath: "<< longhorn_default_data_path | default('/var/lib/longhorn') >>"
+          when: longhorn_install_enabled | default(false)
+
+        - name: Expose Traefik dashboard through an IngressRoute
+          kubernetes.core.k8s:
+            kubeconfig: "{{ kubeconfig_path }}"
+            state: present
+            definition:
+              apiVersion: traefik.io/v1alpha1
+              kind: IngressRoute
+              metadata:
+                name: traefik-dashboard
+                namespace: "<< traefik_dashboard_namespace | default('traefik') >>"
+              spec:
+                entryPoints:
+                  - "<< traefik_dashboard_entrypoint | default('websecure') >>"
+                routes:
+                  - match: "Host(`<< traefik_dashboard_host | default('traefik.example.internal') >>`)"
+                    kind: Rule
+<%- if traefik_dashboard_middleware_name %>
+                    middlewares:
+                      - name: "<< traefik_dashboard_middleware_name >>"
+                        namespace: "<< traefik_dashboard_middleware_namespace | default('traefik') >>"
+<%- endif %>
+                    services:
+                      - kind: TraefikService
+                        name: api@internal
+<%- if traefik_dashboard_tls_enabled %>
+                tls:
+                  secretName: "<< traefik_dashboard_tls_secret_name | default('traefik-dashboard-tls') >>"
+<%- endif %>
+          when: traefik_dashboard_exposure_enabled | default(false)
+
+        - name: Read kube-proxy ConfigMap before strictARP patch
+          kubernetes.core.k8s_info:
+            kubeconfig: "{{ kubeconfig_path }}"
+            api_version: v1
+            kind: ConfigMap
+            namespace: kube-system
+            name: kube-proxy
+          register: kube_proxy_configmap
+          when: kube_proxy_strict_arp_enabled | default(false)
+
+        - name: Build kube-proxy configuration with strictARP enabled
+          ansible.builtin.set_fact:
+            kube_proxy_rendered_config: >-
+              {{
+                (kube_proxy_configmap.resources[0].data['config.conf'] | from_yaml)
+                | combine(
+                    {
+                      'ipvs': (
+                        (kube_proxy_configmap.resources[0].data['config.conf'] | from_yaml).ipvs
+                        | default({})
+                        | combine({'strictARP': true})
+                      )
+                    },
+                    recursive=True
+                  )
+              }}
+          when:
+            - kube_proxy_strict_arp_enabled | default(false)
+            - kube_proxy_configmap.resources | length > 0
+
+        - name: Patch kube-proxy ConfigMap with strictARP enabled
+          kubernetes.core.k8s:
+            kubeconfig: "{{ kubeconfig_path }}"
+            state: present
+            merge_type:
+              - merge
+            definition:
+              apiVersion: v1
+              kind: ConfigMap
+              metadata:
+                name: kube-proxy
+                namespace: kube-system
+              data:
+                config.conf: "{{ kube_proxy_rendered_config | to_nice_yaml(indent=2) }}"
+          when:
+            - kube_proxy_strict_arp_enabled | default(false)
+            - kube_proxy_configmap.resources | length > 0
+
+        - name: Read kube-proxy daemonset for restart
+          kubernetes.core.k8s_info:
+            kubeconfig: "{{ kubeconfig_path }}"
+            api_version: apps/v1
+            kind: DaemonSet
+            namespace: kube-system
+            name: kube-proxy
+          register: kube_proxy_daemonset
+          when: kube_proxy_strict_arp_enabled | default(false)
+
+        - name: Restart kube-proxy daemonset after strictARP change
+          kubernetes.core.k8s:
+            kubeconfig: "{{ kubeconfig_path }}"
+            state: present
+            merge_type:
+              - merge
+            definition:
+              apiVersion: apps/v1
+              kind: DaemonSet
+              metadata:
+                name: kube-proxy
+                namespace: kube-system
+              spec:
+                template:
+                  metadata:
+                    annotations:
+                      homelab.boilerplates.io/restarted-at: "{{ lookup('pipe', 'date -u +%Y-%m-%dT%H:%M:%SZ') }}"
+          when:
+            - kube_proxy_strict_arp_enabled | default(false)
+            - kube_proxy_daemonset.resources | length > 0
+      delegate_to: localhost
+      run_once: true

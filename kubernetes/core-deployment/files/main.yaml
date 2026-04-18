@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: << resource_name >>
+  namespace: << namespace >>
+spec:
+  replicas: << replicas >>
+  selector:
+    matchLabels:
+      app: << app_label >>
+  template:
+    metadata:
+      labels:
+        app: << app_label >>
+    spec:
+<%- if service_account_name %>
+      serviceAccountName: << service_account_name >>
+<%- endif %>
+      containers:
+        - name: << container_name >>
+          image: << image >>
+          imagePullPolicy: << image_pull_policy >>
+<%- if ports_enabled %>
+          ports:
+            - containerPort: << container_port >>
+              protocol: << container_port_protocol >>
+<%- if container_port_name %>
+              name: << container_port_name >>
+<%- endif %>
+<%- endif %>
+<%- if env_literal_enabled or env_fieldref_enabled %>
+          env:
+<%- if env_literal_enabled %>
+            - name: << env_literal_name >>
+              value: "<< env_literal_value >>"
+<%- endif %>
+<%- if env_fieldref_enabled %>
+            - name: << env_fieldref_name >>
+              valueFrom:
+                fieldRef:
+                  fieldPath: << env_fieldref_field_path >>
+<%- endif %>
+<%- endif %>
+<%- if resources_enabled %>
+          resources:
+            limits:
+              cpu: << resources_cpu_limit >>
+              memory: << resources_memory_limit >>
+            requests:
+              cpu: << resources_cpu_request >>
+              memory: << resources_memory_request >>
+<%- endif %>

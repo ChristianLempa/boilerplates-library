@@ -1,0 +1,245 @@
+{
+  "slug": "portainer-compose",
+  "kind": "compose",
+  "metadata": {
+    "name": "Portainer",
+    "description": "Web-based management UI for Docker and Kubernetes environments. Simplifies container, image, network, and volume management through an intuitive interface.",
+    "guide": "## Overview\nWeb-based management UI for Docker and Kubernetes environments. Simplifies container, image, network, and volume management through an intuitive interface.\n\n## Deploy\n- Render `compose.yaml`, review the generated files, then start the stack with `docker compose up -d`.\n- Confirm the server is healthy with `docker compose ps` before opening the UI for first-time setup.\n\n## Post-Install\n- Create the initial admin user, then connect the local Docker environment or your target endpoint before handing the instance to other users.\n\n## Docs\n- [Portainer](https://www.portainer.io/)\n- [Documentation](https://docs.portainer.io/)\n- [GitHub](https://github.com/portainer/portainer)",
+    "tags": [
+      "traefik",
+      "volumes"
+    ],
+    "template_version": "2.38.1-alpine",
+    "icon": {
+      "provider": "selfhst",
+      "id": "portainer"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "title": "General",
+      "variables": [
+        {
+          "name": "service_name",
+          "type": "str",
+          "title": "Service Name",
+          "required": false,
+          "default": "portainer",
+          "config": {
+            "placeholder": "portainer"
+          },
+          "description": "Name of the service."
+        },
+        {
+          "name": "container_timezone",
+          "type": "str",
+          "title": "Container Timezone",
+          "required": false,
+          "description": "Timezone used inside the container."
+        },
+        {
+          "name": "restart_policy",
+          "type": "enum",
+          "title": "Restart Policy",
+          "required": true,
+          "default": "unless-stopped",
+          "config": {
+            "options": [
+              "unless-stopped",
+              "always",
+              "on-failure",
+              "no"
+            ]
+          },
+          "description": "Policy used for Restart."
+        }
+      ],
+      "name": "general"
+    },
+    {
+      "title": "Ports",
+      "variables": [
+        {
+          "name": "ports_http",
+          "type": "str",
+          "title": "HTTP Port",
+          "required": false,
+          "default": 9000,
+          "config": {
+            "placeholder": "9000"
+          },
+          "description": "Host port exposed for HTTP."
+        },
+        {
+          "name": "ports_https",
+          "type": "str",
+          "title": "HTTPS Port",
+          "required": false,
+          "default": 9443,
+          "config": {
+            "placeholder": "9443"
+          },
+          "description": "Host port exposed for HTTPS."
+        },
+        {
+          "name": "ports_edge",
+          "type": "int",
+          "title": "Edge Port",
+          "required": true,
+          "default": 8000,
+          "description": "Host port for Edge agent (8000)",
+          "config": {
+            "placeholder": "8000"
+          }
+        }
+      ],
+      "name": "ports"
+    },
+    {
+      "title": "Traefik",
+      "variables": [
+        {
+          "name": "traefik_enabled",
+          "type": "bool",
+          "title": "Traefik",
+          "required": false,
+          "default": false,
+          "description": "Enable Traefik integration"
+        },
+        {
+          "name": "traefik_host",
+          "type": "str",
+          "title": "Host",
+          "required": false,
+          "config": {
+            "placeholder": "portainer"
+          },
+          "description": "Hostname used for Traefik."
+        },
+        {
+          "name": "traefik_domain",
+          "type": "str",
+          "title": "Domain",
+          "required": true,
+          "config": {
+            "placeholder": "home.arpa"
+          },
+          "description": "Domain used for Traefik."
+        },
+        {
+          "name": "traefik_network",
+          "type": "str",
+          "title": "Network",
+          "required": true,
+          "default": "traefik",
+          "config": {
+            "placeholder": "traefik"
+          },
+          "description": "Network used for Traefik."
+        },
+        {
+          "name": "traefik_tls_enabled",
+          "type": "bool",
+          "title": "TLS",
+          "required": false,
+          "default": false,
+          "description": "Enable Traefik TLS"
+        },
+        {
+          "name": "traefik_tls_certresolver",
+          "type": "str",
+          "title": "Cert Resolver",
+          "required": true,
+          "default": "cloudflare",
+          "config": {
+            "placeholder": "cloudflare"
+          },
+          "description": "Traefik Tls Certresolver",
+          "needs": [
+            "traefik_tls_enabled=true"
+          ]
+        }
+      ],
+      "name": "traefik",
+      "toggle": "traefik_enabled"
+    },
+    {
+      "title": "Volume",
+      "variables": [
+        {
+          "name": "volume_mode",
+          "type": "enum",
+          "title": "Volume Mode",
+          "required": true,
+          "default": "local",
+          "config": {
+            "options": [
+              "local",
+              "mount",
+              "nfs"
+            ]
+          },
+          "description": "Mode used for Volume."
+        },
+        {
+          "name": "volume_mount_path",
+          "type": "str",
+          "title": "Volume Mount Path",
+          "required": true,
+          "default": "/data",
+          "needs": [
+            "volume_mode=mount"
+          ],
+          "config": {
+            "placeholder": "/data"
+          },
+          "description": "Mount path used for the volume."
+        },
+        {
+          "name": "volume_nfs_server",
+          "type": "str",
+          "title": "Volume Nfs Server",
+          "required": true,
+          "default": "NFS_SERVER",
+          "needs": [
+            "volume_mode=nfs"
+          ],
+          "config": {
+            "placeholder": "NFS_SERVER"
+          },
+          "description": "Hostname or IP address of the NFS server."
+        },
+        {
+          "name": "volume_nfs_path",
+          "type": "str",
+          "title": "Volume Nfs Path",
+          "required": true,
+          "default": "/export",
+          "needs": [
+            "volume_mode=nfs"
+          ],
+          "config": {
+            "placeholder": "/export"
+          },
+          "description": "Export path on the NFS server."
+        },
+        {
+          "name": "volume_nfs_options",
+          "type": "str",
+          "title": "Volume Nfs Options",
+          "required": true,
+          "default": "rw,nolock,soft",
+          "needs": [
+            "volume_mode=nfs"
+          ],
+          "config": {
+            "placeholder": "rw,nolock,soft"
+          },
+          "description": "Mount options for the NFS volume."
+        }
+      ],
+      "name": "volume"
+    }
+  ]
+}

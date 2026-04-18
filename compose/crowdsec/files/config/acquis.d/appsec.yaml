@@ -1,0 +1,9 @@
+<%- if appsec_enabled %>
+source: appsec
+listen_addr: 0.0.0.0:7422
+path: << appsec_path >>
+appsec_config: crowdsecurity/appsec-default
+labels:
+  type: appsec
+name: << appsec_name >>
+<%- endif %>

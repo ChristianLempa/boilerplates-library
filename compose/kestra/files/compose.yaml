@@ -1,0 +1,56 @@
+services:
+  << service_name >>:
+    image: kestra/kestra:v1.0.0
+    container_name: << container_name >>
+    entrypoint: /bin/bash
+    user: "<< container_user >>"
+    command:
+      - -c
+      - /app/kestra server standalone --worker-thread=<< worker_threads >> -c config.yaml
+    volumes:
+<%- if docker_socket_enabled %>
+      - /var/run/docker.sock:/var/run/docker.sock
+<%- endif %>
+      - << tmp_workdir_host >>:/tmp/kestra-wd
+      - << storage_volume_name >>:/app/storage
+      - ./config/config.yaml:/app/config.yaml:ro
+<%- if env_file_enabled %>
+    env_file:
+      - << env_file_path >>
+<%- endif %>
+    networks:
+      - << network_name >>
+<%- if traefik_enabled %>
+    labels:
+      - traefik.enable=true
+<%- if secondary_hostname %>
+      - traefik.http.routers.<< service_name >>.rule=Host(`<< public_hostname >>`) || Host(`<< secondary_hostname >>`)
+<%- else %>
+      - traefik.http.routers.<< service_name >>.rule=Host(`<< public_hostname >>`)
+<%- endif %>
+<%- if traefik_tls_enabled %>
+      - traefik.http.routers.<< service_name >>.entrypoints=websecure
+      - traefik.http.routers.<< service_name >>.tls=true
+      - traefik.http.routers.<< service_name >>.tls.certresolver=<< traefik_tls_certresolver >>
+<%- else %>
+      - traefik.http.routers.<< service_name >>.entrypoints=web
+<%- endif %>
+<%- if traefik_middleware %>
+      - traefik.http.routers.<< service_name >>.middlewares=<< traefik_middleware >>
+<%- endif %>
+      - traefik.http.routers.<< service_name >>.service=<< service_name >>
+      - traefik.http.services.<< service_name >>.loadBalancer.server.port=8080
+<%- endif %>
+    restart: << restart_policy >>
+
+volumes:
+  << storage_volume_name >>:
+    driver: local
+
+networks:
+  << network_name >>:
+<%- if network_external %>
+    external: true
+<%- else %>
+    driver: bridge
+<%- endif %>

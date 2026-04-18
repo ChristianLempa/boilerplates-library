@@ -1,0 +1,108 @@
+{
+  "slug": "broken-link-crawler",
+  "kind": "python",
+  "metadata": {
+    "name": "Broken Link Crawler",
+    "description": "Standalone Python crawler for one website that walks same-host pages, checks discovered links and assets, and prints a stdout summary.",
+    "guide": "## Overview\nThis template renders a standalone `main.py` script plus `requirements.txt` for lightweight broken-link crawling on one website.\n\n## What It Does\n- Reads one `website_url` value as the crawl entrypoint.\n- Crawls only the exact same host as that URL.\n- Extracts anchor, image, stylesheet, and script URLs from HTML pages.\n- Checks discovered same-host links and assets and records broken or unreachable targets with their source pages.\n- Prints a plain stdout summary at the end of the run.\n\n## Prerequisites\n- Install the Python packages from `requirements.txt` in the runtime environment.\n- Start with a small page limit on larger sites to avoid unintentional load.\n- If the site needs authentication, add the appropriate request headers before running.\n\n## Run\n1. Render `main.py` and `requirements.txt`.\n2. Install dependencies with `pip install -r requirements.txt`.\n3. Review `website_url`, max pages, and request settings in the rendered file.\n4. Run `python3 main.py` directly or from cron/systemd.\n\n## Notes\n- The crawler only follows and checks URLs on the exact same host as `website_url`.\n- Use the start URL that matches the canonical host you want to audit, for example `https://www.example.com` versus `https://example.com`.\n- Broken links are reported in stdout, but the script exits successfully unless the script itself encounters an execution error.\n\n## References\n- [Requests](https://requests.readthedocs.io/)\n- [Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/)",
+    "tags": [
+      "crawler",
+      "links",
+      "website",
+      "audit",
+      "python"
+    ],
+    "template_version": "1.0.0",
+    "icon": {
+      "provider": "simple-icons",
+      "id": "python",
+      "color": "emerald"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "title": "Targets",
+      "variables": [
+        {
+          "name": "website_url",
+          "type": "str",
+          "title": "Website URL",
+          "required": true,
+          "default": "https://example.com",
+          "description": "Single crawl entrypoint. The crawler stays on this exact host.",
+          "config": {
+            "placeholder": "https://example.com"
+          }
+        }
+      ],
+      "name": "targets"
+    },
+    {
+      "title": "Crawler",
+      "variables": [
+        {
+          "name": "max_pages",
+          "type": "int",
+          "title": "Max Pages",
+          "required": true,
+          "default": 100,
+          "description": "Maximum number of HTML pages to crawl.",
+          "config": {
+            "placeholder": "100"
+          }
+        },
+        {
+          "name": "request_timeout_seconds",
+          "type": "int",
+          "title": "Timeout Seconds",
+          "required": true,
+          "default": 10,
+          "description": "Timeout for each outbound HTTP request.",
+          "config": {
+            "placeholder": "10"
+          }
+        },
+        {
+          "name": "verify_tls",
+          "type": "bool",
+          "title": "Verify TLS",
+          "required": false,
+          "default": true,
+          "description": "Validate remote TLS certificates during requests."
+        },
+        {
+          "name": "follow_redirects",
+          "type": "bool",
+          "title": "Follow Redirects",
+          "required": false,
+          "default": true,
+          "description": "Follow redirects when checking URLs."
+        },
+        {
+          "name": "request_headers_json",
+          "type": "str",
+          "title": "Request Headers JSON",
+          "required": false,
+          "default": "{}",
+          "description": "JSON object of headers added to every request.",
+          "config": {
+            "placeholder": "{\"Authorization\": \"Bearer replace-me\"}"
+          }
+        },
+        {
+          "name": "user_agent",
+          "type": "str",
+          "title": "User Agent",
+          "required": false,
+          "default": "boilerplates-broken-link-crawler/1.0",
+          "description": "User-Agent header value used by the crawler.",
+          "config": {
+            "placeholder": "boilerplates-broken-link-crawler/1.0"
+          }
+        }
+      ],
+      "name": "crawler"
+    }
+  ]
+}

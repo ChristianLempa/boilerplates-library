@@ -1,0 +1,71 @@
+services:
+  << service_name >>:
+    image: docker.io/library/postgres:18.2
+    hostname: << container_hostname >>
+    environment:
+      - POSTGRES_INITDB_ARGS=<< postgres_initdb_args >>
+      <%- if postgres_host_auth_method %>
+      - POSTGRES_HOST_AUTH_METHOD=<< postgres_host_auth_method >>
+      <%- endif %>
+      - POSTGRES_USER=<< database_user >>
+      - POSTGRES_PASSWORD=<< database_password >>
+      - POSTGRES_DB=<< database_name >>
+      - TZ=<< container_timezone >>
+    <%- if network_mode == 'bridge' or network_mode == '' %>
+    networks:
+      << network_name >>:
+    <%- endif %>
+    <%- if network_mode == 'bridge' or network_mode == '' %>
+    ports:
+      - target: 5432
+        published: << ports_postgres >>
+        protocol: tcp
+        mode: host
+    <%- endif %>
+    volumes:
+      <%- if volume_mode == 'mount' %>
+      - << volume_mount_path >>:/var/lib/postgresql/data:rw
+      <%- else %>
+      - << service_name >>-data:/var/lib/postgresql/data
+      <%- endif %>
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U << database_user >>"]
+      start_period: 30s
+      interval: 10s
+      timeout: 10s
+      retries: 5
+    deploy:
+      mode: replicated
+      replicas: 1
+      <%- if swarm_placement_host %>
+      placement:
+        constraints:
+          - node.hostname == << swarm_placement_host >>
+      <%- endif %>
+      restart_policy:
+        condition: on-failure
+
+<%- if volume_mode == 'local' %>
+volumes:
+  << service_name >>-data:
+    driver: local
+<%- elif volume_mode == 'nfs' %>
+volumes:
+  << service_name >>-data:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=<< volume_nfs_server >>,<< volume_nfs_options >>
+      device: ":<< volume_nfs_path >>"
+<%- endif %>
+
+<%- if network_mode == 'bridge' or network_mode == '' %>
+networks:
+  << network_name >>:
+    <%- if network_external %>
+    external: true
+    <%- else %>
+    driver: overlay
+    attachable: true
+    <%- endif %>
+<%- endif %>

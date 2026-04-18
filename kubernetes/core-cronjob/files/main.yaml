@@ -1,0 +1,76 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: << resource_name >>
+  namespace: << namespace >>
+spec:
+  schedule: "<< schedule >>"
+  suspend: << suspend | lower >>
+  concurrencyPolicy: << concurrency_policy >>
+  successfulJobsHistoryLimit: << successful_jobs_history_limit >>
+  failedJobsHistoryLimit: << failed_jobs_history_limit >>
+  jobTemplate:
+    spec:
+      backoffLimit: << backoff_limit >>
+<%- if ttl_seconds_after_finished_enabled %>
+      ttlSecondsAfterFinished: << ttl_seconds_after_finished >>
+<%- endif %>
+      template:
+        metadata:
+          labels:
+            app: << app_label >>
+        spec:
+<%- if service_account_name %>
+          serviceAccountName: << service_account_name >>
+<%- endif %>
+          restartPolicy: << restart_policy >>
+          containers:
+            - name: << container_name >>
+              image: << image >>
+              imagePullPolicy: << image_pull_policy >>
+<%- if command_enabled %>
+              command:
+<%- for command_item in command_items.split(',') %>
+                - "<< command_item.strip() >>"
+<%- endfor %>
+<%- endif %>
+<%- if args_enabled %>
+              args:
+<%- for args_item in args_items.split(',') %>
+                - "<< args_item.strip() >>"
+<%- endfor %>
+<%- endif %>
+<%- if env_literal_enabled or env_secret_enabled %>
+              env:
+<%- if env_literal_enabled %>
+                - name: << env_literal_name >>
+                  value: "<< env_literal_value >>"
+<%- endif %>
+<%- if env_secret_enabled %>
+                - name: << env_secret_name >>
+                  valueFrom:
+                    secretKeyRef:
+                      name: << env_secret_secret_name >>
+                      key: << env_secret_secret_key >>
+<%- endif %>
+<%- endif %>
+<%- if pvc_mount_enabled %>
+              volumeMounts:
+                - name: app-storage
+                  mountPath: << pvc_mount_path >>
+<%- endif %>
+<%- if resources_enabled %>
+              resources:
+                limits:
+                  cpu: << resources_cpu_limit >>
+                  memory: << resources_memory_limit >>
+                requests:
+                  cpu: << resources_cpu_request >>
+                  memory: << resources_memory_request >>
+<%- endif %>
+<%- if pvc_mount_enabled %>
+          volumes:
+            - name: app-storage
+              persistentVolumeClaim:
+                claimName: << pvc_claim_name >>
+<%- endif %>

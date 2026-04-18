@@ -1,0 +1,247 @@
+{
+  "slug": "kube-vip",
+  "kind": "kubernetes",
+  "metadata": {
+    "name": "kube-vip DaemonSet",
+    "description": "Practical kube-vip DaemonSet bootstrap with RBAC for control-plane virtual IPs and optional Service LoadBalancer handling in bare-metal clusters.",
+    "guide": "## Overview\nCreates the RBAC resources and DaemonSet needed to run kube-vip inside an existing cluster. This template is aimed at K3s and similar bare-metal distributions where kube-vip is deployed after the first control-plane node is already online.\n\n## Typical Use\n- Enable `control_plane_enabled` when kube-vip should advertise a stable API VIP for an HA control plane.\n- Enable `services_enabled` when kube-vip should also watch `LoadBalancer` services.\n- Keep ARP mode for the first iteration unless you already know you need BGP or routing-table mode.\n\n## Notes\n- At least one of `control_plane_enabled` or `services_enabled` should be true.\n- Service load balancer mode usually expects either explicit `spec.loadBalancerIP` values, the `kube-vip.io/loadbalancerIPs` annotation, or the kube-vip cloud provider for IP allocation.\n- `control_plane_only` keeps the DaemonSet on control-plane nodes, which is a sensible default for smaller homelabs.\n\n## References\n- [kube-vip Installation](https://kube-vip.io/docs/installation/)\n- [kube-vip DaemonSet](https://kube-vip.io/docs/installation/daemonset/)\n- [kube-vip ARP Mode](https://kube-vip.io/docs/modes/arp/)",
+    "tags": [],
+    "template_version": "1.0.1",
+    "icon": {
+      "provider": "simple-icons",
+      "id": "kubernetes"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "title": "General",
+      "name": "general",
+      "variables": [
+        {
+          "name": "namespace",
+          "type": "str",
+          "title": "Namespace",
+          "required": false,
+          "default": "kube-system",
+          "description": "Namespace where kube-vip should run.",
+          "config": {
+            "placeholder": "kube-system"
+          }
+        },
+        {
+          "name": "service_account_name",
+          "type": "str",
+          "title": "Service account",
+          "required": false,
+          "default": "kube-vip",
+          "description": "Service account name used by the kube-vip DaemonSet.",
+          "config": {
+            "placeholder": "kube-vip"
+          }
+        },
+        {
+          "name": "daemonset_name",
+          "type": "str",
+          "title": "DaemonSet name",
+          "required": false,
+          "default": "kube-vip-ds",
+          "description": "Name of the kube-vip DaemonSet.",
+          "config": {
+            "placeholder": "kube-vip-ds"
+          }
+        },
+        {
+          "name": "image",
+          "type": "str",
+          "title": "Image",
+          "required": false,
+          "default": "ghcr.io/kube-vip/kube-vip:v1.0.1",
+          "description": "Container image for kube-vip.",
+          "config": {
+            "placeholder": "ghcr.io/kube-vip/kube-vip:v1.0.1"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Networking",
+      "name": "networking",
+      "variables": [
+        {
+          "name": "interface",
+          "type": "str",
+          "title": "Primary interface",
+          "required": false,
+          "default": "eth0",
+          "description": "Host interface used by kube-vip for ARP announcements and VIP binding.",
+          "config": {
+            "placeholder": "eth0"
+          }
+        },
+        {
+          "name": "services_interface_enabled",
+          "type": "bool",
+          "title": "Services interface",
+          "required": false,
+          "default": false,
+          "description": "Use a separate interface for Service LoadBalancer announcements."
+        },
+        {
+          "name": "services_interface",
+          "type": "str",
+          "title": "Services interface name",
+          "required": false,
+          "default": "eth1",
+          "description": "Interface used for service advertisements when a dedicated interface is required.",
+          "config": {
+            "placeholder": "eth1"
+          }
+        },
+        {
+          "name": "vip_address",
+          "type": "str",
+          "title": "Control-plane VIP",
+          "required": false,
+          "default": "192.168.1.30",
+          "description": "Virtual IP for the Kubernetes API when control-plane mode is enabled.",
+          "config": {
+            "placeholder": "192.168.1.30"
+          }
+        },
+        {
+          "name": "vip_subnet",
+          "type": "str",
+          "title": "VIP subnet mask",
+          "required": false,
+          "default": "32",
+          "description": "Subnet mask used for the advertised VIP.",
+          "config": {
+            "placeholder": "32"
+          }
+        },
+        {
+          "name": "control_plane_port",
+          "type": "int",
+          "title": "API port",
+          "required": false,
+          "default": 6443,
+          "description": "Kubernetes API port exposed by the control-plane VIP.",
+          "config": {
+            "placeholder": "6443"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Features",
+      "name": "features",
+      "variables": [
+        {
+          "name": "control_plane_enabled",
+          "type": "bool",
+          "title": "Control-plane VIP",
+          "required": false,
+          "default": true,
+          "description": "Advertise a floating VIP for the Kubernetes API."
+        },
+        {
+          "name": "services_enabled",
+          "type": "bool",
+          "title": "Service LoadBalancer",
+          "required": false,
+          "default": false,
+          "description": "Watch and advertise Kubernetes Services of type LoadBalancer."
+        },
+        {
+          "name": "service_election_enabled",
+          "type": "bool",
+          "title": "Per-service election",
+          "required": false,
+          "default": false,
+          "description": "Use a separate leader election for each service when service mode is enabled."
+        },
+        {
+          "name": "leader_election_enabled",
+          "type": "bool",
+          "title": "Leader election",
+          "required": false,
+          "default": true,
+          "description": "Enable kube-vip leader election for ARP mode."
+        },
+        {
+          "name": "watch_services_namespace_enabled",
+          "type": "bool",
+          "title": "Watch one namespace",
+          "required": false,
+          "default": false,
+          "description": "Restrict service mode to a specific namespace instead of the whole cluster."
+        },
+        {
+          "name": "watch_services_namespace",
+          "type": "str",
+          "title": "Watched namespace",
+          "required": false,
+          "default": "apps",
+          "description": "Namespace watched by kube-vip when scoped service mode is enabled.",
+          "config": {
+            "placeholder": "apps"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Leader Election Timing",
+      "name": "timing",
+      "variables": [
+        {
+          "name": "lease_duration",
+          "type": "int",
+          "title": "Lease duration",
+          "required": false,
+          "default": 5,
+          "description": "Lease duration in seconds for leader election.",
+          "config": {
+            "placeholder": "5"
+          }
+        },
+        {
+          "name": "renew_deadline",
+          "type": "int",
+          "title": "Renew deadline",
+          "required": false,
+          "default": 3,
+          "description": "Renew deadline in seconds for leader election.",
+          "config": {
+            "placeholder": "3"
+          }
+        },
+        {
+          "name": "retry_period",
+          "type": "int",
+          "title": "Retry period",
+          "required": false,
+          "default": 1,
+          "description": "Retry period in seconds for leader election.",
+          "config": {
+            "placeholder": "1"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Scheduling",
+      "name": "scheduling",
+      "variables": [
+        {
+          "name": "control_plane_only",
+          "type": "bool",
+          "title": "Control-plane nodes only",
+          "required": false,
+          "default": true,
+          "description": "Schedule kube-vip only on nodes labeled as control-plane or master."
+        }
+      ]
+    }
+  ]
+}

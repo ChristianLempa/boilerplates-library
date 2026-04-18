@@ -1,0 +1,351 @@
+{
+  "slug": "k3sup-k3s-cluster",
+  "kind": "ansible",
+  "metadata": {
+    "name": "Bootstrap K3s Cluster with k3sup",
+    "description": "Bootstraps a K3s cluster from the Ansible control machine by using k3sup over SSH. Supports first-server install, optional agent joins, and local or remote kubeconfig placement.",
+    "guide": "## Overview\nThis playbook uses `k3sup` from the Ansible control machine to bootstrap a K3s server and optionally join agent nodes.\n\n## Prerequisites\n- Add the first K3s server and any agent nodes to your Ansible inventory and confirm SSH connectivity first.\n- Make sure the remote SSH user can run `sudo` non-interactively if you keep `k3sup_use_sudo` enabled.\n- Review the kubeconfig destination mode before you run the play so the generated admin config lands in the right place.\n\n## Run\n1. Render `main.yml` and confirm the server host, agent host pattern, SSH details, and K3s extra arguments.\n2. If you enable binary installation, run the playbook from a control machine that can write to the chosen install path.\n3. Verify that the server is healthy and that every intended agent joins the cluster after the play completes.\n\n## Notes\n- Re-runs are conservative: the server bootstrap and agent join commands only run when the expected K3s files are still missing.\n- Remote kubeconfig mode still renders the kubeconfig locally first, then copies it to the selected remote destination host.\n\n## Docs\n- [k3sup](https://github.com/alexellis/k3sup)\n- [K3s Documentation](https://docs.k3s.io/)",
+    "tags": [
+      "kubernetes",
+      "k3s",
+      "k3sup",
+      "bootstrap"
+    ],
+    "template_version": "1.0.0",
+    "icon": {
+      "provider": "simple-icons",
+      "id": "kubernetes"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "title": "Execution",
+      "variables": [
+        {
+          "name": "secrets_file",
+          "type": "str",
+          "title": "Secrets File",
+          "required": false,
+          "default": "",
+          "description": "Optional vars file to load before running the playbook."
+        },
+        {
+          "name": "install_k3sup_binary",
+          "type": "bool",
+          "title": "Install k3sup",
+          "required": false,
+          "default": false,
+          "description": "Download and install the k3sup binary on the Ansible control machine before bootstrapping"
+        },
+        {
+          "name": "k3sup_version",
+          "type": "str",
+          "title": "k3sup Version",
+          "required": false,
+          "default": "0.13.15",
+          "description": "Version of k3sup to install when binary installation is enabled",
+          "needs": [
+            "install_k3sup_binary=true"
+          ],
+          "config": {
+            "placeholder": "0.13.15"
+          }
+        },
+        {
+          "name": "k3sup_install_path",
+          "type": "str",
+          "title": "k3sup Path",
+          "required": false,
+          "default": "/usr/local/bin/k3sup",
+          "description": "Local filesystem path for the k3sup binary",
+          "config": {
+            "placeholder": "/usr/local/bin/k3sup"
+          }
+        }
+      ],
+      "name": "execution"
+    },
+    {
+      "title": "Control Plane",
+      "variables": [
+        {
+          "name": "bootstrap_control_plane",
+          "type": "bool",
+          "title": "Bootstrap Server",
+          "required": false,
+          "default": true,
+          "description": "Run k3sup install against the first K3s server"
+        },
+        {
+          "name": "k3s_server_host",
+          "type": "str",
+          "title": "Server Host",
+          "required": true,
+          "default": "k3s-server-01",
+          "description": "Inventory host name for the first K3s server",
+          "config": {
+            "placeholder": "k3s-server-01"
+          }
+        },
+        {
+          "name": "k3s_server_user",
+          "type": "str",
+          "title": "Server SSH User",
+          "required": false,
+          "default": "ubuntu",
+          "description": "SSH user used by k3sup for the first server",
+          "config": {
+            "placeholder": "ubuntu"
+          }
+        },
+        {
+          "name": "k3s_server_ssh_port",
+          "type": "int",
+          "title": "Server SSH Port",
+          "required": false,
+          "default": 22,
+          "description": "SSH port used for the first server",
+          "config": {
+            "slider": true,
+            "min": 1,
+            "max": 65535,
+            "step": 1,
+            "placeholder": "22"
+          }
+        },
+        {
+          "name": "k3s_server_ssh_key_path",
+          "type": "str",
+          "title": "SSH Key Path",
+          "required": false,
+          "default": "",
+          "description": "Optional private SSH key path for k3sup",
+          "config": {
+            "placeholder": "~/.ssh/id_ed25519"
+          }
+        },
+        {
+          "name": "k3s_context_name",
+          "type": "str",
+          "title": "Cluster Context",
+          "required": false,
+          "default": "homelab-k3s",
+          "description": "kubectl context name written into the generated kubeconfig",
+          "config": {
+            "placeholder": "homelab-k3s"
+          }
+        },
+        {
+          "name": "k3sup_use_sudo",
+          "type": "bool",
+          "title": "Use sudo",
+          "required": false,
+          "default": true,
+          "description": "Run k3sup remote operations with sudo on the target hosts"
+        },
+        {
+          "name": "extra_server_args",
+          "type": "str",
+          "title": "Server Args",
+          "required": false,
+          "default": "--write-kubeconfig-mode 644 --disable servicelb",
+          "description": "Optional extra K3s server arguments passed through k3sup",
+          "config": {
+            "placeholder": "--write-kubeconfig-mode 644 --disable servicelb"
+          }
+        }
+      ],
+      "name": "control-plane"
+    },
+    {
+      "title": "Agents",
+      "variables": [
+        {
+          "name": "join_agent_nodes",
+          "type": "bool",
+          "title": "Join Agents",
+          "required": false,
+          "default": true,
+          "description": "Join matching inventory hosts to the cluster as K3s agents"
+        },
+        {
+          "name": "k3s_agent_hosts_pattern",
+          "type": "str",
+          "title": "Agent Hosts",
+          "required": false,
+          "default": "k3s_agents",
+          "description": "Inventory host pattern used to discover K3s agent nodes",
+          "needs": [
+            "join_agent_nodes=true"
+          ],
+          "config": {
+            "placeholder": "k3s_agents"
+          }
+        },
+        {
+          "name": "k3s_agent_user",
+          "type": "str",
+          "title": "Agent SSH User",
+          "required": false,
+          "default": "ubuntu",
+          "description": "SSH user used by k3sup for agent nodes",
+          "needs": [
+            "join_agent_nodes=true"
+          ],
+          "config": {
+            "placeholder": "ubuntu"
+          }
+        },
+        {
+          "name": "k3s_agent_ssh_port",
+          "type": "int",
+          "title": "Agent SSH Port",
+          "required": false,
+          "default": 22,
+          "description": "SSH port used for agent nodes",
+          "needs": [
+            "join_agent_nodes=true"
+          ],
+          "config": {
+            "slider": true,
+            "min": 1,
+            "max": 65535,
+            "step": 1,
+            "placeholder": "22"
+          }
+        },
+        {
+          "name": "extra_agent_args",
+          "type": "str",
+          "title": "Agent Args",
+          "required": false,
+          "default": "",
+          "description": "Optional extra K3s agent arguments passed through k3sup",
+          "needs": [
+            "join_agent_nodes=true"
+          ],
+          "config": {
+            "placeholder": "--node-label role=worker"
+          }
+        }
+      ],
+      "name": "agents"
+    },
+    {
+      "title": "Kubeconfig",
+      "variables": [
+        {
+          "name": "kubeconfig_destination_mode",
+          "type": "enum",
+          "title": "Destination Mode",
+          "required": false,
+          "default": "local",
+          "description": "Store the generated kubeconfig locally on the control machine or copy it to another managed host",
+          "config": {
+            "options": [
+              "local",
+              "remote"
+            ]
+          }
+        },
+        {
+          "name": "local_kubeconfig_path",
+          "type": "str",
+          "title": "Local Kubeconfig",
+          "required": false,
+          "default": "{{ lookup('env', 'HOME') }}/.kube/config",
+          "description": "Local kubeconfig path used when destination mode is local",
+          "needs": [
+            "kubeconfig_destination_mode=local"
+          ],
+          "config": {
+            "placeholder": "{{ lookup('env', 'HOME') }}/.kube/config"
+          }
+        },
+        {
+          "name": "kubeconfig_remote_host",
+          "type": "str",
+          "title": "Remote Host",
+          "required": false,
+          "default": "localhost",
+          "description": "Managed inventory host that should receive the kubeconfig copy",
+          "needs": [
+            "kubeconfig_destination_mode=remote"
+          ],
+          "config": {
+            "placeholder": "bastion-01"
+          }
+        },
+        {
+          "name": "kubeconfig_remote_path",
+          "type": "str",
+          "title": "Remote Kubeconfig",
+          "required": false,
+          "default": "/home/ubuntu/.kube/config",
+          "description": "Destination path on the remote host for the kubeconfig file",
+          "needs": [
+            "kubeconfig_destination_mode=remote"
+          ],
+          "config": {
+            "placeholder": "/home/ubuntu/.kube/config"
+          }
+        },
+        {
+          "name": "kubeconfig_remote_owner",
+          "type": "str",
+          "title": "Remote Owner",
+          "required": false,
+          "default": "ubuntu",
+          "description": "Owner for the remote kubeconfig file",
+          "needs": [
+            "kubeconfig_destination_mode=remote"
+          ],
+          "config": {
+            "placeholder": "ubuntu"
+          }
+        },
+        {
+          "name": "kubeconfig_remote_group",
+          "type": "str",
+          "title": "Remote Group",
+          "required": false,
+          "default": "ubuntu",
+          "description": "Group for the remote kubeconfig file",
+          "needs": [
+            "kubeconfig_destination_mode=remote"
+          ],
+          "config": {
+            "placeholder": "ubuntu"
+          }
+        },
+        {
+          "name": "kubeconfig_remote_mode",
+          "type": "str",
+          "title": "Remote Mode",
+          "required": false,
+          "default": "0600",
+          "description": "Filesystem mode for the remote kubeconfig file",
+          "needs": [
+            "kubeconfig_destination_mode=remote"
+          ],
+          "config": {
+            "placeholder": "0600"
+          }
+        },
+        {
+          "name": "kubeconfig_remote_become",
+          "type": "bool",
+          "title": "Remote Become",
+          "required": false,
+          "default": false,
+          "description": "Use become when creating directories or copying the remote kubeconfig",
+          "needs": [
+            "kubeconfig_destination_mode=remote"
+          ]
+        }
+      ],
+      "name": "kubeconfig"
+    }
+  ]
+}

@@ -1,0 +1,107 @@
+{
+  "slug": "core-namespace",
+  "kind": "kubernetes",
+  "metadata": {
+    "name": "Kubernetes Namespace",
+    "description": "Creates a Kubernetes Namespace with optional single label and annotation entries for basic environment scoping.",
+    "guide": "## Overview\nCreates a Kubernetes Namespace resource.\n\n## Apply Order\n- Create the namespace before any namespaced Deployments, Services, Secrets, or Ingress resources that depend on it.\n- Use labels and annotations for ownership, environment, or platform metadata when you want lightweight organization.\n\n## Follow-Up\n- Add ResourceQuotas, LimitRanges, or NetworkPolicies separately if the namespace needs additional guardrails.\n\n## References\n- [Namespace Documentation](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/)",
+    "tags": [],
+    "template_version": "1.31.0",
+    "icon": {
+      "provider": "simple-icons",
+      "id": "kubernetes"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "title": "General",
+      "variables": [
+        {
+          "name": "namespace_name",
+          "type": "str",
+          "title": "Namespace name",
+          "required": false,
+          "default": "app",
+          "description": "Name to use for the namespace.",
+          "config": {
+            "placeholder": "app"
+          }
+        }
+      ],
+      "name": "general"
+    },
+    {
+      "title": "Labels",
+      "variables": [
+        {
+          "name": "labels_enabled",
+          "type": "bool",
+          "title": "Label",
+          "required": false,
+          "default": false,
+          "description": "Add a label entry to the namespace"
+        },
+        {
+          "name": "label_key",
+          "type": "str",
+          "title": "Label key",
+          "required": false,
+          "default": "app.kubernetes.io/name",
+          "description": "Value used for the labels settings.",
+          "config": {
+            "placeholder": "app.kubernetes.io/name"
+          }
+        },
+        {
+          "name": "label_value",
+          "type": "str",
+          "title": "Label value",
+          "required": false,
+          "default": "app",
+          "description": "Value used for the labels settings.",
+          "config": {
+            "placeholder": "app"
+          }
+        }
+      ],
+      "name": "labels"
+    },
+    {
+      "title": "Annotations",
+      "variables": [
+        {
+          "name": "annotations_enabled",
+          "type": "bool",
+          "title": "Annotation",
+          "required": false,
+          "default": false,
+          "description": "Add an annotation entry to the namespace"
+        },
+        {
+          "name": "annotation_key",
+          "type": "str",
+          "title": "Annotation key",
+          "required": false,
+          "default": "app.kubernetes.io/part-of",
+          "description": "Value used for the annotations settings.",
+          "config": {
+            "placeholder": "app.kubernetes.io/part-of"
+          }
+        },
+        {
+          "name": "annotation_value",
+          "type": "str",
+          "title": "Annotation value",
+          "required": false,
+          "default": "platform",
+          "description": "Value used for the annotations settings.",
+          "config": {
+            "placeholder": "platform"
+          }
+        }
+      ],
+      "name": "annotations"
+    }
+  ]
+}

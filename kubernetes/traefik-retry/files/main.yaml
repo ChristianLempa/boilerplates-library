@@ -1,0 +1,12 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: << resource_name >>
+  namespace: << namespace >>
+spec:
+  retry:
+    attempts: << attempts >>
+<%- if initial_interval %>
+    initialInterval: << initial_interval >>
+<%- endif %>

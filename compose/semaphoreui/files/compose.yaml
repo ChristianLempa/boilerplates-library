@@ -1,0 +1,121 @@
+services:
+  << service_name >>:
+    image: docker.io/semaphoreui/semaphore:v2.17.2
+    restart: << restart_policy >>
+    environment:
+      - SEMAPHORE_DB_DIALECT=<< database_type >>
+      <%- if database_type == "sqlite" %>
+      <%- if database_path %>
+      - SEMAPHORE_DB=<< database_path >>
+      <%- endif %>
+      <%- else %>
+      <%- if database_external %>
+      - SEMAPHORE_DB_HOST=<< database_host >>
+      <%- else %>
+      - SEMAPHORE_DB_HOST=<< service_name >>_db
+      <%- endif %>
+      - SEMAPHORE_DB=<< database_name >>
+      - SEMAPHORE_DB_USER=${DATABASE_USER}
+      - SEMAPHORE_DB_PASS=${DATABASE_PASSWORD}
+      <%- endif %>
+      - SEMAPHORE_ADMIN=${SEMAPHORE_ADMIN}
+      - SEMAPHORE_ADMIN_NAME=<< admin_name >>
+      - SEMAPHORE_ADMIN_EMAIL=<< admin_email >>
+      - SEMAPHORE_ADMIN_PASSWORD=${SEMAPHORE_ADMIN_PASSWORD}
+      - SEMAPHORE_PLAYBOOK_PATH=/tmp/semaphore/
+      - SEMAPHORE_ACCESS_KEY_ENCRYPTION=${SEMAPHORE_ACCESS_KEY_ENCRYPTION}
+      - ANSIBLE_HOST_KEY_CHECKING=<< ansible_host_key_checking >>
+    <%- if database_type == "sqlite" %>
+    volumes:
+      - << service_name >>_config:/etc/semaphore
+    <%- endif %>
+    <%- if (not database_external and database_type != "sqlite") or traefik_enabled %>
+    networks:
+    <%- if not database_external and database_type != "sqlite" %>
+      - << service_name >>_backend
+    <%- endif %>
+    <%- if traefik_enabled %>
+      - << traefik_network >>
+    <%- endif %>
+    <%- endif %>
+    <%- if not traefik_enabled %>
+    ports:
+      - "<< ports_http >>:3000"
+    <%- endif %>
+    <%- if traefik_enabled %>
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=<< traefik_network >>
+      - traefik.http.services.<< service_name >>-web.loadBalancer.server.port=3000
+      - traefik.http.routers.<< service_name >>-http.service=<< service_name >>-web
+      - traefik.http.routers.<< service_name >>-http.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
+      - traefik.http.routers.<< service_name >>-http.entrypoints=web
+      <%- if traefik_tls_enabled %>
+      - traefik.http.routers.<< service_name >>-https.service=<< service_name >>-web
+      - traefik.http.routers.<< service_name >>-https.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
+      - traefik.http.routers.<< service_name >>-https.entrypoints=websecure
+      - traefik.http.routers.<< service_name >>-https.tls=true
+      - traefik.http.routers.<< service_name >>-https.tls.certresolver=<< traefik_tls_certresolver >>
+      <%- endif %>
+    <%- endif %>
+    <%- if not database_external and database_type != "sqlite" %>
+    depends_on:
+      - << service_name >>_db
+    <%- endif %>
+
+  <%- if not database_external and database_type == "postgres" %>
+  << service_name >>_db:
+    image: docker.io/library/postgres:17.8
+    restart: << restart_policy >>
+    environment:
+      - POSTGRES_USER=${DATABASE_USER}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_DB=<< database_name >>
+    networks:
+      - << service_name >>_backend
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U << database_user >>"]
+      start_period: 30s
+      interval: 10s
+      timeout: 10s
+      retries: 5
+    volumes:
+      - << service_name >>_db:/var/lib/postgresql/data
+  <%- elif not database_external and database_type == "mysql" %>
+  << service_name >>_db:
+    image: docker.io/library/mysql:8.1
+    restart: << restart_policy >>
+    environment:
+      - MYSQL_USER=${DATABASE_USER}
+      - MYSQL_PASSWORD=${DATABASE_PASSWORD}
+      - MYSQL_DATABASE=<< database_name >>
+      - MYSQL_ROOT_PASSWORD=${DATABASE_PASSWORD}
+    networks:
+      - << service_name >>_backend
+    volumes:
+      - << service_name >>_db:/var/lib/mysql
+  <%- endif %>
+
+<%- if database_type == "sqlite" or (not database_external and (database_type == "postgres" or database_type == "mysql")) %>
+volumes:
+  <%- if database_type == "sqlite" %>
+  << service_name >>_config:
+    driver: local
+  <%- endif %>
+  <%- if not database_external and (database_type == "postgres" or database_type == "mysql") %>
+  << service_name >>_db:
+    driver: local
+  <%- endif %>
+<%- endif %>
+
+<%- if (not database_external and database_type != "sqlite") or traefik_enabled %>
+networks:
+  <%- if not database_external and database_type != "sqlite" %>
+  << service_name >>_backend:
+    driver: bridge
+  <%- endif %>
+  <%- if traefik_enabled %>
+  << traefik_network >>:
+    external: true
+  <%- endif %>
+<%- endif %>

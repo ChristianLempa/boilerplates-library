@@ -1,0 +1,12 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: << resource_name >>
+  namespace: << namespace >>
+spec:
+  buffering:
+    maxRequestBodyBytes: << max_request_body_bytes >>
+    memRequestBodyBytes: << mem_request_body_bytes >>
+    maxResponseBodyBytes: << max_response_body_bytes >>
+    memResponseBodyBytes: << mem_response_body_bytes >>

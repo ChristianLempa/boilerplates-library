@@ -1,0 +1,14 @@
+zone "<< domain_name >>" {
+    type master;
+    file "/var/lib/bind/db.primary.zone";
+
+    <%- if tsig_enabled %>
+    allow-transfer { key "tsig-transfer-key"; };
+    allow-update { key "tsig-transfer-key"; };
+    <%- endif %>
+
+    <%- if dnssec_enabled %>
+    dnssec-policy default;
+    inline-signing yes;
+    <%- endif %>
+};

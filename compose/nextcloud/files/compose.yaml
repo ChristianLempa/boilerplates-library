@@ -1,0 +1,145 @@
+services:
+  << service_name >>-app:
+    image: docker.io/library/nextcloud:32.0.6-apache
+    restart: << restart_policy >>
+    container_name: << container_name >>-app
+    environment:
+      - TZ=<< container_timezone >>
+      - NEXTCLOUD_ADMIN_USER=${NEXTCLOUD_ADMIN_USER}
+      - NEXTCLOUD_ADMIN_PASSWORD=${NEXTCLOUD_ADMIN_PASSWORD}
+      - REDIS_HOST=<< service_name >>-redis
+      <%- if database_type == 'mysql' %>
+      - MYSQL_USER=${DATABASE_USER}
+      - MYSQL_PASSWORD=${DATABASE_PASSWORD}
+      - MYSQL_DATABASE=<< database_name >>
+      - MYSQL_HOST=<< service_name >>-db
+      <%- elif database_type == 'postgres' %>
+      - POSTGRES_USER=${DATABASE_USER}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_DB=<< database_name >>
+      - POSTGRES_HOST=<< service_name >>-db
+      <%- endif %>
+      <%- if traefik_enabled %>
+      - NEXTCLOUD_TRUSTED_DOMAINS=<< traefik_host >>.<< traefik_domain >>
+      - OVERWRITEHOST=<< traefik_host >>.<< traefik_domain >>
+      <%- if traefik_tls_enabled %>
+      - OVERWRITEPROTOCOL=https
+      <%- else %>
+      - OVERWRITEPROTOCOL=http
+      <%- endif %>
+      <%- endif %>
+    <%- if not traefik_enabled %>
+    ports:
+      - "<< ports_http >>:80"
+    <%- endif %>
+    volumes:
+      - nextcloud-data:/var/www/html
+    networks:
+      - << service_name >>-backend
+      <%- if traefik_enabled %>
+      - << traefik_network >>
+      <%- endif %>
+    <%- if traefik_enabled %>
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=<< traefik_network >>
+      - traefik.http.services.<< service_name >>-web.loadbalancer.server.port=80
+      - traefik.http.routers.<< service_name >>-web-http.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
+      - traefik.http.routers.<< service_name >>-web-http.entrypoints=<< traefik_entrypoint >>
+      - traefik.http.routers.<< service_name >>-web-http.service=<< service_name >>-web
+      <%- if traefik_tls_enabled %>
+      - traefik.http.routers.<< service_name >>-web-https.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
+      - traefik.http.routers.<< service_name >>-web-https.entrypoints=<< traefik_tls_entrypoint >>
+      - traefik.http.routers.<< service_name >>-web-https.tls=true
+      - traefik.http.routers.<< service_name >>-web-https.tls.certresolver=<< traefik_tls_certresolver >>
+      - traefik.http.routers.<< service_name >>-web-https.service=<< service_name >>-web
+      <%- endif %>
+    <%- endif %>
+    depends_on:
+      - << service_name >>-db
+      - << service_name >>-redis
+
+  << service_name >>-cron:
+    image: docker.io/library/nextcloud:32.0.6-apache
+    restart: << restart_policy >>
+    container_name: << container_name >>-cron
+    entrypoint: /cron.sh
+    environment:
+      - TZ=<< container_timezone >>
+      - REDIS_HOST=<< service_name >>-redis
+      <%- if database_type == 'mysql' %>
+      - MYSQL_USER=${DATABASE_USER}
+      - MYSQL_PASSWORD=${DATABASE_PASSWORD}
+      - MYSQL_DATABASE=<< database_name >>
+      - MYSQL_HOST=<< service_name >>-db
+      <%- elif database_type == 'postgres' %>
+      - POSTGRES_USER=${DATABASE_USER}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_DB=<< database_name >>
+      - POSTGRES_HOST=<< service_name >>-db
+      <%- endif %>
+    volumes:
+      - nextcloud-data:/var/www/html
+    networks:
+      - << service_name >>-backend
+    depends_on:
+      - << service_name >>-app
+
+  << service_name >>-redis:
+    image: docker.io/library/redis:8-alpine
+    restart: << restart_policy >>
+    container_name: << service_name >>-redis
+    command: redis-server --appendonly yes
+    volumes:
+      - nextcloud-redis:/data
+    networks:
+      - << service_name >>-backend
+
+  << service_name >>-db:
+    <%- if database_type == 'mysql' %>
+    # See compatibility matrix for Nextcloud 31
+    # https://docs.nextcloud.com/server/31/admin_manual/installation/system_requirements.html
+    image: docker.io/library/mariadb:10.11.16
+    restart: << restart_policy >>
+    container_name: << service_name >>-db
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
+    environment:
+      - TZ=<< container_timezone >>
+      - MYSQL_RANDOM_ROOT_PASSWORD=true
+      - MYSQL_USER=${DATABASE_USER}
+      - MYSQL_PASSWORD=${DATABASE_PASSWORD}
+      - MYSQL_DATABASE=<< database_name >>
+    volumes:
+      - nextcloud-db:/var/lib/mysql
+    networks:
+      - << service_name >>-backend
+    <%- elif database_type == 'postgres' %>
+    image: docker.io/library/postgres:17.8
+    restart: << restart_policy >>
+    container_name: << service_name >>-db
+    environment:
+      - TZ=<< container_timezone >>
+      - POSTGRES_USER=${DATABASE_USER}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_DB=<< database_name >>
+    volumes:
+      - nextcloud-db:/var/lib/postgresql/data
+    networks:
+      - << service_name >>-backend
+    <%- endif %>
+
+volumes:
+  nextcloud-data:
+    driver: local
+  nextcloud-db:
+    driver: local
+  nextcloud-redis:
+    driver: local
+
+networks:
+  << service_name >>-backend:
+    driver: bridge
+  <%- if traefik_enabled %>
+  << traefik_network >>:
+    external: true
+  <%- endif %>

@@ -1,0 +1,32 @@
+http:
+  middlewares:
+    default-secured:
+      chain:
+        middlewares:
+          <%- if security_headers_enabled %>
+          - security-headers
+          <%- endif %>
+          <%- if ipallowlist_enabled %>
+          - default-ipallowlist
+          <%- endif %>
+          <%- if crowdsec_middleware_enabled %>
+          - crowdsec-bouncer
+          <%- endif %>
+          <%- if forwardauth_enabled %>
+          - forward-auth
+          <%- endif %>
+    dashboard-secured:
+      chain:
+        middlewares:
+          <%- if security_headers_enabled %>
+          - security-headers
+          <%- endif %>
+          <%- if dashboard_basicauth_enabled %>
+          - dashboard-basicauth
+          <%- endif %>
+          <%- if ipallowlist_enabled %>
+          - dashboard-ipallowlist
+          <%- endif %>
+          <%- if crowdsec_middleware_enabled %>
+          - crowdsec-bouncer
+          <%- endif %>

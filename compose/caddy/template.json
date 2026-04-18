@@ -1,0 +1,319 @@
+{
+  "slug": "caddy",
+  "kind": "compose",
+  "metadata": {
+    "name": "Caddy",
+    "description": "Modern web server and reverse proxy with automatic HTTPS, modular Caddyfile config, and simple presets for static sites or upstream proxying.",
+    "guide": "## Overview\nCaddy can serve static sites and reverse proxy upstream applications from the same modular configuration layout.\n\n## Prerequisites\n- Decide whether this instance is serving a static site, reverse proxying to another container, or both.\n- Use real public domain names if you want publicly trusted certificates from Let's Encrypt.\n- Choose the site content storage mode up front if you plan to serve static files.\n- Avoid assigning the same site address in multiple generated site blocks unless you intend to merge that logic manually.\n- Expose ports 80 and 443 if you expect public ACME certificate issuance to work.\n\n## Deploy\n- Render the template to create `compose.yaml`, `Caddyfile`, and the generated `config/webserver.caddy` site config.\n- Review the generated config, especially any enabled webserver or reverse proxy blocks and any optional custom Caddyfile content.\n- Start the stack with `docker compose up -d`.\n- Check the first startup with `docker compose logs -f` and confirm certificate issuance or upstream connectivity.\n\n## Post-Install\n- Put static site content in the configured site directory or NFS export when the webserver preset is enabled.\n- Add or edit `config/*.caddy` files when you need behavior beyond the built-in presets.\n- Keep the named Caddy data volumes so certificate state and runtime data survive container recreation.\n\n## Notes\n- Automatic HTTPS is enabled by Caddy based on each site address. Use real hostnames in the generated webserver or reverse proxy blocks if you want public certificates.\n- The TLS section only adds optional global ACME email metadata for the stock Caddy image. DNS challenge is intentionally not part of this template.\n- The webserver preset always serves from `/srv` inside the container and requires site content storage to be configured when enabled.\n- Optional custom config fields are appended only when they contain non-empty content.\n\n## References\n- [Caddy](https://caddyserver.com/)\n- [Documentation](https://caddyserver.com/docs/)\n- [Automatic HTTPS](https://caddyserver.com/docs/automatic-https)\n- [Global Options](https://caddyserver.com/docs/caddyfile/options)\n- [reverse_proxy Directive](https://caddyserver.com/docs/caddyfile/directives/reverse_proxy)\n- [Docker Image](https://hub.docker.com/_/caddy)",
+    "tags": [
+      "reverse-proxy",
+      "web-server",
+      "tls"
+    ],
+    "template_version": "2.11.2-alpine",
+    "icon": {
+      "provider": "selfhst",
+      "id": "caddy"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "title": "General",
+      "description": "Basic container naming and lifecycle settings.",
+      "variables": [
+        {
+          "name": "service_name",
+          "type": "str",
+          "title": "Service Name",
+          "required": false,
+          "default": "caddy",
+          "config": {
+            "placeholder": "caddy"
+          },
+          "description": "Compose service name for the Caddy container."
+        },
+        {
+          "name": "restart_policy",
+          "type": "enum",
+          "title": "Restart Policy",
+          "required": true,
+          "default": "unless-stopped",
+          "config": {
+            "options": [
+              "unless-stopped",
+              "always",
+              "on-failure",
+              "no"
+            ]
+          },
+          "description": "Restart policy applied to the container."
+        },
+        {
+          "name": "container_timezone",
+          "type": "str",
+          "title": "Container Timezone",
+          "required": false,
+          "config": {
+            "placeholder": "UTC"
+          },
+          "description": "Optional timezone passed through as the `TZ` environment variable."
+        }
+      ],
+      "name": "general"
+    },
+    {
+      "title": "Network",
+      "description": "Port publishing and Docker network attachment.",
+      "variables": [
+        {
+          "name": "ports_http",
+          "type": "int",
+          "title": "HTTP Port",
+          "required": true,
+          "default": 80,
+          "description": "Host port published for HTTP traffic on container port 80.",
+          "config": {
+            "placeholder": "80"
+          }
+        },
+        {
+          "name": "ports_https",
+          "type": "int",
+          "title": "HTTPS Port",
+          "required": true,
+          "default": 443,
+          "description": "Host port published for HTTPS traffic on container port 443.",
+          "config": {
+            "placeholder": "443"
+          }
+        },
+        {
+          "name": "docker_network",
+          "type": "str",
+          "title": "Docker Network",
+          "required": true,
+          "default": "caddy",
+          "description": "Docker network that Caddy should join.",
+          "config": {
+            "placeholder": "caddy"
+          }
+        },
+        {
+          "name": "docker_network_external",
+          "type": "bool",
+          "title": "External Network",
+          "required": false,
+          "default": false,
+          "description": "Use an existing external Docker network instead of creating one."
+        }
+      ],
+      "name": "network"
+    },
+    {
+      "title": "TLS",
+      "description": "Optional global ACME metadata for Caddy.",
+      "toggle": "tls_enabled",
+      "variables": [
+        {
+          "name": "tls_enabled",
+          "type": "bool",
+          "title": "TLS Settings",
+          "required": false,
+          "default": false,
+          "description": "Enable optional global ACME metadata in the main `Caddyfile`."
+        },
+        {
+          "name": "tls_email",
+          "type": "str",
+          "title": "ACME Email",
+          "required": false,
+          "needs": [
+            "tls_enabled=true"
+          ],
+          "config": {
+            "placeholder": "admin@example.com"
+          },
+          "description": "Email address used for ACME account registration."
+        }
+      ],
+      "name": "tls"
+    },
+    {
+      "title": "Webserver",
+      "description": "Optional generated static site config that serves files from `/srv`.",
+      "toggle": "webserver_enabled",
+      "variables": [
+        {
+          "name": "webserver_enabled",
+          "type": "bool",
+          "title": "Static Webserver",
+          "required": false,
+          "default": false,
+          "description": "Render a basic static site config into `config/webserver.caddy`."
+        },
+        {
+          "name": "webserver_domain",
+          "type": "str",
+          "title": "Site Address",
+          "required": true,
+          "needs": [
+            "webserver_enabled=true"
+          ],
+          "config": {
+            "placeholder": "example.com"
+          },
+          "description": "Hostname or site address used by the generated static site config."
+        },
+        {
+          "name": "webserver_content_type",
+          "type": "enum",
+          "title": "Site Content",
+          "required": true,
+          "needs": [
+            "webserver_enabled=true"
+          ],
+          "config": {
+            "options": [
+              "mount",
+              "nfs"
+            ]
+          },
+          "default": "mount",
+          "description": "Storage mode used for static site content mounted into `/srv`."
+        },
+        {
+          "name": "webserver_content_mount_path",
+          "type": "str",
+          "title": "Bind Mount Path",
+          "required": true,
+          "default": "./data",
+          "needs": [
+            "webserver_enabled=true",
+            "webserver_content_type=mount"
+          ],
+          "config": {
+            "placeholder": "./data"
+          },
+          "description": "Host path used when site content is mounted directly from the filesystem."
+        },
+        {
+          "name": "webserver_content_nfs_server",
+          "type": "str",
+          "title": "NFS Server",
+          "required": true,
+          "default": "192.0.2.1",
+          "needs": [
+            "webserver_enabled=true",
+            "webserver_content_type=nfs"
+          ],
+          "config": {
+            "placeholder": "192.0.2.1"
+          },
+          "description": "Hostname or IP address of the NFS server that stores site content."
+        },
+        {
+          "name": "webserver_content_nfs_path",
+          "type": "str",
+          "title": "NFS Export Path",
+          "required": true,
+          "default": "/path/to/export",
+          "needs": [
+            "webserver_enabled=true",
+            "webserver_content_type=nfs"
+          ],
+          "config": {
+            "placeholder": "/path/to/export"
+          },
+          "description": "Export path on the NFS server for site content."
+        },
+        {
+          "name": "webserver_content_nfs_options",
+          "type": "str",
+          "title": "NFS Mount Options",
+          "required": true,
+          "default": "rw,nolock,soft",
+          "needs": [
+            "webserver_enabled=true",
+            "webserver_content_type=nfs"
+          ],
+          "config": {
+            "placeholder": "rw,nolock,soft"
+          },
+          "description": "Mount options used for the NFS-backed site content volume."
+        },
+        {
+          "name": "webserver_custom_config_content",
+          "type": "str",
+          "title": "Custom Config Content",
+          "required": false,
+          "needs": [
+            "webserver_enabled=true"
+          ],
+          "config": {
+            "textarea": true,
+            "placeholder": "encode zstd gzip"
+          },
+          "description": "Optional additional Caddyfile directives inserted into the generated webserver site block when not empty."
+        }
+      ],
+      "name": "webserver"
+    },
+    {
+      "title": "Reverse Proxy",
+      "description": "Optional generated reverse proxy config for forwarding requests to an upstream service.",
+      "toggle": "reverse_proxy_enabled",
+      "variables": [
+        {
+          "name": "reverse_proxy_enabled",
+          "type": "bool",
+          "title": "Reverse Proxy",
+          "required": false,
+          "default": false,
+          "description": "Append a reverse proxy site block to `config/webserver.caddy`."
+        },
+        {
+          "name": "reverse_proxy_domain",
+          "type": "str",
+          "title": "Site Address",
+          "required": true,
+          "needs": [
+            "reverse_proxy_enabled=true"
+          ],
+          "config": {
+            "placeholder": "app.example.com"
+          },
+          "description": "Hostname or site address used by the generated reverse proxy config."
+        },
+        {
+          "name": "reverse_proxy_upstream",
+          "type": "str",
+          "title": "Upstream",
+          "required": true,
+          "needs": [
+            "reverse_proxy_enabled=true"
+          ],
+          "config": {
+            "placeholder": "app:3000"
+          },
+          "description": "Upstream target used by the generated reverse proxy config, for example `app:3000`."
+        },
+        {
+          "name": "reverse_proxy_custom_config_content",
+          "type": "str",
+          "title": "Custom Config Content",
+          "required": false,
+          "needs": [
+            "reverse_proxy_enabled=true"
+          ],
+          "config": {
+            "textarea": true,
+            "placeholder": "header_up X-Forwarded-Proto https"
+          },
+          "description": "Optional additional `reverse_proxy` subdirectives inserted into the generated reverse proxy block when not empty."
+        }
+      ],
+      "name": "reverse-proxy"
+    }
+  ]
+}

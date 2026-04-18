@@ -1,0 +1,103 @@
+{
+  "slug": "core-clusterrolebinding",
+  "kind": "kubernetes",
+  "metadata": {
+    "name": "Kubernetes ClusterRoleBinding",
+    "description": "Creates a Kubernetes ClusterRoleBinding that binds one subject to a Role or ClusterRole.",
+    "guide": "## Overview\nCreates a Kubernetes ClusterRoleBinding resource for cluster-scoped RBAC access.\n\n## Prerequisites\n- The referenced Role or ClusterRole must already exist.\n- The target subject should already exist, especially for ServiceAccount subjects.\n\n## Apply\n- Render `main.yaml` and review the binding carefully because this resource can grant cluster-wide access.\n- Apply the manifest only after confirming the selected role matches the least-privilege access you actually need.\n\n## Follow-Up\n- Validate the result with `kubectl auth can-i` or by testing the bound workload directly.\n\n## References\n- [RBAC Documentation](https://kubernetes.io/docs/reference/access-authn-authz/rbac/)",
+    "tags": [],
+    "template_version": "1.31.0",
+    "icon": {
+      "provider": "simple-icons",
+      "id": "kubernetes"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "title": "General",
+      "variables": [
+        {
+          "name": "resource_name",
+          "type": "str",
+          "title": "ClusterRoleBinding name",
+          "required": false,
+          "default": "app-crb",
+          "description": "Name to use for the clusterrolebinding.",
+          "config": {
+            "placeholder": "app-crb"
+          }
+        },
+        {
+          "name": "role_kind",
+          "type": "enum",
+          "title": "Role Kind",
+          "required": false,
+          "default": "ClusterRole",
+          "description": "Referenced RBAC role kind",
+          "config": {
+            "options": [
+              "ClusterRole",
+              "Role"
+            ]
+          }
+        },
+        {
+          "name": "role_name",
+          "type": "str",
+          "title": "Referenced role name",
+          "required": false,
+          "default": "cluster-admin",
+          "description": "Name to use for the referenced role.",
+          "config": {
+            "placeholder": "cluster-admin"
+          }
+        }
+      ],
+      "name": "general"
+    },
+    {
+      "title": "Subject",
+      "variables": [
+        {
+          "name": "subject_kind",
+          "type": "enum",
+          "title": "Subject kind",
+          "required": false,
+          "default": "ServiceAccount",
+          "description": "Value used for the subject settings.",
+          "config": {
+            "options": [
+              "ServiceAccount",
+              "User",
+              "Group"
+            ]
+          }
+        },
+        {
+          "name": "subject_name",
+          "type": "str",
+          "title": "Subject name",
+          "required": false,
+          "default": "app-serviceaccount",
+          "description": "Name to use for the subject.",
+          "config": {
+            "placeholder": "app-serviceaccount"
+          }
+        },
+        {
+          "name": "subject_namespace",
+          "type": "str",
+          "title": "Subject Namespace",
+          "required": false,
+          "default": "default",
+          "description": "Subject namespace for ServiceAccount subjects",
+          "config": {
+            "placeholder": "default"
+          }
+        }
+      ],
+      "name": "subject"
+    }
+  ]
+}

@@ -1,0 +1,249 @@
+{
+  "slug": "nextcloud-swarm",
+  "kind": "swarm",
+  "metadata": {
+    "name": "Nextcloud",
+    "description": "Self-hosted file sync and share platform, similar to Dropbox, with built-in collaboration tools, calendar, contacts, and extensible app ecosystem.",
+    "guide": "## Overview\nSelf-hosted file sync and share platform, similar to Dropbox, with built-in collaboration tools, calendar, contacts, and extensible app ecosystem.\n\n## How to Use\nThis template renders `compose.yaml` as a file.\n\n1. Decide on stack naming, ports, storage, and proxy exposure before rendering the stack.\n2. Fill in required service settings first, then enable optional integrations such as Traefik only when needed.\n3. Render the stack files, review the generated secrets and service layout, and deploy them with Docker Swarm in the target environment.\n\n## Variable Guide\n### Database\n- `database_type`: Database type (Nextcloud supports PostgreSQL or MySQL/MariaDB); optional; default: postgres; options: postgres, mysql.\n- `database_name`: Database Name; required.\n- `database_user`: Database User; required.\n- `database_password`: Database Password; required.\n\n### General\n- `service_name`: Service Name; optional; default: nextcloud.\n- `container_timezone`: Container Timezone; optional.\n- `traefik_entrypoint`: Traefik Entrypoint; optional.\n- `traefik_tls_entrypoint`: Traefik Tls Entrypoint; optional.\n- `swarm_replicas`: Swarm Replicas; optional; default: 1.\n\n### Ports\n- `ports_http`: Host port for HTTP; optional; default: 80.\n\n### Nextcloud\n- `admin_user`: Nextcloud admin username; optional; default: admin.\n- `admin_password`: Nextcloud admin password; optional.\n\n### Traefik\n- `traefik_host`: Traefik Host; optional; default: nextcloud.\n- `traefik_network`: Traefik Network; required; default: traefik.\n- `traefik_domain`: Traefik Domain; required; default: home.arpa.\n- `traefik_enabled`: Enable Traefik integration; optional; default: false.\n\n### Traefik TLS\n- `traefik_tls_certresolver`: Traefik Tls Certresolver; required; default: cloudflare.\n- `traefik_tls_enabled`: Enable Traefik TLS; optional; default: false.\n\n## References\n- [Nextcloud](https://nextcloud.com/)\n- [Documentation](https://docs.nextcloud.com/)\n- [GitHub](https://github.com/nextcloud/server)",
+    "tags": [
+      "traefik"
+    ],
+    "template_version": "32.0.6-apache",
+    "icon": {
+      "provider": "selfhst",
+      "id": "nextcloud"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "title": "Database",
+      "variables": [
+        {
+          "name": "database_type",
+          "type": "enum",
+          "title": "Database Type",
+          "required": false,
+          "default": "postgres",
+          "description": "Database type (Nextcloud supports PostgreSQL or MySQL/MariaDB)",
+          "config": {
+            "options": [
+              "postgres",
+              "mysql"
+            ]
+          }
+        },
+        {
+          "name": "database_name",
+          "type": "str",
+          "title": "Database Name",
+          "required": true,
+          "description": "Name of the database."
+        },
+        {
+          "name": "database_user",
+          "type": "str",
+          "title": "Database User",
+          "required": true,
+          "description": "Username for the database."
+        },
+        {
+          "name": "database_password",
+          "type": "secret",
+          "title": "Database Password",
+          "required": true,
+          "description": "Password for the database."
+        }
+      ],
+      "name": "database"
+    },
+    {
+      "title": "General",
+      "variables": [
+        {
+          "name": "service_name",
+          "type": "str",
+          "title": "Service Name",
+          "required": false,
+          "default": "nextcloud",
+          "config": {
+            "placeholder": "nextcloud"
+          },
+          "description": "Name of the service."
+        },
+        {
+          "name": "container_timezone",
+          "type": "str",
+          "title": "Container Timezone",
+          "required": false,
+          "description": "Timezone used inside the container."
+        },
+        {
+          "name": "traefik_entrypoint",
+          "type": "str",
+          "title": "Traefik Entrypoint",
+          "required": false,
+          "default": "",
+          "description": "Traefik entrypoint name.",
+          "needs": [
+            "traefik_enabled=true"
+          ],
+          "config": {
+            "placeholder": "web"
+          }
+        },
+        {
+          "name": "traefik_tls_entrypoint",
+          "type": "str",
+          "title": "Traefik Tls Entrypoint",
+          "required": false,
+          "default": "",
+          "description": "Traefik TLS entrypoint name.",
+          "needs": [
+            "traefik_enabled=true",
+            "traefik_tls_enabled=true"
+          ],
+          "config": {
+            "placeholder": "websecure"
+          }
+        },
+        {
+          "name": "swarm_replicas",
+          "type": "int",
+          "title": "Swarm Replicas",
+          "required": false,
+          "default": 1,
+          "config": {
+            "slider": true,
+            "min": 1,
+            "max": 10,
+            "step": 1,
+            "placeholder": "1",
+            "unit": "replicas"
+          },
+          "description": "Number of replicas to run."
+        }
+      ],
+      "name": "general"
+    },
+    {
+      "title": "Ports",
+      "variables": [
+        {
+          "name": "ports_http",
+          "type": "int",
+          "title": "HTTP Port",
+          "required": false,
+          "default": 80,
+          "description": "Host port for HTTP",
+          "config": {
+            "placeholder": "80"
+          },
+          "needs": [
+            "traefik_enabled=false"
+          ]
+        }
+      ],
+      "name": "ports"
+    },
+    {
+      "title": "Nextcloud",
+      "variables": [
+        {
+          "name": "admin_user",
+          "type": "str",
+          "title": "Nextcloud admin username",
+          "required": false,
+          "default": "admin",
+          "description": "Username for the nextcloud admin.",
+          "config": {
+            "placeholder": "admin"
+          }
+        },
+        {
+          "name": "admin_password",
+          "type": "secret",
+          "title": "Nextcloud admin password",
+          "required": false,
+          "description": "Password for the nextcloud admin.",
+          "config": {
+            "autogenerated": true
+          }
+        }
+      ],
+      "name": "nextcloud"
+    },
+    {
+      "title": "Traefik",
+      "variables": [
+        {
+          "name": "traefik_host",
+          "type": "str",
+          "title": "Host",
+          "required": false,
+          "config": {
+            "placeholder": "nextcloud"
+          },
+          "description": "Hostname used for Traefik."
+        },
+        {
+          "name": "traefik_network",
+          "type": "str",
+          "title": "Network",
+          "required": true,
+          "default": "traefik",
+          "config": {
+            "placeholder": "traefik"
+          },
+          "description": "Network used for Traefik."
+        },
+        {
+          "name": "traefik_domain",
+          "type": "str",
+          "title": "Domain",
+          "required": true,
+          "config": {
+            "placeholder": "home.arpa"
+          },
+          "description": "Domain used for Traefik."
+        },
+        {
+          "name": "traefik_enabled",
+          "type": "bool",
+          "title": "Traefik",
+          "required": false,
+          "default": false,
+          "description": "Enable Traefik integration"
+        }
+      ],
+      "name": "traefik",
+      "toggle": "traefik_enabled"
+    },
+    {
+      "title": "Traefik TLS",
+      "variables": [
+        {
+          "name": "traefik_tls_certresolver",
+          "type": "str",
+          "title": "Cert Resolver",
+          "required": true,
+          "default": "cloudflare",
+          "config": {
+            "placeholder": "cloudflare"
+          },
+          "description": "Traefik Tls Certresolver"
+        },
+        {
+          "name": "traefik_tls_enabled",
+          "type": "bool",
+          "title": "TLS",
+          "required": false,
+          "default": false,
+          "description": "Enable Traefik TLS"
+        }
+      ],
+      "name": "traefik-tls",
+      "toggle": "traefik_tls_enabled"
+    }
+  ]
+}

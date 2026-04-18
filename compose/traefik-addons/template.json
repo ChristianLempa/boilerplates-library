@@ -1,0 +1,501 @@
+{
+  "slug": "traefik-addons",
+  "kind": "compose",
+  "metadata": {
+    "name": "Traefik Addons",
+    "description": "Companion Docker Compose stack for the main Traefik template, with a docker-socket-proxy, a whoami test app, and file-provider middleware examples for hardening and external auth.",
+    "guide": "## Overview\nThis template complements the main `compose/traefik` template. It does not deploy Traefik itself.\n\nIt provides a hardened Docker socket proxy, an optional `whoami` test service, and dynamic middleware examples you can mount into Traefik's file provider for security headers, dashboard protection, CrowdSec, and ForwardAuth.\n\n## Prerequisites\n- Deploy the main Traefik stack separately before using this companion stack.\n- If you enable the socket proxy, update Traefik's Docker provider endpoint to use `tcp://docker-socket-proxy:2375` on the shared network.\n- If you want Traefik to read the rendered middleware files, mount `./config/dynamic` into the Traefik container and enable the file provider in the main Traefik stack.\n- If you enable the CrowdSec middleware, make sure CrowdSec is reachable on the shared network and that the bouncer key matches the value configured in CrowdSec.\n\n## Deploy\n- Render the stack and middleware files, then review the dynamic middleware names and router labels.\n- Start this companion stack with `docker compose up -d`.\n- Wire Traefik to consume the socket proxy and dynamic config directory, then reload or recreate Traefik.\n\n## Post-Install\n- Open the `whoami` route to verify Traefik can still discover Docker services through the socket proxy.\n- Attach the provided middleware chains to your dashboard or app routers as needed.\n- If you enable CrowdSec AppSec, verify that Traefik can reach the AppSec listener before enabling failure-blocking behavior.\n\n## References\n- [Traefik](https://traefik.io/)\n- [Traefik ForwardAuth](https://doc.traefik.io/traefik/reference/routing-configuration/http/middlewares/forwardauth/)\n- [CrowdSec Traefik Quickstart](https://docs.crowdsec.net/docs/appsec/quickstart/traefik/)\n- [Docker Socket Proxy](https://github.com/Tecnativa/docker-socket-proxy)\n\n## Next Steps\nAfter rendering this companion stack, update the main Traefik deployment to:\n```yaml\nproviders:\n  docker:\n    endpoint: tcp://docker-socket-proxy:2375\n  file:\n    directory: /etc/traefik/dynamic/addons\n    watch: true\n```",
+    "tags": [
+      "traefik",
+      "security",
+      "docker"
+    ],
+    "template_version": "2026.04.13",
+    "icon": {
+      "provider": "selfhst",
+      "id": "traefik"
+    },
+    "draft": false
+  },
+  "variables": [
+    {
+      "title": "General",
+      "variables": [
+        {
+          "name": "restart_policy",
+          "type": "enum",
+          "title": "Restart Policy",
+          "required": true,
+          "default": "unless-stopped",
+          "description": "Policy used for container restart.",
+          "config": {
+            "options": [
+              "unless-stopped",
+              "always",
+              "on-failure",
+              "no"
+            ]
+          }
+        }
+      ],
+      "name": "general"
+    },
+    {
+      "title": "Traefik",
+      "variables": [
+        {
+          "name": "traefik_network",
+          "type": "str",
+          "title": "Traefik Network",
+          "required": true,
+          "default": "traefik",
+          "description": "Shared Docker network used by the main Traefik stack.",
+          "config": {
+            "placeholder": "traefik"
+          }
+        },
+        {
+          "name": "traefik_network_external",
+          "type": "bool",
+          "title": "External Network",
+          "required": false,
+          "default": true,
+          "description": "Use an existing external Docker network for Traefik integration."
+        }
+      ],
+      "name": "traefik"
+    },
+    {
+      "title": "Socket Proxy",
+      "toggle": "socket_proxy_enabled",
+      "variables": [
+        {
+          "name": "socket_proxy_enabled",
+          "type": "bool",
+          "title": "Docker Socket Proxy",
+          "required": false,
+          "default": true,
+          "description": "Run a restricted Docker socket proxy for Traefik and companion tooling."
+        },
+        {
+          "name": "socket_proxy_service_name",
+          "type": "str",
+          "title": "Socket Proxy Service Name",
+          "required": true,
+          "default": "docker-socket-proxy",
+          "description": "Compose service name for the docker-socket-proxy.",
+          "needs": [
+            "socket_proxy_enabled=true"
+          ],
+          "config": {
+            "placeholder": "docker-socket-proxy"
+          }
+        },
+        {
+          "name": "socket_proxy_container_name",
+          "type": "str",
+          "title": "Socket Proxy Container Name",
+          "required": true,
+          "default": "docker-socket-proxy",
+          "description": "Container name for the docker-socket-proxy service.",
+          "needs": [
+            "socket_proxy_enabled=true"
+          ],
+          "config": {
+            "placeholder": "docker-socket-proxy"
+          }
+        }
+      ],
+      "name": "socket-proxy"
+    },
+    {
+      "title": "Whoami",
+      "toggle": "whoami_enabled",
+      "variables": [
+        {
+          "name": "whoami_enabled",
+          "type": "bool",
+          "title": "Whoami Test App",
+          "required": false,
+          "default": true,
+          "description": "Deploy a small Traefik-routed test application."
+        },
+        {
+          "name": "whoami_service_name",
+          "type": "str",
+          "title": "Whoami Service Name",
+          "required": true,
+          "default": "whoami",
+          "description": "Compose service name for the whoami test container.",
+          "needs": [
+            "whoami_enabled=true"
+          ],
+          "config": {
+            "placeholder": "whoami"
+          }
+        },
+        {
+          "name": "whoami_host",
+          "type": "str",
+          "title": "Whoami Host",
+          "required": true,
+          "default": "whoami",
+          "description": "Hostname used for the whoami test route.",
+          "needs": [
+            "whoami_enabled=true"
+          ],
+          "config": {
+            "placeholder": "whoami"
+          }
+        },
+        {
+          "name": "whoami_domain",
+          "type": "str",
+          "title": "Whoami Domain",
+          "required": true,
+          "default": "home.arpa",
+          "description": "Domain used for the whoami test route.",
+          "needs": [
+            "whoami_enabled=true"
+          ],
+          "config": {
+            "placeholder": "home.arpa"
+          }
+        },
+        {
+          "name": "whoami_tls_enabled",
+          "type": "bool",
+          "title": "Whoami TLS",
+          "required": false,
+          "default": false,
+          "description": "Create an HTTPS router for the whoami test route.",
+          "needs": [
+            "whoami_enabled=true"
+          ]
+        },
+        {
+          "name": "whoami_tls_certresolver",
+          "type": "str",
+          "title": "Whoami Cert Resolver",
+          "required": true,
+          "default": "cloudflare",
+          "description": "Traefik certificate resolver used for the HTTPS whoami router.",
+          "needs": [
+            "whoami_enabled=true",
+            "whoami_tls_enabled=true"
+          ],
+          "config": {
+            "placeholder": "cloudflare"
+          }
+        },
+        {
+          "name": "whoami_chain_middleware",
+          "type": "str",
+          "title": "Whoami Chain Middleware",
+          "required": false,
+          "default": "default-secured@file",
+          "description": "File-provider middleware chain attached to the whoami routers.",
+          "needs": [
+            "whoami_enabled=true"
+          ],
+          "config": {
+            "placeholder": "default-secured@file"
+          }
+        }
+      ],
+      "name": "whoami"
+    },
+    {
+      "title": "Dashboard Hardening",
+      "variables": [
+        {
+          "name": "security_headers_enabled",
+          "type": "bool",
+          "title": "Security Headers",
+          "required": false,
+          "default": true,
+          "description": "Render a reusable security-headers middleware."
+        },
+        {
+          "name": "dashboard_basicauth_enabled",
+          "type": "bool",
+          "title": "Dashboard BasicAuth",
+          "required": false,
+          "default": false,
+          "description": "Render a BasicAuth middleware suitable for dashboard protection."
+        },
+        {
+          "name": "dashboard_basicauth_users",
+          "type": "secret",
+          "title": "BasicAuth Users",
+          "required": true,
+          "description": "One htpasswd entry to render into the dashboard BasicAuth middleware.",
+          "needs": [
+            "dashboard_basicauth_enabled=true"
+          ],
+          "config": {
+            "autogenerated": false
+          }
+        },
+        {
+          "name": "ipallowlist_enabled",
+          "type": "bool",
+          "title": "IP Allowlist",
+          "required": false,
+          "default": false,
+          "description": "Render IP allowlist middlewares for restricted dashboards or internal apps."
+        },
+        {
+          "name": "ipallowlist_range_1",
+          "type": "str",
+          "title": "Allowlist Range 1",
+          "required": true,
+          "default": "192.168.0.0/16",
+          "description": "Primary CIDR allowed through the IP allowlist middleware.",
+          "needs": [
+            "ipallowlist_enabled=true"
+          ],
+          "config": {
+            "placeholder": "192.168.0.0/16"
+          }
+        },
+        {
+          "name": "ipallowlist_range_2",
+          "type": "str",
+          "title": "Allowlist Range 2",
+          "required": false,
+          "default": "10.0.0.0/8",
+          "description": "Optional second CIDR allowed through the IP allowlist middleware.",
+          "needs": [
+            "ipallowlist_enabled=true"
+          ],
+          "config": {
+            "placeholder": "10.0.0.0/8"
+          }
+        },
+        {
+          "name": "ipallowlist_range_3",
+          "type": "str",
+          "title": "Allowlist Range 3",
+          "required": false,
+          "default": "",
+          "description": "Optional third CIDR allowed through the IP allowlist middleware.",
+          "needs": [
+            "ipallowlist_enabled=true"
+          ],
+          "config": {
+            "placeholder": "fd00::/8"
+          }
+        }
+      ],
+      "name": "dashboard-hardening"
+    },
+    {
+      "title": "ForwardAuth",
+      "toggle": "forwardauth_enabled",
+      "variables": [
+        {
+          "name": "forwardauth_enabled",
+          "type": "bool",
+          "title": "ForwardAuth",
+          "required": false,
+          "default": false,
+          "description": "Render a ForwardAuth middleware for Authentik, Authelia, or another auth proxy."
+        },
+        {
+          "name": "forwardauth_address",
+          "type": "str",
+          "title": "ForwardAuth Address",
+          "required": true,
+          "default": "https://auth.home.arpa/outpost.goauthentik.io/auth/traefik",
+          "description": "ForwardAuth endpoint Traefik should call for authentication.",
+          "needs": [
+            "forwardauth_enabled=true"
+          ],
+          "config": {
+            "placeholder": "https://auth.home.arpa/outpost.goauthentik.io/auth/traefik"
+          }
+        },
+        {
+          "name": "forwardauth_trust_forward_header",
+          "type": "bool",
+          "title": "Trust Forwarded Headers",
+          "required": false,
+          "default": true,
+          "description": "Trust existing forwarded headers when calling the ForwardAuth endpoint.",
+          "needs": [
+            "forwardauth_enabled=true"
+          ]
+        },
+        {
+          "name": "forwardauth_response_headers_regex",
+          "type": "str",
+          "title": "Auth Response Headers Regex",
+          "required": false,
+          "default": "^X-authentik-.*",
+          "description": "Regex of headers copied back from the auth response.",
+          "needs": [
+            "forwardauth_enabled=true"
+          ],
+          "config": {
+            "placeholder": "^X-authentik-.*"
+          }
+        }
+      ],
+      "name": "forwardauth"
+    },
+    {
+      "title": "CrowdSec Middleware",
+      "toggle": "crowdsec_middleware_enabled",
+      "variables": [
+        {
+          "name": "crowdsec_middleware_enabled",
+          "type": "bool",
+          "title": "CrowdSec Middleware",
+          "required": false,
+          "default": false,
+          "description": "Render the Traefik CrowdSec plugin middleware example."
+        },
+        {
+          "name": "crowdsec_lapi_host",
+          "type": "str",
+          "title": "CrowdSec LAPI Host",
+          "required": true,
+          "default": "crowdsec:8080",
+          "description": "CrowdSec Local API host and port reachable from Traefik.",
+          "needs": [
+            "crowdsec_middleware_enabled=true"
+          ],
+          "config": {
+            "placeholder": "crowdsec:8080"
+          }
+        },
+        {
+          "name": "crowdsec_bouncer_key",
+          "type": "secret",
+          "title": "CrowdSec Bouncer Key",
+          "required": true,
+          "description": "API key for the Traefik CrowdSec remediation component.",
+          "needs": [
+            "crowdsec_middleware_enabled=true"
+          ],
+          "config": {
+            "autogenerated": true
+          }
+        },
+        {
+          "name": "crowdsec_mode",
+          "type": "enum",
+          "title": "CrowdSec Mode",
+          "required": true,
+          "default": "stream",
+          "description": "CrowdSec plugin mode used by Traefik.",
+          "needs": [
+            "crowdsec_middleware_enabled=true"
+          ],
+          "config": {
+            "options": [
+              "live",
+              "stream",
+              "alone",
+              "appsec"
+            ]
+          }
+        },
+        {
+          "name": "crowdsec_appsec_enabled",
+          "type": "bool",
+          "title": "CrowdSec AppSec",
+          "required": false,
+          "default": false,
+          "description": "Enable AppSec requests from the Traefik middleware to CrowdSec.",
+          "needs": [
+            "crowdsec_middleware_enabled=true"
+          ]
+        },
+        {
+          "name": "crowdsec_appsec_host",
+          "type": "str",
+          "title": "CrowdSec AppSec Host",
+          "required": true,
+          "default": "crowdsec:7422",
+          "description": "CrowdSec AppSec host and port reachable from Traefik.",
+          "needs": [
+            "crowdsec_middleware_enabled=true",
+            "crowdsec_appsec_enabled=true"
+          ],
+          "config": {
+            "placeholder": "crowdsec:7422"
+          }
+        },
+        {
+          "name": "crowdsec_appsec_failure_block",
+          "type": "bool",
+          "title": "Block On AppSec Failure",
+          "required": false,
+          "default": true,
+          "description": "Block requests if CrowdSec AppSec returns an internal error.",
+          "needs": [
+            "crowdsec_middleware_enabled=true",
+            "crowdsec_appsec_enabled=true"
+          ]
+        },
+        {
+          "name": "crowdsec_appsec_unreachable_block",
+          "type": "bool",
+          "title": "Block When AppSec Unreachable",
+          "required": false,
+          "default": false,
+          "description": "Block requests if CrowdSec AppSec cannot be reached.",
+          "needs": [
+            "crowdsec_middleware_enabled=true",
+            "crowdsec_appsec_enabled=true"
+          ]
+        },
+        {
+          "name": "crowdsec_trusted_ip_1",
+          "type": "str",
+          "title": "Trusted IP 1",
+          "required": false,
+          "default": "10.0.0.0/8",
+          "description": "Optional trusted upstream CIDR for forwarded headers.",
+          "needs": [
+            "crowdsec_middleware_enabled=true"
+          ],
+          "config": {
+            "placeholder": "10.0.0.0/8"
+          }
+        },
+        {
+          "name": "crowdsec_trusted_ip_2",
+          "type": "str",
+          "title": "Trusted IP 2",
+          "required": false,
+          "default": "192.168.0.0/16",
+          "description": "Optional second trusted CIDR for forwarded headers.",
+          "needs": [
+            "crowdsec_middleware_enabled=true"
+          ],
+          "config": {
+            "placeholder": "192.168.0.0/16"
+          }
+        },
+        {
+          "name": "crowdsec_trusted_ip_3",
+          "type": "str",
+          "title": "Trusted IP 3",
+          "required": false,
+          "default": "",
+          "description": "Optional third trusted CIDR for forwarded headers.",
+          "needs": [
+            "crowdsec_middleware_enabled=true"
+          ],
+          "config": {
+            "placeholder": "fd00::/8"
+          }
+        }
+      ],
+      "name": "crowdsec"
+    }
+  ]
+}

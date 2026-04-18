@@ -1,0 +1,41 @@
+server:
+  listenAddress: ":80"
+  <%- if traefik_tls_enabled %>
+  exposedAddress: "https://<< public_hostname >>:443"
+  <%- else %>
+  exposedAddress: "http://<< public_hostname >>:80"
+  <%- endif %>
+  stunPorts:
+    - << stun_port >>
+  metricsPort: 9090
+  healthcheckAddress: ":9000"
+  logLevel: "<< netbird_log_level >>"
+  logFile: "console"
+  authSecret: |-
+    << netbird_relay_auth_secret >>
+  dataDir: "/var/lib/netbird"
+  disableAnonymousMetrics: << disable_anonymous_metrics | lower >>
+  disableGeoliteUpdate: << disable_geolite_update | lower >>
+  auth:
+    <%- if traefik_tls_enabled %>
+    issuer: "https://<< public_hostname >>/oauth2"
+    <%- else %>
+    issuer: "http://<< public_hostname >>/oauth2"
+    <%- endif %>
+    localAuthDisabled: false
+    signKeyRefreshEnabled: true
+    dashboardRedirectURIs:
+      <%- if traefik_tls_enabled %>
+      - "https://<< public_hostname >>/nb-auth"
+      - "https://<< public_hostname >>/nb-silent-auth"
+      <%- else %>
+      - "http://<< public_hostname >>/nb-auth"
+      - "http://<< public_hostname >>/nb-silent-auth"
+      <%- endif %>
+    cliRedirectURIs:
+      - "http://localhost:53000/"
+  store:
+    engine: "sqlite"
+    dsn: ""
+    encryptionKey: |-
+      << netbird_store_encryption_key >>

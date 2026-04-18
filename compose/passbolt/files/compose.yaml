@@ -1,0 +1,49 @@
+---
+services:
+  << service_name >>:
+    image: docker.io/passbolt/passbolt:5.9.0-1-ce
+    restart: << restart_policy >>
+    ports:
+      - "<< ports_http >>:80"
+    environment:
+      <%- if container_timezone%>
+      - APP_DEFAULT_TIMEZONE=<< container_timezone >>
+      <%- endif %>
+      - APP_FULL_BASE_URL=<< app_full_base_url >>
+      - DATASOURCES_DEFAULT_HOST=<< service_name >>-db
+      - DATASOURCES_DEFAULT_USERNAME=${DATABASE_USER}
+      - DATASOURCES_DEFAULT_PASSWORD=${DATABASE_PASSWORD}
+      - DATASOURCES_DEFAULT_DATABASE=<< database_name >>
+      - EMAIL_TRANSPORT_DEFAULT_HOST=<< email_host >>
+      - EMAIL_TRANSPORT_DEFAULT_PORT=<< email_port >>
+      <%- if email_username %>
+      - EMAIL_TRANSPORT_DEFAULT_USERNAME=${EMAIL_USERNAME}
+      <%- endif %>
+      <%- if email_password %>
+      - EMAIL_TRANSPORT_DEFAULT_PASSWORD=${EMAIL_PASSWORD}
+      <%- endif %>
+      - EMAIL_TRANSPORT_DEFAULT_TLS=<< email_use_tls | lower >>
+      - EMAIL_DEFAULT_FROM=<< email_from >>
+    volumes:
+      - << service_name >>-gpg:/etc/passbolt/gpg
+      - << service_name >>-jwt:/etc/passbolt/jwt
+    command: ["/usr/bin/wait-for.sh", "-t", "0", "<< service_name >>-db:3306", "--", "/docker-entrypoint.sh"]
+    depends_on:
+      - << service_name >>-db
+
+  << service_name >>-db:
+    image: docker.io/library/mariadb:11.3.2
+    restart: << restart_policy >>
+    environment:
+      - MYSQL_RANDOM_ROOT_PASSWORD=true
+      - MYSQL_DATABASE=<< database_name >>
+      - MYSQL_USER=${DATABASE_USER}
+      - MYSQL_PASSWORD=${DATABASE_PASSWORD}
+    volumes:
+      - << service_name >>-db:/var/lib/mysql
+
+
+volumes:
+  << service_name >>-db:
+  << service_name >>-gpg:
+  << service_name >>-jwt:

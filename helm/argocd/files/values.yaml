@@ -1,0 +1,79 @@
+configs:
+  cm:
+    url: << public_url >>
+    kustomize.buildOptions: --enable-helm
+  params:
+    server.insecure: << server_insecure | lower >>
+
+controller:
+  replicas: << controller_replicas >>
+  metrics:
+    enabled: << controller_metrics_enabled | lower >>
+    <%- if metrics_service_monitor_enabled and controller_metrics_enabled %>
+    serviceMonitor:
+      enabled: true
+    <%- endif %>
+
+repoServer:
+  replicas: << repo_server_replicas >>
+  metrics:
+    enabled: << repo_server_metrics_enabled | lower >>
+    <%- if metrics_service_monitor_enabled and repo_server_metrics_enabled %>
+    serviceMonitor:
+      enabled: true
+    <%- endif %>
+
+server:
+  replicas: << server_replicas >>
+  metrics:
+    enabled: << server_metrics_enabled | lower >>
+    <%- if metrics_service_monitor_enabled and server_metrics_enabled %>
+    serviceMonitor:
+      enabled: true
+    <%- endif %>
+  <%- if ingress_enabled %>
+  ingress:
+    enabled: true
+    ingressClassName: << ingress_class_name >>
+    hostname: << ingress_hostname >>
+    path: << ingress_path >>
+    pathType: Prefix
+    annotations:
+      traefik.ingress.kubernetes.io/router.entrypoints: << ingress_entrypoints >>
+      <%- if ingress_middleware %>
+      traefik.ingress.kubernetes.io/router.middlewares: << ingress_middleware >>
+      <%- endif %>
+      <%- if ingress_tls_enabled %>
+      traefik.ingress.kubernetes.io/router.tls: "true"
+      <%- if ingress_cert_manager_enabled %>
+      cert-manager.io/cluster-issuer: << ingress_cluster_issuer >>
+      <%- endif %>
+      <%- endif %>
+    tls: << ingress_tls_enabled | lower >>
+    <%- if ingress_tls_enabled and not ingress_cert_manager_enabled %>
+    extraTls:
+      - hosts:
+          - << ingress_hostname >>
+        secretName: << ingress_tls_secret >>
+    <%- endif %>
+  <%- endif %>
+
+dex:
+  enabled: << dex_enabled | lower >>
+  metrics:
+    enabled: << dex_metrics_enabled | lower >>
+    <%- if metrics_service_monitor_enabled and dex_enabled and dex_metrics_enabled %>
+    serviceMonitor:
+      enabled: true
+    <%- endif %>
+
+redis:
+  enabled: << redis_enabled | lower >>
+  <%- if redis_enabled %>
+  metrics:
+    enabled: << redis_metrics_enabled | lower >>
+    <%- if metrics_service_monitor_enabled and redis_metrics_enabled %>
+    serviceMonitor:
+      enabled: true
+    <%- endif %>
+  <%- endif %>
