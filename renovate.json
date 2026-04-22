@@ -74,6 +74,46 @@
       ]
     },
     {
+      "description": "Split Compose template updates into their own Renovate branches",
+      "matchManagers": [
+        "custom.regex"
+      ],
+      "matchFileNames": [
+        "compose/**"
+      ],
+      "additionalBranchPrefix": "compose-"
+    },
+    {
+      "description": "Split Swarm template updates into their own Renovate branches",
+      "matchManagers": [
+        "custom.regex"
+      ],
+      "matchFileNames": [
+        "swarm/**"
+      ],
+      "additionalBranchPrefix": "swarm-"
+    },
+    {
+      "description": "Split Helm template updates into their own Renovate branches",
+      "matchManagers": [
+        "custom.regex"
+      ],
+      "matchFileNames": [
+        "helm/**"
+      ],
+      "additionalBranchPrefix": "helm-"
+    },
+    {
+      "description": "Split Kubernetes template updates into their own Renovate branches",
+      "matchManagers": [
+        "custom.regex"
+      ],
+      "matchFileNames": [
+        "kubernetes/**"
+      ],
+      "additionalBranchPrefix": "kubernetes-"
+    },
+    {
       "description": "Do not match Canonical's Ubuntu version suffix as a compatibility hint",
       "matchManagers": [
         "custom.regex"

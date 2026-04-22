@@ -51,7 +51,10 @@ jobs:
         run: |
           echo "Running template version sync script..."
           chmod +x .github/scripts/sync-template-version.sh
-          .github/scripts/sync-template-version.sh ${{ steps.changes.outputs.files }}
+          mapfile -t changed_files <<'EOF'
+          ${{ steps.changes.outputs.files }}
+          EOF
+          .github/scripts/sync-template-version.sh "${changed_files[@]}"
 
       - name: Check for template.json changes
         id: template_changes
