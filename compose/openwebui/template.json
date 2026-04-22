@@ -9,7 +9,7 @@
       "traefik",
       "authentik"
     ],
-    "template_version": "0.8.2",
+    "template_version": "v0.9.1",
     "icon": {
       "provider": "selfhst",
       "id": "open-webui"
