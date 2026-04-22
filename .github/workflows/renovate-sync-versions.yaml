@@ -1,0 +1,74 @@
+---
+name: Renovate - Sync Template Versions
+
+'on':
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'compose/**'
+      - 'swarm/**'
+      - 'helm/**'
+      - 'kubernetes/**'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync-versions:
+    name: Sync Template Versions
+    if: startsWith(github.head_ref, 'renovate/')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Detect changed template files
+        id: changes
+        run: |
+          git fetch origin main:main
+          CHANGED_FILES=$(git diff --name-only main...HEAD | grep -E '^(compose|swarm|helm|kubernetes)/' | grep -E '\.(yaml|yml)$' || true)
+
+          if [ -n "$CHANGED_FILES" ]; then
+            echo "Changed template files:"
+            echo "$CHANGED_FILES"
+            echo "files<<EOF" >> "$GITHUB_OUTPUT"
+            echo "$CHANGED_FILES" >> "$GITHUB_OUTPUT"
+            echo "EOF" >> "$GITHUB_OUTPUT"
+            echo "has_files=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "No template files changed"
+            echo "has_files=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Run template version sync
+        if: steps.changes.outputs.has_files == 'true'
+        run: |
+          echo "Running template version sync script..."
+          chmod +x .github/scripts/sync-template-version.sh
+          .github/scripts/sync-template-version.sh ${{ steps.changes.outputs.files }}
+
+      - name: Check for template.json changes
+        id: template_changes
+        run: |
+          if find compose swarm helm kubernetes -name template.json -print0 | xargs -0 git status --porcelain -- | grep -q .; then
+            echo "has_changes=true" >> "$GITHUB_OUTPUT"
+            echo "Template version changes detected"
+          else
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+            echo "No template version changes needed"
+          fi
+
+      - name: Commit and push changes
+        if: steps.template_changes.outputs.has_changes == 'true'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          find compose swarm helm kubernetes -name template.json -print0 | xargs -0 git add --
+          git commit -m "chore: sync template versions with image updates"
+          git push
