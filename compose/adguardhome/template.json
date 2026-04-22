@@ -10,7 +10,7 @@
       "network",
       "volume"
     ],
-    "template_version": "v0.107.71",
+    "template_version": "v0.107.74",
     "icon": {
       "provider": "selfhst",
       "id": "adguard-home"
