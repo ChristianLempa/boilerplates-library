@@ -1,6 +1,6 @@
 services:
   << service_name >>:
-    image: docker.io/library/nginx:1.28.2-alpine
+    image: docker.io/library/nginx:1.30.0-alpine
     <%- if traefik_enabled %>
     networks:
       << traefik_network >>:
