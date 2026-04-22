@@ -12,8 +12,8 @@
     ],
     "template_version": "1.0.26",
     "icon": {
-      "provider": "simple-icons",
-      "id": "docker"
+      "provider": "selfhst",
+      "id": "dockhand"
     },
     "draft": false
   },
