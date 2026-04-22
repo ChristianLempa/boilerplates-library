@@ -1,7 +1,7 @@
 services:
   <%- if socket_proxy_enabled %>
   << socket_proxy_service_name >>:
-    image: tecnativa/docker-socket-proxy:0.4.1
+    image: tecnativa/docker-socket-proxy:0.4.2
     container_name: << socket_proxy_container_name >>
     environment:
       CONTAINERS: 1
