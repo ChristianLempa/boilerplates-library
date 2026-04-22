@@ -6,7 +6,7 @@
     "description": "Helm chart for cert-manager, a Kubernetes add-on that automates TLS certificate management and issuance from sources like Let's Encrypt.",
     "guide": "## Overview\nHelm chart for cert-manager, a Kubernetes add-on that automates TLS certificate management and issuance from sources like Let's Encrypt.\n\n## Prerequisites\n- Install cert-manager with cluster-admin privileges because it creates admission webhooks and cluster-scoped resources.\n- Decide which recursive resolvers cert-manager should trust for DNS01 lookups before you render the values file.\n- Prepare your `Issuer` or `ClusterIssuer` credentials separately because this template only covers chart values.\n\n## Deploy\n- Render `values.yaml`, then install or update the release with `helm upgrade --install`.\n- Wait until the controller, webhook, and cainjector pods are ready before creating issuers.\n\n## Post-Install\n- Create an `Issuer` or `ClusterIssuer` and request a test certificate before routing production traffic through it.\n- If you use DNS01, verify challenge propagation with the configured recursive resolvers before debugging provider credentials.\n\n## References\n- [cert-manager](https://cert-manager.io/)\n- [Documentation](https://cert-manager.io/docs/)\n- [Helm Chart](https://charts.jetstack.io)",
     "tags": [],
-    "template_version": "1.18.2",
+    "template_version": "v1.20.2",
     "icon": {
       "provider": "mdi",
       "id": "certificate-outline"
