@@ -235,12 +235,37 @@
           "description": "Enable Traefik labels"
         },
         {
+          "name": "traefik_entrypoint",
+          "type": "str",
+          "title": "Entrypoint",
+          "required": true,
+          "default": "web",
+          "description": "Entrypoint name.",
+          "config": {
+            "placeholder": "web"
+          }
+        },
+        {
           "name": "traefik_tls_enabled",
           "type": "bool",
           "title": "TLS",
           "required": false,
           "default": true,
           "description": "Enable Traefik TLS"
+        },
+        {
+          "name": "traefik_tls_entrypoint",
+          "type": "str",
+          "title": "TLS Entrypoint",
+          "required": true,
+          "default": "websecure",
+          "description": "Entrypoint name.",
+          "config": {
+            "placeholder": "websecure"
+          },
+          "needs": [
+            "traefik_tls_enabled=true"
+          ]
         },
         {
           "name": "traefik_tls_certresolver",

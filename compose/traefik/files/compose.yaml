@@ -39,6 +39,7 @@ services:
       - "--entrypoints.websecure.http.encodedCharacters.allowEncodedSlash=true"
       - "--certificatesresolvers.<< traefik_tls_certresolver >>.acme.email=<< traefik_tls_acme_email >>"
       - "--certificatesresolvers.<< traefik_tls_certresolver >>.acme.caServer=https://acme-v02.api.letsencrypt.org/directory"
+      - "--certificatesresolvers.<< traefik_tls_certresolver >>.acme.storage=/var/traefik/certs/acme.json"
       - "--certificatesresolvers.<< traefik_tls_certresolver >>.acme.dnsChallenge.provider=<< traefik_tls_certresolver >>"
       - "--certificatesresolvers.<< traefik_tls_certresolver >>.acme.dnsChallenge.resolvers=1.1.1.1:53,8.8.8.8:53"
       <%- endif %>

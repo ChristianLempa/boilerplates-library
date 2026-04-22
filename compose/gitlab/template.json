@@ -222,7 +222,7 @@
           "title": "Host",
           "required": false,
           "config": {
-            "placeholder": "gitlab.home.arpa"
+            "placeholder": "gitlab"
           },
           "description": "Hostname used for Traefik."
         },
@@ -251,6 +251,17 @@
           "description": "Domain used for Traefik."
         },
         {
+          "name": "traefik_entrypoint",
+          "type": "str",
+          "title": "Entrypoint",
+          "required": true,
+          "default": "web",
+          "description": "Entrypoint name.",
+          "config": {
+            "placeholder": "web"
+          }
+        },
+        {
           "name": "traefik_network",
           "type": "str",
           "title": "Network",
@@ -268,6 +279,20 @@
           "required": false,
           "default": false,
           "description": "Enable Traefik TLS"
+        },
+        {
+          "name": "traefik_tls_entrypoint",
+          "type": "str",
+          "title": "TLS Entrypoint",
+          "required": true,
+          "default": "websecure",
+          "description": "Entrypoint name.",
+          "config": {
+            "placeholder": "websecure"
+          },
+          "needs": [
+            "traefik_tls_enabled=true"
+          ]
         },
         {
           "name": "traefik_tls_certresolver",

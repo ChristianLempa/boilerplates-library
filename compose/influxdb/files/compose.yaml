@@ -29,11 +29,11 @@ services:
       - traefik.http.services.<< service_name >>-web.loadbalancer.server.port=8086
       - traefik.http.services.<< service_name >>-web.loadbalancer.server.scheme=http
       - traefik.http.routers.<< service_name >>-web-http.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
-      - traefik.http.routers.<< service_name >>-web-http.entrypoints=web
+      - traefik.http.routers.<< service_name >>-web-http.entrypoints=<< traefik_entrypoint >>
       - traefik.http.routers.<< service_name >>-web-http.service=<< service_name >>-web
       <%- if traefik_tls_enabled %>
       - traefik.http.routers.<< service_name >>-web-https.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
-      - traefik.http.routers.<< service_name >>-web-https.entrypoints=websecure
+      - traefik.http.routers.<< service_name >>-web-https.entrypoints=<< traefik_tls_entrypoint >>
       - traefik.http.routers.<< service_name >>-web-https.tls=true
       - traefik.http.routers.<< service_name >>-web-https.tls.certresolver=<< traefik_tls_certresolver >>
       - traefik.http.routers.<< service_name >>-web-https.service=<< service_name >>-web

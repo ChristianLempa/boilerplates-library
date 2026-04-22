@@ -111,6 +111,8 @@
           "name": "traefik_network",
           "title": "Network",
           "type": "str",
+          "required": true,
+          "default": "proxy",
           "description": "Traefik Network"
         },
         {

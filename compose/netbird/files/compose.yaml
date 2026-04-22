@@ -12,12 +12,12 @@ services:
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
       - "--providers.docker.network=netbird"
-      - "--entrypoints.web.address=:80"
+      - "--entrypoints.<< traefik_entrypoint >>.address=:80"
       <%- if traefik_tls_enabled %>
       - "--entrypoints.<< traefik_tls_entrypoint >>.address=:443"
       - "--entrypoints.<< traefik_tls_entrypoint >>.transport.respondingTimeouts.readTimeout=0"
-      - "--entrypoints.web.http.redirections.entrypoint.to=<< traefik_tls_entrypoint >>"
-      - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
+      - "--entrypoints.<< traefik_entrypoint >>.http.redirections.entrypoint.to=<< traefik_tls_entrypoint >>"
+      - "--entrypoints.<< traefik_entrypoint >>.http.redirections.entrypoint.scheme=https"
       - "--certificatesresolvers.<< traefik_tls_certresolver >>.acme.tlschallenge=true"
       - "--certificatesresolvers.<< traefik_tls_certresolver >>.acme.email=<< letsencrypt_email >>"
       - "--certificatesresolvers.<< traefik_tls_certresolver >>.acme.storage=/letsencrypt/acme.json"
@@ -90,7 +90,7 @@ services:
       - "traefik.http.routers.netbird-dashboard.tls=true"
       - "traefik.http.routers.netbird-dashboard.tls.certresolver=<< traefik_tls_certresolver >>"
       <%- else %>
-      - "traefik.http.routers.netbird-dashboard.entrypoints=web"
+      - "traefik.http.routers.netbird-dashboard.entrypoints=<< traefik_entrypoint >>"
       <%- endif %>
       - "traefik.http.routers.netbird-dashboard.priority=1"
       - "traefik.http.services.netbird-dashboard.loadbalancer.server.port=80"
@@ -135,7 +135,7 @@ services:
       - "traefik.http.routers.netbird-grpc.tls=true"
       - "traefik.http.routers.netbird-grpc.tls.certresolver=<< traefik_tls_certresolver >>"
       <%- else %>
-      - "traefik.http.routers.netbird-grpc.entrypoints=web"
+      - "traefik.http.routers.netbird-grpc.entrypoints=<< traefik_entrypoint >>"
       <%- endif %>
       - "traefik.http.routers.netbird-grpc.service=netbird-server-h2c"
       - "traefik.http.routers.netbird-backend.rule=Host(`<< public_hostname >>`) && (PathPrefix(`/relay`) || PathPrefix(`/ws-proxy/`) || PathPrefix(`/api`) || PathPrefix(`/oauth2`))"
@@ -144,7 +144,7 @@ services:
       - "traefik.http.routers.netbird-backend.tls=true"
       - "traefik.http.routers.netbird-backend.tls.certresolver=<< traefik_tls_certresolver >>"
       <%- else %>
-      - "traefik.http.routers.netbird-backend.entrypoints=web"
+      - "traefik.http.routers.netbird-backend.entrypoints=<< traefik_entrypoint >>"
       <%- endif %>
       - "traefik.http.routers.netbird-backend.service=netbird-server"
       - "traefik.http.services.netbird-server.loadbalancer.server.port=80"

@@ -183,6 +183,20 @@
           }
         },
         {
+          "name": "traefik_entrypoint",
+          "type": "str",
+          "title": "Entrypoint",
+          "required": true,
+          "default": "web",
+          "description": "Traefik entrypoint name used by the NetBird routers when TLS is disabled.",
+          "config": {
+            "placeholder": "web"
+          },
+          "needs": [
+            "traefik_tls_enabled=false"
+          ]
+        },
+        {
           "name": "traefik_tls_enabled",
           "type": "bool",
           "title": "TLS",

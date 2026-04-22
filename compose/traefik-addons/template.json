@@ -62,6 +62,35 @@
           "required": false,
           "default": true,
           "description": "Use an existing external Docker network for Traefik integration."
+        },
+        {
+          "name": "traefik_entrypoint",
+          "type": "str",
+          "title": "Entrypoint",
+          "required": true,
+          "default": "web",
+          "description": "Entrypoint name used for the optional whoami test route.",
+          "config": {
+            "placeholder": "web"
+          },
+          "needs": [
+            "whoami_enabled=true"
+          ]
+        },
+        {
+          "name": "traefik_tls_entrypoint",
+          "type": "str",
+          "title": "TLS Entrypoint",
+          "required": true,
+          "default": "websecure",
+          "description": "Entrypoint name used for the HTTPS whoami route.",
+          "config": {
+            "placeholder": "websecure"
+          },
+          "needs": [
+            "whoami_enabled=true",
+            "whoami_tls_enabled=true"
+          ]
         }
       ]
     },

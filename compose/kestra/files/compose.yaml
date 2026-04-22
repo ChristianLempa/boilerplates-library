@@ -29,11 +29,11 @@ services:
       - traefik.http.routers.<< service_name >>.rule=Host(`<< public_hostname >>`)
 <%- endif %>
 <%- if traefik_tls_enabled %>
-      - traefik.http.routers.<< service_name >>.entrypoints=websecure
+      - traefik.http.routers.<< service_name >>.entrypoints=<< traefik_tls_entrypoint >>
       - traefik.http.routers.<< service_name >>.tls=true
       - traefik.http.routers.<< service_name >>.tls.certresolver=<< traefik_tls_certresolver >>
 <%- else %>
-      - traefik.http.routers.<< service_name >>.entrypoints=web
+      - traefik.http.routers.<< service_name >>.entrypoints=<< traefik_entrypoint >>
 <%- endif %>
 <%- if traefik_middleware %>
       - traefik.http.routers.<< service_name >>.middlewares=<< traefik_middleware >>

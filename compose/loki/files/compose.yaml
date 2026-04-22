@@ -22,11 +22,11 @@ services:
       - traefik.http.services.<< service_name >>_web.loadBalancer.server.port=3100
       - traefik.http.routers.<< service_name >>_http.service=<< service_name >>_web
       - traefik.http.routers.<< service_name >>_http.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
-      - traefik.http.routers.<< service_name >>_http.entrypoints=web
+      - traefik.http.routers.<< service_name >>_http.entrypoints=<< traefik_entrypoint >>
       <%- if traefik_tls_enabled %>
       - traefik.http.routers.<< service_name >>_https.service=<< service_name >>_web
       - traefik.http.routers.<< service_name >>_https.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
-      - traefik.http.routers.<< service_name >>_https.entrypoints=websecure
+      - traefik.http.routers.<< service_name >>_https.entrypoints=<< traefik_tls_entrypoint >>
       - traefik.http.routers.<< service_name >>_https.tls=true
       - traefik.http.routers.<< service_name >>_https.tls.certresolver=<< traefik_tls_certresolver >>
       <%- endif %>

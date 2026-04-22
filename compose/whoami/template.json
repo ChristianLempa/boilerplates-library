@@ -77,6 +77,17 @@
           }
         },
         {
+          "name": "traefik_entrypoint",
+          "type": "str",
+          "title": "Entrypoint",
+          "required": true,
+          "default": "web",
+          "description": "Entrypoint name.",
+          "config": {
+            "placeholder": "web"
+          }
+        },
+        {
           "name": "traefik_network",
           "type": "str",
           "title": "Traefik network name",
@@ -94,6 +105,20 @@
           "required": false,
           "default": true,
           "description": "Enable HTTPS/TLS"
+        },
+        {
+          "name": "traefik_tls_entrypoint",
+          "type": "str",
+          "title": "TLS Entrypoint",
+          "required": true,
+          "default": "websecure",
+          "description": "Entrypoint name.",
+          "config": {
+            "placeholder": "websecure"
+          },
+          "needs": [
+            "traefik_tls_enabled=true"
+          ]
         },
         {
           "name": "traefik_tls_certresolver",

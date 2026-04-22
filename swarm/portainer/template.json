@@ -140,6 +140,20 @@
           "required": false,
           "default": false,
           "description": "Enable Traefik integration"
+        },
+        {
+          "name": "traefik_entrypoint",
+          "type": "str",
+          "title": "Traefik Entrypoint",
+          "required": false,
+          "default": "web",
+          "description": "Traefik entrypoint name.",
+          "config": {
+            "placeholder": "web"
+          },
+          "needs": [
+            "traefik_enabled=true"
+          ]
         }
       ]
     },
@@ -166,6 +180,20 @@
           "required": false,
           "default": false,
           "description": "Enable Traefik TLS"
+        },
+        {
+          "name": "traefik_tls_entrypoint",
+          "type": "str",
+          "title": "Traefik Tls Entrypoint",
+          "required": false,
+          "default": "websecure",
+          "description": "Traefik TLS entrypoint name.",
+          "config": {
+            "placeholder": "websecure"
+          },
+          "needs": [
+            "traefik_tls_enabled=true"
+          ]
         }
       ]
     },
