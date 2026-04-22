@@ -8,7 +8,7 @@
       "traefik",
       "database"
     ],
-    "template_version": "5.9.0-1-ce",
+    "template_version": "11.3.2",
     "icon": {
       "provider": "selfhst",
       "id": "passbolt"
