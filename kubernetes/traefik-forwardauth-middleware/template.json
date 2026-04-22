@@ -4,7 +4,6 @@
   "metadata": {
     "name": "Traefik ForwardAuth Middleware",
     "description": "Traefik Middleware CRD for delegating request authentication to an external forward-auth endpoint such as Authentik, Authelia, or a custom identity proxy.",
-    "guide": "## Overview\nCreates a Traefik Middleware resource for `forwardAuth` so protected routes can delegate authentication to an external service.\n\n## Prerequisites\n- Traefik must be installed with the Kubernetes CRD provider enabled.\n- The forward-auth endpoint must already be reachable from the cluster.\n\n## Apply\n- Render `main.yaml`, review the endpoint URL, header forwarding, and TLS settings, then apply it with `kubectl apply -f main.yaml`.\n- Reference the rendered middleware from your IngressRoute or Traefik router after confirming the auth service responds correctly.\n\n## Follow-Up\n- Validate both authenticated and unauthenticated requests so you confirm redirect and header behavior.\n- Keep the generated header list aligned with the identity provider or upstream app you actually use.\n\n## References\n- [ForwardAuth Middleware](https://doc.traefik.io/traefik/middlewares/http/forwardauth/)\n- [Traefik Kubernetes CRD](https://doc.traefik.io/traefik/routing/providers/kubernetes-crd/)",
     "tags": [],
     "template_version": "3.5.3",
     "icon": {

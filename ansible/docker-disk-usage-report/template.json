@@ -4,7 +4,6 @@
   "metadata": {
     "name": "Docker Disk Usage Report",
     "description": "Generates a Docker disk usage report on target hosts and optionally sends a summary to Discord via webhook.",
-    "guide": "## Overview\nThis playbook gathers Docker disk usage details and can optionally post a summary to Discord.\n\n## Prerequisites\n- Provide the Discord webhook values before running if you want notifications.\n- Confirm the report path is writable on the target hosts.\n\n## Run\n1. Render `main.yml` and review the report and notification settings.\n2. Run the playbook against the target hosts.\n3. Check the saved report or Discord message after the play completes.\n\n## Docs\n- [Docker System DF](https://docs.docker.com/reference/cli/docker/system/df/)",
     "tags": [
       "docker",
       "report",

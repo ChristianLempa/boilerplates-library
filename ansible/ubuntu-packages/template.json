@@ -4,7 +4,6 @@
   "metadata": {
     "name": "Install Ubuntu Packages",
     "description": "Installs a curated set of useful Ubuntu packages with per-package switches for scripting, package management, monitoring, NFS, and VM guest integration.",
-    "guide": "## Overview\nThis playbook installs a curated package set for Ubuntu hosts with one switch per package.\n\n## What It Does\n- Validates that the target hosts are Ubuntu systems using APT.\n- Builds the package list from the enabled switches.\n- Installs the selected packages with `apt`.\n- Starts and enables `prometheus-node-exporter` and `qemu-guest-agent` when those packages are selected.\n\n## Run\n1. Render `main.yml` and review the package switches.\n2. Run the playbook against the intended Ubuntu hosts. The workload inventory already provides the host selection, so the playbook runs against `all` selected hosts.\n3. Verify the selected packages and any enabled services after the play completes.\n\n## Notes\n- The base scripting and utility packages are enabled by default.\n- `prometheus-node-exporter`, `nfs-common`, and `qemu-guest-agent` are optional and disabled by default.\n- `qemu-guest-agent` only makes sense on virtual machines that support it.\n\n## Docs\n- [Ubuntu Server Documentation](https://ubuntu.com/server/docs)\n- [APT User Guide](https://manpages.ubuntu.com/manpages/jammy/man8/apt-get.8.html)\n- [Prometheus Node Exporter](https://github.com/prometheus/node_exporter)",
     "tags": [
       "ubuntu",
       "apt",

@@ -4,7 +4,6 @@
   "metadata": {
     "name": "Teleport",
     "description": "Runs Teleport in Docker Compose with local auth and proxy services plus a companion Teleport configuration file.",
-    "guide": "## Overview\nRuns Teleport in Docker Compose with local auth and proxy services enabled.\n\n## Prerequisites\n- Reserve the public Teleport hostname and point it at the host running this stack.\n- Provide persistent storage for `/var/lib/teleport` so cluster identity survives container restarts.\n- If you front Teleport with Traefik, make sure the referenced network and TLS resolver already exist.\n\n## Deploy\n- Render `compose.yaml` and `config/teleport.yaml`, then start the stack with `docker compose up -d`.\n- Watch the container logs until the auth and proxy services are healthy.\n\n## Post-Install\n- Create the initial admin user with Teleport's user onboarding workflow after the cluster starts.\n- Complete MFA or WebAuthn enrollment and verify browser access through the public Teleport hostname.\n- Add nodes, apps, or Kubernetes integrations separately after the base cluster is working.\n\n## References\n- [Teleport Documentation](https://goteleport.com/docs/)\n- [Teleport Configuration Reference](https://goteleport.com/docs/reference/config/)",
     "tags": [],
     "template_version": "18.7.3",
     "icon": {

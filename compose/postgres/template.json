@@ -4,7 +4,6 @@
   "metadata": {
     "name": "PostgreSQL",
     "description": "Powerful open-source object-relational database system with over 35 years of active development, known for reliability, feature robustness, and performance.",
-    "guide": "## Overview\nPowerful open-source object-relational database system with over 35 years of active development, known for reliability, feature robustness, and performance.\n\n## Prerequisites\n- Decide whether PostgreSQL should be exposed on a host port or kept private on the Docker network.\n- Choose the persistence mode and confirm the target storage path or NFS export is ready before first start.\n- Define the bootstrap database, user, and password up front and make sure they are captured in your secret store.\n\n## Deploy\n- Render the generated files, review the storage and network settings, and start the stack with `docker compose up -d`.\n- Watch the logs until PostgreSQL finishes initialization and begins accepting connections.\n\n## Post-Install\n- Create any application-specific roles, schemas, and extensions after the bootstrap database is online.\n- Verify backups and at least one restore path before storing real data on the instance.\n- Keep this deployment single-primary unless you add a separate replication or failover design around it.\n\n## References\n- [PostgreSQL](https://www.postgresql.org/)\n- [Documentation](https://www.postgresql.org/docs/)\n- [GitHub](https://github.com/postgres/postgres)",
     "tags": [],
     "template_version": "18.2",
     "icon": {

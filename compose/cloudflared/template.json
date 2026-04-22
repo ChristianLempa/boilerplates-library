@@ -4,7 +4,6 @@
   "metadata": {
     "name": "Cloudflared",
     "description": "Runs a Cloudflare Tunnel connector in Docker Compose so private services can be published through Cloudflare Zero Trust.",
-    "guide": "## Overview\nRuns `cloudflared` as a Docker Compose service for Cloudflare Tunnel connectivity.\n\n## Prerequisites\n- A Cloudflare Zero Trust tunnel must already exist.\n- Provide a valid tunnel token before starting the stack.\n- The Docker network referenced by the template must already exist when you use an external network.\n\n## Deploy\n- Render `compose.yaml` and `.env`, review the network name and image tag, then start the stack with `docker compose up -d`.\n- Use `docker compose logs -f` to verify the connector establishes a healthy tunnel session.\n\n## Follow-Up\n- Pair this with a tunnel ingress configuration such as `cloudflare-zero-trust-tunnel-config` so hostnames actually route traffic.\n- Confirm the tunnel and connector both show healthy status in the Cloudflare Zero Trust dashboard.\n\n## References\n- [Cloudflare Tunnel](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/)\n- [Cloudflared Container](https://hub.docker.com/r/cloudflare/cloudflared)",
     "tags": [],
     "template_version": "2026.3.0",
     "icon": {

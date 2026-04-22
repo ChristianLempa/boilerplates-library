@@ -4,7 +4,6 @@
   "metadata": {
     "name": "Kubernetes NetworkPolicy",
     "description": "Creates a Kubernetes NetworkPolicy with targeted pod selection, optional ingress and egress policy types, and simple peer and port controls for common isolation patterns.",
-    "guide": "## Overview\nCreates a Kubernetes NetworkPolicy resource for isolating workloads and explicitly allowing only the traffic patterns you want to keep.\n\n## Prerequisites\n- Confirm your cluster CNI enforces NetworkPolicy resources.\n- Review the selected peers and ports carefully before applying the policy to shared namespaces or stateful workloads.\n\n## Apply\n- Render `main.yaml`, review the targeted Pods and enabled ingress or egress rules, then apply it with `kubectl apply -f main.yaml`.\n- Validate connectivity from expected clients before promoting the policy to production namespaces.\n\n## Follow-Up\n- Start with a narrow selector and expand coverage gradually as you verify dependencies.\n- Pair the policy with Services, ingress configuration, and monitoring so connectivity regressions are easy to spot.\n\n## References\n- [NetworkPolicy Documentation](https://kubernetes.io/docs/concepts/services-networking/network-policies/)",
     "tags": [],
     "template_version": "1.31.0",
     "icon": {

@@ -4,7 +4,6 @@
   "metadata": {
     "name": "NetBird Network",
     "description": "Creates a NetBird network for organizing resources and routers.",
-    "guide": "## Overview\nCreates a NetBird network.\n\n## Prerequisites\n- Create an admin PAT for the NetBird management API before rendering `provider.tf`.\n- Decide up front how you want to segment resources and routers inside the network because those references build on the network ID.\n\n## Apply\n- Render `provider.tf` and `main.tf`.\n- Review the network name and optional description.\n- Run `terraform fmt`, `terraform plan`, and `terraform apply`.\n\n## References\n- [NetBird Networks](https://docs.netbird.io/how-to/networks)\n- [Terraform Resource](https://github.com/netbirdio/terraform-provider-netbird/blob/main/docs/resources/network.md)",
     "tags": [
       "netbird",
       "terraform"

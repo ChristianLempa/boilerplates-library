@@ -4,7 +4,6 @@
   "metadata": {
     "name": "DNS Record A (TSIG)",
     "description": "Creates a DNS A record using TSIG-authenticated dynamic DNS updates. Maps a hostname to an IP address on a TSIG-enabled DNS server.",
-    "guide": "## Overview\nCreates a DNS A record using TSIG-authenticated dynamic DNS updates. Maps a hostname to an IP address on a TSIG-enabled DNS server.\n\n## How to Use\nThis template renders `main.tf` as a file.\n\n1. Start with the provider, resource identifiers, and required input values for the infrastructure you want to manage.\n2. Fill in required fields first, then enable optional lifecycle, dependency, or metadata sections only when they fit your workflow.\n3. Render the Terraform files and run terraform fmt, terraform plan, and terraform apply in the target workspace.\n\n## Variable Guide\n### Provider Configuration\n- `provider_server`: DNS server address; required.\n- `provider_tsig_key_secret`: TSIG key secret; required.\n\n### DNS A Record Configuration\n- `dns_hostname`: Hostname for the A record; required.\n- `dns_zone`: DNS zone for the A record; required.\n- `ip_address`: IP address to map to the hostname; required.\n- `dns_ttl`: Time to live (TTL) for the DNS record in seconds (default: 3600); optional.\n\n## References\n- [Terraform DNS Provider](https://registry.terraform.io/providers/hashicorp/dns/latest/docs)\n- [RFC 2845 - TSIG](https://datatracker.ietf.org/doc/html/rfc2845)",
     "icon": {
       "provider": "selfhst",
       "id": "bind-9",

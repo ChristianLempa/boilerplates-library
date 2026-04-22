@@ -4,7 +4,6 @@
   "metadata": {
     "name": "Docker Volume Backup",
     "description": "Backs up data from a Docker container path by auto-attaching all container volumes into a temporary backup container. Creates timestamped tar.gz archives with configurable retention.",
-    "guide": "## Overview\nThis playbook backs up a container path by attaching the related Docker volumes to a temporary backup job.\n\n## Prerequisites\n- Confirm the container path and backup destination before running.\n- Decide whether the playbook should stop the target container during backup for data consistency.\n\n## Run\n1. Render `main.yml` and review the container, backup path, retention, and stop/start settings.\n2. Run the playbook against the Docker host that owns the target container.\n3. Verify the archive files and retention behavior after the play completes.\n\n## Docs\n- [Docker Volumes](https://docs.docker.com/storage/volumes/)",
     "tags": [
       "docker",
       "backup",

@@ -4,7 +4,6 @@
   "metadata": {
     "name": "Proxmox LXC",
     "description": "Creates a Proxmox Linux container with configurable template, compute, root filesystem, and single-interface network settings.",
-    "guide": "## Overview\nCreates a Proxmox LXC container with configurable compute, root filesystem, and single-interface network settings.\n\n## Prerequisites\n- The referenced Proxmox container template (`ostemplate`) must already exist in storage.\n- The target node, bridge, and storage pool must already be available.\n- Review whether you want the container to be privileged or unprivileged before apply.\n\n## Apply\n- Render `provider.tf` and `main.tf`, then review the template, network, and root filesystem settings.\n- Run `terraform fmt`, `terraform plan`, and `terraform apply` in the target workspace.\n\n## Post-Apply\n- Verify the container boots, gets the expected IP settings, and can resolve DNS with the configured nameserver.\n- If you plan to manage some LXC settings directly in the Proxmox UI, keep the lifecycle ignore rules aligned with that workflow.\n\n## References\n- [Proxmox VE Linux Containers](https://pve.proxmox.com/pve-docs/chapter-pct.html)\n- [Terraform Telmate Proxmox Provider](https://registry.terraform.io/providers/Telmate/proxmox/latest/docs)",
     "tags": [],
     "template_version": "3.0.2-rc07",
     "icon": {

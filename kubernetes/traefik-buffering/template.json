@@ -4,7 +4,6 @@
   "metadata": {
     "name": "Traefik Buffering Middleware",
     "description": "Traefik Middleware CRD for buffering request and response bodies so uploads, downloads, and upstream size controls behave more predictably.",
-    "guide": "## Overview\nCreates a Traefik Middleware resource for `buffering` so request and response body limits are enforced close to the edge.\n\n## Prerequisites\n- Traefik must be installed with the Kubernetes CRD provider enabled.\n- Confirm the chosen size limits match both your application and any upstream reverse proxies in front of Traefik.\n\n## Apply\n- Render `main.yaml`, review the request and response body limits, then apply it with `kubectl apply -f main.yaml`.\n- Attach the middleware to one route and test upload and download behavior before using the same settings broadly.\n\n## Follow-Up\n- Keep the configured limits aligned with app-level upload limits so clients get consistent behavior.\n- Increase in-memory thresholds carefully because they directly influence edge memory usage.\n\n## References\n- [Buffering Middleware](https://doc.traefik.io/traefik/middlewares/http/buffering/)\n- [Traefik Kubernetes CRD](https://doc.traefik.io/traefik/routing/providers/kubernetes-crd/)",
     "tags": [],
     "template_version": "3.5.3",
     "icon": {

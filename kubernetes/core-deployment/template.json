@@ -4,7 +4,6 @@
   "metadata": {
     "name": "Kubernetes Deployment",
     "description": "Creates a Kubernetes Deployment with configurable image, replicas, service account, container port, simple environment variables, and optional resource requests and limits.",
-    "guide": "## Overview\nCreates a Kubernetes Deployment resource for running a replicated set of Pods.\n\n## Prerequisites\n- The container image must be reachable from the cluster.\n- If you reference a ServiceAccount, create it before applying the Deployment.\n\n## Apply\n- Render `main.yaml`, apply it, then wait for rollout completion with `kubectl rollout status deployment/<name> -n <namespace>`.\n- Review image pull behavior, labels, and resource requests before promoting the manifest to shared environments.\n\n## Follow-Up\n- Pair the Deployment with a Service, Ingress, or IngressRoute when the workload needs network exposure.\n- Check Pod logs and events if the rollout stalls or image pulls fail.\n\n## References\n- [Deployment Documentation](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)",
     "tags": [],
     "template_version": "1.31.0",
     "icon": {

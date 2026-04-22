@@ -4,7 +4,6 @@
   "metadata": {
     "name": "Kubernetes CronJob",
     "description": "Creates a Kubernetes CronJob with configurable schedule, image, command and args lists, simple environment variables, optional PVC mounting, and optional resource requests and limits.",
-    "guide": "## Overview\nCreates a Kubernetes CronJob resource for recurring backups, sync jobs, maintenance tasks, and scheduled application workflows.\n\n## Prerequisites\n- Confirm the image, schedule, and any referenced ServiceAccount or PersistentVolumeClaim exist before applying the manifest.\n- If the job touches external systems, make sure the target credentials and network policy are already in place.\n\n## Apply\n- Render `main.yaml`, review the schedule, command, retry behavior, and any mounted PVC, then apply it with `kubectl apply -f main.yaml`.\n- Use `kubectl get cronjob <name> -n <namespace>` and `kubectl get jobs -n <namespace>` to confirm the schedule behaves as expected.\n\n## Follow-Up\n- Trigger a manual run from the rendered spec if you want to validate the job before waiting for the next schedule.\n- Review logs from the created Job Pods to verify backups or maintenance steps completed successfully.\n\n## References\n- [CronJob Documentation](https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/)",
     "tags": [],
     "template_version": "1.31.0",
     "icon": {

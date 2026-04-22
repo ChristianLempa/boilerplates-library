@@ -4,7 +4,6 @@
   "metadata": {
     "name": "Cloudflare Zone (datasource)",
     "description": "",
-    "guide": "",
     "icon": {
       "provider": "selfhst",
       "id": "cloudflare",

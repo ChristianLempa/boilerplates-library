@@ -4,7 +4,6 @@
   "metadata": {
     "name": "Nginx",
     "description": "High-performance web server, reverse proxy, and load balancer known for stability, low resource consumption, and simple configuration.",
-    "guide": "## Overview\nHigh-performance web server, reverse proxy, and load balancer known for stability, low resource consumption, and simple configuration.\n\n## Prerequisites\n- Decide on replica count, placement constraints, published ports, and whether the service will be exposed directly or through Traefik.\n- Prepare your site content, reverse-proxy config, and any TLS material separately before deploying to production.\n- If you enable Traefik, make sure the target network and DNS record already exist.\n\n## Deploy\n- Render the generated files, review the routing and placement settings, and deploy with `docker stack deploy -c compose.yaml <stack-name>`.\n- Verify that the tasks land on the expected nodes and that the service responds on the configured ports or ingress route.\n\n## Post-Install\n- Validate direct port access and any Traefik routing before sending real traffic to the stack.\n- Replace placeholder content or server blocks with your intended site configuration.\n- Monitor replica placement after node restarts so Swarm keeps the service where you expect it.\n\n## References\n- [Nginx](https://nginx.org/)\n- [Documentation](https://nginx.org/en/docs/)\n- [GitHub](https://github.com/nginx/nginx)",
     "tags": [
       "traefik"
     ],

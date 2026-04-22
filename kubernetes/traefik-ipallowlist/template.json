@@ -4,7 +4,6 @@
   "metadata": {
     "name": "Traefik IPAllowList Middleware",
     "description": "Traefik Middleware CRD for restricting access to trusted source CIDR ranges, with optional client IP strategy controls for proxied deployments.",
-    "guide": "## Overview\nCreates a Traefik Middleware resource for `ipAllowList` so only trusted source ranges can access the attached routes.\n\n## Prerequisites\n- Traefik must be installed with the Kubernetes CRD provider enabled.\n- Confirm the source ranges and proxy chain match the actual client IP behavior in your environment.\n\n## Apply\n- Render `main.yaml`, review the source ranges and optional IP strategy settings, then apply it with `kubectl apply -f main.yaml`.\n- Attach the middleware to one non-critical route first so you can confirm clients are evaluated as expected.\n\n## Follow-Up\n- Test from an allowed IP and a denied IP before using the middleware on admin or dashboard routes.\n- Revisit the IP strategy settings if you place Traefik behind another reverse proxy or load balancer.\n\n## References\n- [IPAllowList Middleware](https://doc.traefik.io/traefik/middlewares/http/ipallowlist/)\n- [Traefik Kubernetes CRD](https://doc.traefik.io/traefik/routing/providers/kubernetes-crd/)",
     "tags": [],
     "template_version": "3.5.3",
     "icon": {

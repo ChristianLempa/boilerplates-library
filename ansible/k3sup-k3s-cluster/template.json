@@ -4,7 +4,6 @@
   "metadata": {
     "name": "Bootstrap K3s Cluster with k3sup",
     "description": "Bootstraps a K3s cluster from the Ansible control machine by using k3sup over SSH. Supports first-server install, optional agent joins, and local or remote kubeconfig placement.",
-    "guide": "## Overview\nThis playbook uses `k3sup` from the Ansible control machine to bootstrap a K3s server and optionally join agent nodes.\n\n## Prerequisites\n- Add the first K3s server and any agent nodes to your Ansible inventory and confirm SSH connectivity first.\n- Make sure the remote SSH user can run `sudo` non-interactively if you keep `k3sup_use_sudo` enabled.\n- Review the kubeconfig destination mode before you run the play so the generated admin config lands in the right place.\n\n## Run\n1. Render `main.yml` and confirm the server host, agent host pattern, SSH details, and K3s extra arguments.\n2. If you enable binary installation, run the playbook from a control machine that can write to the chosen install path.\n3. Verify that the server is healthy and that every intended agent joins the cluster after the play completes.\n\n## Notes\n- Re-runs are conservative: the server bootstrap and agent join commands only run when the expected K3s files are still missing.\n- Remote kubeconfig mode still renders the kubeconfig locally first, then copies it to the selected remote destination host.\n\n## Docs\n- [k3sup](https://github.com/alexellis/k3sup)\n- [K3s Documentation](https://docs.k3s.io/)",
     "tags": [
       "kubernetes",
       "k3s",

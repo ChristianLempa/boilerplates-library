@@ -4,7 +4,6 @@
   "metadata": {
     "name": "Portainer",
     "description": "Web-based management UI for Docker and Kubernetes environments. Simplifies container, image, network, and volume management through an intuitive interface.",
-    "guide": "## Overview\nWeb-based management UI for Docker and Kubernetes environments. Simplifies container, image, network, and volume management through an intuitive interface.\n\n## Deploy\n- Render `compose.yaml`, review the generated files, then start the stack with `docker compose up -d`.\n- Confirm the server is healthy with `docker compose ps` before opening the UI for first-time setup.\n\n## Post-Install\n- Create the initial admin user, then connect the local Docker environment or your target endpoint before handing the instance to other users.\n\n## Docs\n- [Portainer](https://www.portainer.io/)\n- [Documentation](https://docs.portainer.io/)\n- [GitHub](https://github.com/portainer/portainer)",
     "tags": [
       "traefik",
       "volumes"

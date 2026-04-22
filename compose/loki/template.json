@@ -4,7 +4,6 @@
   "metadata": {
     "name": "Loki",
     "description": "Horizontally scalable, multi-tenant log aggregation system by Grafana, inspired by Prometheus. Indexes metadata rather than log content for efficient storage.",
-    "guide": "## Overview\nHorizontally scalable, multi-tenant log aggregation system by Grafana, inspired by Prometheus. Indexes metadata rather than log content for efficient storage.\n\n## Deploy\n- Render `compose.yaml`, review the generated files, then start the stack with `docker compose up -d`.\n- Confirm the containers are healthy with `docker compose ps` and follow `docker compose logs -f` during the first boot if initialization is still running.\n\n## Docs\n- [Loki](https://grafana.com/oss/loki/)\n- [Documentation](https://grafana.com/docs/loki/latest/)\n- [GitHub](https://github.com/grafana/loki)",
     "tags": [
       "traefik",
       "authentik"

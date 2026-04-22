@@ -4,7 +4,6 @@
   "metadata": {
     "name": "NetBird Network Resource",
     "description": "Creates a NetBird network resource and attaches it to one or more groups.",
-    "guide": "## Overview\nCreates a NetBird network resource inside an existing NetBird network.\n\n## Prerequisites\n- Create an admin PAT for the NetBird management API before rendering `provider.tf`.\n- Provide `network_name` for the parent network. The template resolves it with `data \"netbird_network\"`.\n- Provide `group_names` as a comma-separated list of existing NetBird group names. The template resolves them with `data \"netbird_group\"` before attaching the resource.\n\n## Apply\n- Render `provider.tf` and `main.tf`.\n- Review the network name, address, and resolved group memberships carefully.\n- Run `terraform fmt`, `terraform plan`, and `terraform apply`.\n\n## References\n- [NetBird Networks](https://docs.netbird.io/how-to/networks#resources)\n- [Terraform Resource](https://github.com/netbirdio/terraform-provider-netbird/blob/main/docs/resources/network_resource.md)\n- [Network Data Source](https://github.com/netbirdio/terraform-provider-netbird/blob/main/docs/data-sources/network.md)\n- [Group Data Source](https://github.com/netbirdio/terraform-provider-netbird/blob/main/docs/data-sources/group.md)",
     "tags": [
       "netbird",
       "terraform"

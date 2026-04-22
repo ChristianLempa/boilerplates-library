@@ -4,7 +4,6 @@
   "metadata": {
     "name": "Gitlab-Runner",
     "description": "CI/CD build runner for GitLab pipelines. Executes jobs defined in .gitlab-ci.yml using the Docker executor.",
-    "guide": "## Overview\nCI/CD build runner for GitLab pipelines. Executes jobs defined in .gitlab-ci.yml using the Docker executor.\n\n## Prerequisites\n- Create the runner in GitLab first and copy the runner authentication token before first start.\n- Confirm the GitLab instance URL is reachable from the Docker host.\n- Decide which default Docker image the runner should use for jobs that do not specify their own image.\n\n## Deploy\n- Render `compose.yaml` and `config.toml`, review the runner URL and token, then start the stack with `docker compose up -d`.\n- Confirm the runner container stays healthy and check `docker compose logs -f` until it reports as online.\n\n## Post-Install\n- Verify the runner appears online in GitLab and execute a small test pipeline before assigning production jobs to it.\n- If you need Docker Hub rate-limit relief, replace the example `DOCKER_AUTH_CONFIG` block with your own credentials.\n\n## Docs\n- [GitLab Runner](https://docs.gitlab.com/runner/)\n- [Register a Runner](https://docs.gitlab.com/runner/register/)\n- [GitHub](https://github.com/gitlab/gitlab-runner)",
     "tags": [],
     "template_version": "alpine-v17.9.1",
     "icon": {

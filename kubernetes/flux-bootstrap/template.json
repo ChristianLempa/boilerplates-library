@@ -4,7 +4,6 @@
   "metadata": {
     "name": "Flux Bootstrap",
     "description": "Draft Flux bootstrap manifests for wiring an already-installed Flux control plane to a Git repository and root Kustomization, with optional Helm source and release resources.",
-    "guide": "## Overview\nBootstraps Flux after the controllers are already installed in the cluster. The template creates a `GitRepository` and root `Kustomization`, with optional `HelmRepository` and `HelmRelease` resources for teams that want a small starter example in the same render.\n\n## Typical Use\n- Install Flux controllers first using `flux install`, Helm, or your platform installer.\n- Point the `GitRepository` at the repo that contains your cluster state.\n- Set the Kustomization path to your cluster root such as `./clusters/prod`.\n- Enable SOPS decryption only after the referenced secret already exists in the Flux namespace.\n\n## Notes\n- `targetNamespace` is optional but useful when the rendered Kustomization should force resources into a specific namespace.\n- `dependsOn` is intentionally kept lightweight with a single dependency placeholder so the template stays readable.\n- The optional Helm resources are a convenience stub, not a full GitOps platform layout.\n\n## References\n- [Flux GitRepository](https://fluxcd.io/flux/components/source/gitrepositories/)\n- [Flux Kustomization](https://fluxcd.io/flux/components/kustomize/kustomizations/)\n- [Flux Helm Releases](https://fluxcd.io/flux/guides/helmreleases/)",
     "tags": [],
     "template_version": "2.7.5",
     "icon": {

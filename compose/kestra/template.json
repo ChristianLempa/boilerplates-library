@@ -4,7 +4,6 @@
   "metadata": {
     "name": "Kestra",
     "description": "Runs Kestra in Docker Compose with a companion configuration file, PostgreSQL datasource settings, and persistent storage.",
-    "guide": "## Overview\nRuns Kestra in Docker Compose with a companion configuration file and persistent storage.\n\n## Prerequisites\n- Provide a reachable PostgreSQL datasource before first start.\n- Mount the Docker socket only on a trusted host because flows can execute Docker-based tasks.\n- If you expose Kestra through Traefik or another identity layer, make sure the referenced middleware and network already exist.\n\n## Deploy\n- Render `compose.yaml` and `config/config.yaml`, then fill in the PostgreSQL datasource settings.\n- Start the stack with `docker compose up -d` and watch the logs until the web service is listening.\n\n## Post-Install\n- Add workflow-specific secrets to your `.env` or environment configuration before enabling flows that depend on them.\n- Import or sync your flows after the instance is healthy and verify the storage and temp paths are writable.\n- If you do not front Kestra with SSO, extend the config with your preferred authentication settings before exposing it publicly.\n\n## References\n- [Kestra Documentation](https://kestra.io/docs)\n- [Kestra Configuration](https://kestra.io/docs/configuration)\n- [Kestra Docker Deployment](https://kestra.io/docs/installation/docker)",
     "tags": [],
     "template_version": "v1.0.0",
     "icon": {

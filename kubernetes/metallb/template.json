@@ -4,7 +4,6 @@
   "metadata": {
     "name": "MetalLB Layer2 Bootstrap",
     "description": "Practical MetalLB bootstrap manifests for the common homelab path: an IPAddressPool plus L2Advertisement for bare-metal LoadBalancer services.",
-    "guide": "## Overview\nCreates the basic MetalLB resources most homelabs need after the MetalLB controller is already installed: one `IPAddressPool` and one `L2Advertisement`.\n\n## Typical Use\n- Install MetalLB first with Helm or raw manifests.\n- Choose an address range that is outside your DHCP scope and reserved for Kubernetes services.\n- Bind announcements to specific interfaces or nodes only when you have a strong networking reason to do so.\n\n## Notes\n- This template focuses on Layer2 because it is the simplest and most common bare-metal setup.\n- If you later move to BGP, keep this Layer2 template separate from routing-specific templates instead of overloading one file.\n\n## References\n- [MetalLB Configuration](https://metallb.io/configuration/)\n- [Advanced L2 Configuration](https://metallb.io/configuration/_advanced_l2_configuration)\n- [MetalLB API Reference](https://metallb.io/apis/index.html)",
     "tags": [],
     "template_version": "0.15.2",
     "icon": {

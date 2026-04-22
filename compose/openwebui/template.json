@@ -4,7 +4,6 @@
   "metadata": {
     "name": "Openwebui",
     "description": "Web-based interface for managing and interacting with local AI models (Ollama, etc.). Provides chat, model management, and multi-user support.",
-    "guide": "## Overview\nWeb-based interface for managing and interacting with local AI models (Ollama, etc.). Provides chat, model management, and multi-user support.\n\n## Prerequisites\n- Have an Ollama or OpenAI-compatible backend reachable from the container before first start.\n- If you enable Authentik SSO, create the client, collect the issuer metadata URL, and register the redirect URI before deploying.\n- Decide whether the UI will be exposed through Traefik or a direct published port.\n\n## Deploy\n- Render the generated files, verify the model backend URL and any OAuth values, and start the stack with `docker compose up -d`.\n- Watch the logs until the web UI is reachable and can successfully contact the configured model backend.\n\n## Post-Install\n- Complete the initial admin setup flow, then test a chat request and at least one model pull or backend connection.\n- If SSO is enabled, verify login and logout with your identity provider before disabling local-only access patterns.\n- Review user access, model permissions, and data retention settings before opening the instance to multiple users.\n\n## References\n- [Open WebUI](https://openwebui.com/)\n- [Documentation](https://docs.openwebui.com/)\n- [GitHub](https://github.com/open-webui/open-webui)",
     "tags": [
       "traefik",
       "authentik"

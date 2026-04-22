@@ -4,7 +4,6 @@
   "metadata": {
     "name": "BIND9",
     "description": "The most widely used authoritative and recursive DNS server. This template includes example zones, TSIG authentication for secure zone transfers, and DNSSEC support.",
-    "guide": "## Overview\nThe most widely used authoritative and recursive DNS server. This template includes example zones, TSIG authentication for secure zone transfers, and DNSSEC support.\n\n## Prerequisites\n- Decide whether the server should run on `bridge`, `host`, or `macvlan` networking before deployment.\n- Replace the example zones and any TSIG material with real values before exposing the server outside a lab environment.\n- Open both UDP and TCP port 53 on the host or upstream firewall.\n\n## Deploy\n- Render the generated files and review the zone data, TSIG settings, and DNSSEC options before starting the container.\n- Start the stack with `docker compose up -d` and confirm the `named` process starts cleanly.\n\n## Post-Install\n- Validate the configuration with `named-checkconf` and validate each zone with `named-checkzone` before pointing clients at the server.\n- Test authoritative answers, recursive queries, and any zone transfer behavior from another host on the target network.\n\n## References\n- [ISC BIND](https://www.isc.org/bind/)\n- [Documentation](https://bind9.readthedocs.io/)",
     "tags": [
       "network",
       "volume"

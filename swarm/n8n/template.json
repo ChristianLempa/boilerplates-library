@@ -4,7 +4,6 @@
   "metadata": {
     "name": "N8N",
     "description": "Source-available workflow automation tool that connects apps and services to automate tasks through a visual drag-and-drop node editor.",
-    "guide": "## Overview\nSource-available workflow automation tool that connects apps and services to automate tasks through a visual drag-and-drop node editor.\n\n## Prerequisites\n- Set a stable encryption key and decide which Docker secrets will carry sensitive values before deployment.\n- Use an external PostgreSQL or MySQL database for production workloads, and add Redis before enabling queue mode.\n- Decide on placement constraints, ingress exposure, and webhook URLs before you deploy the stack.\n\n## Deploy\n- Render the generated files, review the secret references, queue settings, and placement rules, then deploy with `docker stack deploy -c compose.yaml <stack-name>`.\n- Watch the service logs until the editor is reachable and the workers finish bootstrapping.\n\n## Post-Install\n- Complete the initial owner setup flow, then store the encryption key and secret names with your operational runbook.\n- Test one manual execution and one webhook-triggered workflow before onboarding real automations.\n- If metrics are enabled, add the `/metrics` endpoint to your monitoring stack.\n\n## References\n- [n8n](https://n8n.io/)\n- [Documentation](https://docs.n8n.io/)\n- [GitHub](https://github.com/n8n-io/n8n)",
     "tags": [
       "traefik",
       "database"

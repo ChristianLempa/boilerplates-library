@@ -4,7 +4,6 @@
   "metadata": {
     "name": "Proxmox VM (QEMU)",
     "description": "Creates a Proxmox virtual machine from a cloud-init-ready template with configurable clone, CPU, memory, disk, networking, and guest settings.",
-    "guide": "## Overview\nCreates a Proxmox QEMU virtual machine by cloning an existing cloud-init-ready template.\n\n## Prerequisites\n- A cloud-init-ready VM template must already exist in Proxmox.\n- The target node, bridge, and storage pools must already be available.\n- If you plan to access the guest immediately after first boot, include an SSH key and confirm the source template has cloud-init and the QEMU guest agent enabled.\n\n## Deploy\n- Render `provider.tf` and `main.tf`, then review the clone source, VMID, storage, and network settings.\n- Run `terraform fmt`, `terraform plan`, and `terraform apply` in the target workspace.\n\n## Post-Apply\n- Confirm the VM boots, receives the expected IP configuration, and completes cloud-init successfully.\n- Verify guest-agent reporting and any startup ordering before layering additional automation on top.\n\n## References\n- [Proxmox VE](https://www.proxmox.com/)\n- [Terraform Telmate Proxmox Provider](https://registry.terraform.io/providers/Telmate/proxmox/latest/docs/resources/vm_qemu)",
     "tags": [],
     "template_version": "3.0.2-rc07",
     "icon": {

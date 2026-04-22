@@ -4,7 +4,6 @@
   "metadata": {
     "name": "Traefik Retry Middleware",
     "description": "Traefik Middleware CRD for retrying failed upstream requests with a configurable attempt count and optional initial interval.",
-    "guide": "## Overview\nCreates a Traefik Middleware resource for `retry` so transient upstream failures can be retried before the client sees an error.\n\n## Prerequisites\n- Traefik must be installed with the Kubernetes CRD provider enabled.\n- Confirm the upstream application can safely tolerate retries for the routes where you plan to attach this middleware.\n\n## Apply\n- Render `main.yaml`, review the retry count and initial interval, then apply it with `kubectl apply -f main.yaml`.\n- Attach the middleware only to idempotent or otherwise retry-safe paths unless you fully understand the application behavior.\n\n## Follow-Up\n- Watch access logs and upstream metrics so you can verify the middleware is improving resilience instead of hiding instability.\n- Keep retry counts conservative for slow or stateful backends.\n\n## References\n- [Retry Middleware](https://doc.traefik.io/traefik/middlewares/http/retry/)\n- [Traefik Kubernetes CRD](https://doc.traefik.io/traefik/routing/providers/kubernetes-crd/)",
     "tags": [],
     "template_version": "3.5.3",
     "icon": {

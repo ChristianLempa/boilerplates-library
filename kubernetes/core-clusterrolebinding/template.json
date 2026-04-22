@@ -4,7 +4,6 @@
   "metadata": {
     "name": "Kubernetes ClusterRoleBinding",
     "description": "Creates a Kubernetes ClusterRoleBinding that binds one subject to a Role or ClusterRole.",
-    "guide": "## Overview\nCreates a Kubernetes ClusterRoleBinding resource for cluster-scoped RBAC access.\n\n## Prerequisites\n- The referenced Role or ClusterRole must already exist.\n- The target subject should already exist, especially for ServiceAccount subjects.\n\n## Apply\n- Render `main.yaml` and review the binding carefully because this resource can grant cluster-wide access.\n- Apply the manifest only after confirming the selected role matches the least-privilege access you actually need.\n\n## Follow-Up\n- Validate the result with `kubectl auth can-i` or by testing the bound workload directly.\n\n## References\n- [RBAC Documentation](https://kubernetes.io/docs/reference/access-authn-authz/rbac/)",
     "tags": [],
     "template_version": "1.31.0",
     "icon": {

@@ -4,7 +4,6 @@
   "metadata": {
     "name": "Homeassistant",
     "description": "Open-source smart home automation platform that puts local control and privacy first. Supports thousands of devices and integrations.",
-    "guide": "## Overview\nOpen-source smart home automation platform that puts local control and privacy first. Supports thousands of devices and integrations.\n\n## How to Use\nThis template renders `compose.yaml` as a file.\n\n1. Choose the configuration path and timezone before rendering the stack.\n2. Review whether you need D-Bus and optional USB device mappings for Bluetooth, Zigbee, Z-Wave, or other hardware integrations.\n3. Render the Compose project, review the generated files, and start it with Docker Compose on a Docker Engine host.\n\n## Variable Guide\n### General\n- `container_name`: Container Name; optional; default: homeassistant.\n- `restart_policy`: Restart Policy; optional; default: unless-stopped; options: unless-stopped, always, on-failure, no.\n- `service_name`: Service Name; optional; default: homeassistant.\n- `container_timezone`: Container Timezone; optional.\n\n## References\n- [Home Assistant](https://www.home-assistant.io/)\n- [Linux Installation](https://www.home-assistant.io/installation/linux/)\n- [Documentation](https://www.home-assistant.io/docs/)",
     "tags": [],
     "template_version": "2026.2.2",
     "icon": {

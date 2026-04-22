@@ -4,7 +4,6 @@
   "metadata": {
     "name": "Renovate",
     "description": "Self-hosted Mend Renovate CE worker for GitLab that scans repositories and opens dependency update merge requests.",
-    "guide": "## Overview\nSelf-hosted Mend Renovate CE worker for GitLab that scans repositories and opens dependency update merge requests.\n\n## Prerequisites\n- Prepare a Mend Renovate CE license key and a GitLab personal access token with the API scope required for the target repositories.\n- Confirm the GitLab API endpoint is reachable from the container, especially for self-hosted GitLab instances.\n- Decide whether the worker UI should be exposed directly or routed through Traefik before deployment.\n\n## Deploy\n- Render the generated files, verify the GitLab endpoint and authentication values, and start the stack with `docker compose up -d`.\n- Watch the logs until Renovate completes startup and can authenticate to GitLab successfully.\n\n## Post-Install\n- Test the worker against one non-critical repository before enabling autodiscovery across a larger group.\n- If you expose the web interface, configure the matching GitLab webhook secret and validate delivery.\n- Review onboarding and schedule behavior so update PR volume matches your maintenance window.\n\n## References\n- [Renovate](https://www.mend.io/renovate/)\n- [Documentation](https://docs.renovatebot.com/)\n- [GitHub](https://github.com/renovatebot/renovate)",
     "tags": [
       "traefik"
     ],

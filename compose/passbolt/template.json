@@ -4,7 +4,6 @@
   "metadata": {
     "name": "Passbolt",
     "description": "Open-source password manager designed for teams and businesses. Provides secure storage, sharing, and collaborative management of passwords and sensitive information.",
-    "guide": "## Overview\nOpen-source password manager designed for teams and businesses. Provides secure storage, sharing, and collaborative management of passwords and sensitive information.\n\n## Prerequisites\n- Have SMTP settings, TLS, and the required Passbolt secrets ready before exposing the instance to users.\n\n## Deploy\n- Render `compose.yaml`, review the generated files, then start the stack with `docker compose up -d`.\n- Confirm the containers are healthy with `docker compose ps` and follow `docker compose logs -f` during the first boot if initialization is still running.\n\n## Post-Install\n- Complete the Passbolt setup flow, verify email delivery, and follow the official hardening steps before production use.\n\n## Docs\n- [Passbolt](https://www.passbolt.com/)\n- [Documentation](https://help.passbolt.com/)\n- [GitHub](https://github.com/passbolt/passbolt)",
     "tags": [
       "traefik",
       "database"

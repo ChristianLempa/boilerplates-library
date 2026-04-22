@@ -4,7 +4,6 @@
   "metadata": {
     "name": "Kubernetes DaemonSet",
     "description": "Creates a Kubernetes DaemonSet with configurable image, optional host networking, one container port, simple environment variables, an optional hostPath mount, optional control-plane tolerations, and optional resource requests and limits.",
-    "guide": "## Overview\nCreates a Kubernetes DaemonSet resource for agents, log shippers, metrics collectors, and other workloads that need one Pod per node.\n\n## Prerequisites\n- Confirm the container image, service account, and any host paths referenced by the template are valid for the target nodes.\n- Enable control-plane tolerations only when the workload is intended to run on those nodes.\n\n## Apply\n- Render `main.yaml`, review host networking, tolerations, and any hostPath mount settings, then apply it with `kubectl apply -f main.yaml`.\n- Use `kubectl rollout status daemonset/<name> -n <namespace>` to validate the rollout across nodes.\n\n## Follow-Up\n- Check Pod placement and logs on at least one worker and one control-plane node when that toleration is enabled.\n- Pair the DaemonSet with a ServiceMonitor, NetworkPolicy, or Service when the workload needs integration with the rest of the cluster.\n\n## References\n- [DaemonSet Documentation](https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/)",
     "tags": [],
     "template_version": "1.31.0",
     "icon": {

@@ -4,7 +4,6 @@
   "metadata": {
     "name": "Docker MySQL Backup",
     "description": "Connects to a named MySQL container and creates compressed SQL dumps with configurable retention. Supports optional Discord notifications on success or failure.",
-    "guide": "## Overview\nThis playbook creates compressed backups from a MySQL container and enforces retention.\n\n## Prerequisites\n- Confirm the target container name, database scope, and backup destination before running.\n- Provide the Discord webhook values first if you want backup notifications.\n\n## Run\n1. Render `main.yml` and review the container, database, retention, and notification settings.\n2. Run the playbook against the Docker host that runs the MySQL container.\n3. Verify the dump files and retention behavior after the play completes.\n\n## Docs\n- [mysqldump Documentation](https://dev.mysql.com/doc/refman/8.0/en/mysqldump.html)",
     "tags": [
       "docker",
       "backup",

@@ -4,7 +4,6 @@
   "metadata": {
     "name": "Traefik CircuitBreaker Middleware",
     "description": "Traefik Middleware CRD for tripping a circuit breaker when an upstream meets a configured failure expression.",
-    "guide": "## Overview\nCreates a Traefik Middleware resource for `circuitBreaker` so unstable backends can be protected with a simple failure expression.\n\n## Prerequisites\n- Traefik must be installed with the Kubernetes CRD provider enabled.\n- Review the expression carefully and understand how it interacts with the upstream service and any retry logic.\n\n## Apply\n- Render `main.yaml`, review the expression, then apply it with `kubectl apply -f main.yaml`.\n- Start with conservative thresholds and observe backend behavior before using more aggressive failure conditions.\n\n## Follow-Up\n- Combine this middleware with retries or buffering only when those settings make sense for the same upstream.\n- Watch Traefik logs and service health metrics so you can tune the expression with real traffic patterns.\n\n## References\n- [CircuitBreaker Middleware](https://doc.traefik.io/traefik/middlewares/http/circuitbreaker/)\n- [Traefik Kubernetes CRD](https://doc.traefik.io/traefik/routing/providers/kubernetes-crd/)",
     "tags": [],
     "template_version": "3.5.3",
     "icon": {

@@ -4,7 +4,6 @@
   "metadata": {
     "name": "Docker Healthcheck Audit",
     "description": "Audits Docker containers for missing healthchecks and optionally fails the playbook when violations are found. Can save a JSON audit report to the target host.",
-    "guide": "## Overview\nThis playbook audits containers for missing Docker healthchecks.\n\n## Prerequisites\n- Decide whether the playbook should fail when missing healthchecks are found.\n- Confirm the report path is writable if you plan to save the audit output.\n\n## Run\n1. Render `main.yml` and review the failure and report options.\n2. Run the playbook against the target Docker hosts.\n3. Review the output and update the affected container definitions as needed.\n\n## Docs\n- [Docker HEALTHCHECK](https://docs.docker.com/engine/reference/builder/#healthcheck)",
     "tags": [
       "docker",
       "audit",

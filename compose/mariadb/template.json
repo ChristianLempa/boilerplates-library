@@ -4,7 +4,6 @@
   "metadata": {
     "name": "MariaDB",
     "description": "Community-developed, open-source relational database management system and drop-in replacement for MySQL.",
-    "guide": "## Overview\nCommunity-developed, open-source relational database management system and drop-in replacement for MySQL.\n\n## Deploy\n- Render `compose.yaml` and `.env`, review the generated files, then start the stack with `docker compose up -d`.\n- Confirm the container is healthy with `docker compose ps` and follow `docker compose logs -f` during the first boot if initialization is still running.\n\n## Post-Install\n- Store the rendered database credentials securely and test a root login and an application login before pointing workloads at the instance.\n\n## Docs\n- [MariaDB](https://mariadb.org/)\n- [Documentation](https://mariadb.com/kb/en/documentation/)\n- [GitHub](https://github.com/MariaDB/server)\n\n## Next Steps\nLog in with your initial users:\n```bash\nRoot password: << database_root_password >>\nApp user: << database_user >>\nApp password: << database_password >>\n```",
     "tags": [],
     "template_version": "12.2.2",
     "icon": {

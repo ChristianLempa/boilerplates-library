@@ -4,7 +4,6 @@
   "metadata": {
     "name": "Enable Docker TLS",
     "description": "Enables TLS on the Docker daemon using existing certificates. Configures Docker for secure remote API access over an encrypted connection.",
-    "guide": "## Overview\nThis playbook enables TLS on the Docker daemon using an existing certificate set.\n\n## Prerequisites\n- Generate the Docker TLS certificates first.\n- Confirm the certificate paths on the target host match the rendered playbook values.\n\n## Run\n1. Render `main.yml` and review the certificate path.\n2. Run the playbook against the Docker workload hosts that should expose a TLS-protected API. The workload inventory already provides the host selection, so the playbook runs against `all` selected hosts.\n3. Reconnect Docker clients with the matching CA and client certificates after the daemon restarts.\n\n## Docs\n- [Docker TLS Documentation](https://docs.docker.com/engine/security/protect-access/)",
     "tags": [],
     "template_version": "1.0.0",
     "icon": {

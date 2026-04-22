@@ -4,7 +4,6 @@
   "metadata": {
     "name": "Prometheus",
     "description": "Open-source systems monitoring and alerting toolkit. Collects and stores metrics as time series data, with a powerful query language (PromQL) and integration with visualization tools like Grafana.",
-    "guide": "## Overview\nOpen-source systems monitoring and alerting toolkit. Collects and stores metrics as time series data, with a powerful query language (PromQL) and integration with visualization tools like Grafana.\n\n## Deploy\n- Render `compose.yaml`, review the generated files, then start the stack with `docker compose up -d`.\n- Confirm the containers are healthy with `docker compose ps` and follow `docker compose logs -f` during the first boot if initialization is still running.\n\n## Post-Install\n- Add or adjust scrape targets in the rendered Prometheus config and reload Prometheus after changes.\n\n## Docs\n- [Prometheus](https://prometheus.io/)\n- [Documentation](https://prometheus.io/docs/)\n- [GitHub](https://github.com/prometheus/prometheus)\n\n## Next Steps\n1. Start Prometheus with Docker Compose:\n   docker compose up -d\n2. Access Prometheus:\n   <%- if traefik_enabled %> https://<< traefik_host >>\n   <%- else %> http://localhost:<< ports_http >><%- endif %>\n3. Edit config/prometheus.yaml to add scrape targets\n4. Reload configuration: docker exec << container_name >> kill -HUP 1\n",
     "tags": [
       "traefik",
       "authentik"

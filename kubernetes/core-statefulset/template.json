@@ -4,7 +4,6 @@
   "metadata": {
     "name": "Kubernetes StatefulSet",
     "description": "Creates a Kubernetes StatefulSet with configurable image, replicas, optional service account, one container port, simple environment variables, optional resource requests and limits, and an optional volumeClaimTemplate for persistent storage.",
-    "guide": "## Overview\nCreates a Kubernetes StatefulSet resource for workloads that need stable pod identities and optional persistent storage.\n\n## Prerequisites\n- Create the Service referenced by `service_name` before depending on stable network identities.\n- Confirm the container image and any referenced storage class are available in the target cluster.\n\n## Apply\n- Render `main.yaml`, review the service name, storage settings, and update strategy, then apply it with `kubectl apply -f main.yaml`.\n- Use `kubectl rollout status statefulset/<name> -n <namespace>` to confirm the rollout succeeds.\n\n## Follow-Up\n- Pair the StatefulSet with a Service and any ingress resources required by the workload.\n- Verify persistent volume provisioning and application readiness before scaling beyond the first replica.\n\n## References\n- [StatefulSet Documentation](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/)",
     "tags": [],
     "template_version": "1.31.0",
     "icon": {

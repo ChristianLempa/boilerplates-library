@@ -4,7 +4,6 @@
   "metadata": {
     "name": "Longhorn",
     "description": "Helm chart for Longhorn, a distributed block storage system for Kubernetes with built-in backup, snapshots, and disaster recovery.",
-    "guide": "## Overview\nHelm chart for Longhorn, a distributed block storage system for Kubernetes with built-in backup, snapshots, and disaster recovery.\n\n## Prerequisites\n- Review Longhorn's environment checks and prepare the required disks, mount points, and host services on every storage node before install.\n- If you enable the default backup target, provision that object store or NFS target first and confirm credentials are available to the cluster.\n- Make sure the nodes that will host Longhorn have enough free capacity and stable network connectivity.\n\n## Deploy\n- Render `values.yaml`, then install or update the release with `helm upgrade --install`.\n- Wait until the Longhorn manager and UI pods are ready and the nodes appear healthy in the UI.\n\n## Post-Install\n- Verify that every intended node and disk is schedulable before creating production volumes.\n- If backups are enabled, run one backup and one restore test before relying on the target for disaster recovery.\n- Take a snapshot and attach a test volume so you confirm the CSI path works end to end.\n\n## References\n- [Longhorn](https://longhorn.io/)\n- [Documentation](https://longhorn.io/docs/)\n- [Helm Chart](https://charts.longhorn.io)",
     "tags": [],
     "template_version": "1.9.1",
     "icon": {

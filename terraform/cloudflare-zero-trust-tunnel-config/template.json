@@ -4,7 +4,6 @@
   "metadata": {
     "name": "Cloudflare Zero Trust Tunnel Config",
     "description": "Creates a Cloudflare Zero Trust tunnel ingress configuration for a cloudflared tunnel with a primary hostname and fallback service.",
-    "guide": "## Overview\nCreates a Cloudflare Zero Trust tunnel configuration for an existing `cloudflared` tunnel.\n\n## Prerequisites\n- The target tunnel must already exist in Cloudflare Zero Trust.\n- A `cloudflared` connector should already be online so the ingress rules have a live tunnel to attach to.\n\n## Apply\n- Render `main.tf`, then run `terraform fmt`, `terraform plan`, and `terraform apply`.\n- Review the generated ingress order carefully because Cloudflare evaluates ingress rules from top to bottom.\n\n## Follow-Up\n- Test the published hostname after apply and confirm the fallback rule behaves as expected.\n- Keep the Docker-side `cloudflared` deployment and the Terraform-side ingress config in sync.\n\n## References\n- [Cloudflare Tunnel](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/)\n- [Terraform Provider](https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs/resources/zero_trust_tunnel_cloudflared_config)",
     "tags": [],
     "template_version": "5.12.0",
     "icon": {
