@@ -6,7 +6,7 @@
     "description": "Helm chart for Authentik, an open-source Identity Provider supporting OAuth2, SAML, and LDAP for flexible single sign-on and authentication.",
     "guide": "## Overview\nHelm chart for Authentik, an open-source Identity Provider supporting OAuth2, SAML, and LDAP for flexible single sign-on and authentication.\n\n## Prerequisites\n- Decide whether the release should use the bundled PostgreSQL dependency or an external database before install.\n- Generate a strong `authentik_secret_key` and store it with the rest of your cluster secrets.\n- Prepare the ingress hostname, TLS plan, and SMTP settings before enabling public access.\n\n## Deploy\n- Render `values.yaml` and `secrets.yaml`, review the database mode and ingress settings, then install or update the release with `helm upgrade --install`.\n- Wait until the server and worker pods are ready and confirm migrations completed cleanly.\n\n## Post-Install\n- Complete the initial bootstrap flow, sign in as `akadmin`, and rotate any bootstrap credentials immediately.\n- If email is enabled, send a test message before onboarding users.\n- Verify database and secret backup coverage before treating the deployment as production-ready.\n\n## References\n- [Authentik](https://goauthentik.io/)\n- [Documentation](https://goauthentik.io/docs/)\n- [Helm Chart](https://charts.goauthentik.io)",
     "tags": [],
-    "template_version": "2025.6.3",
+    "template_version": "2025.12.4",
     "icon": {
       "provider": "selfhst",
       "id": "authentik"
