@@ -1,6 +1,6 @@
 services:
   << service_name >>:
-    image: docker.io/twingate/connector:1.80.0
+    image: docker.io/twingate/connector:1.87.0
     restart: << restart_policy >>
     container_name: << container_name >>
     hostname: << container_hostname >>
