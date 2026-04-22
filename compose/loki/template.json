@@ -9,7 +9,7 @@
       "traefik",
       "authentik"
     ],
-    "template_version": "3.6.5",
+    "template_version": "3.7.1",
     "icon": {
       "provider": "selfhst",
       "id": "loki"
