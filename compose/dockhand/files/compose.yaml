@@ -1,0 +1,59 @@
+services:
+  << service_name >>:
+    image: docker.io/fnsys/dockhand:v1.0.26
+    restart: << restart_policy >>
+    <%- if database_type == 'postgres' or disable_local_login or encryption_key or puid or pgid %>
+    environment:
+      <%- if database_type == 'postgres' %>
+      - DATABASE_URL=postgres://<< database_user >>:${DATABASE_PASSWORD}@<< database_host >>:<< database_port >>/<< database_name >>
+      <%- endif %>
+      <%- if encryption_key %>
+      - ENCRYPTION_KEY=${ENCRYPTION_KEY}
+      <%- endif %>
+      <%- if puid %>
+      - PUID=<< puid >>
+      <%- endif %>
+      <%- if pgid %>
+      - PGID=<< pgid >>
+      <%- endif %>
+      <%- if disable_local_login %>
+      - DISABLE_LOCAL_LOGIN=<< disable_local_login | lower >>
+      <%- endif %>
+    <%- endif %>
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - dockhand_data:/app/data
+    <%- if traefik_enabled %>
+    networks:
+      - << traefik_network >>
+    <%- endif %>
+    <%- if not traefik_enabled %>
+    ports:
+      - "<< ports_http >>:3000"
+    <%- endif %>
+    <%- if traefik_enabled %>
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=<< traefik_network >>
+      - traefik.http.services.<< service_name >>-web.loadBalancer.server.port=3000
+      - traefik.http.routers.<< service_name >>-http.service=<< service_name >>-web
+      - traefik.http.routers.<< service_name >>-http.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
+      - traefik.http.routers.<< service_name >>-http.entrypoints=web
+      <%- if traefik_tls_enabled %>
+      - traefik.http.routers.<< service_name >>-https.service=<< service_name >>-web
+      - traefik.http.routers.<< service_name >>-https.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
+      - traefik.http.routers.<< service_name >>-https.entrypoints=websecure
+      - traefik.http.routers.<< service_name >>-https.tls=true
+      - traefik.http.routers.<< service_name >>-https.tls.certresolver=<< traefik_tls_certresolver >>
+      <%- endif %>
+    <%- endif %>
+
+volumes:
+  dockhand_data:
+    driver: local
+
+<%- if traefik_enabled %>
+networks:
+  << traefik_network >>:
+    external: true
+<%- endif %>
