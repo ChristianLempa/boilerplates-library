@@ -8,7 +8,7 @@
     "tags": [
       "reverse-proxy"
     ],
-    "template_version": "3.6.8",
+    "template_version": "v3.6.13",
     "icon": {
       "provider": "selfhst",
       "id": "traefik"
