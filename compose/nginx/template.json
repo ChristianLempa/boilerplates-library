@@ -18,7 +18,8 @@
   "variables": [
     {
       "title": "General",
-      "variables": [
+      "name": "general",
+      "items": [
         {
           "name": "service_name",
           "type": "str",
@@ -68,12 +69,13 @@
           },
           "description": "Timezone used inside the container."
         }
-      ],
-      "name": "general"
+      ]
     },
     {
       "title": "Traefik",
-      "variables": [
+      "name": "traefik",
+      "toggle": "traefik_enabled",
+      "items": [
         {
           "name": "traefik_enabled",
           "type": "bool",
@@ -151,13 +153,12 @@
             "traefik_tls_enabled=true"
           ]
         }
-      ],
-      "name": "traefik",
-      "toggle": "traefik_enabled"
+      ]
     },
     {
       "title": "Ports",
-      "variables": [
+      "name": "ports",
+      "items": [
         {
           "name": "ports_http",
           "type": "int",
@@ -180,8 +181,7 @@
             "placeholder": "8443"
           }
         }
-      ],
-      "name": "ports"
+      ]
     }
   ]
 }

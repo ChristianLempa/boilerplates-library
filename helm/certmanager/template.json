@@ -16,7 +16,8 @@
   "variables": [
     {
       "title": "DNS Configuration",
-      "variables": [
+      "name": "dns",
+      "items": [
         {
           "name": "dns_nameserver_1",
           "type": "str",
@@ -47,8 +48,7 @@
           "default": true,
           "description": "Use only recursive nameservers for DNS01 challenges"
         }
-      ],
-      "name": "dns"
+      ]
     }
   ]
 }

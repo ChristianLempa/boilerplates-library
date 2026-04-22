@@ -19,7 +19,8 @@
   "variables": [
     {
       "title": "General",
-      "variables": [
+      "name": "general",
+      "items": [
         {
           "name": "service_name",
           "type": "str",
@@ -80,12 +81,12 @@
             ]
           }
         }
-      ],
-      "name": "general"
+      ]
     },
     {
       "title": "Ports",
-      "variables": [
+      "name": "ports",
+      "items": [
         {
           "name": "ports_http",
           "type": "int",
@@ -100,12 +101,13 @@
             "placeholder": "3000"
           }
         }
-      ],
-      "name": "ports"
+      ]
     },
     {
       "title": "Traefik",
-      "variables": [
+      "name": "traefik",
+      "toggle": "traefik_enabled",
+      "items": [
         {
           "name": "traefik_enabled",
           "type": "bool",
@@ -192,13 +194,12 @@
             "traefik_tls_enabled=true"
           ]
         }
-      ],
-      "name": "traefik",
-      "toggle": "traefik_enabled"
+      ]
     },
     {
       "title": "Volume",
-      "variables": [
+      "name": "volume",
+      "items": [
         {
           "name": "volume_mode",
           "type": "enum",
@@ -255,8 +256,7 @@
           "default": "",
           "description": "Hostname or IP address of the NFS server."
         }
-      ],
-      "name": "volume"
+      ]
     }
   ]
 }

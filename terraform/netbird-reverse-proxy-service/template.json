@@ -20,7 +20,8 @@
   "variables": [
     {
       "title": "General",
-      "variables": [
+      "name": "general",
+      "items": [
         {
           "name": "service_name",
           "type": "str",
@@ -82,12 +83,12 @@
           "default": false,
           "description": "Rewrite backend redirect locations to the public-facing service domain."
         }
-      ],
-      "name": "general"
+      ]
     },
     {
       "title": "Target",
-      "variables": [
+      "name": "target",
+      "items": [
         {
           "name": "target_type",
           "type": "enum",
@@ -222,12 +223,12 @@
             "placeholder": "/"
           }
         }
-      ],
-      "name": "target"
+      ]
     },
     {
       "title": "Authentication",
-      "variables": [
+      "name": "authentication",
+      "items": [
         {
           "name": "auth_mode",
           "type": "enum",
@@ -279,12 +280,12 @@
             "textarea": true
           }
         }
-      ],
-      "name": "authentication"
+      ]
     },
     {
       "title": "Provider Configuration",
-      "variables": [
+      "name": "provider",
+      "items": [
         {
           "name": "netbird_management_url",
           "type": "str",
@@ -313,8 +314,7 @@
             "placeholder": "account-id"
           }
         }
-      ],
-      "name": "provider"
+      ]
     }
   ]
 }

@@ -19,7 +19,8 @@
   "variables": [
     {
       "title": "General",
-      "variables": [
+      "name": "general",
+      "items": [
         {
           "name": "resource_name",
           "type": "str",
@@ -80,12 +81,12 @@
           "default": true,
           "description": "Enable the network resource after creation."
         }
-      ],
-      "name": "general"
+      ]
     },
     {
       "title": "Provider Configuration",
-      "variables": [
+      "name": "provider",
+      "items": [
         {
           "name": "netbird_management_url",
           "type": "str",
@@ -104,8 +105,7 @@
           "required": true,
           "description": "NetBird admin personal access token (PAT)."
         }
-      ],
-      "name": "provider"
+      ]
     }
   ]
 }

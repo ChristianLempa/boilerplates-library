@@ -19,7 +19,8 @@
   "variables": [
     {
       "title": "General",
-      "variables": [
+      "name": "general",
+      "items": [
         {
           "name": "policy_name",
           "type": "str",
@@ -49,12 +50,12 @@
           "default": true,
           "description": "Enable the policy after creation."
         }
-      ],
-      "name": "general"
+      ]
     },
     {
       "title": "Rule",
-      "variables": [
+      "name": "rule",
+      "items": [
         {
           "name": "rule_name",
           "type": "str",
@@ -170,12 +171,12 @@
             "textarea": true
           }
         }
-      ],
-      "name": "rule"
+      ]
     },
     {
       "title": "Posture Checks",
-      "variables": [
+      "name": "posture-checks",
+      "items": [
         {
           "name": "source_posture_check_names",
           "type": "str",
@@ -187,12 +188,12 @@
             "textarea": true
           }
         }
-      ],
-      "name": "posture-checks"
+      ]
     },
     {
       "title": "Provider Configuration",
-      "variables": [
+      "name": "provider",
+      "items": [
         {
           "name": "netbird_management_url",
           "type": "str",
@@ -221,8 +222,7 @@
             "placeholder": "account-id"
           }
         }
-      ],
-      "name": "provider"
+      ]
     }
   ]
 }

@@ -19,7 +19,8 @@
   "variables": [
     {
       "title": "General",
-      "variables": [
+      "name": "general",
+      "items": [
         {
           "name": "service_name",
           "type": "str",
@@ -71,12 +72,12 @@
             "placeholder": "logo-file.png"
           }
         }
-      ],
-      "name": "general"
+      ]
     },
     {
       "title": "Ports",
-      "variables": [
+      "name": "ports",
+      "items": [
         {
           "name": "ports_http",
           "type": "int",
@@ -88,12 +89,13 @@
             "placeholder": "8080"
           }
         }
-      ],
-      "name": "ports"
+      ]
     },
     {
       "title": "Traefik",
-      "variables": [
+      "name": "traefik",
+      "toggle": "traefik_enabled",
+      "items": [
         {
           "name": "traefik_enabled",
           "type": "bool",
@@ -144,13 +146,13 @@
           },
           "description": "Domain used for Traefik."
         }
-      ],
-      "name": "traefik",
-      "toggle": "traefik_enabled"
+      ]
     },
     {
       "title": "Traefik Tls",
-      "variables": [
+      "name": "traefik-tls",
+      "toggle": "traefik_tls_enabled",
+      "items": [
         {
           "name": "traefik_tls_enabled",
           "type": "bool",
@@ -181,13 +183,12 @@
           },
           "description": "Traefik Tls Certresolver"
         }
-      ],
-      "name": "traefik-tls",
-      "toggle": "traefik_tls_enabled"
+      ]
     },
     {
       "title": "Docker Swarm",
-      "variables": [
+      "name": "swarm",
+      "items": [
         {
           "name": "swarm_placement_mode",
           "type": "enum",
@@ -235,12 +236,13 @@
             "placeholder": "swarm-node-1"
           }
         }
-      ],
-      "name": "swarm"
+      ]
     },
     {
       "title": "Authentik SSO",
-      "variables": [
+      "name": "authentik",
+      "toggle": "authentik_enabled",
+      "items": [
         {
           "name": "authentik_traefik_middleware",
           "type": "str",
@@ -263,9 +265,7 @@
           "default": false,
           "description": "Enable Authentik SSO integration"
         }
-      ],
-      "name": "authentik",
-      "toggle": "authentik_enabled"
+      ]
     }
   ]
 }

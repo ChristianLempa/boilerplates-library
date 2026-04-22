@@ -16,7 +16,8 @@
   "variables": [
     {
       "title": "Access",
-      "variables": [
+      "name": "access",
+      "items": [
         {
           "name": "target_user",
           "type": "str",
@@ -47,8 +48,7 @@
           "default": true,
           "description": "Enable passwordless sudo for the Ubuntu sudo group."
         }
-      ],
-      "name": "access"
+      ]
     }
   ]
 }

@@ -16,7 +16,7 @@
     {
       "name": "terraform",
       "title": "Terraform",
-      "variables": [
+      "items": [
         {
           "name": "resource_name",
           "title": "Resource Name",

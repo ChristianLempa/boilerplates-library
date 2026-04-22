@@ -16,7 +16,7 @@
     {
       "name": "terraform",
       "title": "Terraform",
-      "variables": [
+      "items": [
         {
           "name": "resource_name",
           "title": "Resource Name",
@@ -32,7 +32,7 @@
     {
       "name": "record",
       "title": "DNS Record",
-      "variables": [
+      "items": [
         {
           "name": "cloudflare_zone_id",
           "title": "Cloudflare Zone ID",

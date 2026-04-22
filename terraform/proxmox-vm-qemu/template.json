@@ -16,7 +16,8 @@
   "variables": [
     {
       "title": "Provider Configuration",
-      "variables": [
+      "name": "provider",
+      "items": [
         {
           "name": "resource_name",
           "type": "str",
@@ -63,12 +64,12 @@
           "default": false,
           "description": "Skip TLS verification for the Proxmox API"
         }
-      ],
-      "name": "provider"
+      ]
     },
     {
       "title": "VM Identity",
-      "variables": [
+      "name": "identity",
+      "items": [
         {
           "name": "vm_name",
           "type": "str",
@@ -120,12 +121,12 @@
             "placeholder": "proxmox-node"
           }
         }
-      ],
-      "name": "identity"
+      ]
     },
     {
       "title": "Clone Configuration",
-      "variables": [
+      "name": "clone",
+      "items": [
         {
           "name": "clone_template",
           "type": "str",
@@ -144,12 +145,12 @@
           "default": true,
           "description": "Create a full clone instead of a linked clone"
         }
-      ],
-      "name": "clone"
+      ]
     },
     {
       "title": "Boot Settings",
-      "variables": [
+      "name": "guest",
+      "items": [
         {
           "name": "onboot",
           "type": "bool",
@@ -219,12 +220,12 @@
             "placeholder": "DNS_SERVER"
           }
         }
-      ],
-      "name": "guest"
+      ]
     },
     {
       "title": "Compute",
-      "variables": [
+      "name": "compute",
+      "items": [
         {
           "name": "cpu_cores",
           "type": "int",
@@ -309,12 +310,12 @@
             "placeholder": "other"
           }
         }
-      ],
-      "name": "compute"
+      ]
     },
     {
       "title": "Storage and Network",
-      "variables": [
+      "name": "storage-network",
+      "items": [
         {
           "name": "bridge",
           "type": "str",
@@ -391,12 +392,12 @@
           "default": true,
           "description": "Enable disk replication flag"
         }
-      ],
-      "name": "storage-network"
+      ]
     },
     {
       "title": "Dependencies",
-      "variables": [
+      "name": "depends-on",
+      "items": [
         {
           "name": "depends_on_enabled",
           "type": "bool",
@@ -416,12 +417,12 @@
             "textarea": true
           }
         }
-      ],
-      "name": "depends-on"
+      ]
     },
     {
       "title": "Lifecycle",
-      "variables": [
+      "name": "lifecycle",
+      "items": [
         {
           "name": "lifecycle_enabled",
           "type": "bool",
@@ -457,8 +458,7 @@
             "textarea": true
           }
         }
-      ],
-      "name": "lifecycle"
+      ]
     }
   ]
 }

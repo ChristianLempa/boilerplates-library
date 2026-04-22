@@ -20,7 +20,8 @@
   "variables": [
     {
       "title": "General",
-      "variables": [
+      "name": "general",
+      "items": [
         {
           "name": "public_hostname",
           "type": "str",
@@ -47,12 +48,12 @@
             ]
           }
         }
-      ],
-      "name": "general"
+      ]
     },
     {
       "title": "NetBird",
-      "variables": [
+      "name": "netbird",
+      "items": [
         {
           "name": "stun_port",
           "type": "int",
@@ -121,12 +122,12 @@
             }
           }
         }
-      ],
-      "name": "netbird"
+      ]
     },
     {
       "title": "Storage",
-      "variables": [
+      "name": "storage",
+      "items": [
         {
           "name": "data_volume_name",
           "type": "str",
@@ -138,12 +139,13 @@
             "placeholder": "netbird_data"
           }
         }
-      ],
-      "name": "storage"
+      ]
     },
     {
       "title": "Traefik",
-      "variables": [
+      "name": "traefik",
+      "toggle": "traefik_enabled",
+      "items": [
         {
           "name": "traefik_enabled",
           "type": "bool",
@@ -245,9 +247,7 @@
             "placeholder": "netbird_traefik_letsencrypt"
           }
         }
-      ],
-      "name": "traefik",
-      "toggle": "traefik_enabled"
+      ]
     }
   ]
 }

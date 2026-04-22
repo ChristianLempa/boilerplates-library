@@ -18,7 +18,8 @@
   "variables": [
     {
       "title": "General",
-      "variables": [
+      "name": "general",
+      "items": [
         {
           "name": "container_timezone",
           "title": "Container Timezone",
@@ -60,12 +61,12 @@
           },
           "description": "Policy used for Restart."
         }
-      ],
-      "name": "general"
+      ]
     },
     {
       "title": "Ports",
-      "variables": [
+      "name": "ports",
+      "items": [
         {
           "name": "ports_dashboard",
           "title": "Dashboard Port",
@@ -100,12 +101,12 @@
           },
           "description": "Host port exposed for HTTPS."
         }
-      ],
-      "name": "ports"
+      ]
     },
     {
       "title": "Traefik",
-      "variables": [
+      "name": "traefik",
+      "items": [
         {
           "name": "traefik_network",
           "title": "Network",
@@ -323,12 +324,12 @@
           "type": "bool",
           "default": true
         }
-      ],
-      "name": "traefik"
+      ]
     },
     {
       "title": "Volume",
-      "variables": [
+      "name": "volume",
+      "items": [
         {
           "name": "volume_mode",
           "title": "Volume Mode",
@@ -400,8 +401,7 @@
           },
           "description": "Mount options for the NFS volume."
         }
-      ],
-      "name": "volume"
+      ]
     }
   ]
 }

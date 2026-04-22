@@ -23,7 +23,8 @@
   "variables": [
     {
       "title": "Targets",
-      "variables": [
+      "name": "targets",
+      "items": [
         {
           "name": "website_url",
           "type": "str",
@@ -35,12 +36,12 @@
             "placeholder": "https://example.com"
           }
         }
-      ],
-      "name": "targets"
+      ]
     },
     {
       "title": "Crawler",
-      "variables": [
+      "name": "crawler",
+      "items": [
         {
           "name": "max_pages",
           "type": "int",
@@ -101,8 +102,7 @@
             "placeholder": "boilerplates-broken-link-crawler/1.0"
           }
         }
-      ],
-      "name": "crawler"
+      ]
     }
   ]
 }

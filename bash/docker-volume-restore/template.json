@@ -23,7 +23,8 @@
   "variables": [
     {
       "title": "Restore",
-      "variables": [
+      "name": "restore",
+      "items": [
         {
           "name": "container_name",
           "type": "str",
@@ -68,12 +69,12 @@
             "placeholder": "busybox:1.36.1"
           }
         }
-      ],
-      "name": "restore"
+      ]
     },
     {
       "title": "Safety",
-      "variables": [
+      "name": "safety",
+      "items": [
         {
           "name": "stop_container_during_restore",
           "type": "bool",
@@ -114,8 +115,7 @@
           "default": false,
           "description": "Skip the interactive confirmation prompt."
         }
-      ],
-      "name": "safety"
+      ]
     }
   ]
 }

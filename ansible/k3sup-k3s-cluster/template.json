@@ -21,7 +21,8 @@
   "variables": [
     {
       "title": "Execution",
-      "variables": [
+      "name": "execution",
+      "items": [
         {
           "name": "secrets_file",
           "type": "str",
@@ -63,12 +64,12 @@
             "placeholder": "/usr/local/bin/k3sup"
           }
         }
-      ],
-      "name": "execution"
+      ]
     },
     {
       "title": "Control Plane",
-      "variables": [
+      "name": "control-plane",
+      "items": [
         {
           "name": "bootstrap_control_plane",
           "type": "bool",
@@ -155,12 +156,12 @@
             "placeholder": "--write-kubeconfig-mode 644 --disable servicelb"
           }
         }
-      ],
-      "name": "control-plane"
+      ]
     },
     {
       "title": "Agents",
-      "variables": [
+      "name": "agents",
+      "items": [
         {
           "name": "join_agent_nodes",
           "type": "bool",
@@ -229,12 +230,12 @@
             "placeholder": "--node-label role=worker"
           }
         }
-      ],
-      "name": "agents"
+      ]
     },
     {
       "title": "Kubeconfig",
-      "variables": [
+      "name": "kubeconfig",
+      "items": [
         {
           "name": "kubeconfig_destination_mode",
           "type": "enum",
@@ -344,8 +345,7 @@
             "kubeconfig_destination_mode=remote"
           ]
         }
-      ],
-      "name": "kubeconfig"
+      ]
     }
   ]
 }

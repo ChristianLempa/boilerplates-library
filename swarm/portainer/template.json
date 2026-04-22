@@ -19,7 +19,8 @@
   "variables": [
     {
       "title": "General",
-      "variables": [
+      "name": "general",
+      "items": [
         {
           "name": "service_name",
           "type": "str",
@@ -49,12 +50,12 @@
             "placeholder": "swarm-node-1"
           }
         }
-      ],
-      "name": "general"
+      ]
     },
     {
       "title": "Ports",
-      "variables": [
+      "name": "ports",
+      "items": [
         {
           "name": "ports_http",
           "type": "int",
@@ -94,12 +95,13 @@
             "placeholder": "8000"
           }
         }
-      ],
-      "name": "ports"
+      ]
     },
     {
       "title": "Traefik",
-      "variables": [
+      "name": "traefik",
+      "toggle": "traefik_enabled",
+      "items": [
         {
           "name": "traefik_host",
           "type": "str",
@@ -139,13 +141,13 @@
           "default": false,
           "description": "Enable Traefik integration"
         }
-      ],
-      "name": "traefik",
-      "toggle": "traefik_enabled"
+      ]
     },
     {
       "title": "Traefik TLS",
-      "variables": [
+      "name": "traefik-tls",
+      "toggle": "traefik_tls_enabled",
+      "items": [
         {
           "name": "traefik_tls_certresolver",
           "type": "str",
@@ -165,13 +167,12 @@
           "default": false,
           "description": "Enable Traefik TLS"
         }
-      ],
-      "name": "traefik-tls",
-      "toggle": "traefik_tls_enabled"
+      ]
     },
     {
       "title": "Volume",
-      "variables": [
+      "name": "volume",
+      "items": [
         {
           "name": "volume_mode",
           "type": "enum",
@@ -243,8 +244,7 @@
           },
           "description": "Mount options for the NFS volume."
         }
-      ],
-      "name": "volume"
+      ]
     }
   ]
 }

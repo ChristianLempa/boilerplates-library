@@ -18,7 +18,8 @@
   "variables": [
     {
       "title": "General",
-      "variables": [
+      "name": "general",
+      "items": [
         {
           "name": "service_name",
           "type": "str",
@@ -53,13 +54,13 @@
             ]
           }
         }
-      ],
-      "name": "general"
+      ]
     },
     {
       "title": "Log Collection",
       "toggle": "logs_enabled",
-      "variables": [
+      "name": "logs",
+      "items": [
         {
           "name": "logs_docker",
           "type": "bool",
@@ -95,13 +96,13 @@
           "default": true,
           "description": "Enable system and journalctl log collection"
         }
-      ],
-      "name": "logs"
+      ]
     },
     {
       "title": "Metrics Collection",
       "toggle": "metrics_enabled",
-      "variables": [
+      "name": "metrics",
+      "items": [
         {
           "name": "metrics_docker",
           "type": "bool",
@@ -137,12 +138,12 @@
           "default": true,
           "description": "Enable system (node) metrics collection"
         }
-      ],
-      "name": "metrics"
+      ]
     },
     {
       "title": "Ports",
-      "variables": [
+      "name": "ports",
+      "items": [
         {
           "name": "ports_webui",
           "type": "int",
@@ -154,12 +155,13 @@
             "placeholder": "12345"
           }
         }
-      ],
-      "name": "ports"
+      ]
     },
     {
       "title": "Traefik",
-      "variables": [
+      "name": "traefik",
+      "toggle": "traefik_enabled",
+      "items": [
         {
           "name": "traefik_enabled",
           "type": "bool",
@@ -221,9 +223,7 @@
             "traefik_tls_enabled=true"
           ]
         }
-      ],
-      "name": "traefik",
-      "toggle": "traefik_enabled"
+      ]
     }
   ]
 }

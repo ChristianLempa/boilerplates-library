@@ -20,7 +20,8 @@
   "variables": [
     {
       "title": "General",
-      "variables": [
+      "name": "general",
+      "items": [
         {
           "name": "service_name",
           "type": "str",
@@ -56,12 +57,12 @@
           "default": true,
           "description": "Enable initial setup wizard on port 3000 (only used without Traefik)"
         }
-      ],
-      "name": "general"
+      ]
     },
     {
       "title": "Network",
-      "variables": [
+      "name": "network",
+      "items": [
         {
           "name": "network_mode",
           "type": "str",
@@ -144,12 +145,12 @@
           "default": false,
           "description": "Whether the network is external"
         }
-      ],
-      "name": "network"
+      ]
     },
     {
       "title": "Ports",
-      "variables": [
+      "name": "ports",
+      "items": [
         {
           "name": "ports_http",
           "type": "str",
@@ -220,12 +221,13 @@
             "placeholder": "5443"
           }
         }
-      ],
-      "name": "ports"
+      ]
     },
     {
       "title": "Traefik",
-      "variables": [
+      "name": "traefik",
+      "toggle": "traefik_enabled",
+      "items": [
         {
           "name": "traefik_enabled",
           "type": "bool",
@@ -287,13 +289,12 @@
             "traefik_tls_enabled=true"
           ]
         }
-      ],
-      "name": "traefik",
-      "toggle": "traefik_enabled"
+      ]
     },
     {
       "title": "Volume",
-      "variables": [
+      "name": "volume",
+      "items": [
         {
           "name": "volume_mode",
           "type": "enum",
@@ -365,8 +366,7 @@
           },
           "description": "Mount options for the NFS volume."
         }
-      ],
-      "name": "volume"
+      ]
     }
   ]
 }

@@ -17,7 +17,7 @@
     {
       "title": "General",
       "name": "general",
-      "variables": [
+      "items": [
         {
           "name": "resource_name",
           "type": "str",
@@ -45,7 +45,7 @@
     {
       "title": "Target Pods",
       "name": "target",
-      "variables": [
+      "items": [
         {
           "name": "apply_to_all_pods",
           "type": "bool",
@@ -81,7 +81,7 @@
     {
       "title": "Ingress",
       "name": "ingress",
-      "variables": [
+      "items": [
         {
           "name": "ingress_enabled",
           "type": "bool",
@@ -186,7 +186,7 @@
     {
       "title": "Egress",
       "name": "egress",
-      "variables": [
+      "items": [
         {
           "name": "egress_enabled",
           "type": "bool",

@@ -16,7 +16,8 @@
   "variables": [
     {
       "title": "General",
-      "variables": [
+      "name": "general",
+      "items": [
         {
           "name": "resource_name",
           "type": "str",
@@ -53,12 +54,12 @@
             "placeholder": "cluster-admin"
           }
         }
-      ],
-      "name": "general"
+      ]
     },
     {
       "title": "Subject",
-      "variables": [
+      "name": "subject",
+      "items": [
         {
           "name": "subject_kind",
           "type": "enum",
@@ -96,8 +97,7 @@
             "placeholder": "default"
           }
         }
-      ],
-      "name": "subject"
+      ]
     }
   ]
 }

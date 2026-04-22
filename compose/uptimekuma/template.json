@@ -16,7 +16,8 @@
   "variables": [
     {
       "title": "General",
-      "variables": [
+      "name": "general",
+      "items": [
         {
           "name": "service_name",
           "type": "str",
@@ -66,8 +67,7 @@
             "placeholder": "latest"
           }
         }
-      ],
-      "name": "general"
+      ]
     }
   ]
 }

@@ -16,7 +16,8 @@
   "variables": [
     {
       "title": "Checkmk Configuration",
-      "variables": [
+      "name": "checkmk",
+      "items": [
         {
           "name": "checkmk_server",
           "type": "str",
@@ -60,12 +61,12 @@
           "required": true,
           "description": "Checkmk Automation User Password"
         }
-      ],
-      "name": "checkmk"
+      ]
     },
     {
       "title": "Host Configuration",
-      "variables": [
+      "name": "host",
+      "items": [
         {
           "name": "host_name",
           "type": "str",
@@ -91,8 +92,7 @@
             "placeholder": "/"
           }
         }
-      ],
-      "name": "host"
+      ]
     }
   ]
 }

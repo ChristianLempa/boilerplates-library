@@ -19,7 +19,8 @@
   "variables": [
     {
       "title": "General",
-      "variables": [
+      "name": "general",
+      "items": [
         {
           "name": "network_name",
           "type": "str",
@@ -41,12 +42,12 @@
             "textarea": true
           }
         }
-      ],
-      "name": "general"
+      ]
     },
     {
       "title": "Provider Configuration",
-      "variables": [
+      "name": "provider",
+      "items": [
         {
           "name": "netbird_management_url",
           "type": "str",
@@ -75,8 +76,7 @@
             "placeholder": "account-id"
           }
         }
-      ],
-      "name": "provider"
+      ]
     }
   ]
 }

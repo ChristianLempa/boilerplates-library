@@ -19,7 +19,8 @@
   "variables": [
     {
       "title": "General",
-      "variables": [
+      "name": "general",
+      "items": [
         {
           "name": "service_name",
           "type": "str",
@@ -94,12 +95,13 @@
             "placeholder": "https://openwebui.home.arpa"
           }
         }
-      ],
-      "name": "general"
+      ]
     },
     {
       "title": "Traefik",
-      "variables": [
+      "name": "traefik",
+      "toggle": "traefik_enabled",
+      "items": [
         {
           "name": "traefik_enabled",
           "type": "bool",
@@ -180,13 +182,12 @@
             "traefik_tls_enabled=true"
           ]
         }
-      ],
-      "name": "traefik",
-      "toggle": "traefik_enabled"
+      ]
     },
     {
       "title": "Ports",
-      "variables": [
+      "name": "ports",
+      "items": [
         {
           "name": "ports_http",
           "type": "int",
@@ -198,12 +199,12 @@
             "placeholder": "8080"
           }
         }
-      ],
-      "name": "ports"
+      ]
     },
     {
       "title": "Authentik",
-      "variables": [
+      "name": "authentik",
+      "items": [
         {
           "name": "authentik_enabled",
           "type": "bool",
@@ -284,8 +285,7 @@
           ],
           "description": "Secret value for the authentik client."
         }
-      ],
-      "name": "authentik"
+      ]
     }
   ]
 }

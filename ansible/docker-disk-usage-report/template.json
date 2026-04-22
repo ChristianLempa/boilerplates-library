@@ -22,7 +22,8 @@
   "variables": [
     {
       "title": "Report",
-      "variables": [
+      "name": "report",
+      "items": [
         {
           "name": "include_verbose_report",
           "type": "bool",
@@ -31,12 +32,12 @@
           "default": false,
           "description": "Include docker system df -v output in local report"
         }
-      ],
-      "name": "report"
+      ]
     },
     {
       "title": "Discord Webhook",
-      "variables": [
+      "name": "discord",
+      "items": [
         {
           "name": "discord_enabled",
           "type": "bool",
@@ -75,12 +76,12 @@
             "placeholder": "Docker Disk Usage Report"
           }
         }
-      ],
-      "name": "discord"
+      ]
     },
     {
       "title": "Internal",
-      "variables": [
+      "name": "internal",
+      "items": [
         {
           "name": "docker_df_verbose",
           "type": "str",
@@ -148,8 +149,7 @@
           "default": "",
           "description": "Value used for the internal settings."
         }
-      ],
-      "name": "internal"
+      ]
     }
   ]
 }

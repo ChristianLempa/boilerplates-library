@@ -22,7 +22,8 @@
   "variables": [
     {
       "title": "Discord Webhook",
-      "variables": [
+      "name": "discord",
+      "items": [
         {
           "name": "discord_enabled",
           "type": "bool",
@@ -61,12 +62,12 @@
             "placeholder": "Docker Orphan Detection Report"
           }
         }
-      ],
-      "name": "discord"
+      ]
     },
     {
       "title": "Internal",
-      "variables": [
+      "name": "internal",
+      "items": [
         {
           "name": "report_root",
           "type": "str",
@@ -158,8 +159,7 @@
           "default": "",
           "description": "Hostname used for Inventory."
         }
-      ],
-      "name": "internal"
+      ]
     }
   ]
 }

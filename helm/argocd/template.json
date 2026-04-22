@@ -20,7 +20,8 @@
   "variables": [
     {
       "title": "General",
-      "variables": [
+      "name": "general",
+      "items": [
         {
           "name": "public_url",
           "type": "str",
@@ -40,13 +41,13 @@
           "default": true,
           "description": "Let the ingress controller terminate TLS in front of `argocd-server`."
         }
-      ],
-      "name": "general"
+      ]
     },
     {
       "title": "Ingress",
       "toggle": "ingress_enabled",
-      "variables": [
+      "name": "ingress",
+      "items": [
         {
           "name": "ingress_enabled",
           "type": "bool",
@@ -179,12 +180,12 @@
             "placeholder": "letsencrypt-production"
           }
         }
-      ],
-      "name": "ingress"
+      ]
     },
     {
       "title": "Components",
-      "variables": [
+      "name": "components",
+      "items": [
         {
           "name": "controller_replicas",
           "type": "int",
@@ -234,12 +235,12 @@
           "default": true,
           "description": "Deploy bundled Redis. Disable only if you provide Redis separately."
         }
-      ],
-      "name": "components"
+      ]
     },
     {
       "title": "Metrics",
-      "variables": [
+      "name": "metrics",
+      "items": [
         {
           "name": "metrics_service_monitor_enabled",
           "type": "bool",
@@ -294,8 +295,7 @@
             "redis_enabled=true"
           ]
         }
-      ],
-      "name": "metrics"
+      ]
     }
   ]
 }

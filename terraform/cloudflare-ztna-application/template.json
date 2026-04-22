@@ -16,7 +16,8 @@
   "variables": [
     {
       "title": "Application",
-      "variables": [
+      "name": "application",
+      "items": [
         {
           "name": "app_name",
           "type": "str",
@@ -49,12 +50,12 @@
             "placeholder": "15m"
           }
         }
-      ],
-      "name": "application"
+      ]
     },
     {
       "title": "General",
-      "variables": [
+      "name": "general",
+      "items": [
         {
           "name": "account_id_value",
           "type": "str",
@@ -80,12 +81,12 @@
           "required": false,
           "description": "Cloudflare zone identifier."
         }
-      ],
-      "name": "general"
+      ]
     },
     {
       "title": "IP-Based Policy",
-      "variables": [
+      "name": "ip-policy",
+      "items": [
         {
           "name": "ip_policy_enabled",
           "type": "bool",
@@ -119,12 +120,12 @@
             "placeholder": "IP_RANGE"
           }
         }
-      ],
-      "name": "ip-policy"
+      ]
     },
     {
       "title": "Service Token Policy",
-      "variables": [
+      "name": "service-token-policy",
+      "items": [
         {
           "name": "service_token_enabled",
           "type": "bool",
@@ -157,12 +158,12 @@
             "placeholder": "service_token_policy"
           }
         }
-      ],
-      "name": "service-token-policy"
+      ]
     },
     {
       "title": "Dependencies",
-      "variables": [
+      "name": "depends-on",
+      "items": [
         {
           "name": "depends_on_enabled",
           "type": "bool",
@@ -185,12 +186,12 @@
             "textarea": true
           }
         }
-      ],
-      "name": "depends-on"
+      ]
     },
     {
       "title": "Lifecycle",
-      "variables": [
+      "name": "lifecycle",
+      "items": [
         {
           "name": "lifecycle_enabled",
           "type": "bool",
@@ -235,8 +236,7 @@
             "textarea": true
           }
         }
-      ],
-      "name": "lifecycle"
+      ]
     }
   ]
 }

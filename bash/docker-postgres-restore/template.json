@@ -23,7 +23,8 @@
   "variables": [
     {
       "title": "Restore",
-      "variables": [
+      "name": "restore",
+      "items": [
         {
           "name": "container_name",
           "type": "str",
@@ -79,12 +80,12 @@
             "placeholder": "PGPASSWORD"
           }
         }
-      ],
-      "name": "restore"
+      ]
     },
     {
       "title": "Safety",
-      "variables": [
+      "name": "safety",
+      "items": [
         {
           "name": "drop_recreate_database",
           "type": "bool",
@@ -109,8 +110,7 @@
           "default": false,
           "description": "Skip the interactive confirmation prompt."
         }
-      ],
-      "name": "safety"
+      ]
     }
   ]
 }

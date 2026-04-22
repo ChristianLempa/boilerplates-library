@@ -17,7 +17,7 @@
     {
       "title": "General",
       "name": "general",
-      "variables": [
+      "items": [
         {
           "name": "resource_name",
           "type": "str",
@@ -45,7 +45,7 @@
     {
       "title": "BasicAuth",
       "name": "basicauth",
-      "variables": [
+      "items": [
         {
           "name": "secret_name",
           "type": "str",

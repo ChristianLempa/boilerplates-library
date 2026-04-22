@@ -19,7 +19,8 @@
   "variables": [
     {
       "title": "General",
-      "variables": [
+      "name": "general",
+      "items": [
         {
           "name": "service_name",
           "type": "str",
@@ -100,12 +101,12 @@
             "placeholder": "swarm-node-1"
           }
         }
-      ],
-      "name": "general"
+      ]
     },
     {
       "title": "Ports",
-      "variables": [
+      "name": "ports",
+      "items": [
         {
           "name": "ports_http",
           "type": "int",
@@ -120,12 +121,13 @@
             "placeholder": "3000"
           }
         }
-      ],
-      "name": "ports"
+      ]
     },
     {
       "title": "Traefik",
-      "variables": [
+      "name": "traefik",
+      "toggle": "traefik_enabled",
+      "items": [
         {
           "name": "traefik_enabled",
           "type": "bool",
@@ -176,13 +178,13 @@
           },
           "description": "Domain used for Traefik."
         }
-      ],
-      "name": "traefik",
-      "toggle": "traefik_enabled"
+      ]
     },
     {
       "title": "Traefik TLS",
-      "variables": [
+      "name": "traefik-tls",
+      "toggle": "traefik_tls_enabled",
+      "items": [
         {
           "name": "traefik_tls_enabled",
           "type": "bool",
@@ -213,13 +215,12 @@
           },
           "description": "Traefik Tls Certresolver"
         }
-      ],
-      "name": "traefik-tls",
-      "toggle": "traefik_tls_enabled"
+      ]
     },
     {
       "title": "Volume",
-      "variables": [
+      "name": "volume",
+      "items": [
         {
           "name": "volume_mode",
           "type": "enum",
@@ -291,8 +292,7 @@
             "placeholder": "192.0.2.1"
           }
         }
-      ],
-      "name": "volume"
+      ]
     }
   ]
 }

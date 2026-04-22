@@ -16,7 +16,8 @@
   "variables": [
     {
       "title": "General",
-      "variables": [
+      "name": "general",
+      "items": [
         {
           "name": "resource_name",
           "type": "str",
@@ -45,12 +46,12 @@
             "placeholder": "Tunnel ID"
           }
         }
-      ],
-      "name": "general"
+      ]
     },
     {
       "title": "Ingress",
-      "variables": [
+      "name": "ingress",
+      "items": [
         {
           "name": "ingress_hostname",
           "type": "str",
@@ -82,12 +83,12 @@
             "placeholder": "http_status:404"
           }
         }
-      ],
-      "name": "ingress"
+      ]
     },
     {
       "title": "Dependencies",
-      "variables": [
+      "name": "depends-on",
+      "items": [
         {
           "name": "depends_on_enabled",
           "type": "bool",
@@ -107,12 +108,12 @@
             "textarea": true
           }
         }
-      ],
-      "name": "depends-on"
+      ]
     },
     {
       "title": "Lifecycle",
-      "variables": [
+      "name": "lifecycle",
+      "items": [
         {
           "name": "lifecycle_enabled",
           "type": "bool",
@@ -148,8 +149,7 @@
             "textarea": true
           }
         }
-      ],
-      "name": "lifecycle"
+      ]
     }
   ]
 }

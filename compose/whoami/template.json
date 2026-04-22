@@ -21,7 +21,8 @@
   "variables": [
     {
       "title": "General",
-      "variables": [
+      "name": "general",
+      "items": [
         {
           "name": "restart_policy",
           "type": "enum",
@@ -49,12 +50,12 @@
             "placeholder": "whoami"
           }
         }
-      ],
-      "name": "general"
+      ]
     },
     {
       "title": "Traefik",
-      "variables": [
+      "name": "traefik",
+      "items": [
         {
           "name": "traefik_host",
           "type": "str",
@@ -108,8 +109,7 @@
             "traefik_tls_enabled=true"
           ]
         }
-      ],
-      "name": "traefik"
+      ]
     }
   ]
 }

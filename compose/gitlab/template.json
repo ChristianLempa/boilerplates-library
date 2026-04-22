@@ -18,7 +18,8 @@
   "variables": [
     {
       "title": "General",
-      "variables": [
+      "name": "general",
+      "items": [
         {
           "name": "service_name",
           "type": "str",
@@ -107,12 +108,12 @@
           },
           "description": "Policy used for Restart."
         }
-      ],
-      "name": "general"
+      ]
     },
     {
       "title": "Advanced Settings",
-      "variables": [
+      "name": "advanced",
+      "items": [
         {
           "name": "performance_preset",
           "type": "enum",
@@ -135,12 +136,12 @@
           "default": false,
           "description": "Enable Prometheus monitoring"
         }
-      ],
-      "name": "advanced"
+      ]
     },
     {
       "title": "Ports",
-      "variables": [
+      "name": "ports",
+      "items": [
         {
           "name": "ports_http",
           "type": "str",
@@ -174,13 +175,13 @@
             "placeholder": "5000"
           }
         }
-      ],
-      "name": "ports"
+      ]
     },
     {
       "title": "Registry",
       "toggle": "registry_enabled",
-      "variables": [
+      "name": "registry",
+      "items": [
         {
           "name": "registry_enabled",
           "type": "bool",
@@ -200,12 +201,13 @@
             "placeholder": "http://localhost:5000"
           }
         }
-      ],
-      "name": "registry"
+      ]
     },
     {
       "title": "Traefik",
-      "variables": [
+      "name": "traefik",
+      "toggle": "traefik_enabled",
+      "items": [
         {
           "name": "traefik_enabled",
           "type": "bool",
@@ -281,14 +283,13 @@
             "traefik_tls_enabled=true"
           ]
         }
-      ],
-      "name": "traefik",
-      "toggle": "traefik_enabled"
+      ]
     },
     {
       "title": "Email",
       "toggle": "email_enabled",
-      "variables": [
+      "name": "email",
+      "items": [
         {
           "name": "email_enabled",
           "type": "bool",
@@ -356,13 +357,13 @@
           "default": false,
           "description": "Use SSL encryption"
         }
-      ],
-      "name": "email"
+      ]
     },
     {
       "title": "Authentik",
       "toggle": "authentik_enabled",
-      "variables": [
+      "name": "authentik",
+      "items": [
         {
           "name": "authentik_enabled",
           "type": "bool",
@@ -409,8 +410,7 @@
           "default": "",
           "description": "OAuth client secret from Authentik provider"
         }
-      ],
-      "name": "authentik"
+      ]
     }
   ]
 }

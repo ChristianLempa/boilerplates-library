@@ -22,7 +22,8 @@
   "variables": [
     {
       "title": "Monitor",
-      "variables": [
+      "name": "monitor",
+      "items": [
         {
           "name": "monitor_path",
           "type": "str",
@@ -34,12 +35,12 @@
             "placeholder": "/"
           }
         }
-      ],
-      "name": "monitor"
+      ]
     },
     {
       "title": "Alerting",
-      "variables": [
+      "name": "alerting",
+      "items": [
         {
           "name": "warning_percent",
           "type": "int",
@@ -74,8 +75,7 @@
             "placeholder": "Disk Monitor"
           }
         }
-      ],
-      "name": "alerting"
+      ]
     }
   ]
 }

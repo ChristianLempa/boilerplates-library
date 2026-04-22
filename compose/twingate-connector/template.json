@@ -16,7 +16,8 @@
   "variables": [
     {
       "title": "General",
-      "variables": [
+      "name": "general",
+      "items": [
         {
           "name": "service_name",
           "type": "str",
@@ -73,12 +74,12 @@
           },
           "description": "Policy used for Restart."
         }
-      ],
-      "name": "general"
+      ]
     },
     {
       "title": "Twingate Configuration",
-      "variables": [
+      "name": "twingate",
+      "items": [
         {
           "name": "twingate_network",
           "type": "str",
@@ -123,13 +124,13 @@
           "default": "",
           "description": "Local DNS server IP (optional, leave empty to use default)"
         }
-      ],
-      "name": "twingate"
+      ]
     },
     {
       "title": "Resource Limits",
       "toggle": "resources_enabled",
-      "variables": [
+      "name": "resources",
+      "items": [
         {
           "name": "resources_enabled",
           "type": "bool",
@@ -182,8 +183,7 @@
           },
           "description": "Value used for the resource limits settings."
         }
-      ],
-      "name": "resources"
+      ]
     }
   ]
 }

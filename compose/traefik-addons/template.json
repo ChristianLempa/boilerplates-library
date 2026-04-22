@@ -20,7 +20,8 @@
   "variables": [
     {
       "title": "General",
-      "variables": [
+      "name": "general",
+      "items": [
         {
           "name": "restart_policy",
           "type": "enum",
@@ -37,12 +38,12 @@
             ]
           }
         }
-      ],
-      "name": "general"
+      ]
     },
     {
       "title": "Traefik",
-      "variables": [
+      "name": "traefik",
+      "items": [
         {
           "name": "traefik_network",
           "type": "str",
@@ -62,13 +63,13 @@
           "default": true,
           "description": "Use an existing external Docker network for Traefik integration."
         }
-      ],
-      "name": "traefik"
+      ]
     },
     {
       "title": "Socket Proxy",
       "toggle": "socket_proxy_enabled",
-      "variables": [
+      "name": "socket-proxy",
+      "items": [
         {
           "name": "socket_proxy_enabled",
           "type": "bool",
@@ -105,13 +106,13 @@
             "placeholder": "docker-socket-proxy"
           }
         }
-      ],
-      "name": "socket-proxy"
+      ]
     },
     {
       "title": "Whoami",
       "toggle": "whoami_enabled",
-      "variables": [
+      "name": "whoami",
+      "items": [
         {
           "name": "whoami_enabled",
           "type": "bool",
@@ -202,12 +203,12 @@
             "placeholder": "default-secured@file"
           }
         }
-      ],
-      "name": "whoami"
+      ]
     },
     {
       "title": "Dashboard Hardening",
-      "variables": [
+      "name": "dashboard-hardening",
+      "items": [
         {
           "name": "security_headers_enabled",
           "type": "bool",
@@ -287,13 +288,13 @@
             "placeholder": "fd00::/8"
           }
         }
-      ],
-      "name": "dashboard-hardening"
+      ]
     },
     {
       "title": "ForwardAuth",
       "toggle": "forwardauth_enabled",
-      "variables": [
+      "name": "forwardauth",
+      "items": [
         {
           "name": "forwardauth_enabled",
           "type": "bool",
@@ -341,13 +342,13 @@
             "placeholder": "^X-authentik-.*"
           }
         }
-      ],
-      "name": "forwardauth"
+      ]
     },
     {
       "title": "CrowdSec Middleware",
       "toggle": "crowdsec_middleware_enabled",
-      "variables": [
+      "name": "crowdsec",
+      "items": [
         {
           "name": "crowdsec_middleware_enabled",
           "type": "bool",
@@ -494,8 +495,7 @@
             "placeholder": "fd00::/8"
           }
         }
-      ],
-      "name": "crowdsec"
+      ]
     }
   ]
 }

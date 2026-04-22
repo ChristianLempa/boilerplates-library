@@ -19,7 +19,8 @@
   "variables": [
     {
       "title": "General",
-      "variables": [
+      "name": "general",
+      "items": [
         {
           "name": "service_name",
           "type": "str",
@@ -98,12 +99,12 @@
             "placeholder": "logo-file.png"
           }
         }
-      ],
-      "name": "general"
+      ]
     },
     {
       "title": "Ports",
-      "variables": [
+      "name": "ports",
+      "items": [
         {
           "name": "ports_http",
           "type": "int",
@@ -115,12 +116,13 @@
             "placeholder": "8080"
           }
         }
-      ],
-      "name": "ports"
+      ]
     },
     {
       "title": "Traefik",
-      "variables": [
+      "name": "traefik",
+      "toggle": "traefik_enabled",
+      "items": [
         {
           "name": "traefik_enabled",
           "type": "bool",
@@ -207,14 +209,13 @@
             "traefik_tls_enabled=true"
           ]
         }
-      ],
-      "name": "traefik",
-      "toggle": "traefik_enabled"
+      ]
     },
     {
       "title": "Authentik SSO",
       "toggle": "authentik_enabled",
-      "variables": [
+      "name": "authentik",
+      "items": [
         {
           "name": "authentik_traefik_middleware",
           "type": "str",
@@ -269,8 +270,7 @@
           "default": "",
           "description": "URL used for The Authentik."
         }
-      ],
-      "name": "authentik"
+      ]
     }
   ]
 }

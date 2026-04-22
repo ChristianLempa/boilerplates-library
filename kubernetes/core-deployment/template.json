@@ -16,7 +16,8 @@
   "variables": [
     {
       "title": "General",
-      "variables": [
+      "name": "general",
+      "items": [
         {
           "name": "resource_name",
           "type": "str",
@@ -75,12 +76,12 @@
             "placeholder": "app-serviceaccount"
           }
         }
-      ],
-      "name": "general"
+      ]
     },
     {
       "title": "Container",
-      "variables": [
+      "name": "container",
+      "items": [
         {
           "name": "container_name",
           "type": "str",
@@ -162,12 +163,12 @@
             ]
           }
         }
-      ],
-      "name": "container"
+      ]
     },
     {
       "title": "Environment",
-      "variables": [
+      "name": "environment",
+      "items": [
         {
           "name": "env_literal_enabled",
           "type": "bool",
@@ -228,13 +229,13 @@
             "placeholder": "status.podIP"
           }
         }
-      ],
-      "name": "environment"
+      ]
     },
     {
       "title": "Resources",
       "toggle": "resources_enabled",
-      "variables": [
+      "name": "resources",
+      "items": [
         {
           "name": "resources_enabled",
           "type": "bool",
@@ -287,8 +288,7 @@
             "placeholder": "128Mi"
           }
         }
-      ],
-      "name": "resources"
+      ]
     }
   ]
 }

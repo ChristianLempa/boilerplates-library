@@ -16,7 +16,8 @@
   "variables": [
     {
       "title": "General",
-      "variables": [
+      "name": "general",
+      "items": [
         {
           "name": "service_name",
           "type": "str",
@@ -105,8 +106,7 @@
           },
           "description": "Default Docker image used for jobs that do not specify one."
         }
-      ],
-      "name": "general"
+      ]
     }
   ]
 }

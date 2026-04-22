@@ -19,7 +19,8 @@
   "variables": [
     {
       "title": "General",
-      "variables": [
+      "name": "general",
+      "items": [
         {
           "name": "group_name",
           "type": "str",
@@ -30,12 +31,12 @@
             "placeholder": "Engineering"
           }
         }
-      ],
-      "name": "general"
+      ]
     },
     {
       "title": "Provider Configuration",
-      "variables": [
+      "name": "provider",
+      "items": [
         {
           "name": "netbird_management_url",
           "type": "str",
@@ -64,12 +65,12 @@
             "placeholder": "account-id"
           }
         }
-      ],
-      "name": "provider"
+      ]
     },
     {
       "title": "Membership",
-      "variables": [
+      "name": "membership",
+      "items": [
         {
           "name": "peer_names",
           "type": "str",
@@ -92,8 +93,7 @@
             "textarea": true
           }
         }
-      ],
-      "name": "membership"
+      ]
     }
   ]
 }

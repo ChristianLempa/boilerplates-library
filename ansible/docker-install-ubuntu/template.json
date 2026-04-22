@@ -17,7 +17,8 @@
   "variables": [
     {
       "title": "User Access",
-      "variables": [
+      "name": "postinstall",
+      "items": [
         {
           "name": "add_user_to_docker",
           "type": "bool",
@@ -37,8 +38,7 @@
             "add_user_to_docker=true"
           ]
         }
-      ],
-      "name": "postinstall"
+      ]
     }
   ]
 }

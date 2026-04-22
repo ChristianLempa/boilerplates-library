@@ -17,7 +17,7 @@
     {
       "title": "General",
       "name": "general",
-      "variables": [
+      "items": [
         {
           "name": "resource_name",
           "type": "str",
@@ -45,7 +45,7 @@
     {
       "title": "Retry",
       "name": "retry",
-      "variables": [
+      "items": [
         {
           "name": "attempts",
           "type": "int",

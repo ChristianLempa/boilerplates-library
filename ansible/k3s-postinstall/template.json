@@ -22,7 +22,8 @@
   "variables": [
     {
       "title": "Execution",
-      "variables": [
+      "name": "execution",
+      "items": [
         {
           "name": "secrets_file",
           "type": "str",
@@ -31,12 +32,12 @@
           "default": "",
           "description": "Optional vars file to load before running the playbook."
         }
-      ],
-      "name": "execution"
+      ]
     },
     {
       "title": "Kubeconfig",
-      "variables": [
+      "name": "kubeconfig",
+      "items": [
         {
           "name": "fetch_kubeconfig",
           "type": "bool",
@@ -98,12 +99,12 @@
             "placeholder": "{{ lookup('env', 'HOME') }}/.kube/k3s.yaml"
           }
         }
-      ],
-      "name": "kubeconfig"
+      ]
     },
     {
       "title": "Namespaces",
-      "variables": [
+      "name": "namespaces",
+      "items": [
         {
           "name": "ensure_namespaces",
           "type": "bool",
@@ -127,12 +128,12 @@
             "placeholder": "- apps\n- monitoring"
           }
         }
-      ],
-      "name": "namespaces"
+      ]
     },
     {
       "title": "Traefik",
-      "variables": [
+      "name": "traefik",
+      "items": [
         {
           "name": "traefik_dashboard_exposure_enabled",
           "type": "bool",
@@ -237,12 +238,12 @@
             "placeholder": "traefik"
           }
         }
-      ],
-      "name": "traefik"
+      ]
     },
     {
       "title": "Cert-Manager",
-      "variables": [
+      "name": "cert-manager",
+      "items": [
         {
           "name": "cert_manager_install_enabled",
           "type": "bool",
@@ -373,12 +374,12 @@
             "placeholder": "https://acme-v02.api.letsencrypt.org/directory"
           }
         }
-      ],
-      "name": "cert-manager"
+      ]
     },
     {
       "title": "Metrics Server",
-      "variables": [
+      "name": "metrics-server",
+      "items": [
         {
           "name": "metrics_server_install_enabled",
           "type": "bool",
@@ -426,12 +427,12 @@
             "metrics_server_install_enabled=true"
           ]
         }
-      ],
-      "name": "metrics-server"
+      ]
     },
     {
       "title": "Longhorn",
-      "variables": [
+      "name": "longhorn",
+      "items": [
         {
           "name": "longhorn_prerequisites_enabled",
           "type": "bool",
@@ -515,12 +516,12 @@
             "placeholder": "/var/lib/longhorn"
           }
         }
-      ],
-      "name": "longhorn"
+      ]
     },
     {
       "title": "Kube-System",
-      "variables": [
+      "name": "kube-system",
+      "items": [
         {
           "name": "kube_proxy_strict_arp_enabled",
           "type": "bool",
@@ -529,8 +530,7 @@
           "default": false,
           "description": "Patch the kube-proxy ConfigMap and restart the daemonset with strictARP enabled"
         }
-      ],
-      "name": "kube-system"
+      ]
     }
   ]
 }

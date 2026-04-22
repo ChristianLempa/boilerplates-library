@@ -17,7 +17,7 @@
     {
       "title": "General",
       "name": "general",
-      "variables": [
+      "items": [
         {
           "name": "namespace",
           "type": "str",
@@ -67,7 +67,7 @@
     {
       "title": "Networking",
       "name": "networking",
-      "variables": [
+      "items": [
         {
           "name": "interface",
           "type": "str",
@@ -136,7 +136,7 @@
     {
       "title": "Features",
       "name": "features",
-      "variables": [
+      "items": [
         {
           "name": "control_plane_enabled",
           "type": "bool",
@@ -193,7 +193,7 @@
     {
       "title": "Leader Election Timing",
       "name": "timing",
-      "variables": [
+      "items": [
         {
           "name": "lease_duration",
           "type": "int",
@@ -232,7 +232,7 @@
     {
       "title": "Scheduling",
       "name": "scheduling",
-      "variables": [
+      "items": [
         {
           "name": "control_plane_only",
           "type": "bool",

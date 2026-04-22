@@ -16,7 +16,8 @@
   "variables": [
     {
       "title": "General",
-      "variables": [
+      "name": "general",
+      "items": [
         {
           "name": "resource_name",
           "type": "str",
@@ -58,12 +59,12 @@
           "default": "",
           "description": "Name to use for the dns."
         }
-      ],
-      "name": "general"
+      ]
     },
     {
       "title": "Resource Limits",
-      "variables": [
+      "name": "resources",
+      "items": [
         {
           "name": "resources_enabled",
           "type": "bool",
@@ -116,12 +117,12 @@
             "placeholder": "64Mi"
           }
         }
-      ],
-      "name": "resources"
+      ]
     },
     {
       "title": "Traefik Integration",
-      "variables": [
+      "name": "traefik",
+      "items": [
         {
           "name": "traefik_enabled",
           "type": "bool",
@@ -163,12 +164,12 @@
             "placeholder": "letsencrypt-prod"
           }
         }
-      ],
-      "name": "traefik"
+      ]
     },
     {
       "title": "DNS Settings",
-      "variables": [
+      "name": "dns",
+      "items": [
         {
           "name": "dns_names",
           "type": "str",
@@ -176,12 +177,12 @@
           "required": false,
           "description": "DNS names for certificate (comma-separated, e.g., home.arpa,*.home.arpa)"
         }
-      ],
-      "name": "dns"
+      ]
     },
     {
       "title": "Cert-Manager Settings",
-      "variables": [
+      "name": "certmanager",
+      "items": [
         {
           "name": "certmanager_issuer",
           "type": "str",
@@ -207,8 +208,7 @@
             ]
           }
         }
-      ],
-      "name": "certmanager"
+      ]
     }
   ]
 }

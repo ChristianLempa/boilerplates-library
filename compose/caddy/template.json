@@ -21,7 +21,8 @@
     {
       "title": "General",
       "description": "Basic container naming and lifecycle settings.",
-      "variables": [
+      "name": "general",
+      "items": [
         {
           "name": "service_name",
           "type": "str",
@@ -59,13 +60,13 @@
           },
           "description": "Optional timezone passed through as the `TZ` environment variable."
         }
-      ],
-      "name": "general"
+      ]
     },
     {
       "title": "Network",
       "description": "Port publishing and Docker network attachment.",
-      "variables": [
+      "name": "network",
+      "items": [
         {
           "name": "ports_http",
           "type": "int",
@@ -107,14 +108,14 @@
           "default": false,
           "description": "Use an existing external Docker network instead of creating one."
         }
-      ],
-      "name": "network"
+      ]
     },
     {
       "title": "TLS",
       "description": "Optional global ACME metadata for Caddy.",
       "toggle": "tls_enabled",
-      "variables": [
+      "name": "tls",
+      "items": [
         {
           "name": "tls_enabled",
           "type": "bool",
@@ -136,14 +137,14 @@
           },
           "description": "Email address used for ACME account registration."
         }
-      ],
-      "name": "tls"
+      ]
     },
     {
       "title": "Webserver",
       "description": "Optional generated static site config that serves files from `/srv`.",
       "toggle": "webserver_enabled",
-      "variables": [
+      "name": "webserver",
+      "items": [
         {
           "name": "webserver_enabled",
           "type": "bool",
@@ -256,14 +257,14 @@
           },
           "description": "Optional additional Caddyfile directives inserted into the generated webserver site block when not empty."
         }
-      ],
-      "name": "webserver"
+      ]
     },
     {
       "title": "Reverse Proxy",
       "description": "Optional generated reverse proxy config for forwarding requests to an upstream service.",
       "toggle": "reverse_proxy_enabled",
-      "variables": [
+      "name": "reverse-proxy",
+      "items": [
         {
           "name": "reverse_proxy_enabled",
           "type": "bool",
@@ -312,8 +313,7 @@
           },
           "description": "Optional additional `reverse_proxy` subdirectives inserted into the generated reverse proxy block when not empty."
         }
-      ],
-      "name": "reverse-proxy"
+      ]
     }
   ]
 }

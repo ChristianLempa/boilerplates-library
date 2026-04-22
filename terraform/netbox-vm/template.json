@@ -16,7 +16,8 @@
   "variables": [
     {
       "title": "General",
-      "variables": [
+      "name": "general",
+      "items": [
         {
           "name": "resource_name",
           "type": "str",
@@ -28,12 +29,12 @@
           },
           "description": "Terraform resource name."
         }
-      ],
-      "name": "general"
+      ]
     },
     {
       "title": "Virtual Machine Configuration",
-      "variables": [
+      "name": "vm",
+      "items": [
         {
           "name": "vm_name",
           "type": "str",
@@ -72,12 +73,12 @@
             ]
           }
         }
-      ],
-      "name": "vm"
+      ]
     },
     {
       "title": "Site Assignment",
-      "variables": [
+      "name": "site",
+      "items": [
         {
           "name": "site_name",
           "type": "str",
@@ -85,12 +86,12 @@
           "required": false,
           "description": "Existing NetBox site name to resolve via data source (leave empty to skip)"
         }
-      ],
-      "name": "site"
+      ]
     },
     {
       "title": "Host Device",
-      "variables": [
+      "name": "device",
+      "items": [
         {
           "name": "device_name",
           "type": "str",
@@ -98,12 +99,12 @@
           "required": false,
           "description": "Existing NetBox device name for host assignment (leave empty to skip)"
         }
-      ],
-      "name": "device"
+      ]
     },
     {
       "title": "IP Address Management",
-      "variables": [
+      "name": "ipam",
+      "items": [
         {
           "name": "ipam_enabled",
           "type": "bool",
@@ -137,12 +138,12 @@
           "required": false,
           "description": "DNS name for the IP address (leave empty to skip)"
         }
-      ],
-      "name": "ipam"
+      ]
     },
     {
       "title": "Resource Allocation",
-      "variables": [
+      "name": "resources",
+      "items": [
         {
           "name": "resources_enabled",
           "type": "bool",
@@ -199,12 +200,12 @@
             "unit": "GB"
           }
         }
-      ],
-      "name": "resources"
+      ]
     },
     {
       "title": "Description",
-      "variables": [
+      "name": "description",
+      "items": [
         {
           "name": "description_enabled",
           "type": "bool",
@@ -224,12 +225,12 @@
             "textarea": true
           }
         }
-      ],
-      "name": "description"
+      ]
     },
     {
       "title": "Dependencies",
-      "variables": [
+      "name": "depends-on",
+      "items": [
         {
           "name": "depends_on_enabled",
           "type": "bool",
@@ -249,12 +250,12 @@
             "textarea": true
           }
         }
-      ],
-      "name": "depends-on"
+      ]
     },
     {
       "title": "Lifecycle",
-      "variables": [
+      "name": "lifecycle",
+      "items": [
         {
           "name": "lifecycle_enabled",
           "type": "bool",
@@ -290,8 +291,7 @@
             "textarea": true
           }
         }
-      ],
-      "name": "lifecycle"
+      ]
     }
   ]
 }

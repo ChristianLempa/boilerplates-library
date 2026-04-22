@@ -17,7 +17,7 @@
     {
       "title": "General",
       "name": "general",
-      "variables": [
+      "items": [
         {
           "name": "resource_name",
           "type": "str",
@@ -96,7 +96,7 @@
     {
       "title": "Container",
       "name": "container",
-      "variables": [
+      "items": [
         {
           "name": "container_name",
           "type": "str",
@@ -183,7 +183,7 @@
     {
       "title": "Environment",
       "name": "environment",
-      "variables": [
+      "items": [
         {
           "name": "env_literal_enabled",
           "type": "bool",
@@ -249,7 +249,7 @@
     {
       "title": "Storage",
       "name": "storage",
-      "variables": [
+      "items": [
         {
           "name": "host_path_enabled",
           "type": "bool",
@@ -293,7 +293,7 @@
     {
       "title": "Resources",
       "name": "resources",
-      "variables": [
+      "items": [
         {
           "name": "resources_enabled",
           "type": "bool",

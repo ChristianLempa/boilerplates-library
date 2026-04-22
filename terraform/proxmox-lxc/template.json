@@ -16,7 +16,8 @@
   "variables": [
     {
       "title": "Provider Configuration",
-      "variables": [
+      "name": "provider",
+      "items": [
         {
           "name": "resource_name",
           "type": "str",
@@ -63,12 +64,12 @@
           "default": false,
           "description": "Skip TLS verification for the Proxmox API"
         }
-      ],
-      "name": "provider"
+      ]
     },
     {
       "title": "Container Identity",
-      "variables": [
+      "name": "identity",
+      "items": [
         {
           "name": "hostname",
           "type": "str",
@@ -118,12 +119,12 @@
             "placeholder": "template reference"
           }
         }
-      ],
-      "name": "identity"
+      ]
     },
     {
       "title": "Compute",
-      "variables": [
+      "name": "compute",
+      "items": [
         {
           "name": "cores",
           "type": "int",
@@ -179,12 +180,12 @@
           "default": true,
           "description": "Start the container after creation"
         }
-      ],
-      "name": "compute"
+      ]
     },
     {
       "title": "Storage and Network",
-      "variables": [
+      "name": "storage-network",
+      "items": [
         {
           "name": "rootfs_storage",
           "type": "str",
@@ -265,12 +266,12 @@
             "placeholder": "IP_ADDRESS"
           }
         }
-      ],
-      "name": "storage-network"
+      ]
     },
     {
       "title": "Lifecycle",
-      "variables": [
+      "name": "lifecycle",
+      "items": [
         {
           "name": "lifecycle_ignore_changes",
           "type": "bool",
@@ -279,8 +280,7 @@
           "default": true,
           "description": "Ignore rootfs, network, and cmode changes"
         }
-      ],
-      "name": "lifecycle"
+      ]
     }
   ]
 }

@@ -16,7 +16,8 @@
   "variables": [
     {
       "title": "General",
-      "variables": [
+      "name": "general",
+      "items": [
         {
           "name": "namespace_name",
           "type": "str",
@@ -28,12 +29,12 @@
             "placeholder": "app"
           }
         }
-      ],
-      "name": "general"
+      ]
     },
     {
       "title": "Labels",
-      "variables": [
+      "name": "labels",
+      "items": [
         {
           "name": "labels_enabled",
           "type": "bool",
@@ -64,12 +65,12 @@
             "placeholder": "app"
           }
         }
-      ],
-      "name": "labels"
+      ]
     },
     {
       "title": "Annotations",
-      "variables": [
+      "name": "annotations",
+      "items": [
         {
           "name": "annotations_enabled",
           "type": "bool",
@@ -100,8 +101,7 @@
             "placeholder": "platform"
           }
         }
-      ],
-      "name": "annotations"
+      ]
     }
   ]
 }

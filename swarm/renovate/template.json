@@ -18,7 +18,8 @@
   "variables": [
     {
       "title": "General",
-      "variables": [
+      "name": "general",
+      "items": [
         {
           "name": "service_name",
           "type": "str",
@@ -97,12 +98,12 @@
             "traefik_tls_enabled=true"
           ]
         }
-      ],
-      "name": "general"
+      ]
     },
     {
       "title": "Renovate Settings",
-      "variables": [
+      "name": "renovate-settings",
+      "items": [
         {
           "name": "renovate_platform",
           "type": "enum",
@@ -135,12 +136,12 @@
           "default": false,
           "description": "Enable or disable auto-discover repositories."
         }
-      ],
-      "name": "renovate-settings"
+      ]
     },
     {
       "title": "Authentication",
-      "variables": [
+      "name": "authentication",
+      "items": [
         {
           "name": "git_token",
           "type": "secret",
@@ -166,12 +167,12 @@
             "placeholder": "renovate"
           }
         }
-      ],
-      "name": "authentication"
+      ]
     },
     {
       "title": "Ports",
-      "variables": [
+      "name": "ports",
+      "items": [
         {
           "name": "ports_http",
           "type": "int",
@@ -183,12 +184,13 @@
             "placeholder": "8080"
           }
         }
-      ],
-      "name": "ports"
+      ]
     },
     {
       "title": "Traefik",
-      "variables": [
+      "name": "traefik",
+      "toggle": "traefik_enabled",
+      "items": [
         {
           "name": "traefik_enabled",
           "type": "bool",
@@ -242,14 +244,13 @@
             "traefik_enabled=true"
           ]
         }
-      ],
-      "name": "traefik",
-      "toggle": "traefik_enabled"
+      ]
     },
     {
       "title": "Traefik TLS",
       "toggle": "traefik_tls_enabled",
-      "variables": [
+      "name": "traefik-tls",
+      "items": [
         {
           "name": "traefik_tls_enabled",
           "type": "bool",
@@ -258,12 +259,12 @@
           "default": false,
           "description": "Enable Traefik TLS"
         }
-      ],
-      "name": "traefik-tls"
+      ]
     },
     {
       "title": "Swarm",
-      "variables": [
+      "name": "swarm",
+      "items": [
         {
           "name": "swarm_placement_mode",
           "type": "enum",
@@ -311,8 +312,7 @@
             "placeholder": "swarm-node-1"
           }
         }
-      ],
-      "name": "swarm"
+      ]
     }
   ]
 }

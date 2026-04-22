@@ -20,7 +20,8 @@
   "variables": [
     {
       "title": "General",
-      "variables": [
+      "name": "general",
+      "items": [
         {
           "name": "service_name",
           "type": "str",
@@ -204,12 +205,13 @@
             "placeholder": "192.0.2.1"
           }
         }
-      ],
-      "name": "general"
+      ]
     },
     {
       "title": "Traefik",
-      "variables": [
+      "name": "traefik",
+      "toggle": "traefik_enabled",
+      "items": [
         {
           "name": "traefik_enabled",
           "type": "bool",
@@ -260,13 +262,13 @@
           },
           "description": "Domain used for Traefik."
         }
-      ],
-      "name": "traefik",
-      "toggle": "traefik_enabled"
+      ]
     },
     {
       "title": "Traefik TLS",
-      "variables": [
+      "name": "traefik-tls",
+      "toggle": "traefik_tls_enabled",
+      "items": [
         {
           "name": "traefik_tls_enabled",
           "type": "bool",
@@ -297,13 +299,12 @@
           },
           "description": "Traefik Tls Certresolver"
         }
-      ],
-      "name": "traefik-tls",
-      "toggle": "traefik_tls_enabled"
+      ]
     },
     {
       "title": "Ports",
-      "variables": [
+      "name": "ports",
+      "items": [
         {
           "name": "ports_http",
           "type": "int",
@@ -319,12 +320,13 @@
             "placeholder": "9120"
           }
         }
-      ],
-      "name": "ports"
+      ]
     },
     {
       "title": "Resource Limits",
-      "variables": [
+      "name": "resources",
+      "toggle": "resources_enabled",
+      "items": [
         {
           "name": "resources_enabled",
           "type": "bool",
@@ -377,13 +379,13 @@
           },
           "description": "Value used for the resource limits settings."
         }
-      ],
-      "name": "resources",
-      "toggle": "resources_enabled"
+      ]
     },
     {
       "title": "Environment Variables",
-      "variables": [
+      "name": "environment",
+      "toggle": "environment_enabled",
+      "items": [
         {
           "name": "environment_enabled",
           "type": "bool",
@@ -477,9 +479,7 @@
             ]
           }
         }
-      ],
-      "name": "environment",
-      "toggle": "environment_enabled"
+      ]
     }
   ]
 }

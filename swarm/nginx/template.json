@@ -18,7 +18,8 @@
   "variables": [
     {
       "title": "General",
-      "variables": [
+      "name": "general",
+      "items": [
         {
           "name": "service_name",
           "type": "str",
@@ -101,12 +102,12 @@
             ]
           }
         }
-      ],
-      "name": "general"
+      ]
     },
     {
       "title": "Ports",
-      "variables": [
+      "name": "ports",
+      "items": [
         {
           "name": "ports_http",
           "type": "int",
@@ -135,12 +136,13 @@
             "traefik_enabled=false"
           ]
         }
-      ],
-      "name": "ports"
+      ]
     },
     {
       "title": "Traefik",
-      "variables": [
+      "name": "traefik",
+      "toggle": "traefik_enabled",
+      "items": [
         {
           "name": "traefik_enabled",
           "type": "bool",
@@ -194,14 +196,13 @@
             "traefik_enabled=true"
           ]
         }
-      ],
-      "name": "traefik",
-      "toggle": "traefik_enabled"
+      ]
     },
     {
       "title": "Traefik TLS",
       "toggle": "traefik_tls_enabled",
-      "variables": [
+      "name": "traefik-tls",
+      "items": [
         {
           "name": "traefik_tls_enabled",
           "type": "bool",
@@ -210,8 +211,7 @@
           "default": false,
           "description": "Enable Traefik TLS"
         }
-      ],
-      "name": "traefik-tls"
+      ]
     }
   ]
 }

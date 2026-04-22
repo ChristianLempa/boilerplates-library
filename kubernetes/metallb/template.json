@@ -17,7 +17,7 @@
     {
       "title": "General",
       "name": "general",
-      "variables": [
+      "items": [
         {
           "name": "namespace",
           "type": "str",
@@ -64,7 +64,7 @@
     {
       "title": "Address Pool",
       "name": "pool",
-      "variables": [
+      "items": [
         {
           "name": "address_range",
           "type": "str",
@@ -97,7 +97,7 @@
     {
       "title": "Layer2 Advertisement",
       "name": "layer2",
-      "variables": [
+      "items": [
         {
           "name": "bind_interfaces_enabled",
           "type": "bool",

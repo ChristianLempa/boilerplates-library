@@ -16,7 +16,7 @@
     {
       "name": "dns",
       "title": "DNS Server Configuration",
-      "variables": [
+      "items": [
         {
           "name": "dns_server",
           "title": "DNS server address",
@@ -36,7 +36,7 @@
     {
       "name": "record",
       "title": "DNS Record Configuration",
-      "variables": [
+      "items": [
         {
           "name": "dns_hostname",
           "title": "Hostname",

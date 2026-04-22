@@ -19,7 +19,8 @@
   "variables": [
     {
       "title": "General",
-      "variables": [
+      "name": "general",
+      "items": [
         {
           "name": "router_enabled",
           "type": "bool",
@@ -61,12 +62,12 @@
             ]
           }
         }
-      ],
-      "name": "general"
+      ]
     },
     {
       "title": "Lookups",
-      "variables": [
+      "name": "lookups",
+      "items": [
         {
           "name": "network_name",
           "type": "str",
@@ -104,12 +105,12 @@
             "textarea": true
           }
         }
-      ],
-      "name": "lookups"
+      ]
     },
     {
       "title": "Provider Configuration",
-      "variables": [
+      "name": "provider",
+      "items": [
         {
           "name": "netbird_management_url",
           "type": "str",
@@ -138,8 +139,7 @@
             "placeholder": "account-id"
           }
         }
-      ],
-      "name": "provider"
+      ]
     }
   ]
 }

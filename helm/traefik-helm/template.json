@@ -16,7 +16,8 @@
   "variables": [
     {
       "title": "Dashboard IngressRoute",
-      "variables": [
+      "name": "dashboard",
+      "items": [
         {
           "name": "dashboard_host",
           "type": "str",
@@ -63,12 +64,12 @@
             "placeholder": "traefik-dashboard-tls"
           }
         }
-      ],
-      "name": "dashboard"
+      ]
     },
     {
       "title": "Redirect",
-      "variables": [
+      "name": "http-redirect",
+      "items": [
         {
           "name": "http_redirect_enabled",
           "type": "bool",
@@ -88,12 +89,12 @@
             "http_redirect_enabled=true"
           ]
         }
-      ],
-      "name": "http-redirect"
+      ]
     },
     {
       "title": "Traefik Settings",
-      "variables": [
+      "name": "traefik-config",
+      "items": [
         {
           "name": "accesslog_enabled",
           "type": "bool",
@@ -118,8 +119,7 @@
           "default": false,
           "description": "Enable Prometheus metrics"
         }
-      ],
-      "name": "traefik-config"
+      ]
     }
   ]
 }

@@ -20,7 +20,8 @@
   "variables": [
     {
       "title": "General",
-      "variables": [
+      "name": "general",
+      "items": [
         {
           "name": "service_name",
           "type": "str",
@@ -180,12 +181,13 @@
           "default": "",
           "description": "Network Macvlan Gateway"
         }
-      ],
-      "name": "general"
+      ]
     },
     {
       "title": "Traefik",
-      "variables": [
+      "name": "traefik",
+      "toggle": "traefik_enabled",
+      "items": [
         {
           "name": "traefik_enabled",
           "type": "bool",
@@ -272,13 +274,12 @@
             "traefik_tls_enabled=true"
           ]
         }
-      ],
-      "name": "traefik",
-      "toggle": "traefik_enabled"
+      ]
     },
     {
       "title": "Ports",
-      "variables": [
+      "name": "ports",
+      "items": [
         {
           "name": "ports_http",
           "type": "int",
@@ -294,13 +295,13 @@
             "placeholder": "9120"
           }
         }
-      ],
-      "name": "ports"
+      ]
     },
     {
       "title": "Resource Limits",
       "toggle": "resources_enabled",
-      "variables": [
+      "name": "resources",
+      "items": [
         {
           "name": "resources_enabled",
           "type": "bool",
@@ -331,13 +332,13 @@
           },
           "description": "Value used for the resource limits settings."
         }
-      ],
-      "name": "resources"
+      ]
     },
     {
       "title": "Environment Variables",
       "toggle": "environment_enabled",
-      "variables": [
+      "name": "environment",
+      "items": [
         {
           "name": "environment_enabled",
           "type": "bool",
@@ -428,8 +429,7 @@
             ]
           }
         }
-      ],
-      "name": "environment"
+      ]
     }
   ]
 }

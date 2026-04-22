@@ -16,7 +16,8 @@
   "variables": [
     {
       "title": "Networking",
-      "variables": [
+      "name": "networking",
+      "items": [
         {
           "name": "network_mode",
           "type": "str",
@@ -28,12 +29,12 @@
             "placeholder": "ClusterIP"
           }
         }
-      ],
-      "name": "networking"
+      ]
     },
     {
       "title": "Traefik Configuration",
-      "variables": [
+      "name": "traefik",
+      "items": [
         {
           "name": "traefik_enabled",
           "type": "bool",
@@ -71,12 +72,12 @@
             "placeholder": "portainer-tls"
           }
         }
-      ],
-      "name": "traefik"
+      ]
     },
     {
       "title": "Volume Configuration",
-      "variables": [
+      "name": "volumes",
+      "items": [
         {
           "name": "volumes_mode",
           "type": "enum",
@@ -105,8 +106,7 @@
             "placeholder": "portainer"
           }
         }
-      ],
-      "name": "volumes"
+      ]
     }
   ]
 }

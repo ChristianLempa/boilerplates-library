@@ -16,7 +16,8 @@
   "variables": [
     {
       "title": "General",
-      "variables": [
+      "name": "general",
+      "items": [
         {
           "name": "resource_name",
           "type": "str",
@@ -92,12 +93,12 @@
             ]
           }
         }
-      ],
-      "name": "general"
+      ]
     },
     {
       "title": "Resource Limits",
-      "variables": [
+      "name": "resources",
+      "items": [
         {
           "name": "resources_enabled",
           "type": "bool",
@@ -150,12 +151,12 @@
             "placeholder": "64Mi"
           }
         }
-      ],
-      "name": "resources"
+      ]
     },
     {
       "title": "Traefik Integration",
-      "variables": [
+      "name": "traefik",
+      "items": [
         {
           "name": "traefik_enabled",
           "type": "bool",
@@ -204,8 +205,7 @@
           "required": false,
           "description": "App label selector (e.g., app.kubernetes.io/name value)"
         }
-      ],
-      "name": "traefik"
+      ]
     }
   ]
 }

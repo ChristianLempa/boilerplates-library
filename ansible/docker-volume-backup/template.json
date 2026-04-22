@@ -22,7 +22,8 @@
   "variables": [
     {
       "title": "Backup",
-      "variables": [
+      "name": "backup",
+      "items": [
         {
           "name": "container_name",
           "type": "str",
@@ -61,12 +62,12 @@
           "default": false,
           "description": "If enabled, stop the container before backup and start it again afterwards if it was running"
         }
-      ],
-      "name": "backup"
+      ]
     },
     {
       "title": "Internal",
-      "variables": [
+      "name": "internal",
+      "items": [
         {
           "name": "backup_timestamp",
           "type": "str",
@@ -110,8 +111,7 @@
           "default": "",
           "description": "Value used for the internal settings."
         }
-      ],
-      "name": "internal"
+      ]
     }
   ]
 }

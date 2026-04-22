@@ -22,7 +22,8 @@
   "variables": [
     {
       "title": "Prune Options",
-      "variables": [
+      "name": "prune",
+      "items": [
         {
           "name": "prune_include_unused_tagged_images",
           "type": "bool",
@@ -79,8 +80,7 @@
             "unit": "MB"
           }
         }
-      ],
-      "name": "prune"
+      ]
     }
   ]
 }

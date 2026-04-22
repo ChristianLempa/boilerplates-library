@@ -16,7 +16,8 @@
   "variables": [
     {
       "title": "General",
-      "variables": [
+      "name": "general",
+      "items": [
         {
           "name": "service_name",
           "type": "str",
@@ -66,12 +67,12 @@
             "placeholder": "./data"
           }
         }
-      ],
-      "name": "general"
+      ]
     },
     {
       "title": "Configuration",
-      "variables": [
+      "name": "configuration",
+      "items": [
         {
           "name": "teleport_node_name",
           "type": "str",
@@ -143,12 +144,12 @@
           "default": false,
           "description": "Enable Teleport app service block"
         }
-      ],
-      "name": "configuration"
+      ]
     },
     {
       "title": "Ports",
-      "variables": [
+      "name": "ports",
+      "items": [
         {
           "name": "ports_web",
           "type": "int",
@@ -193,12 +194,12 @@
             "placeholder": "3025"
           }
         }
-      ],
-      "name": "ports"
+      ]
     },
     {
       "title": "Network",
-      "variables": [
+      "name": "network",
+      "items": [
         {
           "name": "network_name",
           "type": "str",
@@ -218,12 +219,13 @@
           "default": true,
           "description": "Use an existing external Docker network"
         }
-      ],
-      "name": "network"
+      ]
     },
     {
       "title": "Traefik",
-      "variables": [
+      "name": "traefik",
+      "toggle": "traefik_enabled",
+      "items": [
         {
           "name": "traefik_enabled",
           "type": "bool",
@@ -254,9 +256,7 @@
             "traefik_tls_enabled=true"
           ]
         }
-      ],
-      "name": "traefik",
-      "toggle": "traefik_enabled"
+      ]
     }
   ]
 }

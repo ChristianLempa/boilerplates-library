@@ -22,7 +22,8 @@
   "variables": [
     {
       "title": "Audit",
-      "variables": [
+      "name": "audit",
+      "items": [
         {
           "name": "audit_fail_on_missing",
           "type": "bool",
@@ -50,12 +51,12 @@
             "placeholder": "/tmp/docker-healthcheck-audit.json"
           }
         }
-      ],
-      "name": "audit"
+      ]
     },
     {
       "title": "Internal",
-      "variables": [
+      "name": "internal",
+      "items": [
         {
           "name": "containers_missing_healthcheck",
           "type": "str",
@@ -80,8 +81,7 @@
           "default": "",
           "description": "Value used for the internal settings."
         }
-      ],
-      "name": "internal"
+      ]
     }
   ]
 }

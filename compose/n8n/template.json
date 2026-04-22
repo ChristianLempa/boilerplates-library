@@ -19,7 +19,8 @@
   "variables": [
     {
       "title": "General",
-      "variables": [
+      "name": "general",
+      "items": [
         {
           "name": "service_name",
           "type": "str",
@@ -91,12 +92,13 @@
           },
           "description": "Policy used for Restart."
         }
-      ],
-      "name": "general"
+      ]
     },
     {
       "title": "Traefik",
-      "variables": [
+      "name": "traefik",
+      "toggle": "traefik_enabled",
+      "items": [
         {
           "name": "traefik_enabled",
           "type": "bool",
@@ -205,14 +207,13 @@
             "traefik_tls_enabled=true"
           ]
         }
-      ],
-      "name": "traefik",
-      "toggle": "traefik_enabled"
+      ]
     },
     {
       "title": "Queue Mode",
       "toggle": "queue_enabled",
-      "variables": [
+      "name": "queue",
+      "items": [
         {
           "name": "queue_enabled",
           "type": "bool",
@@ -271,13 +272,13 @@
             "queue_enabled=true"
           ]
         }
-      ],
-      "name": "queue"
+      ]
     },
     {
       "title": "Database",
       "toggle": "database_enabled",
-      "variables": [
+      "name": "database",
+      "items": [
         {
           "name": "database_enabled",
           "type": "bool",
@@ -369,12 +370,12 @@
             "database_enabled=true"
           ]
         }
-      ],
-      "name": "database"
+      ]
     },
     {
       "title": "Security",
-      "variables": [
+      "name": "security",
+      "items": [
         {
           "name": "encryption_key",
           "type": "secret",
@@ -397,12 +398,12 @@
             "unit": "hops"
           }
         }
-      ],
-      "name": "security"
+      ]
     },
     {
       "title": "Webhooks",
-      "variables": [
+      "name": "webhooks",
+      "items": [
         {
           "name": "webhook_url",
           "type": "str",
@@ -411,13 +412,13 @@
           "default": "",
           "description": "Base URL used for webhooks."
         }
-      ],
-      "name": "webhooks"
+      ]
     },
     {
       "title": "Metrics",
       "toggle": "metrics_enabled",
-      "variables": [
+      "name": "metrics",
+      "items": [
         {
           "name": "metrics_enabled",
           "type": "bool",
@@ -437,12 +438,12 @@
             "metrics_enabled=true"
           ]
         }
-      ],
-      "name": "metrics"
+      ]
     },
     {
       "title": "Execution Settings",
-      "variables": [
+      "name": "execution",
+      "items": [
         {
           "name": "execution_save_on_error",
           "type": "enum",
@@ -471,12 +472,12 @@
             ]
           }
         }
-      ],
-      "name": "execution"
+      ]
     },
     {
       "title": "Network",
-      "variables": [
+      "name": "network",
+      "items": [
         {
           "name": "network_mode",
           "type": "str",
@@ -503,12 +504,12 @@
           "default": false,
           "description": "Whether the network is external"
         }
-      ],
-      "name": "network"
+      ]
     },
     {
       "title": "Ports",
-      "variables": [
+      "name": "ports",
+      "items": [
         {
           "name": "ports_http",
           "type": "int",
@@ -524,8 +525,7 @@
             "placeholder": "5678"
           }
         }
-      ],
-      "name": "ports"
+      ]
     }
   ]
 }

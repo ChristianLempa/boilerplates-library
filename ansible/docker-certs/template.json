@@ -16,7 +16,8 @@
   "variables": [
     {
       "title": "Certificate Configuration",
-      "variables": [
+      "name": "certificates",
+      "items": [
         {
           "name": "certs_path",
           "type": "str",
@@ -54,8 +55,7 @@
             "placeholder": "home.arpa.tld"
           }
         }
-      ],
-      "name": "certificates"
+      ]
     }
   ]
 }

@@ -19,7 +19,8 @@
   "variables": [
     {
       "title": "General",
-      "variables": [
+      "name": "general",
+      "items": [
         {
           "name": "service_name",
           "type": "str",
@@ -108,12 +109,13 @@
             "placeholder": "web"
           }
         }
-      ],
-      "name": "general"
+      ]
     },
     {
       "title": "Queue Mode",
-      "variables": [
+      "name": "queue",
+      "toggle": "queue_enabled",
+      "items": [
         {
           "name": "queue_enabled",
           "type": "bool",
@@ -172,13 +174,13 @@
             "queue_enabled=true"
           ]
         }
-      ],
-      "name": "queue",
-      "toggle": "queue_enabled"
+      ]
     },
     {
       "title": "Database",
-      "variables": [
+      "name": "database",
+      "toggle": "database_enabled",
+      "items": [
         {
           "name": "database_enabled",
           "type": "bool",
@@ -270,13 +272,12 @@
             "database_enabled=true"
           ]
         }
-      ],
-      "name": "database",
-      "toggle": "database_enabled"
+      ]
     },
     {
       "title": "Security",
-      "variables": [
+      "name": "security",
+      "items": [
         {
           "name": "encryption_key",
           "type": "secret",
@@ -299,12 +300,12 @@
             "unit": "hops"
           }
         }
-      ],
-      "name": "security"
+      ]
     },
     {
       "title": "Webhooks",
-      "variables": [
+      "name": "webhooks",
+      "items": [
         {
           "name": "webhook_url",
           "type": "str",
@@ -316,12 +317,13 @@
             "placeholder": "https://n8n.home.arpa/"
           }
         }
-      ],
-      "name": "webhooks"
+      ]
     },
     {
       "title": "Metrics",
-      "variables": [
+      "name": "metrics",
+      "toggle": "metrics_enabled",
+      "items": [
         {
           "name": "metrics_enabled",
           "type": "bool",
@@ -341,13 +343,12 @@
             "metrics_enabled=true"
           ]
         }
-      ],
-      "name": "metrics",
-      "toggle": "metrics_enabled"
+      ]
     },
     {
       "title": "Execution Settings",
-      "variables": [
+      "name": "execution",
+      "items": [
         {
           "name": "execution_save_on_error",
           "type": "enum",
@@ -376,12 +377,12 @@
             ]
           }
         }
-      ],
-      "name": "execution"
+      ]
     },
     {
       "title": "Network",
-      "variables": [
+      "name": "network",
+      "items": [
         {
           "name": "network_mode",
           "type": "enum",
@@ -421,12 +422,13 @@
             "network_mode=bridge"
           ]
         }
-      ],
-      "name": "network"
+      ]
     },
     {
       "title": "Traefik",
-      "variables": [
+      "name": "traefik",
+      "toggle": "traefik_enabled",
+      "items": [
         {
           "name": "traefik_enabled",
           "type": "bool",
@@ -497,13 +499,12 @@
           },
           "description": "Domain used for Traefik."
         }
-      ],
-      "name": "traefik",
-      "toggle": "traefik_enabled"
+      ]
     },
     {
       "title": "Ports",
-      "variables": [
+      "name": "ports",
+      "items": [
         {
           "name": "ports_http",
           "type": "int",
@@ -519,12 +520,12 @@
             "placeholder": "5678"
           }
         }
-      ],
-      "name": "ports"
+      ]
     },
     {
       "title": "Swarm",
-      "variables": [
+      "name": "swarm",
+      "items": [
         {
           "name": "swarm_replicas",
           "type": "int",
@@ -552,12 +553,13 @@
             "placeholder": "swarm-node-1"
           }
         }
-      ],
-      "name": "swarm"
+      ]
     },
     {
       "title": "Traefik TLS",
-      "variables": [
+      "name": "traefik-tls",
+      "toggle": "traefik_tls_enabled",
+      "items": [
         {
           "name": "traefik_tls_certresolver",
           "type": "str",
@@ -577,9 +579,7 @@
           "default": false,
           "description": "Enable Traefik TLS"
         }
-      ],
-      "name": "traefik-tls",
-      "toggle": "traefik_tls_enabled"
+      ]
     }
   ]
 }

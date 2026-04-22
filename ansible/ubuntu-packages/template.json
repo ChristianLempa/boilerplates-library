@@ -22,7 +22,7 @@
     {
       "title": "Base Packages",
       "name": "base_packages",
-      "variables": [
+      "items": [
         {
           "name": "install_python3_venv",
           "type": "bool",
@@ -124,7 +124,7 @@
     {
       "title": "Optional Packages",
       "name": "optional_packages",
-      "variables": [
+      "items": [
         {
           "name": "install_prometheus_node_exporter",
           "type": "bool",

@@ -19,7 +19,8 @@
   "variables": [
     {
       "title": "General",
-      "variables": [
+      "name": "general",
+      "items": [
         {
           "name": "service_name",
           "type": "str",
@@ -118,12 +119,12 @@
           "required": false,
           "description": "Enable Ansible SSH host key checking"
         }
-      ],
-      "name": "general"
+      ]
     },
     {
       "title": "Ports",
-      "variables": [
+      "name": "ports",
+      "items": [
         {
           "name": "ports_http",
           "type": "str",
@@ -135,12 +136,13 @@
           },
           "description": "Host port exposed for HTTP."
         }
-      ],
-      "name": "ports"
+      ]
     },
     {
       "title": "Traefik",
-      "variables": [
+      "name": "traefik",
+      "toggle": "traefik_enabled",
+      "items": [
         {
           "name": "traefik_enabled",
           "type": "bool",
@@ -202,13 +204,12 @@
             "traefik_tls_enabled=true"
           ]
         }
-      ],
-      "name": "traefik",
-      "toggle": "traefik_enabled"
+      ]
     },
     {
       "title": "Database",
-      "variables": [
+      "name": "database",
+      "items": [
         {
           "name": "database_type",
           "type": "enum",
@@ -305,8 +306,7 @@
           ],
           "description": "Use external database"
         }
-      ],
-      "name": "database"
+      ]
     }
   ]
 }

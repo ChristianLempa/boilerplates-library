@@ -16,7 +16,8 @@
   "variables": [
     {
       "title": "General",
-      "variables": [
+      "name": "general",
+      "items": [
         {
           "name": "service_name",
           "type": "str",
@@ -81,12 +82,12 @@
             "placeholder": "128"
           }
         }
-      ],
-      "name": "general"
+      ]
     },
     {
       "title": "Runtime",
-      "variables": [
+      "name": "runtime",
+      "items": [
         {
           "name": "docker_socket_enabled",
           "type": "bool",
@@ -154,12 +155,12 @@
           "default": false,
           "description": "Enable Kestra tutorial flows"
         }
-      ],
-      "name": "runtime"
+      ]
     },
     {
       "title": "PostgreSQL Datasource",
-      "variables": [
+      "name": "postgres",
+      "items": [
         {
           "name": "postgres_jdbc_url",
           "type": "str",
@@ -187,12 +188,12 @@
           "required": true,
           "description": "Password for the postgresql."
         }
-      ],
-      "name": "postgres"
+      ]
     },
     {
       "title": "Network",
-      "variables": [
+      "name": "network",
+      "items": [
         {
           "name": "network_name",
           "type": "str",
@@ -212,12 +213,13 @@
           "default": true,
           "description": "Use an existing external Docker network"
         }
-      ],
-      "name": "network"
+      ]
     },
     {
       "title": "Traefik",
-      "variables": [
+      "name": "traefik",
+      "toggle": "traefik_enabled",
+      "items": [
         {
           "name": "traefik_enabled",
           "type": "bool",
@@ -281,9 +283,7 @@
             "traefik_tls_enabled=true"
           ]
         }
-      ],
-      "name": "traefik",
-      "toggle": "traefik_enabled"
+      ]
     }
   ]
 }
