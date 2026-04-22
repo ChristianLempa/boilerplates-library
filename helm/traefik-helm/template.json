@@ -6,7 +6,7 @@
     "description": "Helm chart for Traefik v3, a modern HTTP reverse proxy and load balancer designed for microservices and Kubernetes environments.",
     "guide": "## Overview\nHelm chart for Traefik v3, a modern HTTP reverse proxy and load balancer designed for microservices and Kubernetes environments.\n\n## Prerequisites\n- Decide whether this release will be the cluster's primary ingress controller before installing it.\n- If you enable the dashboard ingress route, prepare the hostname, authentication middleware, and TLS secret or certificate issuer ahead of time.\n- Confirm whether HTTP to HTTPS redirects, access logs, and Prometheus metrics match your cluster policy before rollout.\n\n## Deploy\n- Render `values.yaml`, review the dashboard, redirect, and metrics settings, then install or update the release with `helm upgrade --install`.\n- Verify the Traefik service, entrypoints, and controller logs after the rollout completes.\n\n## Post-Install\n- Expose the dashboard only behind authentication and TLS, then verify that the intended middleware is actually attached.\n- Test HTTP to HTTPS redirection and scrape the metrics endpoint if Prometheus support is enabled.\n- Confirm that other ingress resources in the cluster are being reconciled by the expected Traefik instance.\n\n## References\n- [Traefik](https://traefik.io/)\n- [Documentation](https://doc.traefik.io/traefik/)\n- [Helm Chart](https://traefik.github.io/charts)",
     "tags": [],
-    "template_version": "3.5.3",
+    "template_version": "v3.5.6",
     "icon": {
       "provider": "selfhst",
       "id": "traefik"
