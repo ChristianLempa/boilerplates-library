@@ -23,7 +23,7 @@ services:
 
   <%- endif -%>
   << service_name >>:
-    image: n8nio/n8n:2.8.3
+    image: n8nio/n8n:2.8.4
     environment:
       - N8N_LOG_LEVEL=<< container_loglevel >>
       - GENERIC_TIMEZONE=<< container_timezone >>
@@ -163,7 +163,7 @@ services:
 <%- if queue_enabled and queue_embedded_worker -%>
 
   << service_name >>-worker:
-    image: n8nio/n8n:2.8.3
+    image: n8nio/n8n:2.8.4
     command: worker
     environment:
       - N8N_LOG_LEVEL=<< container_loglevel >>
