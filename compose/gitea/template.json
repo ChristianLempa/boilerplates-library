@@ -8,7 +8,7 @@
     "tags": [
       "traefik"
     ],
-    "template_version": "1.25.4",
+    "template_version": "1.26.0",
     "icon": {
       "provider": "selfhst",
       "id": "gitea"
