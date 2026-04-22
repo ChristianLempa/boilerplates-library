@@ -32,7 +32,7 @@ services:
       - << service_name >>-db
 
   << service_name >>-db:
-    image: docker.io/library/mariadb:11.3.2
+    image: docker.io/library/mariadb:11.8.6
     restart: << restart_policy >>
     environment:
       - MYSQL_RANDOM_ROOT_PASSWORD=true
