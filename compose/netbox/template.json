@@ -10,7 +10,7 @@
       "database",
       "email"
     ],
-    "template_version": "v4.5.2",
+    "template_version": "v4.5.8",
     "icon": {
       "provider": "selfhst",
       "id": "netbox"
