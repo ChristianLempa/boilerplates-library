@@ -1,7 +1,7 @@
 ---
 image:
   repository: docker.io/netboxcommunity/netbox
-  tag: v4.2.3
+  tag: v4.5.8
   pullPolicy: IfNotPresent
 
 replicaCount: 1
