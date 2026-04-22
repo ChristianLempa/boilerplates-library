@@ -10,13 +10,16 @@
       "postgres",
       "database"
     ],
-    "template_version": "1",
     "icon": {
       "provider": "simple-icons",
       "id": "postgresql",
       "color": "emerald"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "1",
+      "source_dep_name": "manual/docker-postgres-backup"
+    }
   },
   "variables": [
     {

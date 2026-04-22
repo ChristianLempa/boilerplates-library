@@ -5,12 +5,15 @@
     "name": "Kubernetes PersistentVolume",
     "description": "Kubernetes PersistentVolume for provisioning cluster-wide storage resources. Cluster-scoped, typically created by administrators.",
     "tags": [],
-    "template_version": "1.31.0",
     "icon": {
       "provider": "simple-icons",
       "id": "kubernetes"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "1.31.0",
+      "source_dep_name": "manual/core-persistentvolume"
+    }
   },
   "variables": [
     {

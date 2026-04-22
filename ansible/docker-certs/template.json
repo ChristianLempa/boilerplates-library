@@ -5,12 +5,15 @@
     "name": "Generate Docker TLS Certificates",
     "description": "Generates TLS certificates for the Docker daemon, including CA, server, and client certificates. Used to secure Docker remote API access.",
     "tags": [],
-    "template_version": "1.0.0",
     "icon": {
       "provider": "simple-icons",
       "id": "docker"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "1.0.0",
+      "source_dep_name": "manual/docker-certs"
+    }
   },
   "variables": [
     {

@@ -9,7 +9,12 @@
       "id": "bind-9",
       "color": "default"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "3.5.0",
+      "source_dep_name": "hashicorp/dns",
+      "source_dep_version": "3.5.0"
+    }
   },
   "variables": [
     {

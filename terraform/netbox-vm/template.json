@@ -5,12 +5,15 @@
     "name": "NetBox Virtual Machine",
     "description": "Registers a virtual machine in NetBox with cluster, site, and host device associations. Defines VM metadata including resource allocation and optional IPAM integration.",
     "tags": [],
-    "template_version": "5.0.1",
     "icon": {
       "provider": "selfhst",
       "id": "netbox"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "5.0.1",
+      "source_dep_name": "manual/netbox-vm"
+    }
   },
   "variables": [
     {

@@ -5,12 +5,16 @@
     "name": "MariaDB",
     "description": "Community-developed, open-source relational database management system and drop-in replacement for MySQL.",
     "tags": [],
-    "template_version": "12.2.2",
     "icon": {
       "provider": "selfhst",
       "id": "mariadb"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "12.2.2",
+      "source_dep_name": "docker.io/library/mariadb",
+      "source_dep_version": "12.2.2"
+    }
   },
   "variables": [
     {

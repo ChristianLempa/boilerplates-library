@@ -9,12 +9,15 @@
       "logging",
       "traefik"
     ],
-    "template_version": "v1.7.6",
     "icon": {
       "provider": "selfhst",
       "id": "crowdsec"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "v1.7.6",
+      "source_dep_name": "manual/crowdsec"
+    }
   },
   "variables": [
     {

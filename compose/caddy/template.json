@@ -9,12 +9,16 @@
       "web-server",
       "tls"
     ],
-    "template_version": "2.11.2-alpine",
     "icon": {
       "provider": "selfhst",
       "id": "caddy"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "2.11.2-alpine",
+      "source_dep_name": "docker.io/library/caddy",
+      "source_dep_version": "2.11.2-alpine"
+    }
   },
   "variables": [
     {

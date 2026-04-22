@@ -5,12 +5,15 @@
     "name": "Kubernetes Secret (Opaque)",
     "description": "Kubernetes Secret (Opaque type) for storing sensitive data like API tokens, passwords, or keys.",
     "tags": [],
-    "template_version": "1.31.0",
     "icon": {
       "provider": "simple-icons",
       "id": "kubernetes"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "1.31.0",
+      "source_dep_name": "manual/core-secret"
+    }
   },
   "variables": [
     {

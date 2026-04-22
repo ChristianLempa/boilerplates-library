@@ -8,12 +8,16 @@
       "traefik",
       "volume_modes"
     ],
-    "template_version": "v1.10.1",
     "icon": {
       "provider": "selfhst",
       "id": "homepage"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "v1.10.1",
+      "source_dep_name": "ghcr.io/gethomepage/homepage",
+      "source_dep_version": "v1.10.1"
+    }
   },
   "variables": [
     {

@@ -5,12 +5,15 @@
     "name": "Kubernetes Namespace",
     "description": "Creates a Kubernetes Namespace with optional single label and annotation entries for basic environment scoping.",
     "tags": [],
-    "template_version": "1.31.0",
     "icon": {
       "provider": "simple-icons",
       "id": "kubernetes"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "1.31.0",
+      "source_dep_name": "manual/core-namespace"
+    }
   },
   "variables": [
     {

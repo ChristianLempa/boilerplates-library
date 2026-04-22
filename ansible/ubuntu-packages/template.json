@@ -10,12 +10,15 @@
       "packages",
       "ansible"
     ],
-    "template_version": "1.0.0",
     "icon": {
       "provider": "simple-icons",
       "id": "ansible"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "1.0.0",
+      "source_dep_name": "manual/ubuntu-packages"
+    }
   },
   "variables": [
     {

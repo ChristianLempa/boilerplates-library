@@ -5,12 +5,15 @@
     "name": "Kubernetes NetworkPolicy",
     "description": "Creates a Kubernetes NetworkPolicy with targeted pod selection, optional ingress and egress policy types, and simple peer and port controls for common isolation patterns.",
     "tags": [],
-    "template_version": "1.31.0",
     "icon": {
       "provider": "simple-icons",
       "id": "kubernetes"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "1.31.0",
+      "source_dep_name": "manual/core-networkpolicy"
+    }
   },
   "variables": [
     {

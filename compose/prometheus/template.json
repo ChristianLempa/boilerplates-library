@@ -8,12 +8,16 @@
       "traefik",
       "authentik"
     ],
-    "template_version": "v3.9.1",
     "icon": {
       "provider": "selfhst",
       "id": "prometheus"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "v3.9.1",
+      "source_dep_name": "docker.io/prom/prometheus",
+      "source_dep_version": "v3.9.1"
+    }
   },
   "variables": [
     {

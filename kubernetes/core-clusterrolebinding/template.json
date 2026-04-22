@@ -5,12 +5,15 @@
     "name": "Kubernetes ClusterRoleBinding",
     "description": "Creates a Kubernetes ClusterRoleBinding that binds one subject to a Role or ClusterRole.",
     "tags": [],
-    "template_version": "1.31.0",
     "icon": {
       "provider": "simple-icons",
       "id": "kubernetes"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "1.31.0",
+      "source_dep_name": "manual/core-clusterrolebinding"
+    }
   },
   "variables": [
     {

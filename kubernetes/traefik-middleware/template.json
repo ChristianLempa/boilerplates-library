@@ -5,12 +5,15 @@
     "name": "Traefik Middleware",
     "description": "Traefik Middleware CRD for modifying HTTP requests and responses. Supports headers, redirects, rate-limiting, authentication, and more.",
     "tags": [],
-    "template_version": "3.5.3",
     "icon": {
       "provider": "selfhst",
       "id": "traefik"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "3.5.3",
+      "source_dep_name": "manual/traefik-middleware"
+    }
   },
   "variables": [
     {

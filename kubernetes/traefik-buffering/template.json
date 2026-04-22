@@ -5,12 +5,15 @@
     "name": "Traefik Buffering Middleware",
     "description": "Traefik Middleware CRD for buffering request and response bodies so uploads, downloads, and upstream size controls behave more predictably.",
     "tags": [],
-    "template_version": "3.5.3",
     "icon": {
       "provider": "selfhst",
       "id": "traefik"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "3.5.3",
+      "source_dep_name": "manual/traefik-buffering"
+    }
   },
   "variables": [
     {

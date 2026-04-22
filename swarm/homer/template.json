@@ -8,12 +8,16 @@
       "traefik",
       "authentik"
     ],
-    "template_version": "v25.11.1",
     "icon": {
       "provider": "selfhst",
       "id": "homer"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "v25.11.1",
+      "source_dep_name": "docker.io/b4bz/homer",
+      "source_dep_version": "v25.11.1"
+    }
   },
   "variables": [
     {

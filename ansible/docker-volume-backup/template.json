@@ -10,13 +10,16 @@
       "volume",
       "container"
     ],
-    "template_version": "1",
     "icon": {
       "provider": "mdi",
       "id": "harddisk",
       "color": "emerald"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "1",
+      "source_dep_name": "manual/docker-volume-backup"
+    }
   },
   "variables": [
     {

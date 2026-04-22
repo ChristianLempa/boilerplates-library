@@ -5,12 +5,16 @@
     "name": "Uptimekuma",
     "description": "Self-hosted uptime monitoring tool with support for HTTP(s), TCP, ping, DNS, and more. Provides a clean dashboard and customizable notifications.",
     "tags": [],
-    "template_version": "1.23.17",
     "icon": {
       "provider": "selfhst",
       "id": "uptime-kuma"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "1.23.17",
+      "source_dep_name": "docker.io/louislam/uptime-kuma",
+      "source_dep_version": "1.23.17"
+    }
   },
   "variables": [
     {

@@ -8,12 +8,15 @@
       "netbird",
       "terraform"
     ],
-    "template_version": "0.0.10",
     "icon": {
       "provider": "selfhst",
       "id": "netbird"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "0.0.10",
+      "source_dep_name": "manual/netbird-network"
+    }
   },
   "variables": [
     {

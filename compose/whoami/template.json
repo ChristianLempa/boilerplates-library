@@ -9,13 +9,17 @@
       "testing",
       "http"
     ],
-    "template_version": "1.11.0",
     "icon": {
       "provider": "simple-icons",
       "id": "traefikproxy",
       "color": "rose"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "v1.11.0",
+      "source_dep_name": "traefik/whoami",
+      "source_dep_version": "v1.11.0"
+    }
   },
   "variables": [
     {

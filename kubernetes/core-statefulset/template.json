@@ -5,12 +5,15 @@
     "name": "Kubernetes StatefulSet",
     "description": "Creates a Kubernetes StatefulSet with configurable image, replicas, optional service account, one container port, simple environment variables, optional resource requests and limits, and an optional volumeClaimTemplate for persistent storage.",
     "tags": [],
-    "template_version": "1.31.0",
     "icon": {
       "provider": "simple-icons",
       "id": "kubernetes"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "1.31.0",
+      "source_dep_name": "manual/core-statefulset"
+    }
   },
   "variables": [
     {

@@ -8,12 +8,16 @@
       "traefik",
       "volume"
     ],
-    "template_version": "2025.12.4",
     "icon": {
       "provider": "selfhst",
       "id": "authentik"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "2025.12.4",
+      "source_dep_name": "ghcr.io/goauthentik/server",
+      "source_dep_version": "2025.12.4"
+    }
   },
   "variables": [
     {

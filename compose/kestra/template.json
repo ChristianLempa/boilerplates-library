@@ -5,12 +5,16 @@
     "name": "Kestra",
     "description": "Runs Kestra in Docker Compose with a companion configuration file, PostgreSQL datasource settings, and persistent storage.",
     "tags": [],
-    "template_version": "v1.0.0",
     "icon": {
       "provider": "selfhst",
       "id": "kestra"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "v1.0.0",
+      "source_dep_name": "kestra/kestra",
+      "source_dep_version": "v1.0.0"
+    }
   },
   "variables": [
     {

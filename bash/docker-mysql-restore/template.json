@@ -12,13 +12,16 @@
       "database",
       "bash"
     ],
-    "template_version": "1.0.0",
     "icon": {
       "provider": "simple-icons",
       "id": "mysql",
       "color": "emerald"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "1.0.0",
+      "source_dep_name": "manual/docker-mysql-restore"
+    }
   },
   "variables": [
     {

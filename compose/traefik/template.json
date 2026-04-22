@@ -7,12 +7,16 @@
     "tags": [
       "reverse-proxy"
     ],
-    "template_version": "3.6.8",
     "icon": {
       "provider": "selfhst",
       "id": "traefik"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "v3.6.9",
+      "source_dep_name": "docker.io/library/traefik",
+      "source_dep_version": "v3.6.9"
+    }
   },
   "variables": [
     {

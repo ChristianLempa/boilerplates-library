@@ -5,12 +5,15 @@
     "name": "Flux Bootstrap",
     "description": "Draft Flux bootstrap manifests for wiring an already-installed Flux control plane to a Git repository and root Kustomization, with optional Helm source and release resources.",
     "tags": [],
-    "template_version": "2.7.5",
     "icon": {
       "provider": "simple-icons",
       "id": "flux"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "2.7.5",
+      "source_dep_name": "manual/flux-bootstrap"
+    }
   },
   "variables": [
     {

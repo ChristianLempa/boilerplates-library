@@ -8,12 +8,16 @@
       "traefik",
       "authentik"
     ],
-    "template_version": "0.8.2",
     "icon": {
       "provider": "selfhst",
       "id": "open-webui"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "v0.8.2",
+      "source_dep_name": "ghcr.io/open-webui/open-webui",
+      "source_dep_version": "v0.8.2"
+    }
   },
   "variables": [
     {

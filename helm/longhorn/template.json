@@ -5,12 +5,16 @@
     "name": "Longhorn",
     "description": "Helm chart for Longhorn, a distributed block storage system for Kubernetes with built-in backup, snapshots, and disaster recovery.",
     "tags": [],
-    "template_version": "1.9.1",
     "icon": {
       "provider": "selfhst",
       "id": "rancher-longhorn"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "v1.9.1",
+      "source_dep_name": "longhornio/longhorn-manager",
+      "source_dep_version": "v1.9.1"
+    }
   },
   "variables": [
     {

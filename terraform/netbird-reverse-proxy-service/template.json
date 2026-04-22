@@ -9,12 +9,15 @@
       "terraform",
       "reverse-proxy"
     ],
-    "template_version": "0.0.17",
     "icon": {
       "provider": "selfhst",
       "id": "netbird"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "0.0.17",
+      "source_dep_name": "manual/netbird-reverse-proxy-service"
+    }
   },
   "variables": [
     {

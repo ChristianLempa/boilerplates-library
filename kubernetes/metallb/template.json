@@ -5,12 +5,15 @@
     "name": "MetalLB Layer2 Bootstrap",
     "description": "Practical MetalLB bootstrap manifests for the common homelab path: an IPAddressPool plus L2Advertisement for bare-metal LoadBalancer services.",
     "tags": [],
-    "template_version": "0.15.2",
     "icon": {
       "provider": "simple-icons",
       "id": "kubernetes"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "0.15.2",
+      "source_dep_name": "manual/metallb"
+    }
   },
   "variables": [
     {

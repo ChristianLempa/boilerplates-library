@@ -5,12 +5,15 @@
     "name": "Traefik Retry Middleware",
     "description": "Traefik Middleware CRD for retrying failed upstream requests with a configurable attempt count and optional initial interval.",
     "tags": [],
-    "template_version": "3.5.3",
     "icon": {
       "provider": "selfhst",
       "id": "traefik"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "3.5.3",
+      "source_dep_name": "manual/traefik-retry"
+    }
   },
   "variables": [
     {

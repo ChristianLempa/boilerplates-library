@@ -7,12 +7,16 @@
     "tags": [
       "traefik"
     ],
-    "template_version": "32.0.6-apache",
     "icon": {
       "provider": "selfhst",
       "id": "nextcloud"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "32.0.6-apache",
+      "source_dep_name": "docker.io/library/nextcloud",
+      "source_dep_version": "32.0.6-apache"
+    }
   },
   "variables": [
     {

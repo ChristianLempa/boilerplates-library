@@ -8,12 +8,16 @@
       "traefik",
       "database"
     ],
-    "template_version": "v2.17.2",
     "icon": {
       "provider": "selfhst",
       "id": "semaphore-ui"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "v2.17.2",
+      "source_dep_name": "docker.io/semaphoreui/semaphore",
+      "source_dep_version": "v2.17.2"
+    }
   },
   "variables": [
     {

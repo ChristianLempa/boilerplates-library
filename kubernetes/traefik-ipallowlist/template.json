@@ -5,12 +5,15 @@
     "name": "Traefik IPAllowList Middleware",
     "description": "Traefik Middleware CRD for restricting access to trusted source CIDR ranges, with optional client IP strategy controls for proxied deployments.",
     "tags": [],
-    "template_version": "3.5.3",
     "icon": {
       "provider": "selfhst",
       "id": "traefik"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "3.5.3",
+      "source_dep_name": "manual/traefik-ipallowlist"
+    }
   },
   "variables": [
     {

@@ -8,12 +8,16 @@
       "traefik",
       "database"
     ],
-    "template_version": "5.9.0-1-ce",
     "icon": {
       "provider": "selfhst",
       "id": "passbolt"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "5.9.0-1-ce",
+      "source_dep_name": "docker.io/passbolt/passbolt",
+      "source_dep_version": "5.9.0-1-ce"
+    }
   },
   "variables": [
     {

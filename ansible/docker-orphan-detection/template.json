@@ -10,13 +10,16 @@
       "orphan",
       "report"
     ],
-    "template_version": "1",
     "icon": {
       "provider": "mdi",
       "id": "magnify",
       "color": "fuchsia"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "1",
+      "source_dep_name": "manual/docker-orphan-detection"
+    }
   },
   "variables": [
     {

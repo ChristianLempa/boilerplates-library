@@ -5,12 +5,15 @@
     "name": "Install Ubuntu VM Core Packages",
     "description": "Installs essential packages for Ubuntu virtual machines, including Prometheus node exporter, NFS client utilities, and QEMU guest agent.",
     "tags": [],
-    "template_version": "1.0.0",
     "icon": {
       "provider": "simple-icons",
       "id": "ansible"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "1.0.0",
+      "source_dep_name": "manual/ubuntu-vm-core"
+    }
   },
   "variables": []
 }

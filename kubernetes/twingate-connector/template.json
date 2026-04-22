@@ -5,12 +5,16 @@
     "name": "Twingate Connector",
     "description": "Twingate Connector for secure zero-trust network access, deployed via the Twingate Kubernetes Operator.",
     "tags": [],
-    "template_version": "1.74.0",
     "icon": {
       "provider": "selfhst",
       "id": "twingate"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "1.74.0",
+      "source_dep_name": "twingate/connector",
+      "source_dep_version": "1.74.0"
+    }
   },
   "variables": [
     {

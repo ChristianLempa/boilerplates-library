@@ -5,12 +5,15 @@
     "name": "Install Checkmk Agent",
     "description": "Installs and registers the Checkmk monitoring agent on target hosts using the checkmk.general.agent Ansible role.",
     "tags": [],
-    "template_version": "2.4.0",
     "icon": {
       "provider": "selfhst",
       "id": "checkmk"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "2.4.0",
+      "source_dep_name": "manual/checkmk-install-agent"
+    }
   },
   "variables": [
     {

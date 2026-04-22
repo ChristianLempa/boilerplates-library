@@ -7,12 +7,16 @@
     "tags": [
       "traefik"
     ],
-    "template_version": "1.28.2-alpine",
     "icon": {
       "provider": "simple-icons",
       "id": "nginx"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "1.28.2-alpine",
+      "source_dep_name": "docker.io/library/nginx",
+      "source_dep_version": "1.28.2-alpine"
+    }
   },
   "variables": [
     {

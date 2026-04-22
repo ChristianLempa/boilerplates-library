@@ -11,13 +11,16 @@
       "container",
       "bash"
     ],
-    "template_version": "1.0.0",
     "icon": {
       "provider": "mdi",
       "id": "harddisk",
       "color": "emerald"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "1.0.0",
+      "source_dep_name": "manual/docker-volume-restore"
+    }
   },
   "variables": [
     {

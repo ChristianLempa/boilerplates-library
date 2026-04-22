@@ -5,12 +5,15 @@
     "name": "Kubernetes DaemonSet",
     "description": "Creates a Kubernetes DaemonSet with configurable image, optional host networking, one container port, simple environment variables, an optional hostPath mount, optional control-plane tolerations, and optional resource requests and limits.",
     "tags": [],
-    "template_version": "1.31.0",
     "icon": {
       "provider": "simple-icons",
       "id": "kubernetes"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "1.31.0",
+      "source_dep_name": "manual/core-daemonset"
+    }
   },
   "variables": [
     {

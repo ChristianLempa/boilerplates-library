@@ -9,7 +9,11 @@
       "id": "cloudflare",
       "color": "default"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "1.0.0",
+      "source_dep_name": "manual/cloudflare-zone-data"
+    }
   },
   "variables": [
     {

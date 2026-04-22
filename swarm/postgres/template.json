@@ -5,12 +5,16 @@
     "name": "PostgreSQL",
     "description": "Powerful open-source object-relational database system with over 35 years of active development, known for reliability, feature robustness, and performance.",
     "tags": [],
-    "template_version": "18.2",
     "icon": {
       "provider": "selfhst",
       "id": "postgresql"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "18.2",
+      "source_dep_name": "docker.io/library/postgres",
+      "source_dep_version": "18.2"
+    }
   },
   "variables": [
     {

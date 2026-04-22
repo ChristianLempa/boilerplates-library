@@ -8,12 +8,16 @@
       "network",
       "volume"
     ],
-    "template_version": "9.20-24.10_edge",
     "icon": {
       "provider": "selfhst",
       "id": "bind-9"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "9.20-24.10_edge",
+      "source_dep_name": "docker.io/ubuntu/bind9",
+      "source_dep_version": "9.20-24.10_edge"
+    }
   },
   "variables": [
     {

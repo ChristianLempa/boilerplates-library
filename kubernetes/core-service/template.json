@@ -5,12 +5,15 @@
     "name": "Kubernetes Service",
     "description": "Kubernetes Service for exposing applications running on a set of Pods. Provides stable network endpoints and load balancing.",
     "tags": [],
-    "template_version": "1.31.0",
     "icon": {
       "provider": "simple-icons",
       "id": "kubernetes"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "1.31.0",
+      "source_dep_name": "manual/core-service"
+    }
   },
   "variables": [
     {

@@ -5,12 +5,15 @@
     "name": "Kubernetes ServiceAccount",
     "description": "Kubernetes ServiceAccount for providing an identity to processes running in Pods. Controls access permissions to the Kubernetes API.",
     "tags": [],
-    "template_version": "1.31.0",
     "icon": {
       "provider": "simple-icons",
       "id": "kubernetes"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "1.31.0",
+      "source_dep_name": "manual/core-serviceaccount"
+    }
   },
   "variables": [
     {

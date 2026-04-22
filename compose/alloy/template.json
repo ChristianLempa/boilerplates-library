@@ -7,12 +7,16 @@
     "tags": [
       "traefik"
     ],
-    "template_version": "v1.13.1",
     "icon": {
       "provider": "selfhst",
       "id": "grafana-alloy"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "v1.13.1",
+      "source_dep_name": "docker.io/grafana/alloy",
+      "source_dep_version": "v1.13.1"
+    }
   },
   "variables": [
     {

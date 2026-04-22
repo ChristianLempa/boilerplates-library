@@ -5,12 +5,16 @@
     "name": "Twingate_Connector",
     "description": "Lightweight agent that establishes secure zero-trust connections between your private network and the Twingate service, allowing authorized users to access internal resources without a VPN.",
     "tags": [],
-    "template_version": "1.80.0",
     "icon": {
       "provider": "selfhst",
       "id": "twingate"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "1.80.0",
+      "source_dep_name": "docker.io/twingate/connector",
+      "source_dep_version": "1.80.0"
+    }
   },
   "variables": [
     {

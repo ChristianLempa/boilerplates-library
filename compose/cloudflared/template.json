@@ -5,12 +5,16 @@
     "name": "Cloudflared",
     "description": "Runs a Cloudflare Tunnel connector in Docker Compose so private services can be published through Cloudflare Zero Trust.",
     "tags": [],
-    "template_version": "2026.3.0",
     "icon": {
       "provider": "selfhst",
       "id": "cloudflare-zero-trust"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "2026.3.0",
+      "source_dep_name": "cloudflare/cloudflared",
+      "source_dep_version": "2026.3.0"
+    }
   },
   "variables": [
     {

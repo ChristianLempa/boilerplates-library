@@ -9,12 +9,15 @@
       "kubernetes",
       "traefik"
     ],
-    "template_version": "9.2.4",
     "icon": {
       "provider": "selfhst",
       "id": "argo-cd"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "9.2.4",
+      "source_dep_name": "manual/argocd"
+    }
   },
   "variables": [
     {

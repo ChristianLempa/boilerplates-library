@@ -5,12 +5,16 @@
     "name": "Traefik Ingress Controller",
     "description": "Helm chart for Traefik v3, a modern HTTP reverse proxy and load balancer designed for microservices and Kubernetes environments.",
     "tags": [],
-    "template_version": "3.5.3",
     "icon": {
       "provider": "selfhst",
       "id": "traefik"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "v3.5.3",
+      "source_dep_name": "traefik",
+      "source_dep_version": "v3.5.3"
+    }
   },
   "variables": [
     {

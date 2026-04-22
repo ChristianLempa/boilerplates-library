@@ -5,12 +5,16 @@
     "name": "Authentik",
     "description": "Helm chart for Authentik, an open-source Identity Provider supporting OAuth2, SAML, and LDAP for flexible single sign-on and authentication.",
     "tags": [],
-    "template_version": "2025.6.3",
     "icon": {
       "provider": "selfhst",
       "id": "authentik"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "2025.6.3",
+      "source_dep_name": "ghcr.io/goauthentik/server",
+      "source_dep_version": "2025.6.3"
+    }
   },
   "variables": [
     {

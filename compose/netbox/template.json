@@ -9,12 +9,16 @@
       "database",
       "email"
     ],
-    "template_version": "v4.5.2",
     "icon": {
       "provider": "selfhst",
       "id": "netbox"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "v4.5.2",
+      "source_dep_name": "docker.io/netboxcommunity/netbox",
+      "source_dep_version": "v4.5.2"
+    }
   },
   "variables": [
     {

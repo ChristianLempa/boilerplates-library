@@ -5,12 +5,15 @@
     "name": "Kubernetes StorageClass",
     "description": "Kubernetes StorageClass for defining storage types that can be dynamically provisioned.",
     "tags": [],
-    "template_version": "1.31.0",
     "icon": {
       "provider": "simple-icons",
       "id": "kubernetes"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "1.31.0",
+      "source_dep_name": "manual/core-storageclass"
+    }
   },
   "variables": [
     {

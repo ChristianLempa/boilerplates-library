@@ -5,12 +5,15 @@
     "name": "Cert-Manager Issuer (Cloudflare)",
     "description": "Cert-manager Issuer for automatic TLS certificate management using Let's Encrypt with Cloudflare DNS-01 challenge validation. Namespace-scoped (unlike ClusterIssuer).",
     "tags": [],
-    "template_version": "1.16.2",
     "icon": {
       "provider": "mdi",
       "id": "certificate-outline"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "1.16.2",
+      "source_dep_name": "manual/certmanager-issuer"
+    }
   },
   "variables": [
     {

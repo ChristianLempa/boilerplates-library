@@ -9,12 +9,15 @@
       "security",
       "docker"
     ],
-    "template_version": "2026.04.13",
     "icon": {
       "provider": "selfhst",
       "id": "traefik"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "2026.04.13",
+      "source_dep_name": "manual/traefik-addons"
+    }
   },
   "variables": [
     {

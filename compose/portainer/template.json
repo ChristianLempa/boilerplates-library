@@ -8,12 +8,16 @@
       "traefik",
       "volumes"
     ],
-    "template_version": "2.38.1-alpine",
     "icon": {
       "provider": "selfhst",
       "id": "portainer"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "2.38.1-alpine",
+      "source_dep_name": "docker.io/portainer/portainer-ce",
+      "source_dep_version": "2.38.1-alpine"
+    }
   },
   "variables": [
     {

@@ -5,12 +5,16 @@
     "name": "Proxmox VM (QEMU)",
     "description": "Creates a Proxmox virtual machine from a cloud-init-ready template with configurable clone, CPU, memory, disk, networking, and guest settings.",
     "tags": [],
-    "template_version": "3.0.2-rc07",
     "icon": {
       "provider": "selfhst",
       "id": "proxmox"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "3.0.2-rc07",
+      "source_dep_name": "telmate/proxmox",
+      "source_dep_version": "3.0.2-rc07"
+    }
   },
   "variables": [
     {

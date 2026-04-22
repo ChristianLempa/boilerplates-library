@@ -5,13 +5,16 @@
     "name": "Install Docker on Ubuntu",
     "description": "Installs Docker Engine on Ubuntu systems using the official Docker APT repository.",
     "tags": [],
-    "template_version": "1",
     "icon": {
       "provider": "simple-icons",
       "id": "docker",
       "color": "blue"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "1",
+      "source_dep_name": "manual/docker-install-ubuntu"
+    }
   },
   "variables": [
     {

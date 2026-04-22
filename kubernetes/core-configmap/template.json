@@ -5,12 +5,15 @@
     "name": "Kubernetes ConfigMap",
     "description": "Kubernetes ConfigMap for storing non-sensitive configuration data as key-value pairs. Decouples configuration from container images.",
     "tags": [],
-    "template_version": "1.31.0",
     "icon": {
       "provider": "simple-icons",
       "id": "kubernetes"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "1.31.0",
+      "source_dep_name": "manual/core-configmap"
+    }
   },
   "variables": [
     {

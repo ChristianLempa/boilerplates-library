@@ -5,12 +5,16 @@
     "name": "Proxmox LXC",
     "description": "Creates a Proxmox Linux container with configurable template, compute, root filesystem, and single-interface network settings.",
     "tags": [],
-    "template_version": "3.0.2-rc07",
     "icon": {
       "provider": "selfhst",
       "id": "proxmox"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "3.0.2-rc07",
+      "source_dep_name": "telmate/proxmox",
+      "source_dep_version": "3.0.2-rc07"
+    }
   },
   "variables": [
     {

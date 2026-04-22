@@ -10,13 +10,16 @@
       "prune",
       "maintenance"
     ],
-    "template_version": "1",
     "icon": {
       "provider": "mdi",
       "id": "broom",
       "color": "fuchsia"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "1",
+      "source_dep_name": "manual/docker-cleanup"
+    }
   },
   "variables": [
     {

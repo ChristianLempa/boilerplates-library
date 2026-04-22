@@ -9,12 +9,16 @@
       "network",
       "volume"
     ],
-    "template_version": "2025.11.1",
     "icon": {
       "provider": "selfhst",
       "id": "pi-hole"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "2025.11.1",
+      "source_dep_name": "docker.io/pihole/pihole",
+      "source_dep_version": "2025.11.1"
+    }
   },
   "variables": [
     {

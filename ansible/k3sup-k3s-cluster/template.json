@@ -10,12 +10,15 @@
       "k3sup",
       "bootstrap"
     ],
-    "template_version": "1.0.0",
     "icon": {
       "provider": "simple-icons",
       "id": "kubernetes"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "1.0.0",
+      "source_dep_name": "manual/k3sup-k3s-cluster"
+    }
   },
   "variables": [
     {

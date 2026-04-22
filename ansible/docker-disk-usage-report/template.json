@@ -10,13 +10,16 @@
       "disk",
       "monitoring"
     ],
-    "template_version": "1",
     "icon": {
       "provider": "mdi",
       "id": "chart-box",
       "color": "blue"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "1",
+      "source_dep_name": "manual/docker-disk-usage-report"
+    }
   },
   "variables": [
     {

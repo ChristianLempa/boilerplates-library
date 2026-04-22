@@ -5,12 +5,16 @@
     "name": "Teleport",
     "description": "Runs Teleport in Docker Compose with local auth and proxy services plus a companion Teleport configuration file.",
     "tags": [],
-    "template_version": "18.7.3",
     "icon": {
       "provider": "selfhst",
       "id": "teleport"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "18.7.3",
+      "source_dep_name": "public.ecr.aws/gravitational/teleport-distroless",
+      "source_dep_version": "18.7.3"
+    }
   },
   "variables": [
     {

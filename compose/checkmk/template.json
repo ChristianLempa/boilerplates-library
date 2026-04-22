@@ -7,12 +7,16 @@
     "tags": [
       "traefik"
     ],
-    "template_version": "2.4.0-latest",
     "icon": {
       "provider": "selfhst",
       "id": "checkmk"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "2.4.0-latest",
+      "source_dep_name": "checkmk/check-mk-raw",
+      "source_dep_version": "2.4.0-latest"
+    }
   },
   "variables": [
     {

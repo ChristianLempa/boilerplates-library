@@ -5,12 +5,15 @@
     "name": "Manage Checkmk Host",
     "description": "Manages host entries in Checkmk monitoring using the checkmk.general.host Ansible module. Creates or updates host configuration in your Checkmk instance.",
     "tags": [],
-    "template_version": "2.4.0",
     "icon": {
       "provider": "selfhst",
       "id": "checkmk"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "2.4.0",
+      "source_dep_name": "manual/checkmk-manage-host"
+    }
   },
   "variables": [
     {

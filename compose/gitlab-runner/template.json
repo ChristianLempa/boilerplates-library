@@ -5,12 +5,16 @@
     "name": "Gitlab-Runner",
     "description": "CI/CD build runner for GitLab pipelines. Executes jobs defined in .gitlab-ci.yml using the Docker executor.",
     "tags": [],
-    "template_version": "alpine-v17.9.1",
     "icon": {
       "provider": "simple-icons",
       "id": "gitlab"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "alpine-v17.9.1",
+      "source_dep_name": "docker.io/gitlab/gitlab-runner",
+      "source_dep_version": "alpine-v17.9.1"
+    }
   },
   "variables": [
     {

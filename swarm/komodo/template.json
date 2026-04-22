@@ -9,12 +9,16 @@
       "deployment",
       "automation"
     ],
-    "template_version": "1.19.5",
     "icon": {
       "provider": "selfhst",
       "id": "komodo"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "1.19.5",
+      "source_dep_name": "ghcr.io/moghtech/komodo-core",
+      "source_dep_version": "1.19.5"
+    }
   },
   "variables": [
     {

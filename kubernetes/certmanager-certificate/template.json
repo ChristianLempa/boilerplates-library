@@ -5,12 +5,15 @@
     "name": "Cert-Manager Certificate",
     "description": "Cert-manager Certificate resource for requesting TLS certificates from an Issuer or ClusterIssuer. The certificate is stored in a Kubernetes Secret.",
     "tags": [],
-    "template_version": "1.16.2",
     "icon": {
       "provider": "mdi",
       "id": "certificate-outline"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "1.16.2",
+      "source_dep_name": "manual/certmanager-certificate"
+    }
   },
   "variables": [
     {

@@ -5,12 +5,15 @@
     "name": "Kubernetes Deployment",
     "description": "Creates a Kubernetes Deployment with configurable image, replicas, service account, container port, simple environment variables, and optional resource requests and limits.",
     "tags": [],
-    "template_version": "1.31.0",
     "icon": {
       "provider": "simple-icons",
       "id": "kubernetes"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "1.31.0",
+      "source_dep_name": "manual/core-deployment"
+    }
   },
   "variables": [
     {

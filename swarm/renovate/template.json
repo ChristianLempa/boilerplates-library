@@ -7,12 +7,16 @@
     "tags": [
       "traefik"
     ],
-    "template_version": "13.6.0-full",
     "icon": {
       "provider": "selfhst",
       "id": "mend-renovate"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "13.6.0-full",
+      "source_dep_name": "ghcr.io/mend/renovate-ce",
+      "source_dep_version": "13.6.0-full"
+    }
   },
   "variables": [
     {

@@ -5,12 +5,15 @@
     "name": "Add SSH Key and Configure Sudoers",
     "description": "Installs a single SSH public key for a target user on the workload-selected hosts and can enable passwordless sudo for the Ubuntu sudo group.",
     "tags": [],
-    "template_version": "1.0.0",
     "icon": {
       "provider": "simple-icons",
       "id": "ansible"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "1.0.0",
+      "source_dep_name": "manual/ubuntu-add-sshkey"
+    }
   },
   "variables": [
     {

@@ -5,12 +5,15 @@
     "name": "kube-vip DaemonSet",
     "description": "Practical kube-vip DaemonSet bootstrap with RBAC for control-plane virtual IPs and optional Service LoadBalancer handling in bare-metal clusters.",
     "tags": [],
-    "template_version": "1.0.1",
     "icon": {
       "provider": "simple-icons",
       "id": "kubernetes"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "1.0.1",
+      "source_dep_name": "manual/kube-vip"
+    }
   },
   "variables": [
     {

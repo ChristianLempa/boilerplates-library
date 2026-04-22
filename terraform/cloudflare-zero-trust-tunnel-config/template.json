@@ -5,12 +5,15 @@
     "name": "Cloudflare Zero Trust Tunnel Config",
     "description": "Creates a Cloudflare Zero Trust tunnel ingress configuration for a cloudflared tunnel with a primary hostname and fallback service.",
     "tags": [],
-    "template_version": "5.12.0",
     "icon": {
       "provider": "selfhst",
       "id": "cloudflare-zero-trust"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "5.12.0",
+      "source_dep_name": "manual/cloudflare-zero-trust-tunnel-config"
+    }
   },
   "variables": [
     {

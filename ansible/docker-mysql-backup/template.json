@@ -10,13 +10,16 @@
       "mysql",
       "database"
     ],
-    "template_version": "1",
     "icon": {
       "provider": "simple-icons",
       "id": "mysql",
       "color": "emerald"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "1",
+      "source_dep_name": "manual/docker-mysql-backup"
+    }
   },
   "variables": [
     {

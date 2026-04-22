@@ -5,12 +5,16 @@
     "name": "Cert-Manager",
     "description": "Helm chart for cert-manager, a Kubernetes add-on that automates TLS certificate management and issuance from sources like Let's Encrypt.",
     "tags": [],
-    "template_version": "1.18.2",
     "icon": {
       "provider": "mdi",
       "id": "certificate-outline"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "v1.18.2",
+      "source_dep_name": "quay.io/jetstack/cert-manager-controller",
+      "source_dep_version": "v1.18.2"
+    }
   },
   "variables": [
     {

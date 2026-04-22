@@ -5,12 +5,15 @@
     "name": "Kubernetes PersistentVolumeClaim",
     "description": "Kubernetes PersistentVolumeClaim for requesting persistent storage. Used by Pods to claim durable storage from available PersistentVolumes.",
     "tags": [],
-    "template_version": "1.31.0",
     "icon": {
       "provider": "simple-icons",
       "id": "kubernetes"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "1.31.0",
+      "source_dep_name": "manual/core-persistentvolumeclaim"
+    }
   },
   "variables": [
     {

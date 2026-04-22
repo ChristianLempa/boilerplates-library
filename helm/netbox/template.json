@@ -5,12 +5,16 @@
     "name": "NetBox",
     "description": "Helm chart for NetBox, an open-source network infrastructure management (IPAM/DCIM) solution and network automation source of truth.",
     "tags": [],
-    "template_version": "4.2.3",
     "icon": {
       "provider": "selfhst",
       "id": "netbox"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "v4.2.3",
+      "source_dep_name": "docker.io/netboxcommunity/netbox",
+      "source_dep_version": "v4.2.3"
+    }
   },
   "variables": [
     {

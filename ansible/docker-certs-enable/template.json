@@ -5,12 +5,15 @@
     "name": "Enable Docker TLS",
     "description": "Enables TLS on the Docker daemon using existing certificates. Configures Docker for secure remote API access over an encrypted connection.",
     "tags": [],
-    "template_version": "1.0.0",
     "icon": {
       "provider": "simple-icons",
       "id": "docker"
     },
-    "draft": false
+    "draft": false,
+    "version": {
+      "name": "1.0.0",
+      "source_dep_name": "manual/docker-certs-enable"
+    }
   },
   "variables": [
     {
