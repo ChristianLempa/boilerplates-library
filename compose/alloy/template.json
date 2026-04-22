@@ -8,7 +8,7 @@
     "tags": [
       "traefik"
     ],
-    "template_version": "v1.13.1",
+    "template_version": "v1.13.2",
     "icon": {
       "provider": "selfhst",
       "id": "grafana-alloy"
