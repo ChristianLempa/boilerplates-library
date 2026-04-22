@@ -155,14 +155,14 @@
           "name": "traefik_host",
           "type": "str",
           "title": "Ingress Host",
-          "required": false,
+          "required": true,
           "description": "Domain name for the IngressRoute"
         },
         {
           "name": "traefik_domain",
           "type": "str",
           "title": "Traefik domain",
-          "required": false,
+          "required": true,
           "description": "Domain used for Traefik."
         },
         {

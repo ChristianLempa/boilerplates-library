@@ -115,14 +115,14 @@
           "name": "traefik_host",
           "type": "str",
           "title": "Traefik host",
-          "required": false,
+          "required": true,
           "description": "Hostname used for Traefik."
         },
         {
           "name": "traefik_domain",
           "type": "str",
           "title": "Traefik domain",
-          "required": false,
+          "required": true,
           "description": "Domain used for Traefik."
         },
         {

@@ -443,7 +443,7 @@
           "name": "traefik_host",
           "type": "str",
           "title": "Host",
-          "required": false,
+          "required": true,
           "config": {
             "placeholder": "n8n"
           },

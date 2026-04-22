@@ -113,7 +113,7 @@
           "name": "traefik_host",
           "type": "str",
           "title": "Host",
-          "required": false,
+          "required": true,
           "config": {
             "placeholder": "renovate"
           },
@@ -123,7 +123,7 @@
           "name": "traefik_domain",
           "type": "str",
           "title": "Domain",
-          "required": false,
+          "required": true,
           "config": {
             "placeholder": "home.arpa"
           },
