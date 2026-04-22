@@ -10,7 +10,7 @@
       "security",
       "docker"
     ],
-    "template_version": "2026.04.13",
+    "template_version": "v1.11.0",
     "icon": {
       "provider": "selfhst",
       "id": "traefik"
