@@ -12,7 +12,7 @@
       "provider": "selfhst",
       "id": "n8n"
     },
-    "draft": false,
+    "draft": true,
     "version": {
       "name": "2.8.3",
       "source_dep_name": "n8nio/n8n",
