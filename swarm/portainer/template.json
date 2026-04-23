@@ -39,7 +39,7 @@
           "name": "container_timezone",
           "type": "str",
           "title": "Container Timezone",
-          "required": false,
+          "required": true,
           "description": "Timezone used inside the container."
         },
         {

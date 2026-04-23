@@ -50,7 +50,7 @@
           "name": "container_hostname",
           "type": "str",
           "title": "Container Hostname",
-          "required": false,
+          "required": true,
           "description": "Hostname used inside the container."
         },
         {

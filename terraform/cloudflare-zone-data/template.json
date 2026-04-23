@@ -25,6 +25,7 @@
           "title": "Resource Name",
           "description": "Terraform resource name (alphanumeric and underscores only)",
           "type": "str",
+          "required": true,
           "config": {
             "placeholder": "my_cloudflare_zone"
           }

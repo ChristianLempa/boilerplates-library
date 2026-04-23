@@ -149,14 +149,14 @@
           "name": "git_token",
           "type": "secret",
           "title": "Git Token",
-          "required": false,
+          "required": true,
           "description": "GitLab Personal Access Token"
         },
         {
           "name": "license_key",
           "type": "secret",
           "title": "License Key",
-          "required": false,
+          "required": true,
           "description": "Mend Renovate CE License Key"
         },
         {

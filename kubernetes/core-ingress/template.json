@@ -57,14 +57,14 @@
           "name": "ingress_host",
           "type": "str",
           "title": "Ingress Host",
-          "required": false,
+          "required": true,
           "description": "Hostname for the ingress"
         },
         {
           "name": "service_name",
           "type": "str",
           "title": "Backend service name",
-          "required": false,
+          "required": true,
           "description": "Name to use for the backend service."
         },
         {

@@ -204,7 +204,7 @@
           "name": "app_selector",
           "type": "str",
           "title": "App Selector",
-          "required": false,
+          "required": true,
           "description": "App label selector (e.g., app.kubernetes.io/name value)"
         }
       ]

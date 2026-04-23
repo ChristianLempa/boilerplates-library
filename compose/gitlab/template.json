@@ -49,7 +49,7 @@
           "name": "root_email",
           "type": "str",
           "title": "Root Email",
-          "required": false,
+          "required": true,
           "description": "Initial root user email address",
           "config": {
             "placeholder": "admin@home.arpa"

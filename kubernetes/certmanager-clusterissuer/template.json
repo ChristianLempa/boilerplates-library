@@ -46,7 +46,7 @@
           "name": "acme_email",
           "type": "str",
           "title": "ACME Email",
-          "required": false,
+          "required": true,
           "description": "Email address for ACME account registration"
         },
         {

@@ -87,7 +87,7 @@
           "name": "twingate_network",
           "type": "str",
           "title": "Network Name",
-          "required": false,
+          "required": true,
           "description": "Your Twingate network name"
         },
         {

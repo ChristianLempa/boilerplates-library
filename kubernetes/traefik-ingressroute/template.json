@@ -68,7 +68,7 @@
           "name": "traefik_service_name",
           "type": "str",
           "title": "Service Name",
-          "required": false,
+          "required": true,
           "description": "Kubernetes service name to route traffic to"
         },
         {

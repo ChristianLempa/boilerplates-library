@@ -36,21 +36,21 @@
           "name": "container_hostname",
           "type": "str",
           "title": "Container Hostname",
-          "required": false,
+          "required": true,
           "description": "Hostname used inside the container."
         },
         {
           "name": "container_timezone",
           "type": "str",
           "title": "Container Timezone",
-          "required": false,
+          "required": true,
           "description": "Timezone used inside the container."
         },
         {
           "name": "postgres_initdb_args",
           "type": "str",
           "title": "Postgres Initdb Args",
-          "required": false,
+          "required": true,
           "default": "",
           "description": "Value used for the general settings.",
           "config": {

@@ -367,7 +367,7 @@
           "name": "netbox_superuser_email",
           "type": "str",
           "title": "Initial superuser email",
-          "required": false,
+          "required": true,
           "description": "Value used for the netbox configuration settings.",
           "config": {
             "placeholder": "admin@home.arpa"

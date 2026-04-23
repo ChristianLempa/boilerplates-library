@@ -35,7 +35,7 @@
           "name": "domain",
           "type": "str",
           "title": "Application domain",
-          "required": false,
+          "required": true,
           "description": "Domain used for Application.",
           "config": {
             "placeholder": "app.home.arpa"
@@ -62,7 +62,7 @@
           "name": "account_id_value",
           "type": "str",
           "title": "Cloudflare Account ID",
-          "required": false,
+          "required": true,
           "description": "Cloudflare account identifier."
         },
         {
@@ -80,7 +80,7 @@
           "name": "zone_id_value",
           "type": "str",
           "title": "Cloudflare Zone ID",
-          "required": false,
+          "required": true,
           "description": "Cloudflare zone identifier."
         }
       ]

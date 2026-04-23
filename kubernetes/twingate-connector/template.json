@@ -47,7 +47,7 @@
           "name": "connector_name",
           "type": "str",
           "title": "Twingate connector name",
-          "required": false,
+          "required": true,
           "description": "Name to use for the twingate connector."
         },
         {
