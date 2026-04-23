@@ -15,7 +15,7 @@
       "id": "postgresql",
       "color": "emerald"
     },
-    "draft": false,
+    "draft": true,
     "version": {
       "name": "1",
       "source_dep_name": "manual/docker-postgres-backup"
