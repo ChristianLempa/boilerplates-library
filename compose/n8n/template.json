@@ -15,7 +15,7 @@
     "draft": false,
     "version": {
       "name": "2.8.3",
-      "source_dep_name": "n8nio/n8n",
+      "source_dep_name": "docker.n8n.io/n8nio/n8n",
       "source_dep_version": "2.8.3"
     }
   },
@@ -40,9 +40,9 @@
           "type": "str",
           "title": "Container Name",
           "required": false,
-          "default": "n8n-server",
+          "default": "n8n",
           "config": {
-            "placeholder": "n8n-server"
+            "placeholder": "n8n"
           },
           "description": "Name to use for the container."
         },
@@ -51,9 +51,9 @@
           "type": "str",
           "title": "Container Hostname",
           "required": false,
-          "default": "n8n-server",
+          "default": "n8n",
           "config": {
-            "placeholder": "n8n-server"
+            "placeholder": "n8n"
           },
           "description": "Hostname used inside the container."
         },
@@ -69,6 +69,7 @@
           "type": "enum",
           "title": "Log Level",
           "required": false,
+          "default": "info",
           "config": {
             "options": [
               "debug",
@@ -105,13 +106,10 @@
         {
           "name": "traefik_enabled",
           "type": "bool",
-          "title": "Traefik Enabled",
+          "title": "Traefik",
           "required": false,
           "default": false,
-          "needs": [
-            "network_mode=bridge"
-          ],
-          "description": "Enable or disable traefik enabled."
+          "description": "Enable Traefik integration."
         },
         {
           "name": "traefik_host",
@@ -122,17 +120,6 @@
             "placeholder": "n8n"
           },
           "description": "Hostname used for Traefik."
-        },
-        {
-          "name": "traefik_webhook_host",
-          "type": "str",
-          "title": "Webhook Host",
-          "required": false,
-          "default": "",
-          "description": "Separate hostname for webhooks (optional)",
-          "needs": [
-            "traefik_enabled=true"
-          ]
         },
         {
           "name": "traefik_domain",
@@ -155,27 +142,16 @@
         {
           "name": "traefik_network",
           "type": "str",
-          "title": "Traefik network name",
-          "required": false,
+          "title": "Network",
+          "required": true,
           "default": "traefik",
-          "description": "Name to use for the traefik network.",
+          "description": "Network used for Traefik.",
           "needs": [
             "traefik_enabled=true"
           ],
           "config": {
             "placeholder": "traefik"
           }
-        },
-        {
-          "name": "traefik_network_external",
-          "type": "bool",
-          "title": "External Traefik Network",
-          "required": false,
-          "default": true,
-          "description": "Use external Traefik network",
-          "needs": [
-            "traefik_enabled=true"
-          ]
         },
         {
           "name": "traefik_tls_enabled",
@@ -213,97 +189,20 @@
       ]
     },
     {
-      "title": "Queue Mode",
-      "toggle": "queue_enabled",
-      "name": "queue",
-      "items": [
-        {
-          "name": "queue_enabled",
-          "type": "bool",
-          "title": "Queue Mode",
-          "required": false,
-          "default": false,
-          "description": "Enable queue mode (requires Redis)"
-        },
-        {
-          "name": "queue_redis_external",
-          "type": "bool",
-          "title": "External Redis",
-          "required": false,
-          "default": false,
-          "description": "Use external Redis instance",
-          "needs": [
-            "queue_enabled=true"
-          ]
-        },
-        {
-          "name": "queue_redis_host",
-          "type": "str",
-          "title": "Redis host",
-          "required": false,
-          "default": "redis",
-          "description": "Hostname used for Redis.",
-          "needs": [
-            "queue_enabled=true"
-          ],
-          "config": {
-            "placeholder": "redis"
-          }
-        },
-        {
-          "name": "queue_redis_port",
-          "type": "int",
-          "title": "Redis port",
-          "required": false,
-          "default": 6379,
-          "description": "Port used for Redis.",
-          "needs": [
-            "queue_enabled=true"
-          ],
-          "config": {
-            "placeholder": "6379"
-          }
-        },
-        {
-          "name": "queue_embedded_worker",
-          "type": "bool",
-          "title": "Embedded Worker",
-          "required": false,
-          "default": false,
-          "description": "Include embedded worker in this deployment",
-          "needs": [
-            "queue_enabled=true"
-          ]
-        }
-      ]
-    },
-    {
       "title": "Database",
-      "toggle": "database_enabled",
       "name": "database",
       "items": [
         {
-          "name": "database_enabled",
-          "type": "bool",
-          "title": "External Database",
-          "required": false,
-          "default": false,
-          "description": "Use external database"
-        },
-        {
           "name": "database_type",
           "type": "enum",
-          "title": "Database type",
+          "title": "Database Type",
           "required": false,
-          "default": "postgres",
+          "default": "sqlite",
           "description": "Database engine to use.",
-          "needs": [
-            "database_enabled=true"
-          ],
           "config": {
             "options": [
-              "postgres",
-              "mysql"
+              "sqlite",
+              "postgres"
             ]
           }
         },
@@ -311,11 +210,11 @@
           "name": "database_host",
           "type": "str",
           "title": "Database host",
-          "required": false,
+          "required": true,
           "default": "postgres",
           "description": "Hostname of the database server.",
           "needs": [
-            "database_enabled=true"
+            "database_type=postgres"
           ],
           "config": {
             "placeholder": "postgres"
@@ -325,11 +224,11 @@
           "name": "database_port",
           "type": "int",
           "title": "Database port",
-          "required": false,
+          "required": true,
           "default": 5432,
           "description": "Port used by the database server.",
           "needs": [
-            "database_enabled=true"
+            "database_type=postgres"
           ],
           "config": {
             "placeholder": "5432"
@@ -339,11 +238,11 @@
           "name": "database_name",
           "type": "str",
           "title": "Database name",
-          "required": false,
+          "required": true,
           "default": "n8n",
           "description": "Name of the database.",
           "needs": [
-            "database_enabled=true"
+            "database_type=postgres"
           ],
           "config": {
             "placeholder": "n8n"
@@ -353,11 +252,11 @@
           "name": "database_user",
           "type": "str",
           "title": "Database username",
-          "required": false,
+          "required": true,
           "default": "n8n",
           "description": "Username for the database.",
           "needs": [
-            "database_enabled=true"
+            "database_type=postgres"
           ],
           "config": {
             "placeholder": "n8n"
@@ -367,10 +266,10 @@
           "name": "database_password",
           "type": "secret",
           "title": "Database password",
-          "required": false,
+          "required": true,
           "description": "Password for the database.",
           "needs": [
-            "database_enabled=true"
+            "database_type=postgres"
           ]
         }
       ]
@@ -388,124 +287,6 @@
           "config": {
             "autogenerated": true
           }
-        },
-        {
-          "name": "proxy_hops",
-          "type": "int",
-          "title": "Proxy Hops",
-          "required": false,
-          "default": 1,
-          "description": "Number of proxy hops (X-Forwarded-For)",
-          "config": {
-            "placeholder": "1",
-            "unit": "hops"
-          }
-        }
-      ]
-    },
-    {
-      "title": "Webhooks",
-      "name": "webhooks",
-      "items": [
-        {
-          "name": "webhook_url",
-          "type": "str",
-          "title": "Webhook base URL",
-          "required": false,
-          "default": "",
-          "description": "Base URL used for webhooks."
-        }
-      ]
-    },
-    {
-      "title": "Metrics",
-      "toggle": "metrics_enabled",
-      "name": "metrics",
-      "items": [
-        {
-          "name": "metrics_enabled",
-          "type": "bool",
-          "title": "Prometheus",
-          "required": false,
-          "default": false,
-          "description": "Enable Prometheus metrics"
-        },
-        {
-          "name": "metrics_detailed",
-          "type": "bool",
-          "title": "Detailed Metrics",
-          "required": false,
-          "default": false,
-          "description": "Include detailed metrics (workflows, nodes, API endpoints)",
-          "needs": [
-            "metrics_enabled=true"
-          ]
-        }
-      ]
-    },
-    {
-      "title": "Execution Settings",
-      "name": "execution",
-      "items": [
-        {
-          "name": "execution_save_on_error",
-          "type": "enum",
-          "title": "Save on Error",
-          "required": false,
-          "default": "all",
-          "description": "Save execution data on error",
-          "config": {
-            "options": [
-              "all",
-              "none"
-            ]
-          }
-        },
-        {
-          "name": "execution_save_on_success",
-          "type": "enum",
-          "title": "Save on Success",
-          "required": false,
-          "default": "none",
-          "description": "Save execution data on success",
-          "config": {
-            "options": [
-              "all",
-              "none"
-            ]
-          }
-        }
-      ]
-    },
-    {
-      "title": "Network",
-      "name": "network",
-      "items": [
-        {
-          "name": "network_mode",
-          "type": "str",
-          "title": "Network Mode",
-          "required": false,
-          "description": "Mode used for Network."
-        },
-        {
-          "name": "network_name",
-          "type": "str",
-          "title": "Network Name",
-          "required": false,
-          "default": "n8n_network",
-          "config": {
-            "placeholder": "n8n_network"
-          },
-          "description": "Name to use for the network."
-        },
-        {
-          "name": "network_external",
-          "type": "bool",
-          "title": "External Network",
-          "required": false,
-          "default": false,
-          "description": "Whether the network is external"
         }
       ]
     },
@@ -521,8 +302,7 @@
           "default": 5678,
           "description": "Port used for External HTTP.",
           "needs": [
-            "traefik_enabled=false",
-            "network_mode=bridge"
+            "traefik_enabled=false"
           ],
           "config": {
             "placeholder": "5678"
