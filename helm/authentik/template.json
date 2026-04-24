@@ -11,9 +11,9 @@
     },
     "draft": false,
     "version": {
-      "name": "2025.6.3",
+      "name": "2025.6.4",
       "source_dep_name": "ghcr.io/goauthentik/server",
-      "source_dep_version": "2025.6.3"
+      "source_dep_version": "2025.6.4"
     }
   },
   "variables": [
