@@ -1,7 +1,7 @@
 ---
 services:
   << service_name >>:
-    image: ghcr.io/goauthentik/server:2025.12.4
+    image: ghcr.io/goauthentik/server:2026.2.2
     restart: << restart_policy >>
     command: server
     environment:
@@ -85,7 +85,7 @@ services:
     <%- endif %>
 
   << service_name >>_worker:
-    image: ghcr.io/goauthentik/server:2025.12.4
+    image: ghcr.io/goauthentik/server:2026.2.2
     restart: << restart_policy >>
     command: worker
     environment:
