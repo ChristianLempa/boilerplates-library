@@ -13,9 +13,9 @@
     },
     "draft": false,
     "version": {
-      "name": "13.6.0-full",
+      "name": "14.4.0-full",
       "source_dep_name": "ghcr.io/mend/renovate-ce",
-      "source_dep_version": "13.6.0-full"
+      "source_dep_version": "14.4.0-full"
     }
   },
   "variables": [
