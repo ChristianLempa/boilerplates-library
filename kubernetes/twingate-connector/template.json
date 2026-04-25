@@ -9,7 +9,7 @@
       "provider": "selfhst",
       "id": "twingate"
     },
-    "draft": false,
+    "draft": true,
     "version": {
       "name": "1.74.0",
       "source_dep_name": "twingate/connector",

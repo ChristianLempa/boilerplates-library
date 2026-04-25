@@ -9,7 +9,7 @@
       "provider": "simple-icons",
       "id": "flux"
     },
-    "draft": false,
+    "draft": true,
     "version": {
       "name": "2.7.5",
       "source_dep_name": "manual/flux-bootstrap"

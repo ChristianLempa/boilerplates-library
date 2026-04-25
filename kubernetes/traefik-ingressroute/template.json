@@ -9,7 +9,7 @@
       "provider": "selfhst",
       "id": "traefik"
     },
-    "draft": false,
+    "draft": true,
     "version": {
       "name": "3.5.3",
       "source_dep_name": "manual/traefik-ingressroute"

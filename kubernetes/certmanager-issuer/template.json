@@ -9,7 +9,7 @@
       "provider": "mdi",
       "id": "certificate-outline"
     },
-    "draft": false,
+    "draft": true,
     "version": {
       "name": "1.16.2",
       "source_dep_name": "manual/certmanager-issuer"

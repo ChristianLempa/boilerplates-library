@@ -9,7 +9,7 @@
       "provider": "simple-icons",
       "id": "kubernetes"
     },
-    "draft": false,
+    "draft": true,
     "version": {
       "name": "1.0.1",
       "source_dep_name": "manual/kube-vip"
