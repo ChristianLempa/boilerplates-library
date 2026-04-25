@@ -15,7 +15,7 @@
       "provider": "simple-icons",
       "id": "kubernetes"
     },
-    "draft": true,
+    "draft": false,
     "version": {
       "name": "1.0.0",
       "source_dep_name": "manual/k3s-postinstall"

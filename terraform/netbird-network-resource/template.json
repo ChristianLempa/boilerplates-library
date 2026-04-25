@@ -12,7 +12,7 @@
       "provider": "selfhst",
       "id": "netbird"
     },
-    "draft": false,
+    "draft": true,
     "version": {
       "name": "0.0.15",
       "source_dep_name": "manual/netbird-network-resource"

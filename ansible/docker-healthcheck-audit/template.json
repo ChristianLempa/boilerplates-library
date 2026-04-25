@@ -15,7 +15,7 @@
       "id": "stethoscope",
       "color": "blue"
     },
-    "draft": true,
+    "draft": false,
     "version": {
       "name": "1",
       "source_dep_name": "manual/docker-healthcheck-audit"

@@ -14,7 +14,7 @@
       "provider": "simple-icons",
       "id": "ansible"
     },
-    "draft": true,
+    "draft": false,
     "version": {
       "name": "1.0.0",
       "source_dep_name": "manual/ubuntu-packages"
