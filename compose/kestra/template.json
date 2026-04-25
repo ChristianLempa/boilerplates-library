@@ -9,7 +9,7 @@
       "provider": "selfhst",
       "id": "kestra"
     },
-    "draft": false,
+    "draft": true,
     "version": {
       "name": "v1.0.0",
       "source_dep_name": "kestra/kestra",

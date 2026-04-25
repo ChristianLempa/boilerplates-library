@@ -13,7 +13,7 @@
       "provider": "selfhst",
       "id": "crowdsec"
     },
-    "draft": false,
+    "draft": true,
     "version": {
       "name": "v1.7.6",
       "source_dep_name": "manual/crowdsec"

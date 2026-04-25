@@ -9,7 +9,7 @@
       "provider": "selfhst",
       "id": "uptime-kuma"
     },
-    "draft": false,
+    "draft": true,
     "version": {
       "name": "1.23.17",
       "source_dep_name": "docker.io/louislam/uptime-kuma",

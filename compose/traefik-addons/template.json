@@ -13,7 +13,7 @@
       "provider": "selfhst",
       "id": "traefik"
     },
-    "draft": false,
+    "draft": true,
     "version": {
       "name": "2026.04.13",
       "source_dep_name": "manual/traefik-addons"
