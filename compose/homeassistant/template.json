@@ -11,9 +11,9 @@
     },
     "draft": false,
     "version": {
-      "name": "2026.2.2",
+      "name": "2026.4.4",
       "source_dep_name": "ghcr.io/home-assistant/home-assistant",
-      "source_dep_version": "2026.2.2"
+      "source_dep_version": "2026.4.4"
     }
   },
   "variables": [
