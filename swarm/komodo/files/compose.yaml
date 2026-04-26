@@ -1,7 +1,7 @@
 ---
 services:
   << service_name >>:
-    image: ghcr.io/moghtech/komodo-core:1.19.5
+    image: ghcr.io/moghtech/komodo-core:2.1.2
     hostname: << container_hostname >>
     <%- if network_mode == 'host' %>
     network_mode: host
