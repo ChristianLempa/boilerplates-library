@@ -11,9 +11,9 @@
     },
     "draft": false,
     "version": {
-      "name": "2.34.0",
+      "name": "2.40.0",
       "source_dep_name": "portainer/portainer-ce",
-      "source_dep_version": "2.34.0"
+      "source_dep_version": "2.40.0"
     }
   },
   "variables": [
