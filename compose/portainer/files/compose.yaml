@@ -1,6 +1,6 @@
 services:
   << service_name >>:
-    image: docker.io/portainer/portainer-ce:2.38.1-alpine
+    image: docker.io/portainer/portainer-ce:2.40.0-alpine
     restart: << restart_policy >>
     environment:
       - TZ=<< container_timezone >>
