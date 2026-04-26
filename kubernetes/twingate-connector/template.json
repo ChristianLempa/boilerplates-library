@@ -11,9 +11,9 @@
     },
     "draft": true,
     "version": {
-      "name": "1.74.0",
+      "name": "1.88.0",
       "source_dep_name": "twingate/connector",
-      "source_dep_version": "1.74.0"
+      "source_dep_version": "1.88.0"
     }
   },
   "variables": [
