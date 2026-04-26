@@ -23,9 +23,9 @@ services:
     <%- endif %>
     volumes:
       <%- if volume_mode == 'mount' %>
-      - << volume_mount_path >>:/var/lib/postgresql/data:rw
+      - << volume_mount_path >>:/var/lib/postgresql:rw
       <%- else %>
-      - << service_name >>-data:/var/lib/postgresql/data
+      - << service_name >>-data:/var/lib/postgresql
       <%- endif %>
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
