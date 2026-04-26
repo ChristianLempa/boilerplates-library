@@ -11,9 +11,9 @@
     },
     "draft": false,
     "version": {
-      "name": "v3.5.3",
+      "name": "v3.5.6",
       "source_dep_name": "traefik",
-      "source_dep_version": "v3.5.3"
+      "source_dep_version": "v3.5.6"
     }
   },
   "variables": [
