@@ -14,9 +14,9 @@
     },
     "draft": false,
     "version": {
-      "name": "3.6.5",
+      "name": "3.7.1",
       "source_dep_name": "docker.io/grafana/loki",
-      "source_dep_version": "3.6.5"
+      "source_dep_version": "3.7.1"
     }
   },
   "variables": [
