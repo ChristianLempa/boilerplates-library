@@ -13,9 +13,9 @@
     },
     "draft": false,
     "version": {
-      "name": "v1.13.1",
+      "name": "v1.16.0",
       "source_dep_name": "docker.io/grafana/alloy",
-      "source_dep_version": "v1.13.1"
+      "source_dep_version": "v1.16.0"
     }
   },
   "variables": [
