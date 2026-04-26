@@ -1,6 +1,6 @@
 services:
   << service_name >>:
-    image: docker.io/twingate/connector:1.80.0
+    image: docker.io/twingate/connector:1.88.0
     hostname: << container_hostname >>
     environment:
       - TZ=<< container_timezone >>
