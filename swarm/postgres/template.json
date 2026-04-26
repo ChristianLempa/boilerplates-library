@@ -11,9 +11,9 @@
     },
     "draft": false,
     "version": {
-      "name": "18.2",
+      "name": "18.3",
       "source_dep_name": "docker.io/library/postgres",
-      "source_dep_version": "18.2"
+      "source_dep_version": "18.3"
     }
   },
   "variables": [
