@@ -14,9 +14,9 @@
     },
     "draft": false,
     "version": {
-      "name": "v25.11.1",
+      "name": "v26.4.2",
       "source_dep_name": "docker.io/b4bz/homer",
-      "source_dep_version": "v25.11.1"
+      "source_dep_version": "v26.4.2"
     }
   },
   "variables": [
