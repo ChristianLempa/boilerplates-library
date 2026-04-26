@@ -13,9 +13,9 @@
     },
     "draft": false,
     "version": {
-      "name": "1.25.4",
+      "name": "1.25.5",
       "source_dep_name": "docker.io/gitea/gitea",
-      "source_dep_version": "1.25.4"
+      "source_dep_version": "1.25.5"
     }
   },
   "variables": [
