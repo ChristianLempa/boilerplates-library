@@ -13,9 +13,9 @@
     },
     "draft": false,
     "version": {
-      "name": "18.8.4-ce.0",
+      "name": "18.8.9-ce.0",
       "source_dep_name": "docker.io/gitlab/gitlab-ce",
-      "source_dep_version": "18.8.4-ce.0"
+      "source_dep_version": "18.8.9-ce.0"
     }
   },
   "variables": [
