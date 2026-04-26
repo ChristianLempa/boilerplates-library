@@ -11,9 +11,9 @@
     },
     "draft": false,
     "version": {
-      "name": "v4.2.3",
+      "name": "v4.5.8",
       "source_dep_name": "docker.io/netboxcommunity/netbox",
-      "source_dep_version": "v4.2.3"
+      "source_dep_version": "v4.5.8"
     }
   },
   "variables": [
