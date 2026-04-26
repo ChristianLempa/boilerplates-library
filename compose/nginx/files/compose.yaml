@@ -1,6 +1,6 @@
 services:
   << service_name >>:
-    image: docker.io/library/nginx:1.28.2-alpine
+    image: docker.io/library/nginx:1.30.0-alpine
     restart: << restart_policy >>
     container_name: << container_name >>
     <%- if traefik_enabled %>
