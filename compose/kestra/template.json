@@ -11,9 +11,9 @@
     },
     "draft": true,
     "version": {
-      "name": "v1.0.0",
+      "name": "v1.0.38",
       "source_dep_name": "kestra/kestra",
-      "source_dep_version": "v1.0.0"
+      "source_dep_version": "v1.0.38"
     }
   },
   "variables": [
