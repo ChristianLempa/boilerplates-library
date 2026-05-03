@@ -13,21 +13,5 @@ resource "cloudflare_zero_trust_tunnel_cloudflared_config" "<< resource_name >>"
       }
     ]
   }
-<%- if depends_on_enabled %>
-  depends_on = [<< dependencies >>]
-<%- endif %>
-<%- if lifecycle_enabled %>
 
-  lifecycle {
-<%- if prevent_destroy %>
-    prevent_destroy = true
-<%- endif %>
-<%- if create_before_destroy %>
-    create_before_destroy = true
-<%- endif %>
-<%- if ignore_changes %>
-    ignore_changes = [<< ignore_changes >>]
-<%- endif %>
-  }
-<%- endif %>
 }

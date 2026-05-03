@@ -73,21 +73,5 @@ resource "proxmox_vm_qemu" "<< resource_name >>" {
 <%- if ssh_key %>
   sshkeys = "<< ssh_key >>"
 <%- endif %>
-<%- if depends_on_enabled %>
-  depends_on = [<< dependencies >>]
-<%- endif %>
-<%- if lifecycle_enabled %>
 
-  lifecycle {
-<%- if prevent_destroy %>
-    prevent_destroy = true
-<%- endif %>
-<%- if create_before_destroy %>
-    create_before_destroy = true
-<%- endif %>
-<%- if ignore_changes %>
-    ignore_changes = [<< ignore_changes >>]
-<%- endif %>
-  }
-<%- endif %>
 }

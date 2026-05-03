@@ -19,20 +19,5 @@ resource "cloudflare_zero_trust_access_application" "<< resource_name >>" {
     }
 <%- endif %>
   ]
-<%- if depends_on_enabled and dependencies %>
-  depends_on = [<< dependencies >>]
-<%- endif %>
-<%- if lifecycle_enabled %>
-  lifecycle {
-<%- if prevent_destroy %>
-    prevent_destroy = true
-<%- endif %>
-<%- if create_before_destroy %>
-    create_before_destroy = true
-<%- endif %>
-<%- if ignore_changes %>
-    ignore_changes = [<< ignore_changes >>]
-<%- endif %>
-  }
-<%- endif %>
+
 }

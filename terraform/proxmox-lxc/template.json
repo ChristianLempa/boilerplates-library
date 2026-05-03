@@ -235,20 +235,6 @@
           }
         }
       ]
-    },
-    {
-      "title": "Lifecycle",
-      "name": "lifecycle",
-      "items": [
-        {
-          "name": "lifecycle_ignore_changes",
-          "type": "bool",
-          "title": "Ignore Changes",
-          "required": false,
-          "default": true,
-          "description": "Ignore rootfs, network, and cmode changes"
-        }
-      ]
     }
   ]
 }

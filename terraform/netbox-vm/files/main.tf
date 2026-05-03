@@ -37,23 +37,7 @@ resource "netbox_virtual_machine" "<< resource_name >>" {
 <%- if description_enabled %>
   comments   = "<< description_text >>"
 <%- endif %>
-<%- if depends_on_enabled %>
-  depends_on = [<< dependencies >>]
-<%- endif %>
-<%- if lifecycle_enabled %>
 
-  lifecycle {
-<%- if prevent_destroy %>
-    prevent_destroy = true
-<%- endif %>
-<%- if create_before_destroy %>
-    create_before_destroy = true
-<%- endif %>
-<%- if ignore_changes %>
-    ignore_changes = [<< ignore_changes >>]
-<%- endif %>
-  }
-<%- endif %>
 }
 
 <%- if ipam_enabled %>

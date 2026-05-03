@@ -28,7 +28,6 @@ resource "proxmox_lxc" "<< resource_name >>" {
     bridge = "<< bridge >>"
     ip     = "<< ip_address >>"
   }
-<%- if lifecycle_ignore_changes %>
 
   lifecycle {
     ignore_changes = [
@@ -37,5 +36,4 @@ resource "proxmox_lxc" "<< resource_name >>" {
       cmode
     ]
   }
-<%- endif %>
 }
