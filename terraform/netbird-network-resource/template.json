@@ -58,6 +58,7 @@
           "type": "str",
           "title": "Group Names",
           "required": true,
+          "default": "Administrators",
           "description": "Comma-separated existing NetBird group names to attach to this resource.",
           "config": {
             "placeholder": "Administrators, DevOps",
@@ -82,30 +83,6 @@
           "required": false,
           "default": true,
           "description": "Enable the network resource after creation."
-        }
-      ]
-    },
-    {
-      "title": "Provider Configuration",
-      "name": "provider",
-      "items": [
-        {
-          "name": "netbird_management_url",
-          "type": "str",
-          "title": "Management URL",
-          "required": false,
-          "default": "https://api.netbird.io",
-          "description": "NetBird Management API URL. Trailing slashes are trimmed. TLS certificates must be trusted by the OpenTofu runner because the provider does not expose a skip-verification option.",
-          "config": {
-            "placeholder": "https://api.netbird.io"
-          }
-        },
-        {
-          "name": "netbird_pat",
-          "type": "secret",
-          "title": "Admin PAT",
-          "required": true,
-          "description": "NetBird admin personal access token (PAT)."
         }
       ]
     }
