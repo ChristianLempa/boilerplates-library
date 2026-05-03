@@ -13,9 +13,9 @@
     },
     "draft": false,
     "version": {
-      "name": "32.0.6-apache",
+      "name": "33.0.3-apache",
       "source_dep_name": "docker.io/library/nextcloud",
-      "source_dep_version": "32.0.6-apache"
+      "source_dep_version": "33.0.3-apache"
     }
   },
   "variables": [
