@@ -18,8 +18,8 @@
   },
   "variables": [
     {
-      "title": "Provider Configuration",
-      "name": "provider",
+      "title": "Terraform",
+      "name": "terraform",
       "items": [
         {
           "name": "resource_name",
@@ -31,41 +31,6 @@
           "config": {
             "placeholder": "lxc"
           }
-        },
-        {
-          "name": "proxmox_api_url",
-          "type": "str",
-          "title": "Proxmox API URL",
-          "required": true,
-          "description": "URL for the Proxmox API.",
-          "config": {
-            "placeholder": "https://proxmox.home.arpa:8006/api2/json"
-          }
-        },
-        {
-          "name": "proxmox_api_token_id",
-          "type": "str",
-          "title": "API Token ID",
-          "required": true,
-          "description": "Proxmox API token ID",
-          "config": {
-            "placeholder": "terraform@pve!token"
-          }
-        },
-        {
-          "name": "proxmox_api_token_secret",
-          "type": "secret",
-          "title": "API Token Secret",
-          "required": true,
-          "description": "Proxmox API token secret"
-        },
-        {
-          "name": "proxmox_tls_insecure",
-          "type": "bool",
-          "title": "TLS Verify",
-          "required": false,
-          "default": false,
-          "description": "Skip TLS verification for the Proxmox API"
         }
       ]
     },

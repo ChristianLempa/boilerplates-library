@@ -18,26 +18,6 @@
   },
   "variables": [
     {
-      "name": "dns",
-      "title": "DNS Server Configuration",
-      "items": [
-        {
-          "name": "dns_server",
-          "title": "DNS server address",
-          "description": "DNS server address to use.",
-          "type": "str",
-          "required": true
-        },
-        {
-          "name": "dns_server_tsig_key_secret",
-          "title": "TSIG key secret",
-          "description": "TSIG key secret value.",
-          "type": "secret",
-          "required": true
-        }
-      ]
-    },
-    {
       "name": "record",
       "title": "DNS Record Configuration",
       "items": [
