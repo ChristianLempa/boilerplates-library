@@ -1,6 +1,6 @@
 services:
   << service_name >>-app:
-    image: docker.io/library/nextcloud:32.0.6-apache
+    image: docker.io/library/nextcloud:33.0.3-apache
     restart: << restart_policy >>
     container_name: << container_name >>-app
     environment:
@@ -60,7 +60,7 @@ services:
       - << service_name >>-redis
 
   << service_name >>-cron:
-    image: docker.io/library/nextcloud:32.0.6-apache
+    image: docker.io/library/nextcloud:33.0.3-apache
     restart: << restart_policy >>
     container_name: << container_name >>-cron
     entrypoint: /cron.sh
