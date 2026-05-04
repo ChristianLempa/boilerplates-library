@@ -1,0 +1,35 @@
+terraform/dns-provider/files/provider.tf
+  eea7fb8287373bd0 2,5-7,12-18
+terraform/proxmox-provider/template.json
+  eea7fb8287373bd0 1-66
+terraform/proxmox-lxc/template.json
+  eea7fb8287373bd0 21-22
+terraform/netbird-provider/template.json
+  eea7fb8287373bd0 1-59
+terraform/netbird-network-resource/template.json
+  eea7fb8287373bd0 61
+terraform/dns-provider/template.json
+  eea7fb8287373bd0 1-49
+terraform/proxmox-vm-qemu/template.json
+  eea7fb8287373bd0 21-22
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "1da21740d2080b83e65f6e98aad9288e594c9c19",
+  "prompts": {
+    "eea7fb8287373bd0": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019deeda-a42b-7718-83d0-5a6df76a41d2",
+        "model": "gpt-5.5"
+      },
+      "human_author": "ChristianLempa",
+      "messages": [],
+      "total_additions": 235,
+      "total_deletions": 394,
+      "accepted_lines": 233,
+      "overriden_lines": 0
+    }
+  }
+}
