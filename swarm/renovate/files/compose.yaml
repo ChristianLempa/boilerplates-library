@@ -1,7 +1,7 @@
 ---
 services:
   << service_name >>:
-    image: ghcr.io/mend/renovate-ce:14.4.0-full
+    image: ghcr.io/mend/renovate-ce:14.5.0-full
     hostname: << container_hostname >>
     <%- if traefik_enabled %>
     networks:
