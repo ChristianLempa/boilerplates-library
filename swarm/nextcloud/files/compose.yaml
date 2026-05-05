@@ -1,6 +1,6 @@
 services:
   << service_name >>-app:
-    image: docker.io/library/nextcloud:32.0.6-apache
+    image: docker.io/library/nextcloud:32.0.9-apache
     environment:
       - TZ=<< container_timezone >>
       - NEXTCLOUD_ADMIN_USER=${NEXTCLOUD_ADMIN_USER}
@@ -63,7 +63,7 @@ services:
       <%- endif %>
 
   << service_name >>-cron:
-    image: docker.io/library/nextcloud:32.0.6-apache
+    image: docker.io/library/nextcloud:32.0.9-apache
     entrypoint: /cron.sh
     environment:
       - TZ=<< container_timezone >>
