@@ -14,9 +14,9 @@
     },
     "draft": true,
     "version": {
-      "name": "2.18.7",
+      "name": "2.20.0",
       "source_dep_name": "n8nio/n8n",
-      "source_dep_version": "2.18.7"
+      "source_dep_version": "2.20.0"
     }
   },
   "variables": [
