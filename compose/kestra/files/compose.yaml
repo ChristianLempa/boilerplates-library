@@ -1,6 +1,6 @@
 services:
   << service_name >>:
-    image: kestra/kestra:v1.0.0
+    image: kestra/kestra:v1.3.15
     container_name: << container_name >>
     entrypoint: /bin/bash
     user: "<< container_user >>"
