@@ -11,9 +11,9 @@
     },
     "draft": false,
     "version": {
-      "name": "1.80.0",
+      "name": "1.88.0",
       "source_dep_name": "docker.io/twingate/connector",
-      "source_dep_version": "1.80.0"
+      "source_dep_version": "1.88.0"
     }
   },
   "variables": [
