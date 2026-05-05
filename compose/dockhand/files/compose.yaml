@@ -1,6 +1,6 @@
 services:
   << service_name >>:
-    image: docker.io/fnsys/dockhand:v1.0.26
+    image: docker.io/fnsys/dockhand:v1.0.27
     restart: << restart_policy >>
     <%- if database_type == 'postgres' or disable_local_login or encryption_key or puid or pgid %>
     environment:
