@@ -1,6 +1,6 @@
 services:
   << service_name >>:
-    image: docker.io/semaphoreui/semaphore:v2.17.39
+    image: docker.io/semaphoreui/semaphore:v2.18.1
     restart: << restart_policy >>
     environment:
       - SEMAPHORE_DB_DIALECT=<< database_type >>

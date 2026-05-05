@@ -14,9 +14,9 @@
     },
     "draft": false,
     "version": {
-      "name": "v2.17.39",
+      "name": "v2.18.1",
       "source_dep_name": "docker.io/semaphoreui/semaphore",
-      "source_dep_version": "v2.17.39"
+      "source_dep_version": "v2.18.1"
     }
   },
   "variables": [
