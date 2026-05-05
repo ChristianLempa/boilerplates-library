@@ -1,4 +1,14 @@
+---
+services:
+  << service_name >>:
+    image: docker.io/louislam/uptime-kuma:2.3.2
+    container_name: << container_name >>
+    restart: << restart_policy >>
+    ports:
+      - "<< ports_http >>:3001"
+    volumes:
+      - uptimekuma-data:/app/data
 
-include:
-  - services/uptimekuma.yaml
-  - common/volumes.yaml
+volumes:
+  uptimekuma-data:
+    driver: local

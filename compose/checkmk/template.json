@@ -13,9 +13,9 @@
     },
     "draft": false,
     "version": {
-      "name": "2.4.0-latest",
-      "source_dep_name": "checkmk/check-mk-raw",
-      "source_dep_version": "2.4.0-latest"
+      "name": "2.5.0-latest",
+      "source_dep_name": "checkmk/check-mk-community",
+      "source_dep_version": "2.5.0-latest"
     }
   },
   "variables": [

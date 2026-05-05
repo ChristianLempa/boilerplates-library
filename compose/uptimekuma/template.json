@@ -9,11 +9,11 @@
       "provider": "selfhst",
       "id": "uptime-kuma"
     },
-    "draft": true,
+    "draft": false,
     "version": {
-      "name": "1.23.17",
+      "name": "2.3.2",
       "source_dep_name": "docker.io/louislam/uptime-kuma",
-      "source_dep_version": "1.23.17"
+      "source_dep_version": "2.3.2"
     }
   },
   "variables": [
@@ -60,14 +60,14 @@
           "description": "Policy used for Restart."
         },
         {
-          "name": "volumes_version",
-          "type": "str",
-          "title": "Volumes version",
-          "required": false,
-          "default": "latest",
-          "description": "Value used for the general settings.",
+          "name": "ports_http",
+          "type": "int",
+          "title": "HTTP Port",
+          "required": true,
+          "default": 3001,
+          "description": "Host port used to expose the Uptime Kuma web UI.",
           "config": {
-            "placeholder": "latest"
+            "placeholder": "3001"
           }
         }
       ]

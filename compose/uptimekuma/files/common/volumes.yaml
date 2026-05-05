@@ -1,3 +1,0 @@
-volumes:
-  uptimekuma-data:
-    driver: local
