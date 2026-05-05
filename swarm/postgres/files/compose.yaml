@@ -1,6 +1,6 @@
 services:
   << service_name >>:
-    image: docker.io/library/postgres:18.2
+    image: docker.io/library/postgres:18.3
     hostname: << container_hostname >>
     environment:
       - POSTGRES_INITDB_ARGS=<< postgres_initdb_args >>
