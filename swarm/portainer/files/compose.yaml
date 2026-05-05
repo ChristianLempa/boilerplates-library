@@ -1,6 +1,6 @@
 services:
   << service_name >>:
-    image: docker.io/portainer/portainer-ce:2.38.1-alpine
+    image: docker.io/portainer/portainer-ce:2.41.0-alpine
     environment:
       - TZ=<< container_timezone >>
     <%- if traefik_enabled %>
