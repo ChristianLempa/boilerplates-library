@@ -7,6 +7,6 @@ metadata:
 spec:
   image:
     repository: twingate/connector
-    tag: 1.74.0
+    tag: 1.88.0
   name: << connector_name >>
   hasStatusNotificationsEnabled: << status_notifications | lower >>
