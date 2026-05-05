@@ -2,7 +2,7 @@
 
 This repository is my personal **Boilerplates template library**.
 
-It contains a growing collection of templates for homelabs and self-hosted infrastructure, covering Docker Compose, Docker Swarm, Kubernetes, Helm, Terraform, Ansible, Bash, and Python.
+It contains a growing collection of templates for homelabs and self-hosted infrastructure, covering Docker Compose, Docker Swarm, Kubernetes, Helm, Terraform, Ansible, Bash, Python, and static files.
 
 > I try to keep these templates up to date, but things change. If you find a broken template, outdated configuration, or any other issue, please open an issue here: [ChristianLempa/boilerplates-library/issues](https://github.com/ChristianLempa/boilerplates-library/issues).
 
@@ -16,6 +16,7 @@ It contains a growing collection of templates for homelabs and self-hosted infra
 - **Ansible**: automation templates for server setup, Docker operations, backups, and maintenance.
 - **Bash**: script-based utility templates.
 - **Python**: script templates for small operational workflows.
+- **Static**: static file and folder boilerplates without a required entrypoint file.
 
 ## How To Use
 

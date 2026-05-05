@@ -1,0 +1,219 @@
+{
+  "slug": "agents-codex",
+  "kind": "static",
+  "metadata": {
+    "name": "AGENTS.md Codex Best Practices",
+    "description": "Generates a small, expandable AGENTS.md starter file for AI coding agents with a repository map, optional docs, validation commands, and conventions.",
+    "tags": [
+      "agents",
+      "codex",
+      "ai",
+      "documentation",
+      "best-practices"
+    ],
+    "icon": {
+      "provider": "mdi",
+      "id": "robot-outline",
+      "color": "violet"
+    },
+    "draft": true,
+    "version": {
+      "name": "1.0.0",
+      "source_dep_name": "manual/agents-codex-bestpractices"
+    }
+  },
+  "variables": [
+    {
+      "title": "Project",
+      "name": "project",
+      "items": [
+        {
+          "name": "project_name",
+          "type": "str",
+          "title": "Project name",
+          "required": true,
+          "default": "Project Name",
+          "description": "Name of the project this AGENTS.md belongs to.",
+          "config": {
+            "placeholder": "My Project"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Repository Map",
+      "name": "repository_map",
+      "items": [
+        {
+          "name": "source_dir",
+          "type": "str",
+          "title": "Source directory",
+          "required": false,
+          "description": "Main source code directory.",
+          "config": {
+            "placeholder": "src/"
+          }
+        },
+        {
+          "name": "tests_dir",
+          "type": "str",
+          "title": "Tests directory",
+          "required": false,
+          "description": "Directory where tests live.",
+          "config": {
+            "placeholder": "tests/"
+          }
+        },
+        {
+          "name": "docs_dir",
+          "type": "str",
+          "title": "Docs directory",
+          "required": false,
+          "description": "Directory where project documentation lives.",
+          "config": {
+            "placeholder": "docs/"
+          }
+        },
+        {
+          "name": "cfg_dir",
+          "type": "str",
+          "title": "Config directory",
+          "required": false,
+          "description": "Directory where configuration examples or project config live.",
+          "config": {
+            "placeholder": "config/"
+          }
+        },
+        {
+          "name": "ansible_dir",
+          "type": "str",
+          "title": "Ansible directory",
+          "required": false,
+          "description": "Directory where Ansible playbooks, roles, inventories, or automation live.",
+          "config": {
+            "placeholder": "ansible/"
+          }
+        },
+        {
+          "name": "terraform_dir",
+          "type": "str",
+          "title": "Terraform directory",
+          "required": false,
+          "description": "Directory where Terraform modules, stacks, state configuration, or infrastructure code live.",
+          "config": {
+            "placeholder": "terraform/"
+          }
+        },
+        {
+          "name": "deployments_dir",
+          "type": "str",
+          "title": "Deployments directory",
+          "required": false,
+          "description": "Directory where deployment manifests, compose files, Helm values, Kubernetes YAML, or environment overlays live.",
+          "config": {
+            "placeholder": "deployments/"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Docs",
+      "name": "docs",
+      "toggle": "docs_enabled",
+      "items": [
+        {
+          "name": "docs_enabled",
+          "type": "bool",
+          "title": "Include docs section",
+          "required": false,
+          "default": true,
+          "description": "Add a section that points agents to project documentation."
+        }
+      ]
+    },
+    {
+      "title": "Validation",
+      "name": "validation",
+      "toggle": "validation_enabled",
+      "items": [
+        {
+          "name": "validation_enabled",
+          "type": "bool",
+          "title": "Include validation section",
+          "required": false,
+          "default": true,
+          "description": "Add a section for format, lint, test, build, and other validation commands."
+        },
+        {
+          "name": "validation_commands",
+          "type": "str",
+          "title": "Validation commands",
+          "required": false,
+          "description": "Project-specific commands agents should run before finishing changes.",
+          "config": {
+            "textarea": true,
+            "placeholder": "- Format: ...\n- Lint: ...\n- Test: ...\n- Build: ..."
+          }
+        }
+      ]
+    },
+    {
+      "title": "Conventions",
+      "name": "conventions",
+      "toggle": "conventions_enabled",
+      "items": [
+        {
+          "name": "conventions_enabled",
+          "type": "bool",
+          "title": "Include conventions section",
+          "required": false,
+          "default": true,
+          "description": "Add a section for project conventions and agent guardrails."
+        },
+        {
+          "name": "rule_update_docs",
+          "type": "bool",
+          "title": "Update docs for features",
+          "required": false,
+          "default": true,
+          "description": "Tell agents to update docs when they add or change features."
+        },
+        {
+          "name": "rule_add_tests",
+          "type": "bool",
+          "title": "Add tests for logic changes",
+          "required": false,
+          "default": true,
+          "description": "Tell agents to add or update tests when changing logic."
+        },
+        {
+          "name": "rule_existing_patterns",
+          "type": "bool",
+          "title": "Follow existing patterns",
+          "required": false,
+          "default": true,
+          "description": "Tell agents to prefer existing project patterns before adding new ones."
+        },
+        {
+          "name": "rule_minimal_changes",
+          "type": "bool",
+          "title": "Keep changes focused",
+          "required": false,
+          "default": true,
+          "description": "Tell agents to avoid unrelated refactors and broad rewrites."
+        },
+        {
+          "name": "conventions_notes",
+          "type": "str",
+          "title": "Additional conventions",
+          "required": false,
+          "description": "Optional extra project-specific conventions.",
+          "config": {
+            "textarea": true,
+            "placeholder": "- Naming: ...\n- Architecture: ...\n- Dependencies: ..."
+          }
+        }
+      ]
+    }
+  ]
+}
