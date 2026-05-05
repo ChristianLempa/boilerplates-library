@@ -13,9 +13,9 @@
     },
     "draft": false,
     "version": {
-      "name": "1.28.2-alpine",
+      "name": "1.30.0-alpine",
       "source_dep_name": "docker.io/library/nginx",
-      "source_dep_version": "1.28.2-alpine"
+      "source_dep_version": "1.30.0-alpine"
     }
   },
   "variables": [
