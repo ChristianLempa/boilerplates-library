@@ -115,7 +115,7 @@ services:
     networks:
       - << service_name >>-backend
     <%- elif database_type == 'postgres' %>
-    image: docker.io/library/postgres:17.8
+    image: docker.io/library/postgres:17.9
     environment:
       - TZ=<< container_timezone >>
       - POSTGRES_USER=<< database_user >>
