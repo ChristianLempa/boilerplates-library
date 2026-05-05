@@ -11,9 +11,9 @@
     },
     "draft": false,
     "version": {
-      "name": "v1.18.2",
+      "name": "v1.20.2",
       "source_dep_name": "quay.io/jetstack/cert-manager-controller",
-      "source_dep_version": "v1.18.2"
+      "source_dep_version": "v1.20.2"
     }
   },
   "variables": [
