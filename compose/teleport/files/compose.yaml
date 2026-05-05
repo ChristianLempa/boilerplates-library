@@ -1,6 +1,6 @@
 services:
   << service_name >>:
-    image: public.ecr.aws/gravitational/teleport-distroless:18.7.3
+    image: public.ecr.aws/gravitational/teleport-distroless:18.7.6
     container_name: << container_name >>
     ports:
       - "<< ports_web >>:<< ports_web >>"
