@@ -1,6 +1,6 @@
 services:
   << service_name >>:
-    image: docker.n8n.io/n8nio/n8n:2.8.3
+    image: docker.n8n.io/n8nio/n8n:2.8.4
     container_name: << container_name >>
     hostname: << container_hostname >>
     restart: << restart_policy >>
