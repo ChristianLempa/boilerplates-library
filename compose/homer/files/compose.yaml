@@ -1,6 +1,6 @@
 services:
   << service_name >>:
-    image: docker.io/b4bz/homer:v25.11.1
+    image: docker.io/b4bz/homer:v26.4.2
     restart: << restart_policy >>
     <%- if container_name %>
     container_name: << container_name >>
