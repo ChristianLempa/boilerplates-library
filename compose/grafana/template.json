@@ -15,7 +15,7 @@
     "draft": false,
     "version": {
       "name": "13.0.1",
-      "source_dep_name": "docker.io/grafana/grafana-oss",
+      "source_dep_name": "docker.io/grafana/grafana",
       "source_dep_version": "13.0.1"
     }
   },

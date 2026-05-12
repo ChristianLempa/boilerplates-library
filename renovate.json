@@ -130,7 +130,7 @@
       ],
       "versioning": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+(?:-security-\\d+)?)$",
       "matchPackageNames": [
-        "/^([^/]+\\/)*grafana\/grafana-oss(:.+)?$/"
+        "/^([^/]+\\/)*grafana\/grafana(:.+)?$/"
       ]
     },
     {
