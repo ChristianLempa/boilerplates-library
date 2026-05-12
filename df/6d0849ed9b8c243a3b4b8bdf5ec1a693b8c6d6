@@ -1,0 +1,23 @@
+renovate.json
+  s_f683192f8e3ba4::t_5b0df33884258a 133
+compose/grafana/files/compose.yaml
+  s_f683192f8e3ba4::t_f70096ab755108 3
+compose/grafana/template.json
+  s_f683192f8e3ba4::t_aee2de292be3e7 18
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.4",
+  "base_commit_sha": "df6d0849ed9b8c243a3b4b8bdf5ec1a693b8c6d6",
+  "prompts": {},
+  "sessions": {
+    "s_f683192f8e3ba4": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019e1c65-d23d-7499-8946-a3ea440adf87",
+        "model": "gpt-5.5"
+      },
+      "human_author": "xcad <christian.lempa@clcreative.de>"
+    }
+  }
+}
