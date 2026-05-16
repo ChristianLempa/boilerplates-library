@@ -1,0 +1,525 @@
+{
+  "slug": "traefik-swarm",
+  "kind": "swarm",
+  "metadata": {
+    "name": "Traefik",
+    "description": "Swarm-only Traefik reverse proxy and load balancer with Docker Swarm service discovery, optional Let's Encrypt DNS challenge TLS, dashboard, and metrics support. For Traefik-managed ACME certificates, run a single replica; Traefik OSS ACME storage is not safe for active-active writes from multiple instances. References: Traefik Swarm provider https://doc.traefik.io/traefik/providers/swarm/ and Traefik ACME storage notes https://doc.traefik.io/traefik/https/acme/.",
+    "tags": [
+      "reverse-proxy",
+      "traefik"
+    ],
+    "icon": {
+      "provider": "selfhst",
+      "id": "traefik"
+    },
+    "draft": false,
+    "version": {
+      "name": "v3.6.15",
+      "source_dep_name": "docker.io/library/traefik",
+      "source_dep_version": "v3.6.15"
+    }
+  },
+  "variables": [
+    {
+      "title": "General",
+      "name": "general",
+      "items": [
+        {
+          "name": "service_name",
+          "title": "Service Name",
+          "type": "str",
+          "default": "traefik",
+          "required": false,
+          "config": {
+            "placeholder": "traefik"
+          },
+          "description": "Name of the Swarm service and generated resources."
+        },
+        {
+          "name": "container_timezone",
+          "title": "Container Timezone",
+          "type": "str",
+          "default": "UTC",
+          "required": true,
+          "config": {
+            "placeholder": "UTC"
+          },
+          "description": "Timezone used inside the container."
+        },
+        {
+          "name": "container_loglevel",
+          "title": "Log Level",
+          "type": "enum",
+          "default": "info",
+          "required": false,
+          "config": {
+            "options": [
+              "debug",
+              "info",
+              "warn",
+              "error"
+            ]
+          },
+          "description": "Traefik log level."
+        }
+      ]
+    },
+    {
+      "title": "Ports",
+      "name": "ports",
+      "items": [
+        {
+          "name": "ports_http",
+          "title": "HTTP Port",
+          "type": "int",
+          "default": 80,
+          "required": true,
+          "config": {
+            "placeholder": "80"
+          },
+          "description": "Published port for the web entrypoint."
+        },
+        {
+          "name": "ports_https",
+          "title": "HTTPS Port",
+          "type": "int",
+          "default": 443,
+          "required": true,
+          "config": {
+            "placeholder": "443"
+          },
+          "description": "Published port for the websecure entrypoint."
+        },
+        {
+          "name": "ports_dashboard",
+          "title": "Dashboard Port",
+          "type": "int",
+          "default": 8080,
+          "required": true,
+          "needs": [
+            "dashboard_enabled=true"
+          ],
+          "config": {
+            "placeholder": "8080"
+          },
+          "description": "Published port for the insecure dashboard/API."
+        },
+        {
+          "name": "ports_metrics",
+          "title": "Metrics Port",
+          "type": "int",
+          "default": 9090,
+          "required": true,
+          "needs": [
+            "prometheus_enabled=true"
+          ],
+          "config": {
+            "placeholder": "9090"
+          },
+          "description": "Published port for Prometheus metrics."
+        },
+        {
+          "name": "ports_publish_mode",
+          "title": "Publish Mode",
+          "type": "enum",
+          "default": "host",
+          "required": true,
+          "config": {
+            "options": [
+              "host",
+              "ingress"
+            ]
+          },
+          "description": "Swarm port publishing mode. Host mode is recommended for edge proxies."
+        }
+      ]
+    },
+    {
+      "title": "Traefik",
+      "name": "traefik",
+      "items": [
+        {
+          "name": "traefik_network",
+          "title": "Network",
+          "type": "str",
+          "default": "traefik",
+          "required": true,
+          "config": {
+            "placeholder": "traefik"
+          },
+          "description": "Overlay network Traefik uses to reach routed Swarm services."
+        },
+        {
+          "name": "traefik_network_external",
+          "title": "External Network",
+          "type": "bool",
+          "default": false,
+          "required": false,
+          "description": "Use an existing external overlay network."
+        },
+        {
+          "name": "accesslog_enabled",
+          "title": "Access Log",
+          "type": "bool",
+          "default": false,
+          "required": false,
+          "description": "Enable Traefik access logs."
+        },
+        {
+          "name": "dashboard_enabled",
+          "title": "Dashboard",
+          "type": "bool",
+          "default": false,
+          "required": false,
+          "description": "Enable the insecure Traefik dashboard/API. Do not expose this in production."
+        },
+        {
+          "name": "prometheus_enabled",
+          "title": "Prometheus",
+          "type": "bool",
+          "default": false,
+          "required": false,
+          "description": "Enable Prometheus metrics."
+        }
+      ]
+    },
+    {
+      "title": "Traefik TLS",
+      "name": "traefik-tls",
+      "toggle": "traefik_tls_enabled",
+      "items": [
+        {
+          "name": "traefik_tls_enabled",
+          "title": "TLS",
+          "type": "bool",
+          "default": false,
+          "required": false,
+          "description": "Enable HTTPS/TLS with ACME DNS challenge."
+        },
+        {
+          "name": "traefik_tls_certresolver",
+          "title": "DNS Provider",
+          "type": "enum",
+          "default": "cloudflare",
+          "required": true,
+          "needs": [
+            "traefik_tls_enabled=true"
+          ],
+          "config": {
+            "options": [
+              "cloudflare",
+              "porkbun",
+              "godaddy",
+              "digitalocean",
+              "route53",
+              "azure",
+              "namecheap",
+              "ovh"
+            ]
+          },
+          "description": "ACME DNS challenge provider."
+        },
+        {
+          "name": "traefik_tls_acme_email",
+          "title": "ACME Email",
+          "type": "str",
+          "required": true,
+          "needs": [
+            "traefik_tls_enabled=true"
+          ],
+          "config": {
+            "placeholder": "admin@example.com"
+          },
+          "description": "Email address used for ACME registration."
+        },
+        {
+          "name": "traefik_tls_acme_token",
+          "title": "API Token / ID",
+          "type": "secret",
+          "required": true,
+          "needs": [
+            "traefik_tls_enabled=true",
+            "traefik_tls_certresolver=azure,cloudflare,digitalocean,godaddy,namecheap,ovh,porkbun,route53"
+          ],
+          "description": "DNS provider API token or access/client ID. Stored as a Swarm secret."
+        },
+        {
+          "name": "traefik_tls_acme_secret_key",
+          "title": "Secret Key",
+          "type": "secret",
+          "required": true,
+          "needs": [
+            "traefik_tls_enabled=true",
+            "traefik_tls_certresolver=azure,godaddy,ovh,porkbun,route53"
+          ],
+          "description": "DNS provider secret key. Stored as a Swarm secret."
+        },
+        {
+          "name": "traefik_tls_acme_consumer_key",
+          "title": "Consumer Key",
+          "type": "secret",
+          "required": true,
+          "needs": [
+            "traefik_tls_enabled=true",
+            "traefik_tls_certresolver=ovh"
+          ],
+          "description": "OVH consumer key. Stored as a Swarm secret."
+        },
+        {
+          "name": "traefik_tls_acme_username",
+          "title": "Username",
+          "type": "str",
+          "required": true,
+          "needs": [
+            "traefik_tls_enabled=true",
+            "traefik_tls_certresolver=namecheap"
+          ],
+          "config": {
+            "placeholder": "namecheap-user"
+          },
+          "description": "Namecheap API username."
+        },
+        {
+          "name": "traefik_tls_acme_region",
+          "title": "AWS Region",
+          "type": "str",
+          "default": "us-east-1",
+          "required": true,
+          "needs": [
+            "traefik_tls_enabled=true",
+            "traefik_tls_certresolver=route53"
+          ],
+          "config": {
+            "placeholder": "us-east-1"
+          },
+          "description": "AWS region for Route53."
+        },
+        {
+          "name": "traefik_tls_acme_endpoint",
+          "title": "OVH Endpoint",
+          "type": "str",
+          "default": "ovh-eu",
+          "required": false,
+          "needs": [
+            "traefik_tls_enabled=true",
+            "traefik_tls_certresolver=ovh"
+          ],
+          "config": {
+            "placeholder": "ovh-eu"
+          },
+          "description": "OVH API endpoint."
+        },
+        {
+          "name": "traefik_tls_acme_tenant_id",
+          "title": "Azure Tenant ID",
+          "type": "str",
+          "required": true,
+          "needs": [
+            "traefik_tls_enabled=true",
+            "traefik_tls_certresolver=azure"
+          ],
+          "description": "Azure tenant ID."
+        },
+        {
+          "name": "traefik_tls_acme_subscription_id",
+          "title": "Azure Subscription ID",
+          "type": "str",
+          "required": true,
+          "needs": [
+            "traefik_tls_enabled=true",
+            "traefik_tls_certresolver=azure"
+          ],
+          "description": "Azure subscription ID."
+        },
+        {
+          "name": "traefik_tls_acme_resource_group",
+          "title": "Azure Resource Group",
+          "type": "str",
+          "required": true,
+          "needs": [
+            "traefik_tls_enabled=true",
+            "traefik_tls_certresolver=azure"
+          ],
+          "description": "Azure DNS resource group."
+        },
+        {
+          "name": "traefik_tls_redirect",
+          "title": "HTTP Redirect",
+          "type": "bool",
+          "default": true,
+          "required": false,
+          "needs": [
+            "traefik_tls_enabled=true"
+          ],
+          "description": "Redirect all HTTP traffic to HTTPS."
+        },
+        {
+          "name": "traefik_tls_min_version",
+          "title": "Minimum TLS Version",
+          "type": "enum",
+          "default": "VersionTLS12",
+          "required": false,
+          "needs": [
+            "traefik_tls_enabled=true"
+          ],
+          "config": {
+            "options": [
+              "VersionTLS12",
+              "VersionTLS13"
+            ]
+          },
+          "description": "Minimum TLS version."
+        },
+        {
+          "name": "traefik_tls_secure_ciphers",
+          "title": "Strict Ciphers",
+          "type": "bool",
+          "default": false,
+          "required": false,
+          "needs": [
+            "traefik_tls_enabled=true"
+          ],
+          "description": "Enable a strict modern cipher suite list."
+        },
+        {
+          "name": "traefik_tls_skipverify",
+          "title": "Skip Backend Verify",
+          "type": "bool",
+          "default": false,
+          "required": false,
+          "needs": [
+            "traefik_tls_enabled=true"
+          ],
+          "description": "Skip TLS verification for backend servers."
+        }
+      ]
+    },
+    {
+      "title": "Docker Swarm",
+      "name": "swarm",
+      "items": [
+        {
+          "name": "swarm_placement_mode",
+          "title": "Placement Mode",
+          "type": "enum",
+          "default": "replicated",
+          "required": true,
+          "config": {
+            "options": [
+              "global",
+              "replicated"
+            ]
+          },
+          "description": "Swarm deployment mode. Traefik is constrained to manager nodes because the Swarm provider reads service state through the local Docker socket. Use replicated with one replica when Traefik manages ACME certificates. Global mode runs one task per eligible manager node, but Traefik OSS cannot safely coordinate active-active ACME writes to a shared acme.json. See https://doc.traefik.io/traefik/providers/swarm/ and https://doc.traefik.io/traefik/https/acme/."
+        },
+        {
+          "name": "swarm_replicas",
+          "title": "Replicas",
+          "type": "int",
+          "default": 1,
+          "required": false,
+          "needs": [
+            "swarm_placement_mode=replicated"
+          ],
+          "config": {
+            "slider": true,
+            "min": 1,
+            "max": 10,
+            "step": 1,
+            "placeholder": "1",
+            "unit": "replicas"
+          },
+          "description": "Number of replicas when placement mode is replicated. Keep this at 1 when Traefik manages ACME certificates; use multiple replicas only with external/static certificate management."
+        },
+        {
+          "name": "swarm_placement_host",
+          "title": "Placement Host",
+          "type": "str",
+          "default": "",
+          "required": false,
+          "config": {
+            "placeholder": "swarm-node-1"
+          },
+          "description": "Optional manager-node hostname constraint. The selected node must be a Swarm manager."
+        }
+      ]
+    },
+    {
+      "title": "Volume",
+      "name": "volume",
+      "items": [
+        {
+          "name": "volume_mode",
+          "title": "Volume Mode",
+          "type": "enum",
+          "default": "local",
+          "required": true,
+          "config": {
+            "options": [
+              "local",
+              "mount",
+              "nfs"
+            ]
+          },
+          "description": "Storage mode for ACME certificate data. Shared storage allows file access from multiple nodes, but it does not make Traefik-managed ACME safe with multiple active Traefik writers. Use one Traefik replica for ACME, or use external/static certificate management for multi-replica Traefik. See https://doc.traefik.io/traefik/https/acme/."
+        },
+        {
+          "name": "volume_mount_path",
+          "title": "Bind Mount Path",
+          "type": "str",
+          "default": "/data/traefik/certs",
+          "required": true,
+          "needs": [
+            "volume_mode=mount"
+          ],
+          "config": {
+            "placeholder": "/data/traefik/certs"
+          },
+          "description": "Host path used for certificate storage."
+        },
+        {
+          "name": "volume_nfs_server",
+          "title": "NFS Server",
+          "type": "str",
+          "default": "NFS_SERVER",
+          "required": true,
+          "needs": [
+            "volume_mode=nfs"
+          ],
+          "config": {
+            "placeholder": "NFS_SERVER"
+          },
+          "description": "Hostname or IP address of the NFS server."
+        },
+        {
+          "name": "volume_nfs_path",
+          "title": "NFS Path",
+          "type": "str",
+          "default": "/export/traefik/certs",
+          "required": true,
+          "needs": [
+            "volume_mode=nfs"
+          ],
+          "config": {
+            "placeholder": "/export/traefik/certs"
+          },
+          "description": "Export path on the NFS server."
+        },
+        {
+          "name": "volume_nfs_options",
+          "title": "NFS Options",
+          "type": "str",
+          "default": "rw,nolock,soft",
+          "required": true,
+          "needs": [
+            "volume_mode=nfs"
+          ],
+          "config": {
+            "placeholder": "rw,nolock,soft"
+          },
+          "description": "Mount options for the NFS volume."
+        }
+      ]
+    }
+  ]
+}
