@@ -86,8 +86,7 @@ services:
       - PORKBUN_API_KEY_FILE=/run/secrets/<< service_name >>_token
       - PORKBUN_SECRET_API_KEY_FILE=/run/secrets/<< service_name >>_token_key
       <%- elif traefik_tls_certresolver == 'route53' %>
-      - AWS_ACCESS_KEY_ID_FILE=/run/secrets/<< service_name >>_token
-      - AWS_SECRET_ACCESS_KEY_FILE=/run/secrets/<< service_name >>_token_key
+      - AWS_SHARED_CREDENTIALS_FILE=/run/secrets/<< service_name >>_aws_credentials
       - AWS_REGION=<< traefik_tls_acme_region >>
       <%- elif traefik_tls_certresolver == 'digitalocean' %>
       - DO_AUTH_TOKEN_FILE=/run/secrets/<< service_name >>_token
@@ -120,12 +119,16 @@ services:
       - << traefik_network >>
     <%- if traefik_tls_enabled %>
     secrets:
+      <%- if traefik_tls_certresolver == 'route53' %>
+      - << service_name >>_aws_credentials
+      <%- else %>
       - << service_name >>_token
-      <%- if traefik_tls_certresolver == 'azure' or traefik_tls_certresolver == 'godaddy' or traefik_tls_certresolver == 'ovh' or traefik_tls_certresolver == 'porkbun' or traefik_tls_certresolver == 'route53' %>
+      <%- if traefik_tls_certresolver == 'azure' or traefik_tls_certresolver == 'godaddy' or traefik_tls_certresolver == 'ovh' or traefik_tls_certresolver == 'porkbun' %>
       - << service_name >>_token_key
       <%- endif %>
       <%- if traefik_tls_certresolver == 'ovh' %>
       - << service_name >>_consumer_key
+      <%- endif %>
       <%- endif %>
     <%- endif %>
     deploy:
@@ -133,25 +136,31 @@ services:
       <%- if swarm_placement_mode == 'replicated' %>
       replicas: << swarm_replicas >>
       <%- endif %>
-      <%- if swarm_placement_host %>
       placement:
         constraints:
+          - node.role == manager
+          <%- if swarm_placement_host %>
           - node.hostname == << swarm_placement_host >>
-      <%- endif %>
+          <%- endif %>
       restart_policy:
         condition: any
 
 <%- if traefik_tls_enabled %>
 secrets:
+  <%- if traefik_tls_certresolver == 'route53' %>
+  << service_name >>_aws_credentials:
+    file: ./.env.secret.aws_credentials
+  <%- else %>
   << service_name >>_token:
     file: ./.env.secret.token
-  <%- if traefik_tls_certresolver == 'azure' or traefik_tls_certresolver == 'godaddy' or traefik_tls_certresolver == 'ovh' or traefik_tls_certresolver == 'porkbun' or traefik_tls_certresolver == 'route53' %>
+  <%- if traefik_tls_certresolver == 'azure' or traefik_tls_certresolver == 'godaddy' or traefik_tls_certresolver == 'ovh' or traefik_tls_certresolver == 'porkbun' %>
   << service_name >>_token_key:
     file: ./.env.secret.token_key
   <%- endif %>
   <%- if traefik_tls_certresolver == 'ovh' %>
   << service_name >>_consumer_key:
     file: ./.env.secret.consumer_key
+  <%- endif %>
   <%- endif %>
 <%- endif %>
 

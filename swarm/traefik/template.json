@@ -410,7 +410,7 @@
               "replicated"
             ]
           },
-          "description": "Swarm deployment mode. Use replicated with one replica when Traefik manages ACME certificates. Global mode can run one task per eligible node, but Traefik OSS cannot safely coordinate active-active ACME writes to a shared acme.json. See https://doc.traefik.io/traefik/https/acme/."
+          "description": "Swarm deployment mode. Traefik is constrained to manager nodes because the Swarm provider reads service state through the local Docker socket. Use replicated with one replica when Traefik manages ACME certificates. Global mode runs one task per eligible manager node, but Traefik OSS cannot safely coordinate active-active ACME writes to a shared acme.json. See https://doc.traefik.io/traefik/providers/swarm/ and https://doc.traefik.io/traefik/https/acme/."
         },
         {
           "name": "swarm_replicas",
@@ -440,7 +440,7 @@
           "config": {
             "placeholder": "swarm-node-1"
           },
-          "description": "Optional node hostname constraint."
+          "description": "Optional manager-node hostname constraint. The selected node must be a Swarm manager."
         }
       ]
     },
