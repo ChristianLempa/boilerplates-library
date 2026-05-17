@@ -1,0 +1,23 @@
+swarm/n8n/template.json
+  aea395bffbf1eb35 17,19
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "60e0f495c38468ebda5bc949a7ea39962f61a971",
+  "prompts": {
+    "aea395bffbf1eb35": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019df925-dd5e-7633-a3a8-0466de176c0e",
+        "model": "gpt-5.5"
+      },
+      "human_author": "xcad",
+      "messages": [],
+      "total_additions": 2,
+      "total_deletions": 2,
+      "accepted_lines": 2,
+      "overriden_lines": 0
+    }
+  }
+}

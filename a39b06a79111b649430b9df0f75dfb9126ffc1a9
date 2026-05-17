@@ -1,0 +1,27 @@
+compose/technitium/files/compose.yaml
+  fb57003c61471f86 1-125
+compose/technitium/template.json
+  fb57003c61471f86 1-457
+compose/technitium/files/.env
+  fb57003c61471f86 1-2
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "a39b06a79111b649430b9df0f75dfb9126ffc1a9",
+  "prompts": {
+    "fb57003c61471f86": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019df2b0-e369-72ea-9349-0bc189270b0c",
+        "model": "gpt-5.5"
+      },
+      "human_author": "xcad",
+      "messages": [],
+      "total_additions": 593,
+      "total_deletions": 9,
+      "accepted_lines": 584,
+      "overriden_lines": 0
+    }
+  }
+}

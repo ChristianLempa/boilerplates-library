@@ -1,0 +1,19 @@
+swarm/traefik/template.json
+  s_6be0ef39ca835c::t_150785a6e95e00 6,405,413,432,464
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.8",
+  "base_commit_sha": "a8ae8cbde4b8acd89a8e081dfaa4b47a1a3ec678",
+  "prompts": {},
+  "sessions": {
+    "s_6be0ef39ca835c": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019e30b0-1288-76a9-a311-ab8fd1683312",
+        "model": "gpt-5.5"
+      },
+      "human_author": "xcad <christian.lempa@clcreative.de>"
+    }
+  }
+}

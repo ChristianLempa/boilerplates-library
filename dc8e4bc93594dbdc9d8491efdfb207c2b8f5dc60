@@ -1,0 +1,27 @@
+swarm/traefik/files/.env.secret.token_key
+  s_6be0ef39ca835c::t_b574964cb57115 1
+swarm/traefik/files/.env.secret.aws_credentials
+  s_6be0ef39ca835c::t_237c11bc33c6eb 1-5
+swarm/traefik/files/compose.yaml
+  s_6be0ef39ca835c::t_5ffb444c4e7bbe 89,122-124,126,132,141-142,144,150-153,156
+swarm/traefik/template.json
+  s_6be0ef39ca835c::t_3c42bb6a57dfb6 413,443
+swarm/traefik/files/.env.secret.token
+  s_6be0ef39ca835c::t_ece984e1f7d8f9 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.8",
+  "base_commit_sha": "dc8e4bc93594dbdc9d8491efdfb207c2b8f5dc60",
+  "prompts": {},
+  "sessions": {
+    "s_6be0ef39ca835c": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019e30b0-1288-76a9-a311-ab8fd1683312",
+        "model": "gpt-5.5"
+      },
+      "human_author": "xcad <christian.lempa@clcreative.de>"
+    }
+  }
+}

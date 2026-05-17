@@ -1,0 +1,27 @@
+README.md
+  c68e24395b0b742c 5,19
+static/agents-codex/files/AGENTS.md
+  c68e24395b0b742c 19-79
+static/agents-codex/template.json
+  c68e24395b0b742c 6-115
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "ead576bdcc4ce3182458ad3459cdf6f425ed65ee",
+  "prompts": {
+    "c68e24395b0b742c": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019df321-145c-739e-9437-d24ec5b49d7d",
+        "model": "gpt-5.5"
+      },
+      "human_author": "xcad",
+      "messages": [],
+      "total_additions": 629,
+      "total_deletions": 286,
+      "accepted_lines": 55,
+      "overriden_lines": 0
+    }
+  }
+}

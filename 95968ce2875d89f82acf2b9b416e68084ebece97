@@ -1,0 +1,27 @@
+compose/checkmk/template.json
+  224d6fb1422501db 16-18
+compose/uptimekuma/files/compose.yaml
+  224d6fb1422501db 1-10,12-14
+compose/uptimekuma/template.json
+  224d6fb1422501db 12,14,16,63-68,70
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "95968ce2875d89f82acf2b9b416e68084ebece97",
+  "prompts": {
+    "224d6fb1422501db": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019df863-daf0-739c-92d3-d1b06750f0be",
+        "model": "gpt-5.5"
+      },
+      "human_author": "xcad",
+      "messages": [],
+      "total_additions": 26,
+      "total_deletions": 28,
+      "accepted_lines": 26,
+      "overriden_lines": 0
+    }
+  }
+}
