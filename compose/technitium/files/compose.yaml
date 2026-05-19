@@ -22,6 +22,9 @@ services:
       <%- if dns_server_enable_blocking %>
       - DNS_SERVER_ENABLE_BLOCKING=true
       <%- endif %>
+      <%- if dns_server_optional_protocol_dns_over_http %>
+      - DNS_SERVER_OPTIONAL_PROTOCOL_DNS_OVER_HTTP=true
+      <%- endif %>
     <%- if network_mode == 'host' %>
     network_mode: host
     <%- elif network_mode == 'bridge' or network_mode == 'macvlan' or traefik_enabled %>
@@ -40,6 +43,10 @@ services:
     ports:
       <%- if not traefik_enabled %>
       - "<< ports_web_http >>:5380/tcp"
+      - "<< ports_dns_over_https >>:443/tcp"
+      <%- if dns_server_optional_protocol_dns_over_http %>
+      - "<< ports_dns_over_http >>:80/tcp"
+      <%- endif %>
       <%- endif %>
       - "<< ports_dns >>:53/tcp"
       - "<< ports_dns >>:53/udp"
@@ -70,6 +77,15 @@ services:
       - traefik.http.routers.<< service_name >>-https.entrypoints=<< traefik_tls_entrypoint >>
       - traefik.http.routers.<< service_name >>-https.tls=true
       - traefik.http.routers.<< service_name >>-https.tls.certresolver=<< traefik_tls_certresolver >>
+      <%- if dns_server_optional_protocol_dns_over_http %>
+      - traefik.http.services.<< service_name >>-doh.loadBalancer.server.port=80
+      - traefik.http.routers.<< service_name >>-doh.service=<< service_name >>-doh
+      - traefik.http.routers.<< service_name >>-doh.rule=Host(`<< traefik_host >>.<< traefik_domain >>`) && Path(`/dns-query`)
+      - traefik.http.routers.<< service_name >>-doh.entrypoints=<< traefik_tls_entrypoint >>
+      - traefik.http.routers.<< service_name >>-doh.tls=true
+      - traefik.http.routers.<< service_name >>-doh.tls.certresolver=<< traefik_tls_certresolver >>
+      - traefik.http.routers.<< service_name >>-doh.priority=100
+      <%- endif %>
       <%- endif %>
     <%- endif %>
 <%- if network_mode == 'bridge' or network_mode == 'macvlan' or traefik_enabled %>

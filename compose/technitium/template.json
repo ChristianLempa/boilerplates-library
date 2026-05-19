@@ -158,6 +158,14 @@
           "description": "Enable Technitium block list functionality. Block lists can be managed in the web console."
         },
         {
+          "name": "dns_server_optional_protocol_dns_over_http",
+          "type": "bool",
+          "title": "Enable DNS-over-HTTP",
+          "required": false,
+          "default": false,
+          "description": "Enable Technitium's DNS-over-HTTP listener on port 80. This is required when running behind a TLS-terminating reverse proxy like Traefik and you want DNS-over-HTTPS on /dns-query."
+        },
+        {
           "name": "dns_server_log_using_local_time",
           "type": "bool",
           "title": "Use Local Time For Logs",
@@ -181,6 +189,31 @@
             "placeholder": "5380"
           },
           "description": "Host port exposed for the Technitium web console when Traefik is disabled."
+        },
+        {
+          "name": "ports_dns_over_http",
+          "type": "int",
+          "title": "DNS-over-HTTP Port",
+          "required": false,
+          "default": 80,
+          "config": {
+            "placeholder": "80"
+          },
+          "description": "Host port exposed for Technitium DNS-over-HTTP when Traefik is disabled. Behind Traefik, /dns-query is routed to container port 80 instead.",
+          "needs": [
+            "dns_server_optional_protocol_dns_over_http=true"
+          ]
+        },
+        {
+          "name": "ports_dns_over_https",
+          "type": "int",
+          "title": "DNS-over-HTTPS Port",
+          "required": false,
+          "default": 443,
+          "config": {
+            "placeholder": "443"
+          },
+          "description": "Host port exposed for native Technitium DNS-over-HTTPS when Traefik is disabled."
         },
         {
           "name": "ports_dns",
