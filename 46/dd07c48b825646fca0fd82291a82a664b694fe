@@ -1,0 +1,24 @@
+compose/technitium/template.json
+  s_b111c043b62a87::t_148da694e7bba9 161-167,193-215
+  s_b111c043b62a87::t_a826899066b2cc 216
+compose/technitium/files/compose.yaml
+  s_b111c043b62a87::t_f9131bcf6f538c 25-27,47-49,80,88
+  s_b111c043b62a87::t_7f580c65a4a565 46
+  s_b111c043b62a87::t_adc7e007faef58 81-87
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.10",
+  "base_commit_sha": "46dd07c48b825646fca0fd82291a82a664b694fe",
+  "prompts": {},
+  "sessions": {
+    "s_b111c043b62a87": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019e3f51-2dc8-776f-95af-d0e8be07ba74",
+        "model": "gpt-5.5"
+      },
+      "human_author": null
+    }
+  }
+}
