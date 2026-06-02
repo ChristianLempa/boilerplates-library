@@ -5,6 +5,14 @@ services:
     restart: << restart_policy >>
     container_name: << container_name >>
     hostname: << container_hostname >>
+    <%- if not database_external %>
+    depends_on:
+      <%- if database_type == 'mongo' %>
+      - << service_name >>-mongo
+      <%- elif database_type == 'ferretdb' %>
+      - << service_name >>-ferretdb
+      <%- endif %>
+    <%- endif %>
     <%- if network_mode == 'host' %>
     network_mode: host
     <%- else %>
@@ -23,21 +31,31 @@ services:
     ports:
       - "<< ports_http >>:9120/tcp"
     <%- endif %>
-    <%- if environment_enabled %>
     environment:
-      KOMODO_DATABASE_ADDRESS: "<< environment_database_address >>"
-      KOMODO_DATABASE_DB_NAME: "<< environment_database_name >>"
-      <%- if environment_database_username %>
+      <%- if database_external %>
+      KOMODO_DATABASE_ADDRESS: "<< database_address >>"
+      <%- elif database_type == 'mongo' %>
+      <%- if network_mode == 'host' %>
+      KOMODO_DATABASE_ADDRESS: "localhost:27017"
+      <%- else %>
+      KOMODO_DATABASE_ADDRESS: "<< service_name >>-mongo:27017"
+      <%- endif %>
+      <%- elif database_type == 'ferretdb' %>
+      <%- if network_mode == 'host' %>
+      KOMODO_DATABASE_ADDRESS: "localhost:27017"
+      <%- else %>
+      KOMODO_DATABASE_ADDRESS: "<< service_name >>-ferretdb:27017"
+      <%- endif %>
+      <%- endif %>
+      KOMODO_DATABASE_DB_NAME: "<< database_name >>"
       KOMODO_DATABASE_USERNAME: "${KOMODO_DATABASE_USERNAME}"
-      <%- endif %>
-      <%- if environment_database_password %>
       KOMODO_DATABASE_PASSWORD: "${KOMODO_DATABASE_PASSWORD}"
-      <%- endif %>
-      <%- if environment_jwt_secret %>
+      <%- if environment_enabled and environment_jwt_secret %>
       KOMODO_JWT_SECRET: "${KOMODO_JWT_SECRET}"
       <%- endif %>
+      <%- if environment_enabled %>
       LOG_LEVEL: "<< environment_log_level >>"
-    <%- endif %>
+      <%- endif %>
     volumes:
       <%- if volume_mode == 'mount' %>
       - << volume_mount_path >>/data:/app/data:rw
@@ -70,14 +88,75 @@ services:
       <%- endif %>
     <%- endif %>
 
-<%- if volume_mode == 'local' %>
+  <%- if not database_external and database_type == 'mongo' %>
+  << service_name >>-mongo:
+    image: docker.io/library/mongo:8
+    restart: << restart_policy >>
+    command: --quiet --wiredTigerCacheSizeGB 0.25
+    labels:
+      komodo.skip:
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: "${KOMODO_DATABASE_USERNAME}"
+      MONGO_INITDB_ROOT_PASSWORD: "${KOMODO_DATABASE_PASSWORD}"
+    <%- if network_mode == 'host' %>
+    network_mode: host
+    <%- else %>
+    networks:
+      << network_name >>:
+    <%- endif %>
+    volumes:
+      - << service_name >>-mongo-data:/data/db
+      - << service_name >>-mongo-config:/data/configdb
+  <%- elif not database_external and database_type == 'ferretdb' %>
+  << service_name >>-postgres:
+    image: ghcr.io/ferretdb/postgres-documentdb:17
+    restart: << restart_policy >>
+    labels:
+      komodo.skip:
+    environment:
+      POSTGRES_USER: "${KOMODO_DATABASE_USERNAME}"
+      POSTGRES_PASSWORD: "${KOMODO_DATABASE_PASSWORD}"
+      POSTGRES_DB: postgres
+    <%- if network_mode == 'host' %>
+    network_mode: host
+    <%- else %>
+    networks:
+      << network_name >>:
+    <%- endif %>
+    volumes:
+      - << service_name >>-postgres-data:/var/lib/postgresql/data
+
+  << service_name >>-ferretdb:
+    image: ghcr.io/ferretdb/ferretdb:2
+    restart: << restart_policy >>
+    labels:
+      komodo.skip:
+    depends_on:
+      - << service_name >>-postgres
+    environment:
+      <%- if network_mode == 'host' %>
+      FERRETDB_POSTGRESQL_URL: "postgres://${KOMODO_DATABASE_USERNAME}:${KOMODO_DATABASE_PASSWORD}@localhost:5432/postgres"
+      <%- else %>
+      FERRETDB_POSTGRESQL_URL: "postgres://${KOMODO_DATABASE_USERNAME}:${KOMODO_DATABASE_PASSWORD}@<< service_name >>-postgres:5432/postgres"
+      <%- endif %>
+    <%- if network_mode == 'host' %>
+    network_mode: host
+    <%- else %>
+    networks:
+      << network_name >>:
+    <%- endif %>
+    volumes:
+      - << service_name >>-ferretdb-state:/state
+  <%- endif %>
+
+<%- if volume_mode == 'local' or volume_mode == 'nfs' or not database_external %>
 volumes:
+  <%- if volume_mode == 'local' %>
   << service_name >>-data:
     driver: local
   << service_name >>-repos:
     driver: local
-<%- elif volume_mode == 'nfs' %>
-volumes:
+  <%- elif volume_mode == 'nfs' %>
   << service_name >>-data:
     driver: local
     driver_opts:
@@ -90,6 +169,18 @@ volumes:
       type: nfs
       o: addr=<< volume_nfs_server >>,<< volume_nfs_options >>
       device: ":<< volume_nfs_path >>/repos"
+  <%- endif %>
+  <%- if not database_external and database_type == 'mongo' %>
+  << service_name >>-mongo-data:
+    driver: local
+  << service_name >>-mongo-config:
+    driver: local
+  <%- elif not database_external and database_type == 'ferretdb' %>
+  << service_name >>-postgres-data:
+    driver: local
+  << service_name >>-ferretdb-state:
+    driver: local
+  <%- endif %>
 <%- endif %>
 
 <%- if network_mode != 'host' %>
