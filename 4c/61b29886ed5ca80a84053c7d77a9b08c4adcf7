@@ -1,0 +1,25 @@
+compose/komodo/template.json
+  s_f8620c9beff513::t_9afa1e653e4121 190-265,428
+compose/komodo/files/compose.yaml
+  s_f8620c9beff513::t_7467e291577098 8-15,35-41,43-47,49-52,91-152,154,159,172-183
+  s_f8620c9beff513::t_53ba9209491a70 53,56,58
+compose/komodo/files/.env
+  s_f8620c9beff513::t_4a63bd8272c703 1-4
+  s_f8620c9beff513::t_8d3ff5c8635fe9 6
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "4c61b29886ed5ca80a84053c7d77a9b08c4adcf7",
+  "prompts": {},
+  "sessions": {
+    "s_f8620c9beff513": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019e8751-c947-72d8-a51c-30565d7f5fd7",
+        "model": "gpt-5.5"
+      },
+      "human_author": "xcad <christian.lempa@clcreative.de>"
+    }
+  }
+}
