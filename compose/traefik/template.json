@@ -8,8 +8,9 @@
       "reverse-proxy"
     ],
     "icon": {
-      "provider": "selfhst",
-      "id": "traefik"
+      "provider": "devicon",
+      "id": "traefikproxy",
+      "color": "sky"
     },
     "draft": false,
     "version": {
@@ -20,24 +21,26 @@
   },
   "variables": [
     {
-      "title": "General",
       "name": "general",
+      "title": "General",
       "items": [
         {
           "name": "container_timezone",
-          "title": "Container Timezone",
           "type": "str",
-          "default": "UTC",
+          "title": "Container Timezone",
           "required": true,
+          "default": "UTC",
+          "description": "Timezone used inside the container.",
           "config": {
             "placeholder": "UTC"
-          },
-          "description": "Timezone used inside the container."
+          }
         },
         {
           "name": "container_loglevel",
-          "title": "Log Level",
           "type": "enum",
+          "title": "Log Level",
+          "required": false,
+          "description": "Container Loglevel",
           "config": {
             "options": [
               "debug",
@@ -45,15 +48,15 @@
               "warn",
               "error"
             ]
-          },
-          "description": "Container Loglevel"
+          }
         },
         {
           "name": "restart_policy",
-          "title": "Restart Policy",
           "type": "enum",
-          "default": "unless-stopped",
+          "title": "Restart Policy",
           "required": true,
+          "default": "unless-stopped",
+          "description": "Policy used for Restart.",
           "config": {
             "options": [
               "unless-stopped",
@@ -61,87 +64,87 @@
               "on-failure",
               "no"
             ]
-          },
-          "description": "Policy used for Restart."
+          }
         }
       ]
     },
     {
-      "title": "Ports",
       "name": "ports",
+      "title": "Ports",
       "items": [
         {
           "name": "ports_dashboard",
-          "title": "Dashboard Port",
-          "description": "Dashboard port (external)",
           "type": "int",
-          "default": 8080,
+          "title": "Dashboard Port",
           "required": true,
-          "needs": [
-            "dashboard_enabled=true"
-          ],
+          "default": 8080,
+          "description": "Dashboard port (external)",
           "config": {
             "placeholder": "8080"
-          }
+          },
+          "needs": [
+            "dashboard_enabled=true"
+          ]
         },
         {
           "name": "ports_http",
-          "title": "HTTP Port",
           "type": "str",
+          "title": "HTTP Port",
+          "required": false,
           "default": 80,
+          "description": "Host port exposed for HTTP.",
           "config": {
             "placeholder": "80"
-          },
-          "description": "Host port exposed for HTTP."
+          }
         },
         {
           "name": "ports_https",
-          "title": "HTTPS Port",
           "type": "str",
+          "title": "HTTPS Port",
+          "required": false,
           "default": 443,
+          "description": "Host port exposed for HTTPS.",
           "config": {
             "placeholder": "443"
-          },
-          "description": "Host port exposed for HTTPS."
+          }
         }
       ]
     },
     {
-      "title": "Traefik",
       "name": "traefik",
+      "title": "Traefik",
       "items": [
         {
           "name": "traefik_network",
-          "title": "Network",
           "type": "str",
+          "title": "Network",
           "required": true,
           "default": "proxy",
           "description": "Traefik Network"
         },
         {
           "name": "traefik_network_external",
-          "title": "External Network",
-          "description": "Use existing Docker network (external)",
           "type": "bool",
-          "default": false
+          "title": "External Network",
+          "required": false,
+          "default": false,
+          "description": "Use existing Docker network (external)"
         },
         {
           "name": "traefik_tls_enabled",
-          "title": "TLS",
-          "description": "Enable HTTPS/TLS with ACME",
           "type": "bool",
-          "default": false
+          "title": "TLS",
+          "required": false,
+          "default": false,
+          "description": "Enable HTTPS/TLS with ACME"
         },
         {
           "name": "traefik_tls_certresolver",
-          "title": "DNS Provider",
-          "description": "ACME DNS challenge provider",
           "type": "enum",
-          "default": "cloudflare",
+          "title": "DNS Provider",
           "required": true,
-          "needs": [
-            "traefik_tls_enabled=true"
-          ],
+          "default": "cloudflare",
+          "description": "ACME DNS challenge provider",
           "config": {
             "options": [
               "cloudflare",
@@ -153,53 +156,57 @@
               "namecheap",
               "ovh"
             ]
-          }
+          },
+          "needs": [
+            "traefik_tls_enabled=true"
+          ]
         },
         {
           "name": "traefik_tls_acme_email",
-          "title": "ACME Email",
-          "description": "Email address for ACME",
           "type": "str",
+          "title": "ACME Email",
           "required": true,
+          "description": "Email address for ACME",
           "needs": [
             "traefik_tls_enabled=true"
           ]
         },
         {
           "name": "traefik_tls_acme_endpoint",
-          "title": "OVH Endpoint",
-          "description": "OVH API endpoint",
           "type": "str",
+          "title": "OVH Endpoint",
+          "required": false,
           "default": "ovh-eu",
+          "description": "OVH API endpoint",
+          "config": {
+            "placeholder": "ovh-eu"
+          },
           "needs": [
             "traefik_tls_enabled=true",
             "traefik_tls_certresolver=ovh"
-          ],
-          "config": {
-            "placeholder": "ovh-eu"
-          }
+          ]
         },
         {
           "name": "traefik_tls_acme_region",
-          "title": "AWS Region",
-          "description": "Value used for the tls settings settings.",
           "type": "str",
-          "default": "us-east-1",
+          "title": "AWS Region",
           "required": true,
+          "default": "us-east-1",
+          "description": "Value used for the tls settings settings.",
+          "config": {
+            "placeholder": "us-east-1"
+          },
           "needs": [
             "traefik_tls_enabled=true",
             "traefik_tls_certresolver=route53"
-          ],
-          "config": {
-            "placeholder": "us-east-1"
-          }
+          ]
         },
         {
           "name": "traefik_tls_acme_resource_group",
-          "title": "Azure Group",
-          "description": "Azure Resource Group",
           "type": "str",
+          "title": "Azure Group",
           "required": true,
+          "description": "Azure Resource Group",
           "needs": [
             "traefik_tls_enabled=true",
             "traefik_tls_certresolver=azure"
@@ -207,10 +214,10 @@
         },
         {
           "name": "traefik_tls_acme_secret_key",
-          "title": "Secret Key",
-          "description": "DNS provider secret key",
           "type": "secret",
+          "title": "Secret Key",
           "required": true,
+          "description": "DNS provider secret key",
           "needs": [
             "traefik_tls_enabled=true",
             "traefik_tls_certresolver=azure,godaddy,ovh,porkbun,route53"
@@ -218,10 +225,10 @@
         },
         {
           "name": "traefik_tls_acme_subscription_id",
-          "title": "Subscription ID",
-          "description": "Azure Subscription ID",
           "type": "str",
+          "title": "Subscription ID",
           "required": true,
+          "description": "Azure Subscription ID",
           "needs": [
             "traefik_tls_enabled=true",
             "traefik_tls_certresolver=azure"
@@ -229,10 +236,10 @@
         },
         {
           "name": "traefik_tls_acme_tenant_id",
-          "title": "Tenant ID",
-          "description": "Azure Tenant ID",
           "type": "str",
+          "title": "Tenant ID",
           "required": true,
+          "description": "Azure Tenant ID",
           "needs": [
             "traefik_tls_enabled=true",
             "traefik_tls_certresolver=azure"
@@ -240,10 +247,10 @@
         },
         {
           "name": "traefik_tls_acme_token",
-          "title": "API Token",
-          "description": "DNS provider API token",
           "type": "secret",
+          "title": "API Token",
           "required": true,
+          "description": "DNS provider API token",
           "needs": [
             "traefik_tls_enabled=true",
             "traefik_tls_certresolver=cloudflare,digitalocean,godaddy,namecheap,ovh,porkbun"
@@ -251,10 +258,10 @@
         },
         {
           "name": "traefik_tls_acme_username",
-          "title": "Username",
-          "description": "Namecheap API username",
           "type": "str",
+          "title": "Username",
           "required": true,
+          "description": "Namecheap API username",
           "needs": [
             "traefik_tls_enabled=true",
             "traefik_tls_certresolver=namecheap"
@@ -262,10 +269,10 @@
         },
         {
           "name": "traefik_tls_acme_consumer_key",
-          "title": "Consumer Key",
-          "description": "OVH Consumer Key",
           "type": "secret",
+          "title": "Consumer Key",
           "required": true,
+          "description": "OVH Consumer Key",
           "needs": [
             "traefik_tls_enabled=true",
             "traefik_tls_certresolver=ovh"
@@ -273,138 +280,145 @@
         },
         {
           "name": "traefik_tls_redirect",
-          "title": "HTTP Redirect",
-          "description": "Redirect all HTTP traffic to HTTPS",
           "type": "bool",
+          "title": "HTTP Redirect",
+          "required": false,
           "default": true,
+          "description": "Redirect all HTTP traffic to HTTPS",
           "needs": [
             "traefik_tls_enabled=true"
           ]
         },
         {
           "name": "traefik_tls_secure_ciphers",
-          "title": "Strict Ciphers",
-          "description": "Enable strict cipher suites (recommended)",
           "type": "bool",
+          "title": "Strict Ciphers",
+          "required": false,
           "default": false,
+          "description": "Enable strict cipher suites (recommended)",
           "needs": [
             "traefik_tls_enabled=true"
           ]
         },
         {
           "name": "traefik_tls_skipverify",
-          "title": "TLS Verify",
-          "description": "Skip TLS verification for backend servers",
           "type": "bool",
+          "title": "TLS Verify",
+          "required": false,
           "default": false,
+          "description": "Skip TLS verification for backend servers",
           "needs": [
             "traefik_tls_enabled=true"
           ]
         },
         {
           "name": "accesslog_enabled",
-          "title": "Access Log",
-          "description": "Enable Traefik access log",
           "type": "bool",
-          "default": false
+          "title": "Access Log",
+          "required": false,
+          "default": false,
+          "description": "Enable Traefik access log"
         },
         {
           "name": "dashboard_enabled",
-          "title": "Dashboard",
-          "description": "Enable Traefik dashboard",
           "type": "bool",
-          "default": false
+          "title": "Dashboard",
+          "required": false,
+          "default": false,
+          "description": "Enable Traefik dashboard"
         },
         {
           "name": "prometheus_enabled",
-          "title": "Prometheus",
-          "description": "Enable Prometheus metrics",
           "type": "bool",
-          "default": false
+          "title": "Prometheus",
+          "required": false,
+          "default": false,
+          "description": "Enable Prometheus metrics"
         },
         {
           "name": "security_enabled",
-          "title": "Security Headers",
-          "description": "Create production-ready security headers middleware",
           "type": "bool",
-          "default": true
+          "title": "Security Headers",
+          "required": false,
+          "default": true,
+          "description": "Create production-ready security headers middleware"
         }
       ]
     },
     {
-      "title": "Volume",
       "name": "volume",
+      "title": "Volume",
       "items": [
         {
           "name": "volume_mode",
-          "title": "Volume Mode",
           "type": "enum",
-          "default": "local",
+          "title": "Volume Mode",
           "required": true,
+          "default": "local",
+          "description": "Mode used for Volume.",
           "config": {
             "options": [
               "local",
               "mount",
               "nfs"
             ]
-          },
-          "description": "Mode used for Volume."
+          }
         },
         {
           "name": "volume_mount_path",
-          "title": "Volume Mount Path",
           "type": "str",
-          "default": "/data",
+          "title": "Volume Mount Path",
           "required": true,
-          "needs": [
-            "volume_mode=mount"
-          ],
+          "default": "/data",
+          "description": "Mount path used for the volume.",
           "config": {
             "placeholder": "/data"
           },
-          "description": "Mount path used for the volume."
+          "needs": [
+            "volume_mode=mount"
+          ]
         },
         {
           "name": "volume_nfs_server",
-          "title": "Volume Nfs Server",
           "type": "str",
-          "default": "NFS_SERVER",
+          "title": "Volume Nfs Server",
           "required": true,
-          "needs": [
-            "volume_mode=nfs"
-          ],
+          "default": "NFS_SERVER",
+          "description": "Hostname or IP address of the NFS server.",
           "config": {
             "placeholder": "NFS_SERVER"
           },
-          "description": "Hostname or IP address of the NFS server."
+          "needs": [
+            "volume_mode=nfs"
+          ]
         },
         {
           "name": "volume_nfs_path",
-          "title": "Volume Nfs Path",
           "type": "str",
-          "default": "/export",
+          "title": "Volume Nfs Path",
           "required": true,
-          "needs": [
-            "volume_mode=nfs"
-          ],
+          "default": "/export",
+          "description": "Export path on the NFS server.",
           "config": {
             "placeholder": "/export"
           },
-          "description": "Export path on the NFS server."
+          "needs": [
+            "volume_mode=nfs"
+          ]
         },
         {
           "name": "volume_nfs_options",
-          "title": "Volume Nfs Options",
           "type": "str",
-          "default": "rw,nolock,soft",
+          "title": "Volume Nfs Options",
           "required": true,
-          "needs": [
-            "volume_mode=nfs"
-          ],
+          "default": "rw,nolock,soft",
+          "description": "Mount options for the NFS volume.",
           "config": {
             "placeholder": "rw,nolock,soft"
           },
-          "description": "Mount options for the NFS volume."
+          "needs": [
+            "volume_mode=nfs"
+          ]
         }
       ]
     }
