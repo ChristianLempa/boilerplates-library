@@ -1,0 +1,27 @@
+ansible/docker-healthcheck-audit/files/requirements.yml
+  s_a2f09f1207db38::t_e9fed07cd994c1 1-2
+ansible/docker-cleanup/files/requirements.yml
+  s_a2f09f1207db38::t_3a1ac388df2708 1-2
+ansible/docker-mysql-backup/files/requirements.yml
+  s_a2f09f1207db38::t_25a3fb65154887 1-2
+ansible/docker-volume-backup/files/requirements.yml
+  s_a2f09f1207db38::t_1b37b6779d0a30 1-2
+ansible/docker-postgres-backup/files/requirements.yml
+  s_a2f09f1207db38::t_98afd4d7382edb 1-2
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.8",
+  "base_commit_sha": "b68fa0093b38fdbfb1491d467fcd3fb0a24930f5",
+  "prompts": {},
+  "sessions": {
+    "s_a2f09f1207db38": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019edb40-7cbc-7fc0-8a07-d529325592c0",
+        "model": "gpt-5.5"
+      },
+      "human_author": "xcad <christian.lempa@clcreative.de>"
+    }
+  }
+}
