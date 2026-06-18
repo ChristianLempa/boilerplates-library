@@ -1,0 +1,19 @@
+ansible/docker-cleanup/files/main.yml
+  s_28e9730aca002c::t_45b1730a0b1da0 18
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.8",
+  "base_commit_sha": "41deda402d819b16894f2679f2407a90979b705d",
+  "prompts": {},
+  "sessions": {
+    "s_28e9730aca002c": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019edb50-5f6f-76ff-b7ec-b222ff239ba5",
+        "model": "gpt-5.5"
+      },
+      "human_author": "xcad <christian.lempa@clcreative.de>"
+    }
+  }
+}
