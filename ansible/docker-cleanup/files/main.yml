@@ -15,3 +15,4 @@
         volumes: << prune_unused_volumes | default(false) >>
         builder_cache: << prune_builder_cache | default(false) >>
         builder_cache_keep_storage: "<< prune_keep_storage_mb | default(1024) >>M"
+        timeout: 300
