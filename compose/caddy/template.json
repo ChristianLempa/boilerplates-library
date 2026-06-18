@@ -11,7 +11,8 @@
     ],
     "icon": {
       "provider": "selfhst",
-      "id": "caddy"
+      "id": "caddy",
+      "color": "emerald"
     },
     "draft": false,
     "version": {
@@ -22,9 +23,9 @@
   },
   "variables": [
     {
+      "name": "general",
       "title": "General",
       "description": "Basic container naming and lifecycle settings.",
-      "name": "general",
       "items": [
         {
           "name": "service_name",
@@ -32,10 +33,10 @@
           "title": "Service Name",
           "required": false,
           "default": "caddy",
+          "description": "Compose service name for the Caddy container.",
           "config": {
             "placeholder": "caddy"
-          },
-          "description": "Compose service name for the Caddy container."
+          }
         },
         {
           "name": "restart_policy",
@@ -43,6 +44,7 @@
           "title": "Restart Policy",
           "required": true,
           "default": "unless-stopped",
+          "description": "Restart policy applied to the container.",
           "config": {
             "options": [
               "unless-stopped",
@@ -50,25 +52,24 @@
               "on-failure",
               "no"
             ]
-          },
-          "description": "Restart policy applied to the container."
+          }
         },
         {
           "name": "container_timezone",
           "type": "str",
           "title": "Container Timezone",
           "required": false,
+          "description": "Optional timezone passed through as the `TZ` environment variable.",
           "config": {
             "placeholder": "UTC"
-          },
-          "description": "Optional timezone passed through as the `TZ` environment variable."
+          }
         }
       ]
     },
     {
+      "name": "network",
       "title": "Network",
       "description": "Port publishing and Docker network attachment.",
-      "name": "network",
       "items": [
         {
           "name": "ports_http",
@@ -114,10 +115,10 @@
       ]
     },
     {
+      "name": "tls",
       "title": "TLS",
       "description": "Optional global ACME metadata for Caddy.",
       "toggle": "tls_enabled",
-      "name": "tls",
       "items": [
         {
           "name": "tls_enabled",
@@ -132,21 +133,21 @@
           "type": "str",
           "title": "ACME Email",
           "required": false,
-          "needs": [
-            "tls_enabled=true"
-          ],
+          "description": "Email address used for ACME account registration.",
           "config": {
             "placeholder": "admin@example.com"
           },
-          "description": "Email address used for ACME account registration."
+          "needs": [
+            "tls_enabled=true"
+          ]
         }
       ]
     },
     {
+      "name": "webserver",
       "title": "Webserver",
       "description": "Optional generated static site config that serves files from `/srv`.",
       "toggle": "webserver_enabled",
-      "name": "webserver",
       "items": [
         {
           "name": "webserver_enabled",
@@ -161,30 +162,30 @@
           "type": "str",
           "title": "Site Address",
           "required": true,
-          "needs": [
-            "webserver_enabled=true"
-          ],
+          "description": "Hostname or site address used by the generated static site config.",
           "config": {
             "placeholder": "example.com"
           },
-          "description": "Hostname or site address used by the generated static site config."
+          "needs": [
+            "webserver_enabled=true"
+          ]
         },
         {
           "name": "webserver_content_type",
           "type": "enum",
           "title": "Site Content",
           "required": true,
-          "needs": [
-            "webserver_enabled=true"
-          ],
+          "default": "mount",
+          "description": "Storage mode used for static site content mounted into `/srv`.",
           "config": {
             "options": [
               "mount",
               "nfs"
             ]
           },
-          "default": "mount",
-          "description": "Storage mode used for static site content mounted into `/srv`."
+          "needs": [
+            "webserver_enabled=true"
+          ]
         },
         {
           "name": "webserver_content_mount_path",
@@ -192,14 +193,14 @@
           "title": "Bind Mount Path",
           "required": true,
           "default": "./data",
-          "needs": [
-            "webserver_enabled=true",
-            "webserver_content_type=mount"
-          ],
+          "description": "Host path used when site content is mounted directly from the filesystem.",
           "config": {
             "placeholder": "./data"
           },
-          "description": "Host path used when site content is mounted directly from the filesystem."
+          "needs": [
+            "webserver_enabled=true",
+            "webserver_content_type=mount"
+          ]
         },
         {
           "name": "webserver_content_nfs_server",
@@ -207,14 +208,14 @@
           "title": "NFS Server",
           "required": true,
           "default": "192.0.2.1",
-          "needs": [
-            "webserver_enabled=true",
-            "webserver_content_type=nfs"
-          ],
+          "description": "Hostname or IP address of the NFS server that stores site content.",
           "config": {
             "placeholder": "192.0.2.1"
           },
-          "description": "Hostname or IP address of the NFS server that stores site content."
+          "needs": [
+            "webserver_enabled=true",
+            "webserver_content_type=nfs"
+          ]
         },
         {
           "name": "webserver_content_nfs_path",
@@ -222,14 +223,14 @@
           "title": "NFS Export Path",
           "required": true,
           "default": "/path/to/export",
-          "needs": [
-            "webserver_enabled=true",
-            "webserver_content_type=nfs"
-          ],
+          "description": "Export path on the NFS server for site content.",
           "config": {
             "placeholder": "/path/to/export"
           },
-          "description": "Export path on the NFS server for site content."
+          "needs": [
+            "webserver_enabled=true",
+            "webserver_content_type=nfs"
+          ]
         },
         {
           "name": "webserver_content_nfs_options",
@@ -237,36 +238,36 @@
           "title": "NFS Mount Options",
           "required": true,
           "default": "rw,nolock,soft",
-          "needs": [
-            "webserver_enabled=true",
-            "webserver_content_type=nfs"
-          ],
+          "description": "Mount options used for the NFS-backed site content volume.",
           "config": {
             "placeholder": "rw,nolock,soft"
           },
-          "description": "Mount options used for the NFS-backed site content volume."
+          "needs": [
+            "webserver_enabled=true",
+            "webserver_content_type=nfs"
+          ]
         },
         {
           "name": "webserver_custom_config_content",
           "type": "str",
           "title": "Custom Config Content",
           "required": false,
+          "description": "Optional additional Caddyfile directives inserted into the generated webserver site block when not empty.",
+          "config": {
+            "placeholder": "encode zstd gzip",
+            "textarea": true
+          },
           "needs": [
             "webserver_enabled=true"
-          ],
-          "config": {
-            "textarea": true,
-            "placeholder": "encode zstd gzip"
-          },
-          "description": "Optional additional Caddyfile directives inserted into the generated webserver site block when not empty."
+          ]
         }
       ]
     },
     {
+      "name": "reverse-proxy",
       "title": "Reverse Proxy",
       "description": "Optional generated reverse proxy config for forwarding requests to an upstream service.",
       "toggle": "reverse_proxy_enabled",
-      "name": "reverse-proxy",
       "items": [
         {
           "name": "reverse_proxy_enabled",
@@ -281,40 +282,40 @@
           "type": "str",
           "title": "Site Address",
           "required": true,
-          "needs": [
-            "reverse_proxy_enabled=true"
-          ],
+          "description": "Hostname or site address used by the generated reverse proxy config.",
           "config": {
             "placeholder": "app.example.com"
           },
-          "description": "Hostname or site address used by the generated reverse proxy config."
+          "needs": [
+            "reverse_proxy_enabled=true"
+          ]
         },
         {
           "name": "reverse_proxy_upstream",
           "type": "str",
           "title": "Upstream",
           "required": true,
-          "needs": [
-            "reverse_proxy_enabled=true"
-          ],
+          "description": "Upstream target used by the generated reverse proxy config, for example `app:3000`.",
           "config": {
             "placeholder": "app:3000"
           },
-          "description": "Upstream target used by the generated reverse proxy config, for example `app:3000`."
+          "needs": [
+            "reverse_proxy_enabled=true"
+          ]
         },
         {
           "name": "reverse_proxy_custom_config_content",
           "type": "str",
           "title": "Custom Config Content",
           "required": false,
+          "description": "Optional additional `reverse_proxy` subdirectives inserted into the generated reverse proxy block when not empty.",
+          "config": {
+            "placeholder": "header_up X-Forwarded-Proto https",
+            "textarea": true
+          },
           "needs": [
             "reverse_proxy_enabled=true"
-          ],
-          "config": {
-            "textarea": true,
-            "placeholder": "header_up X-Forwarded-Proto https"
-          },
-          "description": "Optional additional `reverse_proxy` subdirectives inserted into the generated reverse proxy block when not empty."
+          ]
         }
       ]
     }
