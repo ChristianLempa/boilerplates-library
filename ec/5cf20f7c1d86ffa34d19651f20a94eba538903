@@ -1,0 +1,19 @@
+compose/traefik/template.json
+  s_b9e799ad4272b1::t_4ccb6997f90aa0 231-240
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.10",
+  "base_commit_sha": "ec5cf20f7c1d86ffa34d19651f20a94eba538903",
+  "prompts": {},
+  "sessions": {
+    "s_b9e799ad4272b1": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019ef46a-d67e-7029-804d-0bc5a7356d8e",
+        "model": "gpt-5.5"
+      },
+      "human_author": "xcad <christian.lempa@clcreative.de>"
+    }
+  }
+}
