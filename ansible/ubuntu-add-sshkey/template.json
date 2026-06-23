@@ -47,8 +47,7 @@
           "type": "bool",
           "title": "Passwordless Sudo",
           "required": false,
-          "default": true,
-          "description": "Enable passwordless sudo for the Ubuntu sudo group."
+          "default": true
         }
       ]
     }

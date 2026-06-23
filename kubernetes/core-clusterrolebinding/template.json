@@ -26,7 +26,6 @@
           "title": "ClusterRoleBinding name",
           "required": false,
           "default": "app-crb",
-          "description": "Name to use for the clusterrolebinding.",
           "config": {
             "placeholder": "app-crb"
           }
@@ -37,7 +36,6 @@
           "title": "Role Kind",
           "required": false,
           "default": "ClusterRole",
-          "description": "Referenced RBAC role kind",
           "config": {
             "options": [
               "ClusterRole",
@@ -51,7 +49,6 @@
           "title": "Referenced role name",
           "required": false,
           "default": "cluster-admin",
-          "description": "Name to use for the referenced role.",
           "config": {
             "placeholder": "cluster-admin"
           }
@@ -68,7 +65,6 @@
           "title": "Subject kind",
           "required": false,
           "default": "ServiceAccount",
-          "description": "Value used for the subject settings.",
           "config": {
             "options": [
               "ServiceAccount",
@@ -83,7 +79,6 @@
           "title": "Subject name",
           "required": false,
           "default": "app-serviceaccount",
-          "description": "Name to use for the subject.",
           "config": {
             "placeholder": "app-serviceaccount"
           }

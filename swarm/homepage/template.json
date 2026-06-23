@@ -30,7 +30,6 @@
           "title": "The service name",
           "required": true,
           "default": "homepage",
-          "description": "Name of the service.",
           "config": {
             "placeholder": "homepage"
           }
@@ -40,14 +39,15 @@
           "type": "str",
           "title": "The container timezone",
           "required": false,
-          "description": "Timezone used inside the container."
+          "config": {
+            "placeholder": "Europe/Berlin"
+          }
         },
         {
           "name": "container_loglevel",
           "type": "enum",
           "title": "Log Level",
           "required": false,
-          "description": "The container log level",
           "config": {
             "options": [
               "debug",
@@ -68,8 +68,7 @@
               "replicated",
               "global"
             ]
-          },
-          "description": "Mode used for Swarm Placement."
+          }
         },
         {
           "name": "swarm_replicas",
@@ -85,7 +84,6 @@
             "placeholder": "1",
             "unit": "replicas"
           },
-          "description": "Number of replicas to run.",
           "needs": [
             "swarm_placement_mode=replicated"
           ]
@@ -96,7 +94,6 @@
           "title": "Swarm Placement Host",
           "required": false,
           "default": "",
-          "description": "Hostname used for Swarm Placement.",
           "needs": [
             "swarm_placement_mode=replicated"
           ],
@@ -116,7 +113,6 @@
           "title": "The HTTP port",
           "required": true,
           "default": 3000,
-          "description": "Host port exposed for HTTP.",
           "needs": [
             "traefik_enabled=false"
           ],
@@ -136,8 +132,7 @@
           "type": "bool",
           "title": "Traefik",
           "required": false,
-          "default": false,
-          "description": "Enable Traefik integration"
+          "default": false
         },
         {
           "name": "traefik_entrypoint",
@@ -145,7 +140,6 @@
           "title": "Entrypoint",
           "required": true,
           "default": "web",
-          "description": "Entrypoint name.",
           "config": {
             "placeholder": "web"
           }
@@ -157,8 +151,7 @@
           "required": true,
           "config": {
             "placeholder": "homepage"
-          },
-          "description": "Hostname used for Traefik."
+          }
         },
         {
           "name": "traefik_network",
@@ -168,8 +161,7 @@
           "default": "traefik",
           "config": {
             "placeholder": "traefik"
-          },
-          "description": "Network used for Traefik."
+          }
         },
         {
           "name": "traefik_domain",
@@ -178,8 +170,7 @@
           "required": true,
           "config": {
             "placeholder": "home.arpa"
-          },
-          "description": "Domain used for Traefik."
+          }
         }
       ]
     },
@@ -193,8 +184,7 @@
           "type": "bool",
           "title": "TLS",
           "required": false,
-          "default": false,
-          "description": "Enable Traefik TLS"
+          "default": false
         },
         {
           "name": "traefik_tls_entrypoint",
@@ -202,7 +192,6 @@
           "title": "TLS Entrypoint",
           "required": true,
           "default": "websecure",
-          "description": "Entrypoint name.",
           "config": {
             "placeholder": "websecure"
           }
@@ -215,8 +204,7 @@
           "default": "cloudflare",
           "config": {
             "placeholder": "cloudflare"
-          },
-          "description": "Traefik Tls Certresolver"
+          }
         }
       ]
     },
@@ -236,8 +224,7 @@
               "mount",
               "nfs"
             ]
-          },
-          "description": "Mode used for Volume."
+          }
         },
         {
           "name": "volume_mount_path",
@@ -250,8 +237,7 @@
           ],
           "config": {
             "placeholder": "/mnt/storage"
-          },
-          "description": "Mount path used for the volume."
+          }
         },
         {
           "name": "volume_nfs_options",
@@ -259,7 +245,6 @@
           "title": "NFS Options",
           "required": false,
           "default": "nfsvers=4,soft,timeo=180,intr",
-          "description": "The NFS mount options",
           "config": {
             "placeholder": "nfsvers=4,soft,timeo=180,intr"
           },
@@ -273,7 +258,6 @@
           "title": "NFS Path",
           "required": false,
           "default": "",
-          "description": "Export path on the NFS server.",
           "needs": [
             "volume_mode=nfs"
           ],
@@ -287,7 +271,6 @@
           "title": "NFS Server",
           "required": false,
           "default": "",
-          "description": "Hostname or IP address of the NFS server.",
           "needs": [
             "volume_mode=nfs"
           ],

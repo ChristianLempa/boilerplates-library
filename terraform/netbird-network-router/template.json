@@ -28,8 +28,7 @@
           "type": "bool",
           "title": "Enabled",
           "required": false,
-          "default": true,
-          "description": "Enable the router after creation."
+          "default": true
         },
         {
           "name": "router_masquerade",

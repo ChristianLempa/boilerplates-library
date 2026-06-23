@@ -29,8 +29,7 @@
           "default": "uptimekuma",
           "config": {
             "placeholder": "uptimekuma"
-          },
-          "description": "Name of the service."
+          }
         },
         {
           "name": "container_name",
@@ -40,8 +39,7 @@
           "default": "uptimekuma",
           "config": {
             "placeholder": "uptimekuma"
-          },
-          "description": "Name to use for the container."
+          }
         },
         {
           "name": "restart_policy",
@@ -56,8 +54,7 @@
               "on-failure",
               "no"
             ]
-          },
-          "description": "Policy used for Restart."
+          }
         },
         {
           "name": "ports_http",

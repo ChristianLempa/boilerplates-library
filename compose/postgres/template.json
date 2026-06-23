@@ -29,8 +29,7 @@
           "default": "postgres",
           "config": {
             "placeholder": "postgres"
-          },
-          "description": "Name of the service."
+          }
         },
         {
           "name": "container_name",
@@ -40,22 +39,22 @@
           "default": "postgres",
           "config": {
             "placeholder": "postgres"
-          },
-          "description": "Name to use for the container."
+          }
         },
         {
           "name": "container_hostname",
           "type": "str",
           "title": "Container Hostname",
-          "required": true,
-          "description": "Hostname used inside the container."
+          "required": true
         },
         {
           "name": "container_timezone",
           "type": "str",
           "title": "Container Timezone",
           "required": false,
-          "description": "Timezone used inside the container."
+          "config": {
+            "placeholder": "Europe/Berlin"
+          }
         },
         {
           "name": "restart_policy",
@@ -70,24 +69,21 @@
               "on-failure",
               "no"
             ]
-          },
-          "description": "Policy used for Restart."
+          }
         },
         {
           "name": "postgres_initdb_args",
           "type": "str",
           "title": "Postgres Initdb Args",
           "required": true,
-          "default": "",
-          "description": "Value used for the general settings."
+          "default": ""
         },
         {
           "name": "postgres_host_auth_method",
           "type": "str",
           "title": "Host Auth",
           "required": false,
-          "default": "",
-          "description": "Postgres Host Auth Method"
+          "default": ""
         }
       ]
     },
@@ -101,7 +97,6 @@
           "title": "PostgreSQL port",
           "required": false,
           "default": 5432,
-          "description": "Port used for Postgresql.",
           "config": {
             "placeholder": "5432"
           }
@@ -116,8 +111,7 @@
           "name": "network_mode",
           "type": "str",
           "title": "Network Mode",
-          "required": false,
-          "description": "Mode used for Network."
+          "required": false
         },
         {
           "name": "network_name",
@@ -127,16 +121,14 @@
           "default": "postgres_network",
           "config": {
             "placeholder": "postgres_network"
-          },
-          "description": "Name to use for the network."
+          }
         },
         {
           "name": "network_external",
           "type": "bool",
           "title": "External Network",
           "required": false,
-          "default": false,
-          "description": "Whether the network is external"
+          "default": false
         }
       ]
     },
@@ -150,7 +142,6 @@
           "title": "Volume Mode",
           "required": false,
           "default": "local",
-          "description": "Volume mounting mode (local, mount, nfs)",
           "config": {
             "options": [
               "local",
@@ -165,7 +156,6 @@
           "title": "Bind Path",
           "required": false,
           "default": "/var/lib/postgresql/data",
-          "description": "Path for bind mounts when volume_mode is 'mount'",
           "config": {
             "placeholder": "/var/lib/postgresql/data"
           }
@@ -176,7 +166,9 @@
           "title": "NFS Server",
           "required": false,
           "default": "",
-          "description": "NFS server address when volume_mode is 'nfs'"
+          "config": {
+            "placeholder": "nas.home.arpa"
+          }
         },
         {
           "name": "volume_nfs_path",
@@ -184,7 +176,9 @@
           "title": "NFS Path",
           "required": false,
           "default": "",
-          "description": "NFS path when volume_mode is 'nfs'"
+          "config": {
+            "placeholder": "/export/app"
+          }
         },
         {
           "name": "volume_nfs_options",
@@ -192,7 +186,6 @@
           "title": "NFS Options",
           "required": false,
           "default": "rw",
-          "description": "NFS mount options when volume_mode is 'nfs'",
           "config": {
             "placeholder": "rw"
           }
@@ -209,7 +202,9 @@
           "title": "Database Name",
           "required": true,
           "default": "app",
-          "description": "Name of the database."
+          "config": {
+            "placeholder": "app"
+          }
         },
         {
           "name": "database_user",
@@ -217,14 +212,15 @@
           "title": "Database User",
           "required": true,
           "default": "app",
-          "description": "Username for the database."
+          "config": {
+            "placeholder": "app"
+          }
         },
         {
           "name": "database_password",
           "type": "secret",
           "title": "Database password",
           "required": true,
-          "description": "Password for the database.",
           "config": {
             "autogenerated": {
               "length": 32

@@ -26,7 +26,6 @@
           "title": "StatefulSet name",
           "required": false,
           "default": "app-statefulset",
-          "description": "Name to use for the StatefulSet.",
           "config": {
             "placeholder": "app-statefulset"
           }
@@ -37,7 +36,6 @@
           "title": "Namespace",
           "required": false,
           "default": "default",
-          "description": "Namespace for the resource.",
           "config": {
             "placeholder": "default"
           }
@@ -48,7 +46,6 @@
           "title": "App Label",
           "required": false,
           "default": "app",
-          "description": "App label value used for selectors and Pod labels.",
           "config": {
             "placeholder": "app"
           }
@@ -85,7 +82,6 @@
           "title": "Pod management policy",
           "required": false,
           "default": "OrderedReady",
-          "description": "Policy used for Pod startup and termination ordering.",
           "config": {
             "options": [
               "OrderedReady",
@@ -99,7 +95,6 @@
           "title": "Update strategy",
           "required": false,
           "default": "RollingUpdate",
-          "description": "Strategy used when updating Pods.",
           "config": {
             "options": [
               "RollingUpdate",
@@ -112,7 +107,6 @@
           "type": "str",
           "title": "ServiceAccount Name",
           "required": false,
-          "description": "ServiceAccount name for the Pod spec.",
           "config": {
             "placeholder": "app-serviceaccount"
           }
@@ -129,7 +123,6 @@
           "title": "Container name",
           "required": false,
           "default": "app",
-          "description": "Name to use for the container.",
           "config": {
             "placeholder": "app"
           }
@@ -150,7 +143,6 @@
           "title": "Image pull policy",
           "required": false,
           "default": "IfNotPresent",
-          "description": "Policy used for image pulls.",
           "config": {
             "options": [
               "Always",
@@ -164,8 +156,7 @@
           "type": "bool",
           "title": "Container Port",
           "required": false,
-          "default": true,
-          "description": "Expose one container port."
+          "default": true
         },
         {
           "name": "container_port",
@@ -173,7 +164,6 @@
           "title": "Container port number",
           "required": false,
           "default": 8080,
-          "description": "Container port to expose.",
           "config": {
             "placeholder": "8080"
           }
@@ -184,7 +174,6 @@
           "title": "Port name",
           "required": false,
           "default": "http",
-          "description": "Name to use for the container port.",
           "config": {
             "placeholder": "http"
           }
@@ -195,7 +184,6 @@
           "title": "Port protocol",
           "required": false,
           "default": "TCP",
-          "description": "Protocol used for the container port.",
           "config": {
             "options": [
               "TCP",
@@ -254,7 +242,6 @@
           "title": "Secret Env Name",
           "required": false,
           "default": "APP_SECRET",
-          "description": "Environment variable name sourced from a Secret.",
           "config": {
             "placeholder": "APP_SECRET"
           }
@@ -265,7 +252,6 @@
           "title": "Secret resource name",
           "required": false,
           "default": "app-secret",
-          "description": "Secret name containing the value.",
           "config": {
             "placeholder": "app-secret"
           }
@@ -276,7 +262,6 @@
           "title": "Secret key",
           "required": false,
           "default": "password",
-          "description": "Key within the Secret containing the value.",
           "config": {
             "placeholder": "password"
           }
@@ -312,7 +297,6 @@
           "title": "Mount path",
           "required": false,
           "default": "/data",
-          "description": "Container path where the claim is mounted.",
           "config": {
             "placeholder": "/data"
           }
@@ -366,8 +350,7 @@
           "type": "bool",
           "title": "Resources",
           "required": false,
-          "default": false,
-          "description": "Enable container resource requests and limits."
+          "default": false
         },
         {
           "name": "resources_cpu_limit",
@@ -375,7 +358,6 @@
           "title": "CPU limit",
           "required": false,
           "default": "1000m",
-          "description": "CPU limit for the container.",
           "config": {
             "placeholder": "1000m"
           }
@@ -386,7 +368,6 @@
           "title": "CPU request",
           "required": false,
           "default": "250m",
-          "description": "CPU request for the container.",
           "config": {
             "placeholder": "250m"
           }
@@ -397,7 +378,6 @@
           "title": "Memory limit",
           "required": false,
           "default": "1Gi",
-          "description": "Memory limit for the container.",
           "config": {
             "placeholder": "1Gi"
           }
@@ -408,7 +388,6 @@
           "title": "Memory request",
           "required": false,
           "default": "256Mi",
-          "description": "Memory request for the container.",
           "config": {
             "placeholder": "256Mi"
           }

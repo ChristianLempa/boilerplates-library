@@ -192,7 +192,6 @@
           "title": "TLS",
           "required": false,
           "default": true,
-          "description": "Enable TLS for the dashboard route",
           "needs": [
             "traefik_dashboard_exposure_enabled=true"
           ]
@@ -232,7 +231,6 @@
           "title": "Middleware NS",
           "required": false,
           "default": "traefik",
-          "description": "Namespace for the optional dashboard middleware",
           "needs": [
             "traefik_dashboard_exposure_enabled=true"
           ],
@@ -251,8 +249,7 @@
           "type": "bool",
           "title": "Install cert-manager",
           "required": false,
-          "default": false,
-          "description": "Install cert-manager with Helm"
+          "default": false
         },
         {
           "name": "cert_manager_chart_version",
@@ -260,7 +257,6 @@
           "title": "Chart Version",
           "required": false,
           "default": "1.18.2",
-          "description": "cert-manager Helm chart version",
           "needs": [
             "cert_manager_install_enabled=true"
           ],
@@ -274,7 +270,6 @@
           "title": "Namespace",
           "required": false,
           "default": "cert-manager",
-          "description": "Namespace used by cert-manager",
           "config": {
             "placeholder": "cert-manager"
           }
@@ -340,7 +335,6 @@
           "title": "ClusterIssuer Name",
           "required": false,
           "default": "letsencrypt-production",
-          "description": "Name of the cert-manager ClusterIssuer",
           "needs": [
             "cert_manager_clusterissuer_enabled=true"
           ],
@@ -387,8 +381,7 @@
           "type": "bool",
           "title": "Install Metrics Server",
           "required": false,
-          "default": false,
-          "description": "Install metrics-server with Helm"
+          "default": false
         },
         {
           "name": "metrics_server_chart_version",
@@ -396,7 +389,6 @@
           "title": "Chart Version",
           "required": false,
           "default": "3.13.0",
-          "description": "metrics-server Helm chart version",
           "needs": [
             "metrics_server_install_enabled=true"
           ],
@@ -410,7 +402,6 @@
           "title": "Namespace",
           "required": false,
           "default": "kube-system",
-          "description": "Namespace used by metrics-server",
           "needs": [
             "metrics_server_install_enabled=true"
           ],
@@ -482,7 +473,6 @@
           "title": "Chart Version",
           "required": false,
           "default": "1.9.1",
-          "description": "Longhorn Helm chart version",
           "needs": [
             "longhorn_install_enabled=true"
           ],
@@ -496,7 +486,6 @@
           "title": "Namespace",
           "required": false,
           "default": "longhorn-system",
-          "description": "Namespace used by Longhorn",
           "needs": [
             "longhorn_install_enabled=true"
           ],

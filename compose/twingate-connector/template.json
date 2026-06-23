@@ -29,8 +29,7 @@
           "default": "twingate",
           "config": {
             "placeholder": "twingate"
-          },
-          "description": "Name of the service."
+          }
         },
         {
           "name": "container_name",
@@ -40,8 +39,7 @@
           "default": "twingate-connector",
           "config": {
             "placeholder": "twingate-connector"
-          },
-          "description": "Name to use for the container."
+          }
         },
         {
           "name": "container_hostname",
@@ -51,15 +49,16 @@
           "default": "twingate-connector",
           "config": {
             "placeholder": "twingate-connector"
-          },
-          "description": "Hostname used inside the container."
+          }
         },
         {
           "name": "container_timezone",
           "type": "str",
           "title": "Container Timezone",
           "required": false,
-          "description": "Timezone used inside the container."
+          "config": {
+            "placeholder": "Europe/Berlin"
+          }
         },
         {
           "name": "restart_policy",
@@ -74,8 +73,7 @@
               "on-failure",
               "no"
             ]
-          },
-          "description": "Policy used for Restart."
+          }
         }
       ]
     },
@@ -87,8 +85,7 @@
           "name": "twingate_network",
           "type": "str",
           "title": "Network Name",
-          "required": true,
-          "description": "Your Twingate network name"
+          "required": true
         },
         {
           "name": "twingate_access_token",
@@ -139,8 +136,7 @@
           "type": "bool",
           "title": "Resources Enabled",
           "required": false,
-          "default": false,
-          "description": "Enable resource limits and reservations."
+          "default": false
         },
         {
           "name": "resources_cpu_limit",
@@ -150,8 +146,7 @@
           "default": 1,
           "config": {
             "placeholder": "1"
-          },
-          "description": "Value used for the resource limits settings."
+          }
         },
         {
           "name": "resources_cpu_reservation",
@@ -161,8 +156,7 @@
           "default": 0.25,
           "config": {
             "placeholder": "0.25"
-          },
-          "description": "Value used for the resource limits settings."
+          }
         },
         {
           "name": "resources_memory_limit",
@@ -172,8 +166,7 @@
           "default": "1G",
           "config": {
             "placeholder": "1G"
-          },
-          "description": "Value used for the resource limits settings."
+          }
         },
         {
           "name": "resources_memory_reservation",
@@ -183,8 +176,7 @@
           "default": "512M",
           "config": {
             "placeholder": "512M"
-          },
-          "description": "Value used for the resource limits settings."
+          }
         }
       ]
     }

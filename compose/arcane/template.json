@@ -52,7 +52,6 @@
           "title": "Application URL",
           "required": true,
           "default": "http://localhost:3552",
-          "description": "Public URL where Arcane is reachable.",
           "config": {
             "placeholder": "https://arcane.example.com"
           }
@@ -62,7 +61,9 @@
           "type": "str",
           "title": "Container Timezone",
           "required": false,
-          "description": "Timezone used inside the container."
+          "config": {
+            "placeholder": "Europe/Berlin"
+          }
         },
         {
           "name": "restart_policy",
@@ -70,7 +71,6 @@
           "title": "Restart Policy",
           "required": true,
           "default": "unless-stopped",
-          "description": "Policy used for container restarts.",
           "config": {
             "options": [
               "unless-stopped",
@@ -85,14 +85,18 @@
           "type": "int",
           "title": "PUID",
           "required": false,
-          "description": "User ID Arcane should run as."
+          "config": {
+            "placeholder": "1000"
+          }
         },
         {
           "name": "pgid",
           "type": "int",
           "title": "PGID",
           "required": false,
-          "description": "Group ID Arcane should run as."
+          "config": {
+            "placeholder": "1000"
+          }
         },
         {
           "name": "docker_socket_path",
@@ -100,7 +104,6 @@
           "title": "Docker Socket Path",
           "required": true,
           "default": "/var/run/docker.sock",
-          "description": "Host Docker socket path mounted into Arcane.",
           "config": {
             "placeholder": "/var/run/docker.sock"
           }
@@ -109,8 +112,7 @@
           "name": "analytics_enabled",
           "type": "bool",
           "title": "Enable Analytics",
-          "required": false,
-          "description": "Enable Arcane analytics/telemetry. Leave empty/false to omit the environment variable and use Arcane defaults."
+          "required": false
         }
       ]
     },
@@ -170,7 +172,6 @@
           "title": "Volume Mode",
           "required": false,
           "default": "local",
-          "description": "How to persist /app/data.",
           "config": {
             "options": [
               "local",
@@ -199,10 +200,12 @@
           "title": "NFS Server",
           "required": false,
           "default": "",
-          "description": "NFS server hostname or IP address.",
           "needs": [
             "volume_mode=nfs"
-          ]
+          ],
+          "config": {
+            "placeholder": "nas.home.arpa"
+          }
         },
         {
           "name": "volume_nfs_path",
@@ -213,7 +216,10 @@
           "description": "NFS export path for Arcane data.",
           "needs": [
             "volume_mode=nfs"
-          ]
+          ],
+          "config": {
+            "placeholder": "/export/app"
+          }
         },
         {
           "name": "volume_nfs_options",
@@ -221,7 +227,6 @@
           "title": "NFS Options",
           "required": false,
           "default": "rw",
-          "description": "Additional NFS mount options.",
           "needs": [
             "volume_mode=nfs"
           ],
@@ -241,15 +246,13 @@
           "type": "bool",
           "title": "Traefik",
           "required": false,
-          "default": false,
-          "description": "Enable Traefik integration."
+          "default": false
         },
         {
           "name": "traefik_host",
           "type": "str",
           "title": "Host",
           "required": true,
-          "description": "Hostname used for Traefik.",
           "config": {
             "placeholder": "arcane"
           }
@@ -259,7 +262,6 @@
           "type": "str",
           "title": "Domain",
           "required": true,
-          "description": "Domain used for Traefik.",
           "config": {
             "placeholder": "home.arpa"
           }
@@ -291,8 +293,7 @@
           "type": "bool",
           "title": "TLS",
           "required": false,
-          "default": false,
-          "description": "Enable HTTPS/TLS router."
+          "default": false
         },
         {
           "name": "traefik_tls_entrypoint",
@@ -314,7 +315,6 @@
           "title": "Cert Resolver",
           "required": true,
           "default": "cloudflare",
-          "description": "Traefik certificate resolver name.",
           "needs": [
             "traefik_tls_enabled=true"
           ],
@@ -334,7 +334,6 @@
           "title": "HTTP Port",
           "required": false,
           "default": 3552,
-          "description": "Host port for the Arcane web UI when Traefik is disabled.",
           "needs": [
             "traefik_enabled=false"
           ],
@@ -354,8 +353,7 @@
           "type": "bool",
           "title": "OIDC",
           "required": false,
-          "default": false,
-          "description": "Enable Arcane OIDC login."
+          "default": false
         },
         {
           "name": "oidc_client_id",

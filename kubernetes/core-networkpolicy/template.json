@@ -26,7 +26,6 @@
           "title": "NetworkPolicy name",
           "required": false,
           "default": "app-networkpolicy",
-          "description": "Name to use for the NetworkPolicy.",
           "config": {
             "placeholder": "app-networkpolicy"
           }
@@ -37,7 +36,6 @@
           "title": "Namespace",
           "required": false,
           "default": "default",
-          "description": "Namespace for the resource.",
           "config": {
             "placeholder": "default"
           }
@@ -89,8 +87,7 @@
           "type": "bool",
           "title": "Ingress policy",
           "required": false,
-          "default": true,
-          "description": "Enable ingress rules for the policy."
+          "default": true
         },
         {
           "name": "ingress_allow_same_namespace",
@@ -174,7 +171,6 @@
           "title": "Ingress port protocol",
           "required": false,
           "default": "TCP",
-          "description": "Protocol used for the ingress port.",
           "config": {
             "options": [
               "TCP",
@@ -194,8 +190,7 @@
           "type": "bool",
           "title": "Egress policy",
           "required": false,
-          "default": false,
-          "description": "Enable egress rules for the policy."
+          "default": false
         },
         {
           "name": "egress_allow_same_namespace",
@@ -279,7 +274,6 @@
           "title": "Egress port protocol",
           "required": false,
           "default": "TCP",
-          "description": "Protocol used for the egress port.",
           "config": {
             "options": [
               "TCP",

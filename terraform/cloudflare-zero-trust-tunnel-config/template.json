@@ -26,7 +26,6 @@
           "title": "Resource Name",
           "required": false,
           "default": "tunnel_config",
-          "description": "Terraform resource name (alphanumeric and underscores only)",
           "config": {
             "placeholder": "tunnel_config"
           }
@@ -35,8 +34,7 @@
           "name": "account_id_value",
           "type": "str",
           "title": "Cloudflare account ID",
-          "required": true,
-          "description": "Identifier for the cloudflare account."
+          "required": true
         },
         {
           "name": "tunnel_id",

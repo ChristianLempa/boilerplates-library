@@ -31,15 +31,13 @@
           "default": "alloy",
           "config": {
             "placeholder": "alloy"
-          },
-          "description": "Name of the service."
+          }
         },
         {
           "name": "container_hostname",
           "type": "str",
           "title": "Hostname",
-          "required": false,
-          "description": "Container internal hostname"
+          "required": false
         },
         {
           "name": "restart_policy",
@@ -47,7 +45,6 @@
           "title": "Container restart policy",
           "required": true,
           "default": "unless-stopped",
-          "description": "Policy used for Container Restart.",
           "config": {
             "options": [
               "unless-stopped",
@@ -69,16 +66,14 @@
           "type": "bool",
           "title": "Docker Logs",
           "required": false,
-          "default": true,
-          "description": "Enable Docker container log collection"
+          "default": true
         },
         {
           "name": "logs_enabled",
           "type": "bool",
           "title": "Logs",
           "required": false,
-          "default": false,
-          "description": "Enable log collection"
+          "default": false
         },
         {
           "name": "logs_loki_url",
@@ -96,8 +91,7 @@
           "type": "bool",
           "title": "System Logs",
           "required": false,
-          "default": true,
-          "description": "Enable system and journalctl log collection"
+          "default": true
         }
       ]
     },
@@ -111,16 +105,14 @@
           "type": "bool",
           "title": "Docker Metrics",
           "required": false,
-          "default": true,
-          "description": "Enable Docker container metrics collection (cAdvisor)"
+          "default": true
         },
         {
           "name": "metrics_enabled",
           "type": "bool",
           "title": "Metrics",
           "required": false,
-          "default": false,
-          "description": "Enable metrics collection"
+          "default": false
         },
         {
           "name": "metrics_prometheus_url",
@@ -128,7 +120,6 @@
           "title": "Prometheus URL",
           "required": true,
           "default": "http://prometheus:9090/api/v1/write",
-          "description": "Prometheus remote write endpoint",
           "config": {
             "placeholder": "http://prometheus:9090/api/v1/write"
           }
@@ -138,8 +129,7 @@
           "type": "bool",
           "title": "System Metrics",
           "required": false,
-          "default": true,
-          "description": "Enable system (node) metrics collection"
+          "default": true
         }
       ]
     },
@@ -170,8 +160,7 @@
           "type": "bool",
           "title": "Traefik",
           "required": false,
-          "default": false,
-          "description": "Enable Traefik reverse proxy integration"
+          "default": false
         },
         {
           "name": "traefik_host",
@@ -180,15 +169,13 @@
           "required": true,
           "config": {
             "placeholder": "alloy"
-          },
-          "description": "Hostname used for Traefik."
+          }
         },
         {
           "name": "traefik_domain",
           "type": "str",
           "title": "Domain",
           "required": true,
-          "description": "Base domain (e.g., home.arpa)",
           "config": {
             "placeholder": "home.arpa"
           }
@@ -199,7 +186,6 @@
           "title": "Entrypoint",
           "required": true,
           "default": "web",
-          "description": "Entrypoint name.",
           "config": {
             "placeholder": "web"
           }
@@ -210,7 +196,6 @@
           "title": "Traefik network name",
           "required": true,
           "default": "traefik",
-          "description": "Name to use for the traefik network.",
           "config": {
             "placeholder": "traefik"
           }
@@ -220,8 +205,7 @@
           "type": "bool",
           "title": "TLS",
           "required": false,
-          "default": true,
-          "description": "Enable HTTPS/TLS"
+          "default": true
         },
         {
           "name": "traefik_tls_entrypoint",
@@ -229,7 +213,6 @@
           "title": "TLS Entrypoint",
           "required": true,
           "default": "websecure",
-          "description": "Entrypoint name.",
           "config": {
             "placeholder": "websecure"
           },
@@ -243,7 +226,6 @@
           "title": "Cert Resolver",
           "required": true,
           "default": "cloudflare",
-          "description": "Traefik certificate resolver name",
           "config": {
             "placeholder": "cloudflare"
           },

@@ -31,40 +31,35 @@
           "type": "bool",
           "title": "Tagged Images",
           "required": false,
-          "default": false,
-          "description": "Enable pruning of unused tagged images in addition to dangling images"
+          "default": false
         },
         {
           "name": "prune_stopped_containers",
           "type": "bool",
           "title": "Prune Stopped Containers",
           "required": false,
-          "default": false,
-          "description": "Remove stopped containers"
+          "default": false
         },
         {
           "name": "prune_unused_volumes",
           "type": "bool",
           "title": "Prune Unused Volumes",
           "required": false,
-          "default": false,
-          "description": "Remove unused volumes"
+          "default": false
         },
         {
           "name": "prune_unused_networks",
           "type": "bool",
           "title": "Prune Unused Networks",
           "required": false,
-          "default": false,
-          "description": "Remove unused networks"
+          "default": false
         },
         {
           "name": "prune_builder_cache",
           "type": "bool",
           "title": "Prune Builder Cache",
           "required": false,
-          "default": false,
-          "description": "Remove unused build cache"
+          "default": false
         },
         {
           "name": "prune_keep_storage_mb",

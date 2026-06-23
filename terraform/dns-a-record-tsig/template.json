@@ -24,7 +24,6 @@
         {
           "name": "dns_hostname",
           "title": "Hostname",
-          "description": "Hostname used for the DNS record.",
           "type": "str",
           "config": {
             "placeholder": "hostname"
@@ -34,7 +33,6 @@
         {
           "name": "dns_zone",
           "title": "Zone",
-          "description": "Zone used for the DNS record.",
           "type": "str",
           "config": {
             "placeholder": "home.arpa."
@@ -44,7 +42,6 @@
         {
           "name": "ip_address",
           "title": "IP Address",
-          "description": "IP address to map to the hostname.",
           "type": "str",
           "config": {
             "placeholder": "192.168.0.1/24"
@@ -62,7 +59,8 @@
             "slider": true,
             "min": 60,
             "max": 86400,
-            "step": 60
+            "step": 60,
+            "placeholder": "3600"
           }
         }
       ]

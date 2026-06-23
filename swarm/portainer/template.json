@@ -32,15 +32,16 @@
           "default": "portainer",
           "config": {
             "placeholder": "portainer"
-          },
-          "description": "Name of the service."
+          }
         },
         {
           "name": "container_timezone",
           "type": "str",
           "title": "Container Timezone",
           "required": true,
-          "description": "Timezone used inside the container."
+          "config": {
+            "placeholder": "Europe/Berlin"
+          }
         },
         {
           "name": "swarm_placement_host",
@@ -68,7 +69,6 @@
           "config": {
             "placeholder": "9000"
           },
-          "description": "Host port exposed for HTTP.",
           "needs": [
             "traefik_enabled=false"
           ]
@@ -82,7 +82,6 @@
           "config": {
             "placeholder": "9443"
           },
-          "description": "Host port exposed for HTTPS.",
           "needs": [
             "traefik_enabled=false"
           ]
@@ -93,7 +92,6 @@
           "title": "Edge Port",
           "required": true,
           "default": 8000,
-          "description": "Host port for Edge agent (8000)",
           "config": {
             "placeholder": "8000"
           }
@@ -112,8 +110,7 @@
           "required": true,
           "config": {
             "placeholder": "portainer"
-          },
-          "description": "Hostname used for Traefik."
+          }
         },
         {
           "name": "traefik_network",
@@ -123,8 +120,7 @@
           "default": "traefik",
           "config": {
             "placeholder": "traefik"
-          },
-          "description": "Network used for Traefik."
+          }
         },
         {
           "name": "traefik_domain",
@@ -133,16 +129,14 @@
           "required": true,
           "config": {
             "placeholder": "home.arpa"
-          },
-          "description": "Domain used for Traefik."
+          }
         },
         {
           "name": "traefik_enabled",
           "type": "bool",
           "title": "Traefik",
           "required": false,
-          "default": false,
-          "description": "Enable Traefik integration"
+          "default": false
         },
         {
           "name": "traefik_entrypoint",
@@ -150,7 +144,6 @@
           "title": "Traefik Entrypoint",
           "required": false,
           "default": "web",
-          "description": "Traefik entrypoint name.",
           "config": {
             "placeholder": "web"
           },
@@ -173,16 +166,14 @@
           "default": "cloudflare",
           "config": {
             "placeholder": "cloudflare"
-          },
-          "description": "Traefik Tls Certresolver"
+          }
         },
         {
           "name": "traefik_tls_enabled",
           "type": "bool",
           "title": "TLS",
           "required": false,
-          "default": false,
-          "description": "Enable Traefik TLS"
+          "default": false
         },
         {
           "name": "traefik_tls_entrypoint",
@@ -190,7 +181,6 @@
           "title": "Traefik Tls Entrypoint",
           "required": false,
           "default": "websecure",
-          "description": "Traefik TLS entrypoint name.",
           "config": {
             "placeholder": "websecure"
           },
@@ -216,8 +206,7 @@
               "mount",
               "nfs"
             ]
-          },
-          "description": "Mode used for Volume."
+          }
         },
         {
           "name": "volume_mount_path",
@@ -230,8 +219,7 @@
           ],
           "config": {
             "placeholder": "/data"
-          },
-          "description": "Mount path used for the volume."
+          }
         },
         {
           "name": "volume_nfs_server",
@@ -244,8 +232,7 @@
           ],
           "config": {
             "placeholder": "NFS_SERVER"
-          },
-          "description": "Hostname or IP address of the NFS server."
+          }
         },
         {
           "name": "volume_nfs_path",
@@ -258,8 +245,7 @@
           ],
           "config": {
             "placeholder": "/export"
-          },
-          "description": "Export path on the NFS server."
+          }
         },
         {
           "name": "volume_nfs_options",
@@ -272,8 +258,7 @@
           ],
           "config": {
             "placeholder": "rw,nolock,soft"
-          },
-          "description": "Mount options for the NFS volume."
+          }
         }
       ]
     }

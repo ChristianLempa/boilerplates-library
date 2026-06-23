@@ -33,8 +33,7 @@
           "default": "adguardhome",
           "config": {
             "placeholder": "adguardhome"
-          },
-          "description": "Name of the service."
+          }
         },
         {
           "name": "restart_policy",
@@ -49,8 +48,7 @@
               "on-failure",
               "no"
             ]
-          },
-          "description": "Policy used for Restart."
+          }
         },
         {
           "name": "initial_setup",
@@ -70,8 +68,7 @@
           "name": "network_mode",
           "type": "str",
           "title": "Network Mode",
-          "required": false,
-          "description": "Mode used for Network."
+          "required": false
         },
         {
           "name": "network_name",
@@ -81,8 +78,7 @@
           "default": "adguardhome_network",
           "config": {
             "placeholder": "adguardhome_network"
-          },
-          "description": "Name to use for the network."
+          }
         },
         {
           "name": "network_macvlan_ipv4_address",
@@ -95,8 +91,7 @@
           ],
           "config": {
             "placeholder": "IP_ADDRESS"
-          },
-          "description": "Network Macvlan Ipv4 Address"
+          }
         },
         {
           "name": "network_macvlan_parent_interface",
@@ -109,8 +104,7 @@
           ],
           "config": {
             "placeholder": "eth0"
-          },
-          "description": "Network Macvlan Parent Interface"
+          }
         },
         {
           "name": "network_macvlan_subnet",
@@ -123,8 +117,7 @@
           ],
           "config": {
             "placeholder": "IP_RANGE"
-          },
-          "description": "Network Macvlan Subnet"
+          }
         },
         {
           "name": "network_macvlan_gateway",
@@ -137,16 +130,14 @@
           ],
           "config": {
             "placeholder": "GATEWAY"
-          },
-          "description": "Network Macvlan Gateway"
+          }
         },
         {
           "name": "network_external",
           "type": "bool",
           "title": "External Network",
           "required": false,
-          "default": false,
-          "description": "Whether the network is external"
+          "default": false
         }
       ]
     },
@@ -162,8 +153,7 @@
           "default": 80,
           "config": {
             "placeholder": "80"
-          },
-          "description": "Host port exposed for HTTP."
+          }
         },
         {
           "name": "ports_https",
@@ -173,8 +163,7 @@
           "default": 443,
           "config": {
             "placeholder": "443"
-          },
-          "description": "Host port exposed for HTTPS."
+          }
         },
         {
           "name": "ports_dns",
@@ -184,8 +173,7 @@
           "default": 53,
           "config": {
             "placeholder": "53"
-          },
-          "description": "Port used for DNS."
+          }
         },
         {
           "name": "ports_initial",
@@ -208,7 +196,6 @@
           "title": "DoT Port",
           "required": true,
           "default": 853,
-          "description": "DNS over TLS Port",
           "config": {
             "placeholder": "853"
           }
@@ -219,7 +206,6 @@
           "title": "DNSCrypt Port",
           "required": true,
           "default": 5443,
-          "description": "Port used for Dnscrypt.",
           "config": {
             "placeholder": "5443"
           }
@@ -236,8 +222,7 @@
           "type": "bool",
           "title": "Traefik",
           "required": false,
-          "default": false,
-          "description": "Enable Traefik integration"
+          "default": false
         },
         {
           "name": "traefik_host",
@@ -246,8 +231,7 @@
           "required": true,
           "config": {
             "placeholder": "adguardhome"
-          },
-          "description": "Hostname used for Traefik."
+          }
         },
         {
           "name": "traefik_domain",
@@ -256,8 +240,7 @@
           "required": true,
           "config": {
             "placeholder": "home.arpa"
-          },
-          "description": "Domain used for Traefik."
+          }
         },
         {
           "name": "traefik_entrypoint",
@@ -265,7 +248,6 @@
           "title": "Entrypoint",
           "required": true,
           "default": "web",
-          "description": "Entrypoint name.",
           "config": {
             "placeholder": "web"
           }
@@ -278,16 +260,14 @@
           "default": "traefik",
           "config": {
             "placeholder": "traefik"
-          },
-          "description": "Network used for Traefik."
+          }
         },
         {
           "name": "traefik_tls_enabled",
           "type": "bool",
           "title": "TLS",
           "required": false,
-          "default": false,
-          "description": "Enable Traefik TLS"
+          "default": false
         },
         {
           "name": "traefik_tls_entrypoint",
@@ -295,7 +275,6 @@
           "title": "TLS Entrypoint",
           "required": true,
           "default": "websecure",
-          "description": "Entrypoint name.",
           "config": {
             "placeholder": "websecure"
           },
@@ -312,7 +291,6 @@
           "config": {
             "placeholder": "cloudflare"
           },
-          "description": "Traefik Tls Certresolver",
           "needs": [
             "traefik_tls_enabled=true"
           ]
@@ -335,8 +313,7 @@
               "mount",
               "nfs"
             ]
-          },
-          "description": "Mode used for Volume."
+          }
         },
         {
           "name": "volume_mount_path",
@@ -349,8 +326,7 @@
           ],
           "config": {
             "placeholder": "/data"
-          },
-          "description": "Mount path used for the volume."
+          }
         },
         {
           "name": "volume_nfs_server",
@@ -363,8 +339,7 @@
           ],
           "config": {
             "placeholder": "NFS_SERVER"
-          },
-          "description": "Hostname or IP address of the NFS server."
+          }
         },
         {
           "name": "volume_nfs_path",
@@ -377,8 +352,7 @@
           ],
           "config": {
             "placeholder": "/export"
-          },
-          "description": "Export path on the NFS server."
+          }
         },
         {
           "name": "volume_nfs_options",
@@ -391,8 +365,7 @@
           ],
           "config": {
             "placeholder": "rw,nolock,soft"
-          },
-          "description": "Mount options for the NFS volume."
+          }
         }
       ]
     }

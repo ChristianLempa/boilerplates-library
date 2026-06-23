@@ -31,15 +31,16 @@
           "default": "dockge",
           "config": {
             "placeholder": "dockge"
-          },
-          "description": "Name of the service."
+          }
         },
         {
           "name": "container_timezone",
           "type": "str",
           "title": "Container Timezone",
           "required": false,
-          "description": "Timezone used inside the container."
+          "config": {
+            "placeholder": "Europe/Berlin"
+          }
         },
         {
           "name": "restart_policy",
@@ -54,8 +55,7 @@
               "on-failure",
               "no"
             ]
-          },
-          "description": "Policy used for Restart."
+          }
         },
         {
           "name": "stacks_path",
@@ -80,8 +80,7 @@
           "type": "bool",
           "title": "Traefik",
           "required": false,
-          "default": false,
-          "description": "Enable Traefik integration"
+          "default": false
         },
         {
           "name": "traefik_host",
@@ -90,8 +89,7 @@
           "required": true,
           "config": {
             "placeholder": "dockge"
-          },
-          "description": "Hostname used for Traefik."
+          }
         },
         {
           "name": "traefik_domain",
@@ -100,8 +98,7 @@
           "required": true,
           "config": {
             "placeholder": "home.arpa"
-          },
-          "description": "Domain used for Traefik."
+          }
         },
         {
           "name": "traefik_entrypoint",
@@ -109,7 +106,6 @@
           "title": "Entrypoint",
           "required": true,
           "default": "web",
-          "description": "Entrypoint name.",
           "config": {
             "placeholder": "web"
           }
@@ -122,16 +118,14 @@
           "default": "traefik",
           "config": {
             "placeholder": "traefik"
-          },
-          "description": "Network used for Traefik."
+          }
         },
         {
           "name": "traefik_tls_enabled",
           "type": "bool",
           "title": "TLS",
           "required": false,
-          "default": false,
-          "description": "Enable Traefik TLS"
+          "default": false
         },
         {
           "name": "traefik_tls_entrypoint",
@@ -139,7 +133,6 @@
           "title": "TLS Entrypoint",
           "required": true,
           "default": "websecure",
-          "description": "Entrypoint name.",
           "config": {
             "placeholder": "websecure"
           },
@@ -156,7 +149,6 @@
           "config": {
             "placeholder": "cloudflare"
           },
-          "description": "Traefik Tls Certresolver",
           "needs": [
             "traefik_tls_enabled=true"
           ]
@@ -175,8 +167,7 @@
           "default": 5001,
           "config": {
             "placeholder": "5001"
-          },
-          "description": "Host port exposed for HTTP."
+          }
         }
       ]
     }

@@ -29,8 +29,7 @@
           "default": "homeassistant",
           "config": {
             "placeholder": "homeassistant"
-          },
-          "description": "Name to use for the container."
+          }
         },
         {
           "name": "restart_policy",
@@ -45,8 +44,7 @@
               "on-failure",
               "no"
             ]
-          },
-          "description": "Policy used for Restart."
+          }
         },
         {
           "name": "service_name",
@@ -56,8 +54,7 @@
           "default": "homeassistant",
           "config": {
             "placeholder": "homeassistant"
-          },
-          "description": "Name of the service."
+          }
         },
         {
           "name": "container_timezone",
@@ -65,7 +62,9 @@
           "title": "Container Timezone",
           "required": false,
           "default": "UTC",
-          "description": "Timezone used inside the container."
+          "config": {
+            "placeholder": "UTC"
+          }
         }
       ]
     }

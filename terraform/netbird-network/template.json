@@ -28,7 +28,6 @@
           "type": "str",
           "title": "Network Name",
           "required": true,
-          "description": "Name of the NetBird network.",
           "config": {
             "placeholder": "Homelab"
           }

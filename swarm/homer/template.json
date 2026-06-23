@@ -32,15 +32,16 @@
           "default": "homer",
           "config": {
             "placeholder": "homer"
-          },
-          "description": "Name of the service."
+          }
         },
         {
           "name": "container_timezone",
           "type": "str",
           "title": "Container Timezone",
           "required": false,
-          "description": "Timezone used inside the container."
+          "config": {
+            "placeholder": "Europe/Berlin"
+          }
         },
         {
           "name": "homer_title",
@@ -48,7 +49,6 @@
           "title": "Dashboard title",
           "required": false,
           "default": "Dashboard",
-          "description": "Value used for the general settings.",
           "config": {
             "placeholder": "Dashboard"
           }
@@ -59,7 +59,6 @@
           "title": "Dashboard subtitle",
           "required": false,
           "default": "Dashboard",
-          "description": "Value used for the general settings.",
           "config": {
             "placeholder": "Dashboard"
           }
@@ -87,7 +86,6 @@
           "title": "HTTP Port",
           "required": false,
           "default": 8080,
-          "description": "Host port for HTTP (8080)",
           "config": {
             "placeholder": "8080"
           }
@@ -104,8 +102,7 @@
           "type": "bool",
           "title": "Traefik",
           "required": false,
-          "default": false,
-          "description": "Enable Traefik integration"
+          "default": false
         },
         {
           "name": "traefik_entrypoint",
@@ -113,7 +110,6 @@
           "title": "Entrypoint",
           "required": true,
           "default": "web",
-          "description": "Entrypoint name.",
           "config": {
             "placeholder": "web"
           }
@@ -125,8 +121,7 @@
           "required": true,
           "config": {
             "placeholder": "dashboard"
-          },
-          "description": "Hostname used for Traefik."
+          }
         },
         {
           "name": "traefik_network",
@@ -136,8 +131,7 @@
           "default": "traefik",
           "config": {
             "placeholder": "traefik"
-          },
-          "description": "Network used for Traefik."
+          }
         },
         {
           "name": "traefik_domain",
@@ -146,8 +140,7 @@
           "required": true,
           "config": {
             "placeholder": "home.arpa"
-          },
-          "description": "Domain used for Traefik."
+          }
         }
       ]
     },
@@ -161,8 +154,7 @@
           "type": "bool",
           "title": "TLS",
           "required": false,
-          "default": false,
-          "description": "Enable Traefik TLS"
+          "default": false
         },
         {
           "name": "traefik_tls_entrypoint",
@@ -170,7 +162,6 @@
           "title": "TLS Entrypoint",
           "required": true,
           "default": "websecure",
-          "description": "Entrypoint name.",
           "config": {
             "placeholder": "websecure"
           }
@@ -183,8 +174,7 @@
           "default": "cloudflare",
           "config": {
             "placeholder": "cloudflare"
-          },
-          "description": "Traefik Tls Certresolver"
+          }
         }
       ]
     },
@@ -203,8 +193,7 @@
               "replicated",
               "global"
             ]
-          },
-          "description": "Mode used for Swarm Placement."
+          }
         },
         {
           "name": "swarm_replicas",
@@ -222,8 +211,7 @@
             "step": 1,
             "placeholder": "1",
             "unit": "replicas"
-          },
-          "description": "Number of replicas to run."
+          }
         },
         {
           "name": "swarm_placement_host",
@@ -234,7 +222,6 @@
           "needs": [
             "swarm_placement_mode=replicated"
           ],
-          "description": "Hostname used for Swarm Placement.",
           "config": {
             "placeholder": "swarm-node-1"
           }
@@ -257,16 +244,14 @@
           ],
           "config": {
             "placeholder": "middleware@file"
-          },
-          "description": "Middleware name."
+          }
         },
         {
           "name": "authentik_enabled",
           "type": "bool",
           "title": "Authentik SSO",
           "required": false,
-          "default": false,
-          "description": "Enable Authentik SSO integration"
+          "default": false
         }
       ]
     }

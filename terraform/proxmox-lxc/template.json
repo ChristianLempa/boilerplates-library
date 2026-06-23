@@ -27,7 +27,6 @@
           "title": "Resource Name",
           "required": false,
           "default": "lxc",
-          "description": "Terraform resource name (alphanumeric and underscores only)",
           "config": {
             "placeholder": "lxc"
           }
@@ -43,7 +42,6 @@
           "type": "str",
           "title": "Container hostname",
           "required": true,
-          "description": "Hostname used for Container.",
           "config": {
             "placeholder": "Container Name"
           }
@@ -74,15 +72,13 @@
           "type": "bool",
           "title": "Unprivileged",
           "required": false,
-          "default": false,
-          "description": "Create an unprivileged container"
+          "default": false
         },
         {
           "name": "ostemplate",
           "type": "str",
           "title": "Template",
           "required": true,
-          "description": "Proxmox LXC template reference",
           "config": {
             "placeholder": "template reference"
           }
@@ -99,7 +95,6 @@
           "title": "CPU Cores",
           "required": false,
           "default": 4,
-          "description": "Number of CPU cores",
           "config": {
             "slider": true,
             "min": 1,
@@ -114,7 +109,6 @@
           "title": "Memory",
           "required": false,
           "default": 8192,
-          "description": "Memory allocation in MB",
           "config": {
             "slider": true,
             "min": 256,
@@ -130,7 +124,6 @@
           "title": "Swap",
           "required": false,
           "default": 512,
-          "description": "Swap allocation in MB",
           "config": {
             "slider": true,
             "min": 0,
@@ -208,7 +201,6 @@
           "title": "Network Name",
           "required": false,
           "default": "eth0",
-          "description": "Container network interface name",
           "config": {
             "placeholder": "eth0"
           }
@@ -229,7 +221,6 @@
           "type": "str",
           "title": "Container IP address",
           "required": true,
-          "description": "IP address to use for the container ip.",
           "config": {
             "placeholder": "IP_ADDRESS"
           }

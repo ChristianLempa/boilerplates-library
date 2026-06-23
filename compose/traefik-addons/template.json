@@ -30,7 +30,6 @@
           "title": "Restart Policy",
           "required": true,
           "default": "unless-stopped",
-          "description": "Policy used for container restart.",
           "config": {
             "options": [
               "unless-stopped",
@@ -62,8 +61,7 @@
           "type": "bool",
           "title": "External Network",
           "required": false,
-          "default": true,
-          "description": "Use an existing external Docker network for Traefik integration."
+          "default": true
         },
         {
           "name": "traefik_entrypoint",
@@ -71,7 +69,6 @@
           "title": "Entrypoint",
           "required": true,
           "default": "web",
-          "description": "Entrypoint name used for the optional whoami test route.",
           "config": {
             "placeholder": "web"
           },
@@ -85,7 +82,6 @@
           "title": "TLS Entrypoint",
           "required": true,
           "default": "websecure",
-          "description": "Entrypoint name used for the HTTPS whoami route.",
           "config": {
             "placeholder": "websecure"
           },
@@ -172,7 +168,6 @@
           "title": "Whoami Host",
           "required": true,
           "default": "whoami",
-          "description": "Hostname used for the whoami test route.",
           "needs": [
             "whoami_enabled=true"
           ],
@@ -186,7 +181,6 @@
           "title": "Whoami Domain",
           "required": true,
           "default": "home.arpa",
-          "description": "Domain used for the whoami test route.",
           "needs": [
             "whoami_enabled=true"
           ],
@@ -439,7 +433,6 @@
           "title": "CrowdSec AppSec",
           "required": false,
           "default": false,
-          "description": "Enable AppSec requests from the Traefik middleware to CrowdSec.",
           "needs": [
             "crowdsec_middleware_enabled=true"
           ]

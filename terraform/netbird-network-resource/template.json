@@ -28,7 +28,6 @@
           "type": "str",
           "title": "Name",
           "required": true,
-          "description": "Name of the NetBird network resource.",
           "config": {
             "placeholder": "My Network Resource"
           }
@@ -81,8 +80,7 @@
           "type": "bool",
           "title": "Enabled",
           "required": false,
-          "default": true,
-          "description": "Enable the network resource after creation."
+          "default": true
         }
       ]
     }

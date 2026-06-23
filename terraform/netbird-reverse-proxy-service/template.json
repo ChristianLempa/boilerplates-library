@@ -29,7 +29,6 @@
           "type": "str",
           "title": "Service Name",
           "required": true,
-          "description": "Name of the reverse proxy service.",
           "config": {
             "placeholder": "web-app"
           }
@@ -40,7 +39,6 @@
           "title": "Domain Mode",
           "required": true,
           "default": "free",
-          "description": "Use a free NetBird reverse proxy domain or a prevalidated custom domain.",
           "config": {
             "options": [
               "free",
@@ -66,8 +64,7 @@
           "type": "bool",
           "title": "Enabled",
           "required": false,
-          "default": true,
-          "description": "Enable the service after creation."
+          "default": true
         },
         {
           "name": "pass_host_header",
@@ -189,7 +186,6 @@
           "title": "Target Protocol",
           "required": true,
           "default": "http",
-          "description": "Protocol used between the reverse proxy and the backend.",
           "config": {
             "options": [
               "http",
@@ -202,8 +198,7 @@
           "type": "bool",
           "title": "Target Enabled",
           "required": false,
-          "default": true,
-          "description": "Enable the backend target after creation."
+          "default": true
         },
         {
           "name": "target_host",

@@ -27,7 +27,6 @@
           "title": "Compose service name",
           "required": false,
           "default": "kestra",
-          "description": "Name to use for the compose service.",
           "config": {
             "placeholder": "kestra"
           }
@@ -38,7 +37,6 @@
           "title": "Container name",
           "required": false,
           "default": "kestra",
-          "description": "Name to use for the container.",
           "config": {
             "placeholder": "kestra"
           }
@@ -49,7 +47,6 @@
           "title": "Container restart policy",
           "required": true,
           "default": "unless-stopped",
-          "description": "Policy used for Container Restart.",
           "config": {
             "options": [
               "unless-stopped",
@@ -65,7 +62,6 @@
           "title": "Container runtime user",
           "required": false,
           "default": "root",
-          "description": "Username for the container runtime.",
           "config": {
             "placeholder": "root"
           }
@@ -76,7 +72,6 @@
           "title": "Worker Threads",
           "required": false,
           "default": 128,
-          "description": "Kestra worker thread count",
           "config": {
             "slider": true,
             "min": 4,
@@ -145,7 +140,6 @@
           "type": "str",
           "title": "Public Kestra URL",
           "required": true,
-          "description": "URL used for Public Kestra.",
           "config": {
             "placeholder": "https://kestra.home.arpa/"
           }
@@ -155,8 +149,7 @@
           "type": "bool",
           "title": "Tutorial Flows",
           "required": false,
-          "default": false,
-          "description": "Enable Kestra tutorial flows"
+          "default": false
         }
       ]
     },
@@ -169,7 +162,6 @@
           "type": "str",
           "title": "PostgreSQL JDBC URL",
           "required": true,
-          "description": "URL used for Postgresql Jdbc.",
           "config": {
             "placeholder": "jdbc:postgresql://database:5432/kestra"
           }
@@ -179,7 +171,6 @@
           "type": "str",
           "title": "PostgreSQL username",
           "required": true,
-          "description": "Username for the postgresql.",
           "config": {
             "placeholder": "kestra"
           }
@@ -188,8 +179,7 @@
           "name": "postgres_password",
           "type": "secret",
           "title": "PostgreSQL password",
-          "required": true,
-          "description": "Password for the postgresql."
+          "required": true
         }
       ]
     },
@@ -203,7 +193,6 @@
           "title": "Network Name",
           "required": true,
           "default": "proxy",
-          "description": "Docker network name",
           "config": {
             "placeholder": "proxy"
           }
@@ -213,8 +202,7 @@
           "type": "bool",
           "title": "External Network",
           "required": false,
-          "default": true,
-          "description": "Use an existing external Docker network"
+          "default": true
         }
       ]
     },
@@ -228,8 +216,7 @@
           "type": "bool",
           "title": "Traefik",
           "required": false,
-          "default": true,
-          "description": "Enable Traefik labels"
+          "default": true
         },
         {
           "name": "public_hostname",
@@ -237,7 +224,6 @@
           "title": "Primary public hostname",
           "required": false,
           "default": "kestra.home.arpa",
-          "description": "Hostname used for Primary Public.",
           "config": {
             "placeholder": "kestra.home.arpa"
           }
@@ -248,7 +234,6 @@
           "title": "Secondary Hostname",
           "required": false,
           "default": "",
-          "description": "Optional secondary public hostname",
           "config": {
             "placeholder": "kp1web.home.arpa"
           }
@@ -259,7 +244,6 @@
           "title": "Traefik Middleware",
           "required": false,
           "default": "",
-          "description": "Optional Traefik middleware reference",
           "config": {
             "placeholder": "authentik@file"
           }
@@ -270,7 +254,6 @@
           "title": "Entrypoint",
           "required": true,
           "default": "web",
-          "description": "Entrypoint name.",
           "config": {
             "placeholder": "web"
           }
@@ -280,8 +263,7 @@
           "type": "bool",
           "title": "TLS",
           "required": false,
-          "default": true,
-          "description": "Enable Traefik TLS"
+          "default": true
         },
         {
           "name": "traefik_tls_entrypoint",
@@ -289,7 +271,6 @@
           "title": "TLS Entrypoint",
           "required": true,
           "default": "websecure",
-          "description": "Entrypoint name.",
           "config": {
             "placeholder": "websecure"
           },
@@ -303,7 +284,6 @@
           "title": "Cert Resolver",
           "required": false,
           "default": "cloudflare",
-          "description": "Traefik certificate resolver name",
           "config": {
             "placeholder": "cloudflare"
           },

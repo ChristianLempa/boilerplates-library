@@ -64,24 +64,21 @@
           "type": "str",
           "title": "Containers Missing Healthcheck",
           "required": false,
-          "default": "",
-          "description": "Value used for the internal settings."
+          "default": ""
         },
         {
           "name": "docker_healthcheck_audit_report",
           "type": "str",
           "title": "Healthcheck Audit Report",
           "required": false,
-          "default": "",
-          "description": "Value used for the internal settings."
+          "default": ""
         },
         {
           "name": "docker_host_info",
           "type": "str",
           "title": "Docker Host Info",
           "required": false,
-          "default": "",
-          "description": "Value used for the internal settings."
+          "default": ""
         }
       ]
     }

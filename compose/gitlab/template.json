@@ -29,7 +29,6 @@
           "title": "Service Name",
           "required": false,
           "default": "gitlab",
-          "description": "Docker service name",
           "config": {
             "placeholder": "gitlab"
           }
@@ -40,7 +39,6 @@
           "title": "External URL",
           "required": false,
           "default": "http://localhost",
-          "description": "External URL for GitLab",
           "config": {
             "placeholder": "http://localhost"
           }
@@ -110,8 +108,7 @@
               "on-failure",
               "no"
             ]
-          },
-          "description": "Policy used for Restart."
+          }
         }
       ]
     },
@@ -125,7 +122,6 @@
           "title": "Performance optimization profile",
           "required": false,
           "default": "homelab",
-          "description": "Value used for the advanced settings settings.",
           "config": {
             "options": [
               "homelab",
@@ -138,8 +134,7 @@
           "type": "bool",
           "title": "Prometheus",
           "required": false,
-          "default": false,
-          "description": "Enable Prometheus monitoring"
+          "default": false
         }
       ]
     },
@@ -155,8 +150,7 @@
           "default": 80,
           "config": {
             "placeholder": "80"
-          },
-          "description": "Host port exposed for HTTP."
+          }
         },
         {
           "name": "ports_ssh",
@@ -166,8 +160,7 @@
           "default": 2424,
           "config": {
             "placeholder": "2424"
-          },
-          "description": "Value used for the ports settings."
+          }
         },
         {
           "name": "ports_registry",
@@ -175,7 +168,6 @@
           "title": "Container Registry port",
           "required": false,
           "default": 5000,
-          "description": "Port used for Container Registry.",
           "config": {
             "placeholder": "5000"
           }
@@ -192,8 +184,7 @@
           "type": "bool",
           "title": "Registry",
           "required": false,
-          "default": false,
-          "description": "Enable GitLab Container Registry"
+          "default": false
         },
         {
           "name": "registry_external_url",
@@ -218,8 +209,7 @@
           "type": "bool",
           "title": "Traefik",
           "required": false,
-          "default": false,
-          "description": "Enable Traefik integration"
+          "default": false
         },
         {
           "name": "traefik_host",
@@ -228,8 +218,7 @@
           "required": true,
           "config": {
             "placeholder": "gitlab"
-          },
-          "description": "Hostname used for Traefik."
+          }
         },
         {
           "name": "traefik_registry_host",
@@ -252,8 +241,7 @@
           "required": true,
           "config": {
             "placeholder": "home.arpa"
-          },
-          "description": "Domain used for Traefik."
+          }
         },
         {
           "name": "traefik_entrypoint",
@@ -261,7 +249,6 @@
           "title": "Entrypoint",
           "required": true,
           "default": "web",
-          "description": "Entrypoint name.",
           "config": {
             "placeholder": "web"
           }
@@ -274,16 +261,14 @@
           "default": "traefik",
           "config": {
             "placeholder": "traefik"
-          },
-          "description": "Network used for Traefik."
+          }
         },
         {
           "name": "traefik_tls_enabled",
           "type": "bool",
           "title": "TLS",
           "required": false,
-          "default": false,
-          "description": "Enable Traefik TLS"
+          "default": false
         },
         {
           "name": "traefik_tls_entrypoint",
@@ -291,7 +276,6 @@
           "title": "TLS Entrypoint",
           "required": true,
           "default": "websecure",
-          "description": "Entrypoint name.",
           "config": {
             "placeholder": "websecure"
           },
@@ -308,7 +292,6 @@
           "config": {
             "placeholder": "cloudflare"
           },
-          "description": "Traefik Tls Certresolver",
           "needs": [
             "traefik_tls_enabled=true"
           ]
@@ -325,8 +308,7 @@
           "type": "bool",
           "title": "Email",
           "required": false,
-          "default": false,
-          "description": "Enable email server configuration"
+          "default": false
         },
         {
           "name": "email_host",
@@ -334,7 +316,9 @@
           "title": "SMTP server hostname",
           "required": false,
           "default": "",
-          "description": "Hostname used for SMTP Server."
+          "config": {
+            "placeholder": "smtp.home.arpa"
+          }
         },
         {
           "name": "email_port",
@@ -342,7 +326,6 @@
           "title": "SMTP server port",
           "required": false,
           "default": 587,
-          "description": "Port used for SMTP Server.",
           "config": {
             "placeholder": "587"
           }
@@ -353,15 +336,16 @@
           "title": "SMTP username",
           "required": false,
           "default": "",
-          "description": "Username for the smtp."
+          "config": {
+            "placeholder": "user@example.com"
+          }
         },
         {
           "name": "email_password",
           "type": "secret",
           "title": "SMTP password",
           "required": false,
-          "default": "",
-          "description": "Password for the smtp."
+          "default": ""
         },
         {
           "name": "email_from",
@@ -369,23 +353,23 @@
           "title": "From email address",
           "required": false,
           "default": "",
-          "description": "IP address to use for the from email."
+          "config": {
+            "placeholder": "noreply@example.com"
+          }
         },
         {
           "name": "email_use_tls",
           "type": "bool",
           "title": "SMTP TLS",
           "required": false,
-          "default": true,
-          "description": "Use TLS encryption"
+          "default": true
         },
         {
           "name": "email_use_ssl",
           "type": "bool",
           "title": "SMTP SSL",
           "required": false,
-          "default": false,
-          "description": "Use SSL encryption"
+          "default": false
         }
       ]
     },
@@ -399,8 +383,7 @@
           "type": "bool",
           "title": "Authentik SSO",
           "required": false,
-          "default": false,
-          "description": "Enable Authentik SSO integration"
+          "default": false
         },
         {
           "name": "authentik_url",
@@ -419,7 +402,6 @@
           "title": "Authentik application slug",
           "required": false,
           "default": "gitlab",
-          "description": "Value used for the authentik settings.",
           "config": {
             "placeholder": "gitlab"
           }

@@ -28,8 +28,7 @@
           "name": "dnssec_enabled",
           "type": "bool",
           "title": "DNSSEC",
-          "required": false,
-          "description": "Enable DNSSEC"
+          "required": false
         }
       ]
     },
@@ -43,7 +42,6 @@
           "title": "Primary domain name",
           "required": false,
           "default": "home.arpa",
-          "description": "Name to use for the primary domain.",
           "config": {
             "placeholder": "home.arpa"
           }
@@ -52,15 +50,13 @@
           "name": "tsig_enabled",
           "type": "bool",
           "title": "TSIG",
-          "required": false,
-          "description": "Enable TSIG"
+          "required": false
         },
         {
           "name": "tsig_key_secret",
           "type": "secret",
           "title": "TSIG key secret",
           "required": false,
-          "description": "Secret value for the tsig key.",
           "needs": [
             "tsig_enabled=true"
           ],
@@ -89,8 +85,7 @@
               "mount",
               "nfs"
             ]
-          },
-          "description": "Mode used for Volume."
+          }
         },
         {
           "name": "volume_mount_path",
@@ -103,8 +98,7 @@
           ],
           "config": {
             "placeholder": "/data"
-          },
-          "description": "Mount path used for the volume."
+          }
         },
         {
           "name": "volume_nfs_server",
@@ -117,8 +111,7 @@
           ],
           "config": {
             "placeholder": "NFS_SERVER"
-          },
-          "description": "Hostname or IP address of the NFS server."
+          }
         },
         {
           "name": "volume_nfs_path",
@@ -131,8 +124,7 @@
           ],
           "config": {
             "placeholder": "/export"
-          },
-          "description": "Export path on the NFS server."
+          }
         },
         {
           "name": "volume_nfs_options",
@@ -145,8 +137,7 @@
           ],
           "config": {
             "placeholder": "rw,nolock,soft"
-          },
-          "description": "Mount options for the NFS volume."
+          }
         }
       ]
     },
@@ -162,22 +153,22 @@
           "default": "bind9",
           "config": {
             "placeholder": "bind9"
-          },
-          "description": "Name of the service."
+          }
         },
         {
           "name": "container_hostname",
           "type": "str",
           "title": "Container Hostname",
-          "required": false,
-          "description": "Hostname used inside the container."
+          "required": false
         },
         {
           "name": "container_timezone",
           "type": "str",
           "title": "Container Timezone",
           "required": false,
-          "description": "Timezone used inside the container."
+          "config": {
+            "placeholder": "Europe/Berlin"
+          }
         },
         {
           "name": "restart_policy",
@@ -192,8 +183,7 @@
               "on-failure",
               "no"
             ]
-          },
-          "description": "Policy used for Restart."
+          }
         },
         {
           "name": "network_mode",
@@ -201,7 +191,6 @@
           "title": "Network mode",
           "required": false,
           "default": "bridge",
-          "description": "Mode used for Network.",
           "config": {
             "options": [
               "bridge",
@@ -215,8 +204,7 @@
           "type": "bool",
           "title": "External Network",
           "required": false,
-          "default": false,
-          "description": "Whether the network is external"
+          "default": false
         },
         {
           "name": "network_macvlan_parent_interface",
@@ -224,7 +212,9 @@
           "title": "Parent Interface",
           "required": false,
           "default": "",
-          "description": "Network Macvlan Parent Interface"
+          "config": {
+            "placeholder": "eth0"
+          }
         },
         {
           "name": "network_macvlan_gateway",
@@ -232,7 +222,9 @@
           "title": "Gateway",
           "required": false,
           "default": "",
-          "description": "Network Macvlan Gateway"
+          "config": {
+            "placeholder": "10.20.0.1"
+          }
         },
         {
           "name": "network_name",
@@ -242,8 +234,7 @@
           "default": "bind9_network",
           "config": {
             "placeholder": "bind9_network"
-          },
-          "description": "Name to use for the network."
+          }
         },
         {
           "name": "network_macvlan_subnet",
@@ -251,7 +242,9 @@
           "title": "Subnet",
           "required": false,
           "default": "",
-          "description": "Network Macvlan Subnet"
+          "config": {
+            "placeholder": "10.20.0.0/16"
+          }
         },
         {
           "name": "network_macvlan_ipv4_address",
@@ -259,7 +252,9 @@
           "title": "IPv4 Address",
           "required": false,
           "default": "",
-          "description": "Network Macvlan Ipv4 Address"
+          "config": {
+            "placeholder": "10.20.1.50"
+          }
         }
       ]
     }

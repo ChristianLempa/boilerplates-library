@@ -32,8 +32,7 @@
           "default": "homer",
           "config": {
             "placeholder": "homer"
-          },
-          "description": "Name of the service."
+          }
         },
         {
           "name": "container_name",
@@ -43,15 +42,16 @@
           "default": "homer",
           "config": {
             "placeholder": "homer"
-          },
-          "description": "Name to use for the container."
+          }
         },
         {
           "name": "container_timezone",
           "type": "str",
           "title": "Container Timezone",
           "required": false,
-          "description": "Timezone used inside the container."
+          "config": {
+            "placeholder": "Europe/Berlin"
+          }
         },
         {
           "name": "restart_policy",
@@ -66,8 +66,7 @@
               "on-failure",
               "no"
             ]
-          },
-          "description": "Policy used for Restart."
+          }
         },
         {
           "name": "homer_title",
@@ -75,7 +74,6 @@
           "title": "Dashboard title",
           "required": false,
           "default": "Dashboard",
-          "description": "Value used for the general settings.",
           "config": {
             "placeholder": "Dashboard"
           }
@@ -86,7 +84,6 @@
           "title": "Dashboard subtitle",
           "required": false,
           "default": "Dashboard",
-          "description": "Value used for the general settings.",
           "config": {
             "placeholder": "Dashboard"
           }
@@ -114,7 +111,6 @@
           "title": "HTTP Port",
           "required": false,
           "default": 8080,
-          "description": "Host port for HTTP (8080)",
           "config": {
             "placeholder": "8080"
           }
@@ -131,8 +127,7 @@
           "type": "bool",
           "title": "Traefik",
           "required": false,
-          "default": false,
-          "description": "Enable Traefik integration"
+          "default": false
         },
         {
           "name": "traefik_host",
@@ -141,8 +136,7 @@
           "required": true,
           "config": {
             "placeholder": "dashboard"
-          },
-          "description": "Hostname used for Traefik."
+          }
         },
         {
           "name": "traefik_domain",
@@ -151,8 +145,7 @@
           "required": true,
           "config": {
             "placeholder": "home.arpa"
-          },
-          "description": "Domain used for Traefik."
+          }
         },
         {
           "name": "traefik_entrypoint",
@@ -160,7 +153,6 @@
           "title": "Entrypoint",
           "required": true,
           "default": "web",
-          "description": "Entrypoint name.",
           "config": {
             "placeholder": "web"
           }
@@ -173,16 +165,14 @@
           "default": "traefik",
           "config": {
             "placeholder": "traefik"
-          },
-          "description": "Network used for Traefik."
+          }
         },
         {
           "name": "traefik_tls_enabled",
           "type": "bool",
           "title": "TLS",
           "required": false,
-          "default": false,
-          "description": "Enable Traefik TLS"
+          "default": false
         },
         {
           "name": "traefik_tls_entrypoint",
@@ -190,7 +180,6 @@
           "title": "TLS Entrypoint",
           "required": true,
           "default": "websecure",
-          "description": "Entrypoint name.",
           "config": {
             "placeholder": "websecure"
           },
@@ -207,7 +196,6 @@
           "config": {
             "placeholder": "cloudflare"
           },
-          "description": "Traefik Tls Certresolver",
           "needs": [
             "traefik_tls_enabled=true"
           ]
@@ -230,48 +218,42 @@
           ],
           "config": {
             "placeholder": "middleware@file"
-          },
-          "description": "Middleware name."
+          }
         },
         {
           "name": "authentik_client_id",
           "type": "str",
           "title": "Client ID",
           "required": false,
-          "default": "",
-          "description": "Identifier for the client."
+          "default": ""
         },
         {
           "name": "authentik_client_secret",
           "type": "str",
           "title": "Client Secret",
           "required": false,
-          "default": "",
-          "description": "Secret value for the client."
+          "default": ""
         },
         {
           "name": "authentik_enabled",
           "type": "bool",
           "title": "Authentik SSO",
           "required": false,
-          "default": false,
-          "description": "Enable Authentik SSO integration"
+          "default": false
         },
         {
           "name": "authentik_slug",
           "type": "str",
           "title": "Slug",
           "required": false,
-          "default": "",
-          "description": "The Authentik application slug"
+          "default": ""
         },
         {
           "name": "authentik_url",
           "type": "str",
           "title": "The Authentik URL",
           "required": false,
-          "default": "",
-          "description": "URL used for The Authentik."
+          "default": ""
         }
       ]
     }

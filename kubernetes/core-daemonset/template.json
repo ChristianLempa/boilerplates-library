@@ -26,7 +26,6 @@
           "title": "DaemonSet name",
           "required": false,
           "default": "app-daemonset",
-          "description": "Name to use for the DaemonSet.",
           "config": {
             "placeholder": "app-daemonset"
           }
@@ -37,7 +36,6 @@
           "title": "Namespace",
           "required": false,
           "default": "default",
-          "description": "Namespace for the resource.",
           "config": {
             "placeholder": "default"
           }
@@ -48,7 +46,6 @@
           "title": "App Label",
           "required": false,
           "default": "app",
-          "description": "App label value used for selectors and Pod labels.",
           "config": {
             "placeholder": "app"
           }
@@ -59,7 +56,6 @@
           "title": "Update strategy",
           "required": false,
           "default": "RollingUpdate",
-          "description": "Strategy used when updating Pods.",
           "config": {
             "options": [
               "RollingUpdate",
@@ -72,7 +68,6 @@
           "type": "str",
           "title": "ServiceAccount Name",
           "required": false,
-          "description": "ServiceAccount name for the Pod spec.",
           "config": {
             "placeholder": "agent-serviceaccount"
           }
@@ -105,7 +100,6 @@
           "title": "Container name",
           "required": false,
           "default": "agent",
-          "description": "Name to use for the container.",
           "config": {
             "placeholder": "agent"
           }
@@ -126,7 +120,6 @@
           "title": "Image pull policy",
           "required": false,
           "default": "IfNotPresent",
-          "description": "Policy used for image pulls.",
           "config": {
             "options": [
               "Always",
@@ -140,8 +133,7 @@
           "type": "bool",
           "title": "Container Port",
           "required": false,
-          "default": false,
-          "description": "Expose one container port."
+          "default": false
         },
         {
           "name": "container_port",
@@ -149,7 +141,6 @@
           "title": "Container port number",
           "required": false,
           "default": 9100,
-          "description": "Container port to expose.",
           "config": {
             "placeholder": "9100"
           }
@@ -160,7 +151,6 @@
           "title": "Port name",
           "required": false,
           "default": "metrics",
-          "description": "Name to use for the container port.",
           "config": {
             "placeholder": "metrics"
           }
@@ -171,7 +161,6 @@
           "title": "Port protocol",
           "required": false,
           "default": "TCP",
-          "description": "Protocol used for the container port.",
           "config": {
             "options": [
               "TCP",
@@ -277,7 +266,6 @@
           "title": "Mount path",
           "required": false,
           "default": "/var/log/host",
-          "description": "Container path where the hostPath is mounted.",
           "config": {
             "placeholder": "/var/log/host"
           }
@@ -301,8 +289,7 @@
           "type": "bool",
           "title": "Resources",
           "required": false,
-          "default": false,
-          "description": "Enable container resource requests and limits."
+          "default": false
         },
         {
           "name": "resources_cpu_limit",
@@ -310,7 +297,6 @@
           "title": "CPU limit",
           "required": false,
           "default": "200m",
-          "description": "CPU limit for the container.",
           "config": {
             "placeholder": "200m"
           }
@@ -321,7 +307,6 @@
           "title": "CPU request",
           "required": false,
           "default": "50m",
-          "description": "CPU request for the container.",
           "config": {
             "placeholder": "50m"
           }
@@ -332,7 +317,6 @@
           "title": "Memory limit",
           "required": false,
           "default": "256Mi",
-          "description": "Memory limit for the container.",
           "config": {
             "placeholder": "256Mi"
           }
@@ -343,7 +327,6 @@
           "title": "Memory request",
           "required": false,
           "default": "64Mi",
-          "description": "Memory request for the container.",
           "config": {
             "placeholder": "64Mi"
           }

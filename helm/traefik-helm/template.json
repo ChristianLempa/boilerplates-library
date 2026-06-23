@@ -59,7 +59,6 @@
           "title": "TLS Secret",
           "required": false,
           "default": "traefik-dashboard-tls",
-          "description": "TLS secret name for dashboard",
           "needs": [
             "dashboard_ingressroute_enabled=true"
           ],
@@ -87,7 +86,6 @@
           "title": "Permanent Redirect",
           "required": false,
           "default": true,
-          "description": "Use permanent redirect (301) instead of temporary (302)",
           "needs": [
             "http_redirect_enabled=true"
           ]
@@ -103,24 +101,21 @@
           "type": "bool",
           "title": "Access Log",
           "required": false,
-          "default": false,
-          "description": "Enable Traefik access log"
+          "default": false
         },
         {
           "name": "dashboard_enabled",
           "type": "bool",
           "title": "Dashboard",
           "required": false,
-          "default": false,
-          "description": "Enable Traefik dashboard"
+          "default": false
         },
         {
           "name": "prometheus_enabled",
           "type": "bool",
           "title": "Prometheus",
           "required": false,
-          "default": false,
-          "description": "Enable Prometheus metrics"
+          "default": false
         }
       ]
     }

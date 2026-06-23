@@ -45,7 +45,6 @@
           "title": "GitRepository name",
           "required": false,
           "default": "homelab-cluster",
-          "description": "Name of the Flux GitRepository resource.",
           "config": {
             "placeholder": "homelab-cluster"
           }
@@ -100,7 +99,6 @@
           "title": "Kustomization name",
           "required": false,
           "default": "cluster-root",
-          "description": "Name of the root Flux Kustomization resource.",
           "config": {
             "placeholder": "cluster-root"
           }
@@ -201,7 +199,6 @@
           "title": "Dependency name",
           "required": false,
           "default": "cluster-prereqs",
-          "description": "Name of the upstream Flux Kustomization dependency.",
           "config": {
             "placeholder": "cluster-prereqs"
           }
@@ -226,7 +223,6 @@
           "title": "Git secret name",
           "required": false,
           "default": "flux-system",
-          "description": "Name of the secret used for HTTPS or SSH Git credentials.",
           "config": {
             "placeholder": "flux-system"
           }
@@ -236,8 +232,7 @@
           "type": "bool",
           "title": "SOPS decryption",
           "required": false,
-          "default": false,
-          "description": "Enable Flux SOPS decryption for encrypted secrets in the Kustomization path."
+          "default": false
         },
         {
           "name": "decryption_secret_name",
@@ -245,7 +240,6 @@
           "title": "Decryption secret",
           "required": false,
           "default": "sops-age",
-          "description": "Secret name containing the SOPS decryption key material.",
           "config": {
             "placeholder": "sops-age"
           }
@@ -270,7 +264,6 @@
           "title": "HelmRepository name",
           "required": false,
           "default": "podinfo",
-          "description": "Name of the HelmRepository resource or existing source reference.",
           "config": {
             "placeholder": "podinfo"
           }
@@ -311,7 +304,6 @@
           "title": "HelmRelease name",
           "required": false,
           "default": "podinfo",
-          "description": "Name of the optional HelmRelease resource.",
           "config": {
             "placeholder": "podinfo"
           }

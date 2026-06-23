@@ -33,7 +33,6 @@
           "title": "Container Name",
           "required": true,
           "default": "postgres",
-          "description": "Name of the running PostgreSQL container.",
           "config": {
             "placeholder": "postgres"
           }

@@ -32,8 +32,7 @@
           "default": "openwebui",
           "config": {
             "placeholder": "openwebui"
-          },
-          "description": "Name of the service."
+          }
         },
         {
           "name": "container_name",
@@ -43,22 +42,22 @@
           "default": "openwebui",
           "config": {
             "placeholder": "openwebui"
-          },
-          "description": "Name to use for the container."
+          }
         },
         {
           "name": "container_hostname",
           "type": "str",
           "title": "Container Hostname",
-          "required": true,
-          "description": "Hostname used inside the container."
+          "required": true
         },
         {
           "name": "container_timezone",
           "type": "str",
           "title": "Container Timezone",
           "required": false,
-          "description": "Timezone used inside the container."
+          "config": {
+            "placeholder": "Europe/Berlin"
+          }
         },
         {
           "name": "restart_policy",
@@ -73,8 +72,7 @@
               "on-failure",
               "no"
             ]
-          },
-          "description": "Policy used for Restart."
+          }
         },
         {
           "name": "ollama_base_url",
@@ -82,7 +80,6 @@
           "title": "Ollama URL",
           "required": false,
           "default": "http://ollama:11434",
-          "description": "Ollama API base URL",
           "config": {
             "placeholder": "http://ollama:11434"
           }
@@ -93,7 +90,6 @@
           "title": "Public WebUI URL",
           "required": false,
           "default": "http://localhost:8080",
-          "description": "Public URL used by Open WebUI for OAuth and generated links.",
           "config": {
             "placeholder": "https://openwebui.home.arpa"
           }
@@ -110,8 +106,7 @@
           "type": "bool",
           "title": "Traefik",
           "required": false,
-          "default": false,
-          "description": "Enable Traefik integration"
+          "default": false
         },
         {
           "name": "traefik_host",
@@ -120,8 +115,7 @@
           "required": true,
           "config": {
             "placeholder": "openwebui"
-          },
-          "description": "Hostname used for Traefik."
+          }
         },
         {
           "name": "traefik_domain",
@@ -130,8 +124,7 @@
           "required": true,
           "config": {
             "placeholder": "home.arpa"
-          },
-          "description": "Domain used for Traefik."
+          }
         },
         {
           "name": "traefik_entrypoint",
@@ -139,7 +132,9 @@
           "title": "Traefik Entrypoint",
           "required": false,
           "default": "",
-          "description": "Traefik entrypoint name."
+          "config": {
+            "placeholder": "web"
+          }
         },
         {
           "name": "traefik_network",
@@ -149,16 +144,14 @@
           "default": "traefik",
           "config": {
             "placeholder": "traefik"
-          },
-          "description": "Network used for Traefik."
+          }
         },
         {
           "name": "traefik_tls_enabled",
           "type": "bool",
           "title": "TLS",
           "required": false,
-          "default": false,
-          "description": "Enable Traefik TLS"
+          "default": false
         },
         {
           "name": "traefik_tls_entrypoint",
@@ -166,10 +159,12 @@
           "title": "Traefik Tls Entrypoint",
           "required": false,
           "default": "",
-          "description": "Traefik TLS entrypoint name.",
           "needs": [
             "traefik_tls_enabled=true"
-          ]
+          ],
+          "config": {
+            "placeholder": "websecure"
+          }
         },
         {
           "name": "traefik_tls_certresolver",
@@ -180,7 +175,6 @@
           "config": {
             "placeholder": "cloudflare"
           },
-          "description": "Traefik Tls Certresolver",
           "needs": [
             "traefik_tls_enabled=true"
           ]
@@ -197,7 +191,6 @@
           "title": "Web UI port",
           "required": false,
           "default": 8080,
-          "description": "Port used for Web UI.",
           "config": {
             "placeholder": "8080"
           }
@@ -213,15 +206,13 @@
           "type": "bool",
           "title": "Authentik Enabled",
           "required": false,
-          "default": false,
-          "description": "Enable or disable authentik enabled."
+          "default": false
         },
         {
           "name": "openid_provider_url",
           "type": "str",
           "title": "OpenID Config URL",
           "required": false,
-          "description": "OpenID provider configuration URL",
           "needs": [
             "authentik_enabled=true"
           ],
@@ -235,7 +226,6 @@
           "title": "OAuth redirect URI",
           "required": false,
           "default": "https://openwebui.home.arpa/oauth/oidc/callback",
-          "description": "Value used for the authentik settings.",
           "needs": [
             "authentik_enabled=true"
           ],
@@ -275,8 +265,7 @@
           "required": true,
           "needs": [
             "authentik_enabled=true"
-          ],
-          "description": "Identifier for the authentik client."
+          ]
         },
         {
           "name": "authentik_client_secret",
@@ -285,8 +274,7 @@
           "required": true,
           "needs": [
             "authentik_enabled=true"
-          ],
-          "description": "Secret value for the authentik client."
+          ]
         }
       ]
     }

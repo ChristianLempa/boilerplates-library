@@ -26,8 +26,7 @@
           "type": "bool",
           "title": "Backup",
           "required": false,
-          "default": false,
-          "description": "Enable backup target configuration"
+          "default": false
         },
         {
           "name": "backup_target",

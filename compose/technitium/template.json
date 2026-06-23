@@ -34,8 +34,7 @@
           "default": "technitium",
           "config": {
             "placeholder": "technitium"
-          },
-          "description": "Name of the service."
+          }
         },
         {
           "name": "container_name",
@@ -45,8 +44,7 @@
           "default": "technitium",
           "config": {
             "placeholder": "technitium"
-          },
-          "description": "Name to use for the container."
+          }
         },
         {
           "name": "container_hostname",
@@ -56,8 +54,7 @@
           "default": "technitium",
           "config": {
             "placeholder": "technitium"
-          },
-          "description": "Hostname used inside the container."
+          }
         },
         {
           "name": "restart_policy",
@@ -72,8 +69,7 @@
               "on-failure",
               "no"
             ]
-          },
-          "description": "Policy used for Restart."
+          }
         }
       ]
     },
@@ -146,7 +142,6 @@
               "HttpsJson"
             ]
           },
-          "description": "Protocol used for upstream DNS forwarders.",
           "needs": [
             "dns_server_forwarders"
           ]
@@ -156,8 +151,7 @@
           "type": "bool",
           "title": "Enable Blocking",
           "required": false,
-          "default": false,
-          "description": "Enable Technitium block list functionality. Block lists can be managed in the web console."
+          "default": false
         },
         {
           "name": "dns_server_optional_protocol_dns_over_http",
@@ -172,8 +166,7 @@
           "type": "bool",
           "title": "Use Local Time For Logs",
           "required": false,
-          "default": true,
-          "description": "Use local time instead of UTC for DNS server logs."
+          "default": true
         }
       ]
     },
@@ -225,8 +218,7 @@
           "default": 53,
           "config": {
             "placeholder": "53"
-          },
-          "description": "Host port exposed for DNS."
+          }
         }
       ]
     },
@@ -240,8 +232,7 @@
           "type": "bool",
           "title": "Traefik",
           "required": false,
-          "default": false,
-          "description": "Enable Traefik integration for the web console."
+          "default": false
         },
         {
           "name": "traefik_host",
@@ -250,8 +241,7 @@
           "required": true,
           "config": {
             "placeholder": "technitium"
-          },
-          "description": "Hostname used for Traefik."
+          }
         },
         {
           "name": "traefik_domain",
@@ -260,8 +250,7 @@
           "required": true,
           "config": {
             "placeholder": "home.arpa"
-          },
-          "description": "Domain used for Traefik."
+          }
         },
         {
           "name": "traefik_entrypoint",
@@ -269,7 +258,6 @@
           "title": "Entrypoint",
           "required": true,
           "default": "web",
-          "description": "Entrypoint name.",
           "config": {
             "placeholder": "web"
           }
@@ -282,16 +270,14 @@
           "default": "traefik",
           "config": {
             "placeholder": "traefik"
-          },
-          "description": "Network used for Traefik."
+          }
         },
         {
           "name": "traefik_tls_enabled",
           "type": "bool",
           "title": "TLS",
           "required": false,
-          "default": false,
-          "description": "Enable Traefik TLS."
+          "default": false
         },
         {
           "name": "traefik_tls_entrypoint",
@@ -299,7 +285,6 @@
           "title": "TLS Entrypoint",
           "required": true,
           "default": "websecure",
-          "description": "Entrypoint name.",
           "config": {
             "placeholder": "websecure"
           },
@@ -316,7 +301,6 @@
           "config": {
             "placeholder": "cloudflare"
           },
-          "description": "Traefik TLS cert resolver.",
           "needs": [
             "traefik_tls_enabled=true"
           ]
@@ -342,8 +326,7 @@
           "default": "technitium_network",
           "config": {
             "placeholder": "technitium_network"
-          },
-          "description": "Name to use for the network."
+          }
         },
         {
           "name": "network_macvlan_ipv4_address",
@@ -406,8 +389,7 @@
           "type": "bool",
           "title": "External Network",
           "required": false,
-          "default": false,
-          "description": "Whether the network is external."
+          "default": false
         }
       ]
     },
@@ -427,8 +409,7 @@
               "mount",
               "nfs"
             ]
-          },
-          "description": "Mode used for Volume."
+          }
         },
         {
           "name": "volume_mount_path",
@@ -441,8 +422,7 @@
           ],
           "config": {
             "placeholder": "/data"
-          },
-          "description": "Mount path used for the volume."
+          }
         },
         {
           "name": "volume_nfs_server",
@@ -455,8 +435,7 @@
           ],
           "config": {
             "placeholder": "NFS_SERVER"
-          },
-          "description": "Hostname or IP address of the NFS server."
+          }
         },
         {
           "name": "volume_nfs_path",
@@ -469,8 +448,7 @@
           ],
           "config": {
             "placeholder": "/export"
-          },
-          "description": "Export path on the NFS server."
+          }
         },
         {
           "name": "volume_nfs_options",
@@ -483,8 +461,7 @@
           ],
           "config": {
             "placeholder": "rw,nolock,soft"
-          },
-          "description": "Mount options for the NFS volume."
+          }
         }
       ]
     }

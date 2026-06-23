@@ -31,8 +31,7 @@
           "default": "nginx",
           "config": {
             "placeholder": "nginx"
-          },
-          "description": "Name of the service."
+          }
         },
         {
           "name": "traefik_tls_entrypoint",
@@ -40,7 +39,6 @@
           "title": "Traefik Tls Entrypoint",
           "required": false,
           "default": "",
-          "description": "Traefik TLS entrypoint name.",
           "config": {
             "placeholder": "websecure"
           },
@@ -55,7 +53,6 @@
           "title": "Cert Resolver",
           "required": false,
           "default": "",
-          "description": "Traefik Tls Certresolver",
           "config": {
             "placeholder": "cloudflare"
           },
@@ -86,7 +83,6 @@
           "title": "The placement host",
           "required": false,
           "default": "",
-          "description": "Hostname used for placement constraints.",
           "config": {
             "placeholder": "swarm-node-1"
           }
@@ -117,7 +113,6 @@
           "title": "HTTP Port",
           "required": false,
           "default": 8080,
-          "description": "HTTP port for nginx service",
           "config": {
             "placeholder": "8080"
           },
@@ -131,7 +126,6 @@
           "title": "HTTPS Port",
           "required": false,
           "default": 8443,
-          "description": "HTTPS port for nginx service",
           "config": {
             "placeholder": "8443"
           },
@@ -151,8 +145,7 @@
           "type": "bool",
           "title": "Traefik Enabled",
           "required": false,
-          "default": false,
-          "description": "Enable or disable traefik enabled."
+          "default": false
         },
         {
           "name": "traefik_network",
@@ -162,8 +155,7 @@
           "default": "traefik",
           "config": {
             "placeholder": "traefik"
-          },
-          "description": "Network used for Traefik."
+          }
         },
         {
           "name": "traefik_host",
@@ -172,8 +164,7 @@
           "required": true,
           "config": {
             "placeholder": "nginx"
-          },
-          "description": "Hostname used for Traefik."
+          }
         },
         {
           "name": "traefik_domain",
@@ -182,8 +173,7 @@
           "required": true,
           "config": {
             "placeholder": "home.arpa"
-          },
-          "description": "Domain used for Traefik."
+          }
         },
         {
           "name": "traefik_entrypoint",
@@ -191,7 +181,6 @@
           "title": "Traefik Entrypoint",
           "required": false,
           "default": "web",
-          "description": "Traefik entrypoint name.",
           "config": {
             "placeholder": "web"
           },
@@ -211,8 +200,7 @@
           "type": "bool",
           "title": "TLS",
           "required": false,
-          "default": false,
-          "description": "Enable Traefik TLS"
+          "default": false
         }
       ]
     }

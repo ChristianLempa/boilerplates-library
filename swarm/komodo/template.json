@@ -33,8 +33,7 @@
           "default": "komodo",
           "config": {
             "placeholder": "komodo"
-          },
-          "description": "Name of the service."
+          }
         },
         {
           "name": "container_hostname",
@@ -44,8 +43,7 @@
           "default": "komodo",
           "config": {
             "placeholder": "komodo"
-          },
-          "description": "Hostname used inside the container."
+          }
         },
         {
           "name": "network_mode",
@@ -59,8 +57,7 @@
               "macvlan",
               "host"
             ]
-          },
-          "description": "Mode used for Network."
+          }
         },
         {
           "name": "network_macvlan_ipv4_address",
@@ -68,7 +65,6 @@
           "title": "IPv4 Address",
           "required": false,
           "default": "",
-          "description": "Network Macvlan Ipv4 Address",
           "needs": [
             "network_mode=macvlan"
           ],
@@ -81,8 +77,7 @@
           "type": "bool",
           "title": "External Network",
           "required": false,
-          "default": false,
-          "description": "Use external network"
+          "default": false
         },
         {
           "name": "volume_mode",
@@ -96,8 +91,7 @@
               "mount",
               "nfs"
             ]
-          },
-          "description": "Mode used for Volume."
+          }
         },
         {
           "name": "volume_nfs_options",
@@ -105,7 +99,6 @@
           "title": "Volume Nfs Options",
           "required": false,
           "default": "",
-          "description": "Mount options for the NFS volume.",
           "needs": [
             "volume_mode=nfs"
           ],
@@ -119,7 +112,6 @@
           "title": "Volume Mount Path",
           "required": false,
           "default": "",
-          "description": "Mount path used for the volume.",
           "needs": [
             "volume_mode=mount"
           ],
@@ -133,7 +125,6 @@
           "title": "Volume Nfs Server",
           "required": false,
           "default": "",
-          "description": "Hostname or IP address of the NFS server.",
           "needs": [
             "volume_mode=nfs"
           ],
@@ -147,7 +138,6 @@
           "title": "Volume Nfs Path",
           "required": false,
           "default": "",
-          "description": "Export path on the NFS server.",
           "needs": [
             "volume_mode=nfs"
           ],
@@ -161,7 +151,6 @@
           "title": "Subnet",
           "required": false,
           "default": "",
-          "description": "Network Macvlan Subnet",
           "needs": [
             "network_mode=macvlan"
           ],
@@ -175,7 +164,6 @@
           "title": "Network Name",
           "required": false,
           "default": "komodo_network",
-          "description": "Name to use for the network.",
           "config": {
             "placeholder": "komodo_network"
           }
@@ -186,7 +174,6 @@
           "title": "Parent Interface",
           "required": false,
           "default": "",
-          "description": "Network Macvlan Parent Interface",
           "needs": [
             "network_mode=macvlan"
           ],
@@ -200,7 +187,6 @@
           "title": "Gateway",
           "required": false,
           "default": "",
-          "description": "Network Macvlan Gateway",
           "needs": [
             "network_mode=macvlan"
           ],
@@ -220,8 +206,7 @@
           "type": "bool",
           "title": "Traefik",
           "required": false,
-          "default": false,
-          "description": "Enable Traefik integration"
+          "default": false
         },
         {
           "name": "traefik_entrypoint",
@@ -229,7 +214,6 @@
           "title": "Entrypoint",
           "required": true,
           "default": "web",
-          "description": "Entrypoint name.",
           "config": {
             "placeholder": "web"
           }
@@ -241,8 +225,7 @@
           "required": true,
           "config": {
             "placeholder": "komodo"
-          },
-          "description": "Hostname used for Traefik."
+          }
         },
         {
           "name": "traefik_network",
@@ -252,8 +235,7 @@
           "default": "traefik",
           "config": {
             "placeholder": "traefik"
-          },
-          "description": "Network used for Traefik."
+          }
         },
         {
           "name": "traefik_domain",
@@ -262,8 +244,7 @@
           "required": true,
           "config": {
             "placeholder": "home.arpa"
-          },
-          "description": "Domain used for Traefik."
+          }
         }
       ]
     },
@@ -277,8 +258,7 @@
           "type": "bool",
           "title": "TLS",
           "required": false,
-          "default": false,
-          "description": "Enable Traefik TLS"
+          "default": false
         },
         {
           "name": "traefik_tls_entrypoint",
@@ -286,7 +266,6 @@
           "title": "TLS Entrypoint",
           "required": true,
           "default": "websecure",
-          "description": "Entrypoint name.",
           "config": {
             "placeholder": "websecure"
           }
@@ -299,8 +278,7 @@
           "default": "cloudflare",
           "config": {
             "placeholder": "cloudflare"
-          },
-          "description": "Traefik Tls Certresolver"
+          }
         }
       ]
     },
@@ -314,7 +292,6 @@
           "title": "HTTP Port",
           "required": false,
           "default": 9120,
-          "description": "External HTTP port (web interface and API)",
           "needs": [
             "traefik_enabled=false",
             "network_mode=bridge"
@@ -335,8 +312,7 @@
           "type": "bool",
           "title": "Resources Enabled",
           "required": false,
-          "default": false,
-          "description": "Enable resource limits and reservations."
+          "default": false
         },
         {
           "name": "resources_cpu_limit",
@@ -346,8 +322,7 @@
           "default": 1,
           "config": {
             "placeholder": "1"
-          },
-          "description": "Value used for the resource limits settings."
+          }
         },
         {
           "name": "resources_cpu_reservation",
@@ -357,8 +332,7 @@
           "default": 0.25,
           "config": {
             "placeholder": "0.25"
-          },
-          "description": "Value used for the resource limits settings."
+          }
         },
         {
           "name": "resources_memory_limit",
@@ -368,8 +342,7 @@
           "default": "1G",
           "config": {
             "placeholder": "1G"
-          },
-          "description": "Value used for the resource limits settings."
+          }
         },
         {
           "name": "resources_memory_reservation",
@@ -379,8 +352,7 @@
           "default": "512M",
           "config": {
             "placeholder": "512M"
-          },
-          "description": "Value used for the resource limits settings."
+          }
         }
       ]
     },
@@ -417,7 +389,6 @@
           "title": "Database name",
           "required": false,
           "default": "komodo",
-          "description": "Name of the database.",
           "needs": [
             "environment_enabled=true"
           ],
@@ -471,7 +442,6 @@
           "title": "Log level",
           "required": false,
           "default": "info",
-          "description": "Logging level used for Log.",
           "needs": [
             "environment_enabled=true"
           ],

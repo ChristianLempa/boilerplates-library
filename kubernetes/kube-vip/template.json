@@ -48,7 +48,6 @@
           "title": "DaemonSet name",
           "required": false,
           "default": "kube-vip-ds",
-          "description": "Name of the kube-vip DaemonSet.",
           "config": {
             "placeholder": "kube-vip-ds"
           }
@@ -86,8 +85,7 @@
           "type": "bool",
           "title": "Services interface",
           "required": false,
-          "default": false,
-          "description": "Use a separate interface for Service LoadBalancer announcements."
+          "default": false
         },
         {
           "name": "services_interface",
@@ -168,8 +166,7 @@
           "type": "bool",
           "title": "Leader election",
           "required": false,
-          "default": true,
-          "description": "Enable kube-vip leader election for ARP mode."
+          "default": true
         },
         {
           "name": "watch_services_namespace_enabled",

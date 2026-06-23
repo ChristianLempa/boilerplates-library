@@ -31,15 +31,16 @@
           "default": "forgejo",
           "config": {
             "placeholder": "forgejo"
-          },
-          "description": "Name of the service."
+          }
         },
         {
           "name": "container_timezone",
           "type": "str",
           "title": "Container Timezone",
           "required": false,
-          "description": "Timezone used inside the container."
+          "config": {
+            "placeholder": "Europe/Berlin"
+          }
         },
         {
           "name": "user_uid",
@@ -49,8 +50,7 @@
           "default": 1000,
           "config": {
             "placeholder": "1000"
-          },
-          "description": "Value used for the general settings."
+          }
         },
         {
           "name": "user_gid",
@@ -60,8 +60,7 @@
           "default": 1000,
           "config": {
             "placeholder": "1000"
-          },
-          "description": "Value used for the general settings."
+          }
         },
         {
           "name": "restart_policy",
@@ -76,8 +75,7 @@
               "on-failure",
               "no"
             ]
-          },
-          "description": "Policy used for Restart."
+          }
         },
         {
           "name": "forgejo_url",
@@ -85,7 +83,6 @@
           "title": "Public URL",
           "required": false,
           "default": "https://forgejo.home.arpa",
-          "description": "URL used for Public.",
           "needs": [
             "traefik_enabled=false"
           ],
@@ -105,7 +102,6 @@
           "title": "Database backend type",
           "required": false,
           "default": "sqlite",
-          "description": "Type used for Database Backend.",
           "config": {
             "options": [
               "sqlite",
@@ -120,7 +116,6 @@
           "title": "Database name",
           "required": false,
           "default": "forgejo",
-          "description": "Name of the database.",
           "needs": [
             "database_type=postgres,mysql"
           ],
@@ -134,7 +129,6 @@
           "title": "Database user",
           "required": false,
           "default": "forgejo",
-          "description": "Username for the database.",
           "needs": [
             "database_type=postgres,mysql"
           ],
@@ -148,7 +142,6 @@
           "title": "Database host",
           "required": false,
           "default": "postgres",
-          "description": "Hostname of the database server.",
           "needs": [
             "database_type=postgres,mysql;database_external=true"
           ],
@@ -161,7 +154,6 @@
           "type": "secret",
           "title": "Database password",
           "required": false,
-          "description": "Password for the database.",
           "needs": [
             "database_type=postgres,mysql"
           ],
@@ -177,7 +169,6 @@
           "title": "External Database",
           "required": false,
           "default": false,
-          "description": "Use external database",
           "needs": [
             "database_type=postgres,mysql"
           ]
@@ -196,8 +187,7 @@
           "default": 3000,
           "config": {
             "placeholder": "3000"
-          },
-          "description": "Host port exposed for HTTP."
+          }
         },
         {
           "name": "ports_ssh",
@@ -207,8 +197,7 @@
           "default": 2222,
           "config": {
             "placeholder": "2222"
-          },
-          "description": "Host port exposed for SSH."
+          }
         }
       ]
     },
@@ -222,8 +211,7 @@
           "type": "bool",
           "title": "Traefik",
           "required": false,
-          "default": false,
-          "description": "Enable Traefik integration"
+          "default": false
         },
         {
           "name": "traefik_host",
@@ -232,8 +220,7 @@
           "required": true,
           "config": {
             "placeholder": "forgejo"
-          },
-          "description": "Hostname used for Traefik."
+          }
         },
         {
           "name": "traefik_domain",
@@ -242,8 +229,7 @@
           "required": true,
           "config": {
             "placeholder": "home.arpa"
-          },
-          "description": "Domain used for Traefik."
+          }
         },
         {
           "name": "traefik_entrypoint",
@@ -251,7 +237,6 @@
           "title": "Entrypoint",
           "required": true,
           "default": "web",
-          "description": "Entrypoint name.",
           "config": {
             "placeholder": "web"
           }
@@ -264,16 +249,14 @@
           "default": "traefik",
           "config": {
             "placeholder": "traefik"
-          },
-          "description": "Network used for Traefik."
+          }
         },
         {
           "name": "traefik_tls_enabled",
           "type": "bool",
           "title": "TLS",
           "required": false,
-          "default": false,
-          "description": "Enable Traefik TLS"
+          "default": false
         },
         {
           "name": "traefik_tls_entrypoint",
@@ -281,7 +264,6 @@
           "title": "TLS Entrypoint",
           "required": true,
           "default": "websecure",
-          "description": "Entrypoint name.",
           "config": {
             "placeholder": "websecure"
           },
@@ -298,7 +280,6 @@
           "config": {
             "placeholder": "cloudflare"
           },
-          "description": "Traefik Tls Certresolver",
           "needs": [
             "traefik_tls_enabled=true"
           ]

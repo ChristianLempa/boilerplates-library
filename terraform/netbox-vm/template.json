@@ -28,8 +28,7 @@
           "default": "vm",
           "config": {
             "placeholder": "vm"
-          },
-          "description": "Terraform resource name."
+          }
         }
       ]
     },
@@ -42,7 +41,6 @@
           "type": "str",
           "title": "Virtual machine name",
           "required": true,
-          "description": "Name to use for the virtual machine.",
           "config": {
             "placeholder": "servername"
           }
@@ -64,7 +62,6 @@
           "title": "VM status",
           "required": false,
           "default": "active",
-          "description": "Value used for the virtual machine configuration settings.",
           "config": {
             "options": [
               "active",
@@ -112,8 +109,7 @@
           "type": "bool",
           "title": "IPAM",
           "required": false,
-          "default": false,
-          "description": "Enable IP address assignment"
+          "default": false
         },
         {
           "name": "interface_name",
@@ -121,7 +117,6 @@
           "title": "Network interface name",
           "required": true,
           "default": "eth0",
-          "description": "Name to use for the network interface.",
           "config": {
             "placeholder": "eth0"
           }
@@ -151,8 +146,7 @@
           "type": "bool",
           "title": "Resources",
           "required": false,
-          "default": false,
-          "description": "Enable or disable specify resource allocation."
+          "default": false
         },
         {
           "name": "vcpus",
@@ -160,7 +154,6 @@
           "title": "vCPUs",
           "required": false,
           "default": 2,
-          "description": "Number of virtual CPUs",
           "config": {
             "slider": true,
             "min": 1,
@@ -176,7 +169,6 @@
           "title": "Memory",
           "required": false,
           "default": 4096,
-          "description": "Memory allocation in MB",
           "config": {
             "slider": true,
             "min": 512,
@@ -192,7 +184,6 @@
           "title": "Disk Size",
           "required": false,
           "default": 50,
-          "description": "Disk size in GB",
           "config": {
             "slider": true,
             "min": 10,
@@ -213,15 +204,13 @@
           "type": "bool",
           "title": "Description",
           "required": false,
-          "default": false,
-          "description": "Add VM description"
+          "default": false
         },
         {
           "name": "description_text",
           "type": "str",
           "title": "VM description",
           "required": false,
-          "description": "Description for the vm.",
           "config": {
             "placeholder": "Add a description here...",
             "textarea": true

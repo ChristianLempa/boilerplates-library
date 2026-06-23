@@ -23,7 +23,6 @@
         {
           "name": "resource_name",
           "title": "Resource Name",
-          "description": "Terraform resource name (alphanumeric and underscores only)",
           "type": "str",
           "default": "dns_record",
           "config": {
@@ -39,7 +38,6 @@
         {
           "name": "cloudflare_zone_id",
           "title": "Cloudflare Zone ID",
-          "description": "Cloudflare zone ID",
           "type": "str",
           "config": {
             "placeholder": "123456789"
@@ -59,7 +57,6 @@
         {
           "name": "record_type",
           "title": "DNS record type",
-          "description": "Record type to use.",
           "type": "enum",
           "default": "A",
           "config": {
@@ -166,7 +163,6 @@
         {
           "name": "proxied",
           "title": "Proxy",
-          "description": "Enable Cloudflare proxy (orange cloud).",
           "type": "bool",
           "default": true,
           "needs": [

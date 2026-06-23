@@ -27,7 +27,6 @@
           "title": "Compose service name",
           "required": false,
           "default": "cloudflared",
-          "description": "Name to use for the compose service.",
           "config": {
             "placeholder": "cloudflared"
           }
@@ -38,7 +37,6 @@
           "title": "Container name",
           "required": false,
           "default": "cloudflared",
-          "description": "Name to use for the container.",
           "config": {
             "placeholder": "cloudflared"
           }
@@ -49,7 +47,6 @@
           "title": "Container restart policy",
           "required": true,
           "default": "unless-stopped",
-          "description": "Policy used for Container Restart.",
           "config": {
             "options": [
               "unless-stopped",
@@ -65,7 +62,6 @@
           "title": "Command",
           "required": false,
           "default": "tunnel --no-autoupdate run",
-          "description": "Cloudflared command to run",
           "config": {
             "placeholder": "tunnel --no-autoupdate run"
           }
@@ -99,8 +95,7 @@
           "type": "bool",
           "title": "External Network",
           "required": false,
-          "default": true,
-          "description": "Use an existing external Docker network"
+          "default": true
         }
       ]
     }

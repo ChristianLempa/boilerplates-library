@@ -27,7 +27,6 @@
           "title": "Resource Name",
           "required": false,
           "default": "vmqemu",
-          "description": "Terraform resource name (alphanumeric and underscores only)",
           "config": {
             "placeholder": "vmqemu"
           }
@@ -43,7 +42,6 @@
           "type": "str",
           "title": "Proxmox VM name",
           "required": true,
-          "description": "Name of the VM.",
           "config": {
             "placeholder": "servername"
           }
@@ -53,7 +51,6 @@
           "type": "str",
           "title": "Proxmox VMID",
           "required": false,
-          "description": "Value used for the vm identity settings.",
           "config": {
             "placeholder": "20001"
           }
@@ -63,7 +60,6 @@
           "type": "str",
           "title": "VM description",
           "required": false,
-          "description": "Description for the VM.",
           "config": {
             "placeholder": "Application server",
             "textarea": true
@@ -74,7 +70,6 @@
           "type": "str",
           "title": "Tags",
           "required": false,
-          "description": "Comma-separated Proxmox tags",
           "config": {
             "placeholder": "docker"
           }
@@ -151,7 +146,6 @@
           "title": "Cloud-init user",
           "required": false,
           "default": "admin",
-          "description": "Username for the cloud init.",
           "config": {
             "placeholder": "admin"
           }
@@ -200,7 +194,6 @@
           "title": "CPU Cores",
           "required": false,
           "default": 2,
-          "description": "Number of CPU cores",
           "config": {
             "slider": true,
             "min": 1,
@@ -216,7 +209,6 @@
           "title": "CPU Sockets",
           "required": false,
           "default": 1,
-          "description": "Number of CPU sockets",
           "config": {
             "slider": true,
             "min": 1,
@@ -243,7 +235,6 @@
           "title": "Memory",
           "required": false,
           "default": 4096,
-          "description": "Memory allocation in MB",
           "config": {
             "slider": true,
             "min": 512,
@@ -349,16 +340,14 @@
           "type": "bool",
           "title": "IO Thread",
           "required": false,
-          "default": true,
-          "description": "Enable IO thread for the main disk"
+          "default": true
         },
         {
           "name": "disk_replicate",
           "type": "bool",
           "title": "Disk Replication",
           "required": false,
-          "default": true,
-          "description": "Enable disk replication flag"
+          "default": true
         }
       ]
     }

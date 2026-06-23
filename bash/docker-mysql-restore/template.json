@@ -34,7 +34,6 @@
           "title": "Container Name",
           "required": true,
           "default": "mysql",
-          "description": "Name of the running MySQL or MariaDB container.",
           "config": {
             "placeholder": "mysql"
           }

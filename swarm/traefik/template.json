@@ -31,7 +31,6 @@
           "title": "Service Name",
           "required": false,
           "default": "traefik",
-          "description": "Name of the Swarm service and generated resources.",
           "config": {
             "placeholder": "traefik"
           }
@@ -42,7 +41,6 @@
           "title": "Container Timezone",
           "required": true,
           "default": "UTC",
-          "description": "Timezone used inside the container.",
           "config": {
             "placeholder": "UTC"
           }
@@ -155,16 +153,14 @@
           "type": "bool",
           "title": "External Network",
           "required": false,
-          "default": false,
-          "description": "Use an existing external overlay network."
+          "default": false
         },
         {
           "name": "accesslog_enabled",
           "type": "bool",
           "title": "Access Log",
           "required": false,
-          "default": false,
-          "description": "Enable Traefik access logs."
+          "default": false
         },
         {
           "name": "dashboard_enabled",
@@ -179,8 +175,7 @@
           "type": "bool",
           "title": "Prometheus",
           "required": false,
-          "default": false,
-          "description": "Enable Prometheus metrics."
+          "default": false
         }
       ]
     },
@@ -194,8 +189,7 @@
           "type": "bool",
           "title": "TLS",
           "required": false,
-          "default": false,
-          "description": "Enable HTTPS/TLS with ACME DNS challenge."
+          "default": false
         },
         {
           "name": "traefik_tls_certresolver",
@@ -315,7 +309,6 @@
           "type": "str",
           "title": "Azure Tenant ID",
           "required": true,
-          "description": "Azure tenant ID.",
           "needs": [
             "traefik_tls_enabled=true",
             "traefik_tls_certresolver=azure"
@@ -326,7 +319,6 @@
           "type": "str",
           "title": "Azure Subscription ID",
           "required": true,
-          "description": "Azure subscription ID.",
           "needs": [
             "traefik_tls_enabled=true",
             "traefik_tls_certresolver=azure"
@@ -360,7 +352,6 @@
           "title": "Minimum TLS Version",
           "required": false,
           "default": "VersionTLS12",
-          "description": "Minimum TLS version.",
           "config": {
             "options": [
               "VersionTLS12",
@@ -377,7 +368,6 @@
           "title": "Strict Ciphers",
           "required": false,
           "default": false,
-          "description": "Enable a strict modern cipher suite list.",
           "needs": [
             "traefik_tls_enabled=true"
           ]
@@ -484,7 +474,6 @@
           "title": "NFS Server",
           "required": true,
           "default": "NFS_SERVER",
-          "description": "Hostname or IP address of the NFS server.",
           "config": {
             "placeholder": "NFS_SERVER"
           },
@@ -498,7 +487,6 @@
           "title": "NFS Path",
           "required": true,
           "default": "/export/traefik/certs",
-          "description": "Export path on the NFS server.",
           "config": {
             "placeholder": "/export/traefik/certs"
           },
@@ -512,7 +500,6 @@
           "title": "NFS Options",
           "required": true,
           "default": "rw,nolock,soft",
-          "description": "Mount options for the NFS volume.",
           "config": {
             "placeholder": "rw,nolock,soft"
           },

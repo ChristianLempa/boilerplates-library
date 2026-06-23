@@ -109,8 +109,7 @@
           "type": "bool",
           "title": "External Network",
           "required": false,
-          "default": false,
-          "description": "Use an existing external Docker network instead of creating one."
+          "default": false
         }
       ]
     },
@@ -125,8 +124,7 @@
           "type": "bool",
           "title": "TLS Settings",
           "required": false,
-          "default": false,
-          "description": "Enable optional global ACME metadata in the main `Caddyfile`."
+          "default": false
         },
         {
           "name": "tls_email",
@@ -223,7 +221,6 @@
           "title": "NFS Export Path",
           "required": true,
           "default": "/path/to/export",
-          "description": "Export path on the NFS server for site content.",
           "config": {
             "placeholder": "/path/to/export"
           },
@@ -238,7 +235,6 @@
           "title": "NFS Mount Options",
           "required": true,
           "default": "rw,nolock,soft",
-          "description": "Mount options used for the NFS-backed site content volume.",
           "config": {
             "placeholder": "rw,nolock,soft"
           },

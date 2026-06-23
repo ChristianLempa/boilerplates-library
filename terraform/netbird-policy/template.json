@@ -28,7 +28,6 @@
           "type": "str",
           "title": "Policy Name",
           "required": true,
-          "description": "Name of the NetBird policy.",
           "config": {
             "placeholder": "Allow Internal HTTPS"
           }
@@ -49,8 +48,7 @@
           "type": "bool",
           "title": "Enabled",
           "required": false,
-          "default": true,
-          "description": "Enable the policy after creation."
+          "default": true
         }
       ]
     },
@@ -63,7 +61,6 @@
           "type": "str",
           "title": "Rule Name",
           "required": true,
-          "description": "Name of the policy rule.",
           "config": {
             "placeholder": "HTTPS"
           }
@@ -123,8 +120,7 @@
           "type": "bool",
           "title": "Rule Enabled",
           "required": false,
-          "default": true,
-          "description": "Enable the rule after creation."
+          "default": true
         },
         {
           "name": "source_group_names",

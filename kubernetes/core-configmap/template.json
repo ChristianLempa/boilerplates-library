@@ -28,8 +28,7 @@
           "default": "app-config",
           "config": {
             "placeholder": "app-config"
-          },
-          "description": "Terraform resource name."
+          }
         },
         {
           "name": "namespace",
@@ -39,8 +38,7 @@
           "default": "default",
           "config": {
             "placeholder": "default"
-          },
-          "description": "Value used for the general settings."
+          }
         }
       ]
     },
@@ -53,8 +51,7 @@
           "type": "bool",
           "title": "Resources",
           "required": false,
-          "default": false,
-          "description": "Enable resource limits and requests"
+          "default": false
         },
         {
           "name": "resources_cpu_limit",
@@ -62,7 +59,6 @@
           "title": "CPU limit",
           "required": false,
           "default": "100m",
-          "description": "Value used for the resource limits settings.",
           "config": {
             "placeholder": "100m"
           }
@@ -73,7 +69,6 @@
           "title": "CPU request",
           "required": false,
           "default": "50m",
-          "description": "Value used for the resource limits settings.",
           "config": {
             "placeholder": "50m"
           }
@@ -84,7 +79,6 @@
           "title": "Memory limit",
           "required": false,
           "default": "128Mi",
-          "description": "Value used for the resource limits settings.",
           "config": {
             "placeholder": "128Mi"
           }
@@ -95,7 +89,6 @@
           "title": "Memory request",
           "required": false,
           "default": "64Mi",
-          "description": "Value used for the resource limits settings.",
           "config": {
             "placeholder": "64Mi"
           }
@@ -111,30 +104,32 @@
           "type": "bool",
           "title": "Traefik",
           "required": false,
-          "default": false,
-          "description": "Enable Traefik integration"
+          "default": false
         },
         {
           "name": "traefik_host",
           "type": "str",
           "title": "Traefik host",
           "required": true,
-          "description": "Hostname used for Traefik."
+          "config": {
+            "placeholder": "app"
+          }
         },
         {
           "name": "traefik_domain",
           "type": "str",
           "title": "Traefik domain",
           "required": true,
-          "description": "Domain used for Traefik."
+          "config": {
+            "placeholder": "home.arpa"
+          }
         },
         {
           "name": "traefik_tls_enabled",
           "type": "bool",
           "title": "TLS",
           "required": false,
-          "default": true,
-          "description": "Enable TLS"
+          "default": true
         },
         {
           "name": "traefik_tls_certresolver",
@@ -142,7 +137,6 @@
           "title": "TLS certificate resolver",
           "required": false,
           "default": "letsencrypt-prod",
-          "description": "Certificate resolver name.",
           "config": {
             "placeholder": "letsencrypt-prod"
           }

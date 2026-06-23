@@ -24,8 +24,7 @@
           "name": "checkmk_server",
           "type": "str",
           "title": "Checkmk Server",
-          "required": true,
-          "description": "Value used for the checkmk configuration settings."
+          "required": true
         },
         {
           "name": "checkmk_protocol",
@@ -33,7 +32,6 @@
           "title": "Protocol",
           "required": true,
           "default": "https",
-          "description": "Checkmk Server Protocol",
           "config": {
             "placeholder": "https"
           }
@@ -44,7 +42,6 @@
           "title": "Checkmk Site",
           "required": true,
           "default": "cmk",
-          "description": "Value used for the checkmk configuration settings.",
           "config": {
             "placeholder": "cmk"
           }
@@ -53,36 +50,31 @@
           "name": "checkmk_auto_activate",
           "type": "bool",
           "title": "Auto Activate Agent",
-          "required": false,
-          "description": "Enable or disable auto activate agent."
+          "required": false
         },
         {
           "name": "checkmk_tls",
           "type": "bool",
           "title": "TLS",
-          "required": false,
-          "description": "Use TLS for Agent Communication"
+          "required": false
         },
         {
           "name": "checkmk_user",
           "type": "str",
           "title": "Checkmk Automation User",
-          "required": true,
-          "description": "Username for the checkmk automation."
+          "required": true
         },
         {
           "name": "checkmk_pass",
           "type": "secret",
           "title": "Automation Password",
-          "required": true,
-          "description": "Checkmk Automation User Password"
+          "required": true
         },
         {
           "name": "checkmk_host",
           "type": "str",
           "title": "Checkmk Host Name",
-          "required": true,
-          "description": "Name to use for the checkmk host."
+          "required": true
         }
       ]
     }

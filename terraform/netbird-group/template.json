@@ -28,7 +28,6 @@
           "type": "str",
           "title": "Group Name",
           "required": true,
-          "description": "Name of the NetBird group.",
           "config": {
             "placeholder": "Engineering"
           }

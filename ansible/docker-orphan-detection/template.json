@@ -39,8 +39,7 @@
           "type": "str",
           "title": "Discord Webhook URL",
           "required": false,
-          "default": "",
-          "description": "Discord webhook endpoint URL"
+          "default": ""
         },
         {
           "name": "discord_username",
@@ -78,88 +77,77 @@
           "default": "/reports",
           "config": {
             "placeholder": "/reports"
-          },
-          "description": "Value used for the internal settings."
+          }
         },
         {
           "name": "orphan_dead_containers",
           "type": "str",
           "title": "Orphan Dead Containers",
           "required": false,
-          "default": "",
-          "description": "Value used for the internal settings."
+          "default": ""
         },
         {
           "name": "orphan_dangling_images",
           "type": "str",
           "title": "Orphan Dangling Images",
           "required": false,
-          "default": "",
-          "description": "Value used for the internal settings."
+          "default": ""
         },
         {
           "name": "orphan_dangling_volumes",
           "type": "str",
           "title": "Orphan Dangling Volumes",
           "required": false,
-          "default": "",
-          "description": "Value used for the internal settings."
+          "default": ""
         },
         {
           "name": "docker_orphan_report_body",
           "type": "str",
           "title": "Orphan Report Body",
           "required": false,
-          "default": "",
-          "description": "Value used for the internal settings."
+          "default": ""
         },
         {
           "name": "report_timestamp",
           "type": "str",
           "title": "Report Timestamp",
           "required": false,
-          "default": "",
-          "description": "Value used for the internal settings."
+          "default": ""
         },
         {
           "name": "orphan_exited_containers",
           "type": "str",
           "title": "Orphan Exited Containers",
           "required": false,
-          "default": "",
-          "description": "Value used for the internal settings."
+          "default": ""
         },
         {
           "name": "orphan_dangling_networks",
           "type": "str",
           "title": "Orphan Dangling Networks",
           "required": false,
-          "default": "",
-          "description": "Value used for the internal settings."
+          "default": ""
         },
         {
           "name": "report_file_name",
           "type": "str",
           "title": "Report File Name",
           "required": false,
-          "default": "",
-          "description": "Name to use for the report file."
+          "default": ""
         },
         {
           "name": "discord_orphan_report_content",
           "type": "str",
           "title": "Orphan Report",
           "required": false,
-          "default": "",
-          "description": "Discord Orphan Report Content"
+          "default": ""
         },
         {
           "name": "inventory_hostname",
           "type": "str",
           "title": "Inventory Hostname",
           "required": false,
-          "default": "",
-          "description": "Hostname used for Inventory."
+          "default": ""
         }
       ]
     }

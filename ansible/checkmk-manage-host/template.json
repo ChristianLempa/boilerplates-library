@@ -24,8 +24,7 @@
           "name": "checkmk_server",
           "type": "str",
           "title": "Checkmk Server",
-          "required": true,
-          "description": "Value used for the checkmk configuration settings."
+          "required": true
         },
         {
           "name": "checkmk_protocol",
@@ -33,7 +32,6 @@
           "title": "Protocol",
           "required": true,
           "default": "https",
-          "description": "Checkmk Server Protocol",
           "config": {
             "placeholder": "https"
           }
@@ -44,7 +42,6 @@
           "title": "Checkmk Site",
           "required": true,
           "default": "cmk",
-          "description": "Value used for the checkmk configuration settings.",
           "config": {
             "placeholder": "cmk"
           }
@@ -53,15 +50,13 @@
           "name": "checkmk_user",
           "type": "str",
           "title": "Checkmk Automation User",
-          "required": true,
-          "description": "Username for the checkmk automation."
+          "required": true
         },
         {
           "name": "checkmk_pass",
           "type": "secret",
           "title": "Automation Password",
-          "required": true,
-          "description": "Checkmk Automation User Password"
+          "required": true
         }
       ]
     },
@@ -89,7 +84,6 @@
           "title": "Folder Path",
           "required": true,
           "default": "/",
-          "description": "Folder path in Checkmk",
           "config": {
             "placeholder": "/"
           }

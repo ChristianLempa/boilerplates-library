@@ -48,8 +48,7 @@
           "type": "bool",
           "title": "Recursive DNS",
           "required": false,
-          "default": true,
-          "description": "Use only recursive nameservers for DNS01 challenges"
+          "default": true
         }
       ]
     }

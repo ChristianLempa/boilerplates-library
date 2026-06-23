@@ -26,7 +26,6 @@
           "title": "Middleware name",
           "required": false,
           "default": "retry-upstream",
-          "description": "Name to use for the Middleware resource.",
           "config": {
             "placeholder": "retry-upstream"
           }
@@ -37,7 +36,6 @@
           "title": "Namespace",
           "required": false,
           "default": "default",
-          "description": "Namespace for the Middleware resource.",
           "config": {
             "placeholder": "default"
           }

@@ -63,7 +63,6 @@
           "title": "Container Timezone",
           "required": true,
           "default": "UTC",
-          "description": "Timezone used inside the container.",
           "config": {
             "placeholder": "UTC"
           }
@@ -74,7 +73,6 @@
           "title": "Restart Policy",
           "required": true,
           "default": "unless-stopped",
-          "description": "Policy used for container restart.",
           "config": {
             "options": [
               "unless-stopped",
@@ -210,7 +208,6 @@
           "title": "External Network",
           "required": false,
           "default": true,
-          "description": "Use an existing external Docker network for shared access.",
           "needs": [
             "traefik_network_enabled=true"
           ]
@@ -306,8 +303,7 @@
           "type": "bool",
           "title": "Enable AppSec",
           "required": false,
-          "default": false,
-          "description": "Enable CrowdSec AppSec listener for WAF-capable remediation components."
+          "default": false
         },
         {
           "name": "appsec_name",

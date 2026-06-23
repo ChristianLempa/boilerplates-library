@@ -32,8 +32,7 @@
           "default": "grafana",
           "config": {
             "placeholder": "grafana"
-          },
-          "description": "Name of the service."
+          }
         },
         {
           "name": "restart_policy",
@@ -48,8 +47,7 @@
               "on-failure",
               "no"
             ]
-          },
-          "description": "Policy used for Restart."
+          }
         }
       ]
     },
@@ -65,8 +63,7 @@
           "default": 3000,
           "config": {
             "placeholder": "3000"
-          },
-          "description": "Host port exposed for HTTP."
+          }
         }
       ]
     },
@@ -80,8 +77,7 @@
           "type": "bool",
           "title": "Authentik SSO",
           "required": false,
-          "default": false,
-          "description": "Enable Authentik SSO integration"
+          "default": false
         },
         {
           "name": "authentik_url",
@@ -94,8 +90,7 @@
           ],
           "config": {
             "placeholder": "https://auth.home.arpa"
-          },
-          "description": "URL used for Authentik."
+          }
         },
         {
           "name": "authentik_slug",
@@ -108,8 +103,7 @@
           ],
           "config": {
             "placeholder": "grafana"
-          },
-          "description": "Value used for the authentik settings."
+          }
         },
         {
           "name": "authentik_client_id",
@@ -118,8 +112,7 @@
           "required": true,
           "needs": [
             "authentik_enabled=true"
-          ],
-          "description": "Identifier for the authentik client."
+          ]
         },
         {
           "name": "authentik_client_secret",
@@ -128,8 +121,7 @@
           "required": true,
           "needs": [
             "authentik_enabled=true"
-          ],
-          "description": "Secret value for the authentik client."
+          ]
         }
       ]
     },
@@ -143,8 +135,7 @@
           "type": "bool",
           "title": "Traefik",
           "required": false,
-          "default": false,
-          "description": "Enable Traefik integration"
+          "default": false
         },
         {
           "name": "traefik_host",
@@ -153,8 +144,7 @@
           "required": true,
           "config": {
             "placeholder": "grafana"
-          },
-          "description": "Hostname used for Traefik."
+          }
         },
         {
           "name": "traefik_domain",
@@ -163,8 +153,7 @@
           "required": true,
           "config": {
             "placeholder": "home.arpa"
-          },
-          "description": "Domain used for Traefik."
+          }
         },
         {
           "name": "traefik_entrypoint",
@@ -172,7 +161,6 @@
           "title": "Entrypoint",
           "required": true,
           "default": "web",
-          "description": "Entrypoint name.",
           "config": {
             "placeholder": "web"
           }
@@ -185,16 +173,14 @@
           "default": "traefik",
           "config": {
             "placeholder": "traefik"
-          },
-          "description": "Network used for Traefik."
+          }
         },
         {
           "name": "traefik_tls_enabled",
           "type": "bool",
           "title": "TLS",
           "required": false,
-          "default": false,
-          "description": "Enable Traefik TLS"
+          "default": false
         },
         {
           "name": "traefik_tls_entrypoint",
@@ -202,7 +188,6 @@
           "title": "TLS Entrypoint",
           "required": true,
           "default": "websecure",
-          "description": "Entrypoint name.",
           "config": {
             "placeholder": "websecure"
           },
@@ -219,7 +204,6 @@
           "config": {
             "placeholder": "cloudflare"
           },
-          "description": "Traefik Tls Certresolver",
           "needs": [
             "traefik_tls_enabled=true"
           ]
@@ -240,8 +224,7 @@
               "sqlite",
               "postgres"
             ]
-          },
-          "description": "Database engine to use."
+          }
         },
         {
           "name": "database_external",
@@ -249,7 +232,6 @@
           "title": "External Database",
           "required": false,
           "default": false,
-          "description": "Use external database",
           "needs": [
             "database_type=postgres"
           ]
@@ -265,8 +247,7 @@
           ],
           "config": {
             "placeholder": "grafana"
-          },
-          "description": "Name of the database."
+          }
         },
         {
           "name": "database_user",
@@ -279,8 +260,7 @@
           ],
           "config": {
             "placeholder": "grafana"
-          },
-          "description": "Username for the database."
+          }
         },
         {
           "name": "database_password",
@@ -289,8 +269,7 @@
           "required": true,
           "needs": [
             "database_type=postgres"
-          ],
-          "description": "Password for the database."
+          ]
         },
         {
           "name": "database_host",
@@ -301,7 +280,9 @@
             "database_type=postgres",
             "database_external=true"
           ],
-          "description": "Hostname used for Database."
+          "config": {
+            "placeholder": "postgres.home.arpa"
+          }
         }
       ]
     }

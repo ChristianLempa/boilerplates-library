@@ -26,7 +26,6 @@
           "title": "Namespace name",
           "required": false,
           "default": "app",
-          "description": "Name to use for the namespace.",
           "config": {
             "placeholder": "app"
           }
@@ -51,7 +50,6 @@
           "title": "Label key",
           "required": false,
           "default": "app.kubernetes.io/name",
-          "description": "Value used for the labels settings.",
           "config": {
             "placeholder": "app.kubernetes.io/name"
           }
@@ -62,7 +60,6 @@
           "title": "Label value",
           "required": false,
           "default": "app",
-          "description": "Value used for the labels settings.",
           "config": {
             "placeholder": "app"
           }
@@ -87,7 +84,6 @@
           "title": "Annotation key",
           "required": false,
           "default": "app.kubernetes.io/part-of",
-          "description": "Value used for the annotations settings.",
           "config": {
             "placeholder": "app.kubernetes.io/part-of"
           }
@@ -98,7 +94,6 @@
           "title": "Annotation value",
           "required": false,
           "default": "platform",
-          "description": "Value used for the annotations settings.",
           "config": {
             "placeholder": "platform"
           }

@@ -26,7 +26,6 @@
           "title": "Application name",
           "required": false,
           "default": "application",
-          "description": "Name to use for the application.",
           "config": {
             "placeholder": "application"
           }
@@ -36,7 +35,6 @@
           "type": "str",
           "title": "Application domain",
           "required": true,
-          "description": "Domain used for Application.",
           "config": {
             "placeholder": "app.home.arpa"
           }
@@ -62,8 +60,7 @@
           "name": "account_id_value",
           "type": "str",
           "title": "Cloudflare Account ID",
-          "required": true,
-          "description": "Cloudflare account identifier."
+          "required": true
         },
         {
           "name": "resource_name",
@@ -71,7 +68,6 @@
           "title": "Resource Name",
           "required": false,
           "default": "ztna_app",
-          "description": "Terraform resource name (alphanumeric and underscores only)",
           "config": {
             "placeholder": "ztna_app"
           }
@@ -80,8 +76,7 @@
           "name": "zone_id_value",
           "type": "str",
           "title": "Cloudflare Zone ID",
-          "required": true,
-          "description": "Cloudflare zone identifier."
+          "required": true
         }
       ]
     },
@@ -94,8 +89,7 @@
           "type": "bool",
           "title": "IP Policy",
           "required": false,
-          "default": false,
-          "description": "Enable IP-based policy"
+          "default": false
         },
         {
           "name": "ip_policy_name",
@@ -133,15 +127,13 @@
           "type": "bool",
           "title": "Service Token",
           "required": false,
-          "default": false,
-          "description": "Enable service token policy"
+          "default": false
         },
         {
           "name": "service_token_id",
           "type": "str",
           "title": "Service Token ID",
           "required": false,
-          "description": "Cloudflare service token ID",
           "needs": [
             "service_token_enabled=true"
           ]
@@ -152,7 +144,6 @@
           "title": "Service Token Name",
           "required": false,
           "default": "service_token_policy",
-          "description": "Name to use for the service token.",
           "needs": [
             "service_token_enabled=true"
           ],

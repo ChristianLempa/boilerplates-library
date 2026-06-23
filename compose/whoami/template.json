@@ -32,7 +32,6 @@
           "title": "Container restart policy",
           "required": true,
           "default": "unless-stopped",
-          "description": "Policy used for Container Restart.",
           "config": {
             "options": [
               "unless-stopped",
@@ -66,15 +65,13 @@
           "required": true,
           "config": {
             "placeholder": "whoami"
-          },
-          "description": "Hostname used for Traefik."
+          }
         },
         {
           "name": "traefik_domain",
           "type": "str",
           "title": "Domain",
           "required": true,
-          "description": "Base domain (e.g., home.arpa)",
           "config": {
             "placeholder": "home.arpa"
           }
@@ -85,7 +82,6 @@
           "title": "Entrypoint",
           "required": true,
           "default": "web",
-          "description": "Entrypoint name.",
           "config": {
             "placeholder": "web"
           }
@@ -96,7 +92,6 @@
           "title": "Traefik network name",
           "required": true,
           "default": "traefik",
-          "description": "Name to use for the traefik network.",
           "config": {
             "placeholder": "traefik"
           }
@@ -106,8 +101,7 @@
           "type": "bool",
           "title": "TLS",
           "required": false,
-          "default": true,
-          "description": "Enable HTTPS/TLS"
+          "default": true
         },
         {
           "name": "traefik_tls_entrypoint",
@@ -115,7 +109,6 @@
           "title": "TLS Entrypoint",
           "required": true,
           "default": "websecure",
-          "description": "Entrypoint name.",
           "config": {
             "placeholder": "websecure"
           },
@@ -129,7 +122,6 @@
           "title": "Cert Resolver",
           "required": true,
           "default": "cloudflare",
-          "description": "Traefik certificate resolver name",
           "config": {
             "placeholder": "cloudflare"
           },

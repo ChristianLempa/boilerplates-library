@@ -26,7 +26,6 @@
           "title": "Deployment name",
           "required": false,
           "default": "app-deployment",
-          "description": "Name to use for the deployment.",
           "config": {
             "placeholder": "app-deployment"
           }
@@ -37,7 +36,6 @@
           "title": "Namespace",
           "required": false,
           "default": "default",
-          "description": "Value used for the general settings.",
           "config": {
             "placeholder": "default"
           }
@@ -48,7 +46,6 @@
           "title": "App Label",
           "required": false,
           "default": "app",
-          "description": "App label value used for selector and pod labels",
           "config": {
             "placeholder": "app"
           }
@@ -59,7 +56,6 @@
           "title": "Replicas",
           "required": false,
           "default": 1,
-          "description": "Number of pod replicas",
           "config": {
             "slider": true,
             "min": 1,
@@ -73,7 +69,6 @@
           "type": "str",
           "title": "ServiceAccount Name",
           "required": false,
-          "description": "ServiceAccount name for the Pod spec",
           "config": {
             "placeholder": "app-serviceaccount"
           }
@@ -90,7 +85,6 @@
           "title": "Container name",
           "required": false,
           "default": "app",
-          "description": "Name to use for the container.",
           "config": {
             "placeholder": "app"
           }
@@ -100,7 +94,6 @@
           "type": "str",
           "title": "Container image reference",
           "required": true,
-          "description": "Value used for the container settings.",
           "config": {
             "placeholder": "nginx:stable"
           }
@@ -111,7 +104,6 @@
           "title": "Image pull policy",
           "required": false,
           "default": "IfNotPresent",
-          "description": "Policy used for Image Pull.",
           "config": {
             "options": [
               "Always",
@@ -125,8 +117,7 @@
           "type": "bool",
           "title": "Container Port",
           "required": false,
-          "default": true,
-          "description": "Expose one container port"
+          "default": true
         },
         {
           "name": "container_port",
@@ -134,7 +125,6 @@
           "title": "Container port number",
           "required": false,
           "default": 8080,
-          "description": "Value used for the container settings.",
           "config": {
             "placeholder": "8080"
           }
@@ -145,7 +135,6 @@
           "title": "Port name",
           "required": false,
           "default": "http",
-          "description": "Name to use for the port.",
           "config": {
             "placeholder": "http"
           }
@@ -156,7 +145,6 @@
           "title": "Port protocol",
           "required": false,
           "default": "TCP",
-          "description": "Value used for the container settings.",
           "config": {
             "options": [
               "TCP",
@@ -185,7 +173,6 @@
           "title": "Env Name",
           "required": false,
           "default": "APP_ENV",
-          "description": "Literal environment variable name",
           "config": {
             "placeholder": "APP_ENV"
           }
@@ -196,7 +183,6 @@
           "title": "Env Value",
           "required": false,
           "default": "production",
-          "description": "Literal environment variable value",
           "config": {
             "placeholder": "production"
           }
@@ -215,7 +201,6 @@
           "title": "FieldRef Name",
           "required": false,
           "default": "POD_IP",
-          "description": "FieldRef environment variable name",
           "config": {
             "placeholder": "POD_IP"
           }
@@ -243,8 +228,7 @@
           "type": "bool",
           "title": "Resources",
           "required": false,
-          "default": false,
-          "description": "Enable resource requests and limits"
+          "default": false
         },
         {
           "name": "resources_cpu_limit",
@@ -252,7 +236,6 @@
           "title": "CPU limit",
           "required": false,
           "default": "500m",
-          "description": "Value used for the resources settings.",
           "config": {
             "placeholder": "500m"
           }
@@ -263,7 +246,6 @@
           "title": "CPU request",
           "required": false,
           "default": "100m",
-          "description": "Value used for the resources settings.",
           "config": {
             "placeholder": "100m"
           }
@@ -274,7 +256,6 @@
           "title": "Memory limit",
           "required": false,
           "default": "512Mi",
-          "description": "Value used for the resources settings.",
           "config": {
             "placeholder": "512Mi"
           }
@@ -285,7 +266,6 @@
           "title": "Memory request",
           "required": false,
           "default": "128Mi",
-          "description": "Value used for the resources settings.",
           "config": {
             "placeholder": "128Mi"
           }

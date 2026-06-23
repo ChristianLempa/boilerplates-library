@@ -40,7 +40,6 @@
           "title": "Restart Policy",
           "required": true,
           "default": "unless-stopped",
-          "description": "Policy used for Container Restart.",
           "config": {
             "options": [
               "unless-stopped",
@@ -153,8 +152,7 @@
           "type": "bool",
           "title": "Traefik",
           "required": false,
-          "default": true,
-          "description": "Enable Traefik-based ingress instead of localhost-exposed backend ports."
+          "default": true
         },
         {
           "name": "traefik_mode",
@@ -162,7 +160,6 @@
           "title": "Traefik Mode",
           "required": true,
           "default": "integrated",
-          "description": "Use `integrated` to start a new bundled Traefik instance, or `existing` to attach NetBird to an already-running Traefik installation.",
           "config": {
             "options": [
               "integrated",
@@ -203,8 +200,7 @@
           "type": "bool",
           "title": "TLS",
           "required": false,
-          "default": true,
-          "description": "Enable Traefik TLS"
+          "default": true
         },
         {
           "name": "traefik_tls_entrypoint",

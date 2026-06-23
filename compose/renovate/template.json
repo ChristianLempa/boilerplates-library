@@ -31,8 +31,7 @@
           "default": "renovate",
           "config": {
             "placeholder": "renovate"
-          },
-          "description": "Name of the service."
+          }
         },
         {
           "name": "restart_policy",
@@ -47,8 +46,7 @@
               "on-failure",
               "no"
             ]
-          },
-          "description": "Policy used for Restart."
+          }
         },
         {
           "name": "container_name",
@@ -58,8 +56,7 @@
           "default": "renovate",
           "config": {
             "placeholder": "renovate"
-          },
-          "description": "Name to use for the container."
+          }
         },
         {
           "name": "container_hostname",
@@ -69,8 +66,7 @@
           "default": "renovate",
           "config": {
             "placeholder": "renovate"
-          },
-          "description": "Hostname used inside the container."
+          }
         },
         {
           "name": "container_timezone",
@@ -80,8 +76,7 @@
           "default": "UTC",
           "config": {
             "placeholder": "UTC"
-          },
-          "description": "Timezone used inside the container."
+          }
         },
         {
           "name": "container_loglevel",
@@ -95,8 +90,7 @@
               "warn",
               "error"
             ]
-          },
-          "description": "Container Loglevel"
+          }
         }
       ]
     },
@@ -110,8 +104,7 @@
           "type": "bool",
           "title": "Traefik Enabled",
           "required": false,
-          "default": false,
-          "description": "Enable or disable traefik enabled."
+          "default": false
         },
         {
           "name": "traefik_host",
@@ -120,8 +113,7 @@
           "required": true,
           "config": {
             "placeholder": "renovate"
-          },
-          "description": "Hostname used for Traefik."
+          }
         },
         {
           "name": "traefik_domain",
@@ -130,8 +122,7 @@
           "required": true,
           "config": {
             "placeholder": "home.arpa"
-          },
-          "description": "Domain used for Traefik."
+          }
         },
         {
           "name": "traefik_entrypoint",
@@ -139,7 +130,9 @@
           "title": "Traefik Entrypoint",
           "required": false,
           "default": "web",
-          "description": "Traefik entrypoint name."
+          "config": {
+            "placeholder": "web"
+          }
         },
         {
           "name": "traefik_network",
@@ -149,16 +142,14 @@
           "default": "traefik",
           "config": {
             "placeholder": "traefik"
-          },
-          "description": "Network used for Traefik."
+          }
         },
         {
           "name": "traefik_tls_enabled",
           "type": "bool",
           "title": "TLS",
           "required": false,
-          "default": false,
-          "description": "Enable Traefik TLS"
+          "default": false
         },
         {
           "name": "traefik_tls_entrypoint",
@@ -166,10 +157,12 @@
           "title": "Traefik Tls Entrypoint",
           "required": false,
           "default": "",
-          "description": "Traefik TLS entrypoint name.",
           "needs": [
             "traefik_tls_enabled=true"
-          ]
+          ],
+          "config": {
+            "placeholder": "websecure"
+          }
         },
         {
           "name": "traefik_tls_certresolver",
@@ -177,10 +170,12 @@
           "title": "Cert Resolver",
           "required": false,
           "default": "",
-          "description": "Traefik Tls Certresolver",
           "needs": [
             "traefik_tls_enabled=true"
-          ]
+          ],
+          "config": {
+            "placeholder": "cloudflare"
+          }
         }
       ]
     },
@@ -194,7 +189,6 @@
           "title": "Git Platform",
           "required": false,
           "default": "gitlab",
-          "description": "Type used for Git Platform.",
           "config": {
             "options": [
               "gitlab"
@@ -207,7 +201,6 @@
           "title": "Git Endpoint",
           "required": false,
           "default": "https://gitlab.com/api/v4/",
-          "description": "Git Platform Endpoint URL",
           "config": {
             "placeholder": "https://gitlab.com/api/v4/"
           }
@@ -217,8 +210,7 @@
           "type": "bool",
           "title": "Auto-discover repositories",
           "required": false,
-          "default": false,
-          "description": "Enable or disable auto-discover repositories."
+          "default": false
         }
       ]
     },
@@ -230,8 +222,7 @@
           "name": "git_token",
           "type": "secret",
           "title": "Git Token",
-          "required": true,
-          "description": "GitLab Personal Access Token"
+          "required": true
         },
         {
           "name": "license_key",
@@ -263,7 +254,6 @@
           "title": "HTTP Port",
           "required": false,
           "default": 8080,
-          "description": "External HTTP port for web interface",
           "config": {
             "placeholder": "8080"
           }

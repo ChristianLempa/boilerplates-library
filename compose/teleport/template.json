@@ -27,7 +27,6 @@
           "title": "Compose service name",
           "required": false,
           "default": "teleport",
-          "description": "Name to use for the compose service.",
           "config": {
             "placeholder": "teleport"
           }
@@ -38,7 +37,6 @@
           "title": "Container name",
           "required": false,
           "default": "teleport",
-          "description": "Name to use for the container.",
           "config": {
             "placeholder": "teleport"
           }
@@ -49,7 +47,6 @@
           "title": "Container restart policy",
           "required": true,
           "default": "unless-stopped",
-          "description": "Policy used for Container Restart.",
           "config": {
             "options": [
               "unless-stopped",
@@ -82,7 +79,6 @@
           "title": "Teleport node name",
           "required": false,
           "default": "teleport-prod-1",
-          "description": "Name to use for the teleport node.",
           "config": {
             "placeholder": "teleport-prod-1"
           }
@@ -92,7 +88,6 @@
           "type": "str",
           "title": "Public Teleport hostname",
           "required": true,
-          "description": "Hostname used for Public Teleport.",
           "config": {
             "placeholder": "tp.home.arpa"
           }
@@ -103,7 +98,6 @@
           "title": "Teleport log level",
           "required": false,
           "default": "INFO",
-          "description": "Logging level used for Teleport Log.",
           "config": {
             "options": [
               "DEBUG",
@@ -119,7 +113,6 @@
           "title": "2FA Mode",
           "required": false,
           "default": "on",
-          "description": "Teleport second factor mode",
           "config": {
             "options": [
               "on",
@@ -144,8 +137,7 @@
           "type": "bool",
           "title": "App Service",
           "required": false,
-          "default": false,
-          "description": "Enable Teleport app service block"
+          "default": false
         }
       ]
     },
@@ -159,7 +151,6 @@
           "title": "Teleport web port",
           "required": false,
           "default": 3080,
-          "description": "Port used for Teleport Web.",
           "config": {
             "placeholder": "3080"
           }
@@ -170,7 +161,6 @@
           "title": "SSH Proxy Port",
           "required": false,
           "default": 3023,
-          "description": "Teleport SSH proxy port",
           "config": {
             "placeholder": "3023"
           }
@@ -181,7 +171,6 @@
           "title": "Tunnel Port",
           "required": false,
           "default": 3024,
-          "description": "Teleport reverse tunnel port",
           "config": {
             "placeholder": "3024"
           }
@@ -192,7 +181,6 @@
           "title": "Teleport auth port",
           "required": false,
           "default": 3025,
-          "description": "Port used for Teleport Auth.",
           "config": {
             "placeholder": "3025"
           }
@@ -209,7 +197,6 @@
           "title": "Network Name",
           "required": true,
           "default": "proxy",
-          "description": "Docker network name",
           "config": {
             "placeholder": "proxy"
           }
@@ -219,8 +206,7 @@
           "type": "bool",
           "title": "External Network",
           "required": false,
-          "default": true,
-          "description": "Use an existing external Docker network"
+          "default": true
         }
       ]
     },
@@ -234,8 +220,7 @@
           "type": "bool",
           "title": "Traefik",
           "required": false,
-          "default": true,
-          "description": "Enable Traefik labels"
+          "default": true
         },
         {
           "name": "traefik_entrypoint",
@@ -243,7 +228,6 @@
           "title": "Entrypoint",
           "required": true,
           "default": "web",
-          "description": "Entrypoint name.",
           "config": {
             "placeholder": "web"
           }
@@ -253,8 +237,7 @@
           "type": "bool",
           "title": "TLS",
           "required": false,
-          "default": true,
-          "description": "Enable Traefik TLS"
+          "default": true
         },
         {
           "name": "traefik_tls_entrypoint",
@@ -262,7 +245,6 @@
           "title": "TLS Entrypoint",
           "required": true,
           "default": "websecure",
-          "description": "Entrypoint name.",
           "config": {
             "placeholder": "websecure"
           },
@@ -276,7 +258,6 @@
           "title": "Cert Resolver",
           "required": false,
           "default": "cloudflare",
-          "description": "Traefik certificate resolver name",
           "config": {
             "placeholder": "cloudflare"
           },

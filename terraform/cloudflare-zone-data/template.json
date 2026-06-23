@@ -23,7 +23,6 @@
         {
           "name": "resource_name",
           "title": "Resource Name",
-          "description": "Terraform resource name (alphanumeric and underscores only)",
           "type": "str",
           "required": true,
           "config": {

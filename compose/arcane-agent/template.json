@@ -51,7 +51,9 @@
           "type": "str",
           "title": "Container Timezone",
           "required": false,
-          "description": "Timezone used inside the container."
+          "config": {
+            "placeholder": "Europe/Berlin"
+          }
         },
         {
           "name": "restart_policy",
@@ -59,7 +61,6 @@
           "title": "Restart Policy",
           "required": true,
           "default": "unless-stopped",
-          "description": "Policy used for container restarts.",
           "config": {
             "options": [
               "unless-stopped",
@@ -75,7 +76,6 @@
           "title": "Docker Socket Path",
           "required": true,
           "default": "/var/run/docker.sock",
-          "description": "Host Docker socket path mounted into the Arcane agent.",
           "config": {
             "placeholder": "/var/run/docker.sock"
           }
@@ -160,7 +160,6 @@
           "title": "Volume Mode",
           "required": false,
           "default": "local",
-          "description": "How to persist /app/data.",
           "config": {
             "options": [
               "local",
@@ -189,10 +188,12 @@
           "title": "NFS Server",
           "required": false,
           "default": "",
-          "description": "NFS server hostname or IP address.",
           "needs": [
             "volume_mode=nfs"
-          ]
+          ],
+          "config": {
+            "placeholder": "nas.home.arpa"
+          }
         },
         {
           "name": "volume_nfs_path",
@@ -203,7 +204,10 @@
           "description": "NFS export path for Arcane agent data.",
           "needs": [
             "volume_mode=nfs"
-          ]
+          ],
+          "config": {
+            "placeholder": "/export/app"
+          }
         },
         {
           "name": "volume_nfs_options",
@@ -211,7 +215,6 @@
           "title": "NFS Options",
           "required": false,
           "default": "rw",
-          "description": "Additional NFS mount options.",
           "needs": [
             "volume_mode=nfs"
           ],
@@ -231,7 +234,6 @@
           "title": "Agent Port",
           "required": false,
           "default": 3553,
-          "description": "Host port exposed by the agent in direct mode.",
           "needs": [
             "connection_mode=direct"
           ],

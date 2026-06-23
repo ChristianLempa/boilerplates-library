@@ -45,7 +45,6 @@
           "title": "Pool name",
           "required": false,
           "default": "homelab-pool",
-          "description": "Name of the MetalLB IPAddressPool resource.",
           "config": {
             "placeholder": "homelab-pool"
           }
@@ -56,7 +55,6 @@
           "title": "Advertisement name",
           "required": false,
           "default": "homelab-l2",
-          "description": "Name of the MetalLB L2Advertisement resource.",
           "config": {
             "placeholder": "homelab-l2"
           }

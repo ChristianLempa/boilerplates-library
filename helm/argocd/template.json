@@ -78,7 +78,6 @@
           "title": "Ingress Hostname",
           "required": true,
           "default": "argocd.home.arpa",
-          "description": "Hostname used for the Argo CD ingress.",
           "needs": [
             "ingress_enabled=true"
           ],
@@ -134,7 +133,6 @@
           "title": "Ingress TLS",
           "required": false,
           "default": true,
-          "description": "Enable TLS for the Argo CD ingress.",
           "needs": [
             "ingress_enabled=true"
           ]
