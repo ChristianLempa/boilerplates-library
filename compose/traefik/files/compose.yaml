@@ -92,6 +92,10 @@ services:
       <%- elif traefik_tls_certresolver == 'namecheap' %>
       - NAMECHEAP_API_KEY=${NAMECHEAP_API_KEY}
       - NAMECHEAP_API_USER=${NAMECHEAP_API_USER}
+      <%- elif traefik_tls_certresolver == 'netcup' %>
+      - NETCUP_CUSTOMER_NUMBER=${NETCUP_CUSTOMER_NUMBER}
+      - NETCUP_API_KEY=${NETCUP_API_KEY}
+      - NETCUP_API_PASSWORD=${NETCUP_API_PASSWORD}
       <%- elif traefik_tls_certresolver == 'ovh' %>
       - OVH_ENDPOINT=<< traefik_tls_acme_endpoint >>
       - OVH_APPLICATION_KEY=${OVH_APPLICATION_KEY}
