@@ -228,6 +228,17 @@
           }
         },
         {
+          "name": "traefik_tls_acme_token",
+          "type": "secret",
+          "title": "API Token",
+          "required": true,
+          "description": "DNS provider API token",
+          "needs": [
+            "traefik_tls_enabled=true",
+            "traefik_tls_certresolver=cloudflare,digitalocean,godaddy,namecheap,ovh,porkbun,netcup"
+          ]
+        },
+        {
           "name": "traefik_tls_acme_secret_key",
           "type": "secret",
           "title": "Secret Key",
@@ -258,17 +269,6 @@
           "needs": [
             "traefik_tls_enabled=true",
             "traefik_tls_certresolver=azure"
-          ]
-        },
-        {
-          "name": "traefik_tls_acme_token",
-          "type": "secret",
-          "title": "API Token",
-          "required": true,
-          "description": "DNS provider API token",
-          "needs": [
-            "traefik_tls_enabled=true",
-            "traefik_tls_certresolver=cloudflare,digitalocean,godaddy,namecheap,ovh,porkbun,netcup"
           ]
         },
         {
