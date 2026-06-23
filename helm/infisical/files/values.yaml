@@ -1,0 +1,110 @@
+---
+# Infisical standalone Helm chart values.
+# Chart repo: https://dl.cloudsmith.io/public/infisical/helm-charts/helm/charts/
+# Install example:
+# helm upgrade --install << release_name >> infisical-helm-charts/infisical-standalone \
+#   --version 1.9.0 \
+#   --namespace << namespace >> \
+#   --values values.yaml \
+#   --values helm-secrets.yaml
+
+infisical:
+  enabled: true
+  name: << release_name >>
+  replicaCount: << replica_count >>
+
+  image:
+    repository: infisical/infisical
+    tag: "v0.158.0"
+    pullPolicy: IfNotPresent
+
+  # This Kubernetes Secret must contain AUTH_SECRET, ENCRYPTION_KEY, SITE_URL,
+  # and optional SMTP/REDIS_URL keys. See secret.yaml.
+  kubeSecretRef: << infisical_secret_name >>
+
+  service:
+    type: << service_type >>
+
+  autoBootstrap:
+    enabled: false
+
+  serviceAccount:
+    create: true
+
+  resources:
+    requests:
+      cpu: << resources_cpu_request >>
+      memory: << resources_memory_request >>
+    limits:
+      memory: << resources_memory_limit >>
+
+<%- if ingress_enabled %>
+ingress:
+  enabled: true
+  hostName: << ingress_host >>
+  ingressClassName: << ingress_class_name >>
+  nginx:
+    enabled: << ingress_nginx_enabled | lower >>
+  annotations:
+    <%- if traefik_entrypoint %>
+    traefik.ingress.kubernetes.io/router.entrypoints: << traefik_entrypoint >>
+    <%- endif %>
+    <%- if ingress_tls_enabled %>
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    <%- endif %>
+    <%- if ingress_certmanager_enabled %>
+    cert-manager.io/cluster-issuer: << certmanager_issuer >>
+    <%- endif %>
+  <%- if ingress_tls_enabled %>
+  tls:
+    - secretName: << ingress_tls_secret >>
+      hosts:
+        - << ingress_host >>
+  <%- endif %>
+<%- else %>
+ingress:
+  enabled: false
+<%- endif %>
+
+ingress-nginx:
+  enabled: << ingress_nginx_enabled | lower >>
+
+postgresql:
+<%- if database_external %>
+  enabled: false
+  useExistingPostgresSecret:
+    enabled: true
+    existingConnectionStringSecret:
+      name: << database_secret_name >>
+      key: DB_CONNECTION_URI
+<%- else %>
+  enabled: true
+  auth:
+    username: << database_user >>
+    database: << database_name >>
+<%- endif %>
+
+redis:
+<%- if redis_external %>
+  enabled: false
+<%- else %>
+  enabled: true
+  architecture: standalone
+  usePassword: true
+  auth:
+    # Override the real password from helm-secrets.yaml.
+    password: "REPLACE_FROM_HELM_SECRETS_FILE"
+  master:
+    persistence:
+      enabled: << redis_persistence_enabled | lower >>
+      <%- if redis_persistence_enabled %>
+      storageClass: << redis_storage_class >>
+      size: << redis_storage_size >>
+      <%- endif %>
+    resources:
+      requests:
+        cpu: << redis_cpu_request >>
+        memory: << redis_memory_request >>
+      limits:
+        memory: << redis_memory_limit >>
+<%- endif %>
