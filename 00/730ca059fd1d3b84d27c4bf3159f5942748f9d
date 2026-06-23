@@ -1,0 +1,43 @@
+compose/arcane-agent/files/.env
+  s_1020b4977bb143::t_58fbe0581fc2e0 1-2
+compose/arcane/template.json
+  s_1020b4977bb143::t_e01b876ff670ed 390
+  s_1020b4977bb143::t_5bb4528d661caa 401-404,407,409,411,414-417,424
+  s_1020b4977bb143::t_d324f31e9a184a 34,44,109,111,113,118-133,365,375,385,394-400,405-406,408,427-430
+  s_1020b4977bb143::t_73692264a69fe4 1-12,16-33,35-43,45-108,110,112,114-117,134-364,366-374,376-384,386-389,391-393,410,412-413,418-423,425-426,431-445
+  s_1020b4977bb143::t_e9473d9a2b90a5 13-14
+  s_1020b4977bb143::t_d74edc37e2783a 15
+compose/arcane/files/.env
+  s_1020b4977bb143::t_a746bb6f97e72f 1-7
+compose/arcane/files/compose.yaml
+  s_1020b4977bb143::t_aa26df2b3e944a 43,76
+  s_1020b4977bb143::t_2fa441f991209c 31-32
+  s_1020b4977bb143::t_25d22ccbbf3c91 20-21
+  s_1020b4977bb143::t_893ee88e2e6932 3,6,8,11,13-14,16,28-30,33,46,48-49,63-66,68-72,78,82
+  s_1020b4977bb143::t_6f0e3542971ab1 1-2,4-5,7,9-10,12,15,17-19,22-27,34-42,44-45,47,50-62,67,73-75,77,79-81,83-94
+compose/arcane-agent/files/compose.yaml
+  s_1020b4977bb143::t_79f7c9992a9198 1-2,4-5,7,9-20,22-23,25,28-33,35,37-39,41-46
+  s_1020b4977bb143::t_57c12dcc021ddb 21,34
+  s_1020b4977bb143::t_c6a6994e712bf4 3,6,8,24,26-27,36,40
+compose/arcane-agent/template.json
+  s_1020b4977bb143::t_7e65b380ca939f 1-12,16-33,35-43,45-85,102-245
+  s_1020b4977bb143::t_a51bebe70c0160 34,44,86-101
+  s_1020b4977bb143::t_ed70e24ae54230 13-14
+  s_1020b4977bb143::t_4edec4d024c2bb 15
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.9",
+  "base_commit_sha": "00730ca059fd1d3b84d27c4bf3159f5942748f9d",
+  "prompts": {},
+  "sessions": {
+    "s_1020b4977bb143": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019ef399-7797-704a-9ee9-cbdeba93f924",
+        "model": "gpt-5.5"
+      },
+      "human_author": "xcad <christian.lempa@clcreative.de>"
+    }
+  }
+}
