@@ -1,0 +1,25 @@
+compose/infisical/template.json
+  s_b9e799ad4272b1::t_5bf26a78b77f0c 16
+compose/arcane/template.json
+  s_b9e799ad4272b1::t_5bf26a78b77f0c 15
+helm/infisical/template.json
+  s_b9e799ad4272b1::t_5bf26a78b77f0c 18
+compose/arcane-agent/template.json
+  s_b9e799ad4272b1::t_5bf26a78b77f0c 15
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.10",
+  "base_commit_sha": "79fe3c4ae19f6c31f518967108fc4d88e27706f4",
+  "prompts": {},
+  "sessions": {
+    "s_b9e799ad4272b1": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019ef46a-d67e-7029-804d-0bc5a7356d8e",
+        "model": "gpt-5.5"
+      },
+      "human_author": "xcad <christian.lempa@clcreative.de>"
+    }
+  }
+}
