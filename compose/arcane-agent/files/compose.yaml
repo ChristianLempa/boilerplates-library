@@ -1,0 +1,46 @@
+---
+services:
+  << service_name or 'arcane-agent' >>:
+    image: ghcr.io/getarcaneapp/agent:v2.1.0
+    restart: << restart_policy >>
+    <%- if container_name %>
+    container_name: << container_name >>
+    <%- endif %>
+    environment:
+      <%- if connection_mode == 'direct' %>
+      AGENT_MODE: "true"
+      <%- elif connection_mode == 'edge' %>
+      EDGE_AGENT: "true"
+      <%- endif %>
+      EDGE_TRANSPORT: "<< edge_transport >>"
+      AGENT_TOKEN: "${ARCANE_AGENT_TOKEN}"
+      MANAGER_API_URL: "<< manager_api_url >>"
+      TZ: "<< container_timezone >>"
+    volumes:
+      - << docker_socket_path >>:/var/run/docker.sock
+      <%- if volume_mode == 'mount' and volume_mount_path %>
+      - << volume_mount_path >>:/app/data
+      <%- else %>
+      - << service_name or 'arcane-agent' >>-data:/app/data
+      <%- endif %>
+      <%- if project_mount_path %>
+      - << project_mount_path >>:/app/data/projects
+      <%- endif %>
+    <%- if connection_mode == 'direct' %>
+    ports:
+      - "<< ports_agent >>:3553"
+    <%- endif %>
+
+<%- if volume_mode == 'local' or (volume_mode == 'mount' and not volume_mount_path) %>
+volumes:
+  << service_name or 'arcane-agent' >>-data:
+    driver: local
+<%- elif volume_mode == 'nfs' %>
+volumes:
+  << service_name or 'arcane-agent' >>-data:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=<< volume_nfs_server >>,nfsvers=4,<< volume_nfs_options >>
+      device: ":<< volume_nfs_path >>"
+<%- endif %>
