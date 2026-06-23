@@ -1,0 +1,23 @@
+compose/traefik/template.json
+  s_b9e799ad4272b1::t_ec686f7ed58cb6 157,216-229,238,271
+compose/traefik/files/.env
+  s_b9e799ad4272b1::t_8a813ebbd78fa2 22-25
+compose/traefik/files/compose.yaml
+  s_b9e799ad4272b1::t_cfc9f6f44d4b38 95-98
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.10",
+  "base_commit_sha": "fa0dc174e4d59c5e7cc221d9bcf5dc9b89992139",
+  "prompts": {},
+  "sessions": {
+    "s_b9e799ad4272b1": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019ef46a-d67e-7029-804d-0bc5a7356d8e",
+        "model": "gpt-5.5"
+      },
+      "human_author": "xcad <christian.lempa@clcreative.de>"
+    }
+  }
+}
