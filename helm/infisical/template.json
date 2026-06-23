@@ -15,7 +15,7 @@
     "icon": {
       "provider": "selfhst",
       "id": "infisical",
-      "color": "yellow"
+      "color": "amber"
     },
     "draft": false,
     "version": {
