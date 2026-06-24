@@ -1,0 +1,184 @@
+{
+  "slug": "gitlab-project-hook",
+  "kind": "terraform",
+  "metadata": {
+    "name": "GitLab Project Hook",
+    "description": "Creates a GitLab project webhook with commonly used event toggles and optional secret token.",
+    "tags": [
+      "gitlab",
+      "terraform"
+    ],
+    "icon": {
+      "provider": "selfhst",
+      "id": "gitlab"
+    },
+    "draft": false,
+    "version": {
+      "name": "19.1.0",
+      "source_dep_name": "gitlabhq/gitlab",
+      "source_dep_version": "19.1.0"
+    }
+  },
+  "variables": [
+    {
+      "title": "Terraform",
+      "name": "terraform",
+      "items": [
+        {
+          "name": "resource_name",
+          "type": "str",
+          "title": "Resource Name",
+          "required": false,
+          "default": "hook",
+          "config": {
+            "placeholder": "hook"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Hook",
+      "name": "hook",
+      "items": [
+        {
+          "name": "project",
+          "type": "str",
+          "title": "Project",
+          "required": true,
+          "description": "Project ID or full path, for example group/project.",
+          "config": {
+            "placeholder": "group/project"
+          }
+        },
+        {
+          "name": "url",
+          "type": "str",
+          "title": "Webhook URL",
+          "required": true,
+          "config": {
+            "placeholder": "https://example.com/gitlab-webhook"
+          }
+        },
+        {
+          "name": "name",
+          "type": "str",
+          "title": "Name",
+          "required": false,
+          "config": {
+            "placeholder": "Deployment webhook"
+          }
+        },
+        {
+          "name": "description",
+          "type": "str",
+          "title": "Description",
+          "required": false,
+          "config": {
+            "placeholder": "Notify deployment system"
+          }
+        },
+        {
+          "name": "token",
+          "type": "str",
+          "title": "Secret Token",
+          "required": false,
+          "config": {
+            "placeholder": "secret-token"
+          }
+        },
+        {
+          "name": "enable_ssl_verification",
+          "type": "bool",
+          "title": "Verify SSL",
+          "required": false,
+          "default": true
+        },
+        {
+          "name": "push_events_branch_filter",
+          "type": "str",
+          "title": "Push Branch Filter",
+          "required": false,
+          "config": {
+            "placeholder": "main"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Events",
+      "name": "events",
+      "items": [
+        {
+          "name": "push_events",
+          "type": "bool",
+          "title": "Push Events",
+          "required": false,
+          "default": true
+        },
+        {
+          "name": "merge_requests_events",
+          "type": "bool",
+          "title": "Merge Request Events",
+          "required": false,
+          "default": true
+        },
+        {
+          "name": "pipeline_events",
+          "type": "bool",
+          "title": "Pipeline Events",
+          "required": false,
+          "default": true
+        },
+        {
+          "name": "job_events",
+          "type": "bool",
+          "title": "Job Events",
+          "required": false,
+          "default": false
+        },
+        {
+          "name": "tag_push_events",
+          "type": "bool",
+          "title": "Tag Push Events",
+          "required": false,
+          "default": false
+        },
+        {
+          "name": "releases_events",
+          "type": "bool",
+          "title": "Release Events",
+          "required": false,
+          "default": false
+        },
+        {
+          "name": "deployment_events",
+          "type": "bool",
+          "title": "Deployment Events",
+          "required": false,
+          "default": false
+        },
+        {
+          "name": "issues_events",
+          "type": "bool",
+          "title": "Issue Events",
+          "required": false,
+          "default": false
+        },
+        {
+          "name": "note_events",
+          "type": "bool",
+          "title": "Note Events",
+          "required": false,
+          "default": false
+        },
+        {
+          "name": "wiki_page_events",
+          "type": "bool",
+          "title": "Wiki Page Events",
+          "required": false,
+          "default": false
+        }
+      ]
+    }
+  ]
+}

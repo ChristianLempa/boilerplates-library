@@ -1,0 +1,116 @@
+{
+  "slug": "gitlab-project-environment",
+  "kind": "terraform",
+  "metadata": {
+    "name": "GitLab Project Environment",
+    "description": "Creates a GitLab project environment with optional URL, tier, and destroy behavior.",
+    "tags": [
+      "gitlab",
+      "terraform"
+    ],
+    "icon": {
+      "provider": "selfhst",
+      "id": "gitlab"
+    },
+    "draft": false,
+    "version": {
+      "name": "19.1.0",
+      "source_dep_name": "gitlabhq/gitlab",
+      "source_dep_version": "19.1.0"
+    }
+  },
+  "variables": [
+    {
+      "title": "Terraform",
+      "name": "terraform",
+      "items": [
+        {
+          "name": "resource_name",
+          "type": "str",
+          "title": "Resource Name",
+          "required": false,
+          "default": "environment",
+          "config": {
+            "placeholder": "environment"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Environment",
+      "name": "environment",
+      "items": [
+        {
+          "name": "project",
+          "type": "str",
+          "title": "Project",
+          "required": true,
+          "description": "Project ID or full path, for example group/project.",
+          "config": {
+            "placeholder": "group/project"
+          }
+        },
+        {
+          "name": "name",
+          "type": "str",
+          "title": "Environment Name",
+          "required": true,
+          "default": "production",
+          "config": {
+            "placeholder": "production"
+          }
+        },
+        {
+          "name": "description",
+          "type": "str",
+          "title": "Description",
+          "required": false,
+          "config": {
+            "placeholder": "Production environment"
+          }
+        },
+        {
+          "name": "external_url",
+          "type": "str",
+          "title": "External URL",
+          "required": false,
+          "config": {
+            "placeholder": "https://app.example.com"
+          }
+        },
+        {
+          "name": "tier",
+          "type": "enum",
+          "title": "Tier",
+          "required": false,
+          "default": "production",
+          "config": {
+            "options": [
+              "production",
+              "staging",
+              "testing",
+              "development",
+              "other"
+            ]
+          }
+        },
+        {
+          "name": "kubernetes_namespace",
+          "type": "str",
+          "title": "Kubernetes Namespace",
+          "required": false,
+          "config": {
+            "placeholder": "production"
+          }
+        },
+        {
+          "name": "stop_before_destroy",
+          "type": "bool",
+          "title": "Stop Before Destroy",
+          "required": false,
+          "default": true
+        }
+      ]
+    }
+  ]
+}

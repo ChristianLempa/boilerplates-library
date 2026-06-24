@@ -1,0 +1,170 @@
+{
+  "slug": "gitlab-group",
+  "kind": "terraform",
+  "metadata": {
+    "name": "GitLab Group",
+    "description": "Creates a GitLab group or subgroup with common visibility, project creation, and access settings.",
+    "tags": [
+      "gitlab",
+      "terraform"
+    ],
+    "icon": {
+      "provider": "selfhst",
+      "id": "gitlab"
+    },
+    "draft": false,
+    "version": {
+      "name": "19.1.0",
+      "source_dep_name": "gitlabhq/gitlab",
+      "source_dep_version": "19.1.0"
+    }
+  },
+  "variables": [
+    {
+      "title": "Terraform",
+      "name": "terraform",
+      "items": [
+        {
+          "name": "resource_name",
+          "type": "str",
+          "title": "Resource Name",
+          "required": false,
+          "default": "group",
+          "config": {
+            "placeholder": "group"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Group Identity",
+      "name": "identity",
+      "items": [
+        {
+          "name": "group_name",
+          "type": "str",
+          "title": "Group Name",
+          "required": true,
+          "config": {
+            "placeholder": "Platform Engineering"
+          }
+        },
+        {
+          "name": "path",
+          "type": "str",
+          "title": "Group Path",
+          "required": true,
+          "config": {
+            "placeholder": "platform-engineering"
+          }
+        },
+        {
+          "name": "parent_id",
+          "type": "int",
+          "title": "Parent Group ID",
+          "required": false,
+          "description": "Numeric GitLab parent group ID for creating a subgroup.",
+          "config": {
+            "placeholder": "123456"
+          }
+        },
+        {
+          "name": "description",
+          "type": "str",
+          "title": "Description",
+          "required": false,
+          "config": {
+            "placeholder": "Platform engineering projects",
+            "textarea": true
+          }
+        },
+        {
+          "name": "visibility_level",
+          "type": "enum",
+          "title": "Visibility",
+          "required": false,
+          "default": "private",
+          "config": {
+            "options": [
+              "private",
+              "internal",
+              "public"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": "Settings",
+      "name": "settings",
+      "items": [
+        {
+          "name": "project_creation_level",
+          "type": "enum",
+          "title": "Project Creation Level",
+          "required": false,
+          "default": "maintainer",
+          "config": {
+            "options": [
+              "noone",
+              "maintainer",
+              "developer"
+            ]
+          }
+        },
+        {
+          "name": "subgroup_creation_level",
+          "type": "enum",
+          "title": "Subgroup Creation Level",
+          "required": false,
+          "default": "maintainer",
+          "config": {
+            "options": [
+              "owner",
+              "maintainer"
+            ]
+          }
+        },
+        {
+          "name": "request_access_enabled",
+          "type": "bool",
+          "title": "Allow Access Requests",
+          "required": false,
+          "default": false
+        },
+        {
+          "name": "lfs_enabled",
+          "type": "bool",
+          "title": "Git LFS",
+          "required": false,
+          "default": true
+        },
+        {
+          "name": "require_two_factor_authentication",
+          "type": "bool",
+          "title": "Require Two-Factor Authentication",
+          "required": false,
+          "default": false
+        },
+        {
+          "name": "two_factor_grace_period",
+          "type": "int",
+          "title": "Two-Factor Grace Period",
+          "required": false,
+          "default": 48,
+          "config": {
+            "placeholder": "48",
+            "unit": "hours"
+          }
+        },
+        {
+          "name": "permanently_remove_on_delete",
+          "type": "bool",
+          "title": "Permanently Remove On Delete",
+          "required": false,
+          "default": false
+        }
+      ]
+    }
+  ]
+}

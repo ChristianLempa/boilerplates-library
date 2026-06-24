@@ -1,0 +1,108 @@
+{
+  "slug": "gitlab-group-membership",
+  "kind": "terraform",
+  "metadata": {
+    "name": "GitLab Group Membership",
+    "description": "Adds a user to a GitLab group with a selected access level and optional expiration date.",
+    "tags": [
+      "gitlab",
+      "terraform"
+    ],
+    "icon": {
+      "provider": "selfhst",
+      "id": "gitlab"
+    },
+    "draft": false,
+    "version": {
+      "name": "19.1.0",
+      "source_dep_name": "gitlabhq/gitlab",
+      "source_dep_version": "19.1.0"
+    }
+  },
+  "variables": [
+    {
+      "title": "Terraform",
+      "name": "terraform",
+      "items": [
+        {
+          "name": "resource_name",
+          "type": "str",
+          "title": "Resource Name",
+          "required": false,
+          "default": "membership",
+          "config": {
+            "placeholder": "membership"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Membership",
+      "name": "membership",
+      "items": [
+        {
+          "name": "group_id",
+          "type": "int",
+          "title": "Group ID",
+          "required": true,
+          "description": "Numeric GitLab group ID.",
+          "config": {
+            "placeholder": "123456"
+          },
+          "default": 123456
+        },
+        {
+          "name": "user_id",
+          "type": "int",
+          "title": "User ID",
+          "required": true,
+          "description": "Numeric GitLab user ID.",
+          "config": {
+            "placeholder": "42"
+          },
+          "default": 42
+        },
+        {
+          "name": "access_level",
+          "type": "enum",
+          "title": "Access Level",
+          "required": false,
+          "default": "developer",
+          "config": {
+            "options": [
+              "guest",
+              "reporter",
+              "developer",
+              "maintainer",
+              "owner"
+            ]
+          }
+        },
+        {
+          "name": "expires_at",
+          "type": "str",
+          "title": "Expires At",
+          "required": false,
+          "description": "Optional expiration date in YYYY-MM-DD format.",
+          "config": {
+            "placeholder": "2026-12-31"
+          }
+        },
+        {
+          "name": "skip_subresources_on_destroy",
+          "type": "bool",
+          "title": "Skip Subresources On Destroy",
+          "required": false,
+          "default": false
+        },
+        {
+          "name": "unassign_issuables_on_destroy",
+          "type": "bool",
+          "title": "Unassign Issuables On Destroy",
+          "required": false,
+          "default": false
+        }
+      ]
+    }
+  ]
+}

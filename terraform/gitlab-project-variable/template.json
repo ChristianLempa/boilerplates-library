@@ -1,0 +1,138 @@
+{
+  "slug": "gitlab-project-variable",
+  "kind": "terraform",
+  "metadata": {
+    "name": "GitLab Project Variable",
+    "description": "Creates a GitLab project CI/CD variable with scope, masking, protection, and type options.",
+    "tags": [
+      "gitlab",
+      "terraform"
+    ],
+    "icon": {
+      "provider": "selfhst",
+      "id": "gitlab"
+    },
+    "draft": false,
+    "version": {
+      "name": "19.1.0",
+      "source_dep_name": "gitlabhq/gitlab",
+      "source_dep_version": "19.1.0"
+    }
+  },
+  "variables": [
+    {
+      "title": "Terraform",
+      "name": "terraform",
+      "items": [
+        {
+          "name": "resource_name",
+          "type": "str",
+          "title": "Resource Name",
+          "required": false,
+          "default": "variable",
+          "config": {
+            "placeholder": "variable"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Variable",
+      "name": "variable",
+      "items": [
+        {
+          "name": "project",
+          "type": "str",
+          "title": "Project",
+          "required": true,
+          "description": "Project ID or full path, for example group/project.",
+          "config": {
+            "placeholder": "group/project"
+          }
+        },
+        {
+          "name": "key",
+          "type": "str",
+          "title": "Key",
+          "required": true,
+          "config": {
+            "placeholder": "DOCKER_REGISTRY"
+          }
+        },
+        {
+          "name": "value",
+          "type": "str",
+          "title": "Value",
+          "required": true,
+          "config": {
+            "placeholder": "registry.example.com",
+            "textarea": true
+          }
+        },
+        {
+          "name": "description",
+          "type": "str",
+          "title": "Description",
+          "required": false,
+          "config": {
+            "placeholder": "Container registry hostname"
+          }
+        },
+        {
+          "name": "environment_scope",
+          "type": "str",
+          "title": "Environment Scope",
+          "required": false,
+          "default": "*",
+          "config": {
+            "placeholder": "*"
+          }
+        },
+        {
+          "name": "variable_type",
+          "type": "enum",
+          "title": "Variable Type",
+          "required": false,
+          "default": "env_var",
+          "config": {
+            "options": [
+              "env_var",
+              "file"
+            ]
+          }
+        },
+        {
+          "name": "protected",
+          "type": "bool",
+          "title": "Protected",
+          "required": false,
+          "default": false
+        },
+        {
+          "name": "masked",
+          "type": "bool",
+          "title": "Masked",
+          "required": false,
+          "default": false
+        },
+        {
+          "name": "hidden",
+          "type": "bool",
+          "title": "Hidden",
+          "required": false,
+          "default": false,
+          "needs": [
+            "masked=true"
+          ]
+        },
+        {
+          "name": "raw",
+          "type": "bool",
+          "title": "Raw",
+          "required": false,
+          "default": true
+        }
+      ]
+    }
+  ]
+}

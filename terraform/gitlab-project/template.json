@@ -1,0 +1,152 @@
+{
+  "slug": "gitlab-project",
+  "kind": "terraform",
+  "metadata": {
+    "name": "GitLab Project",
+    "description": "Creates a GitLab project with common identity, visibility, repository, and access settings.",
+    "tags": [
+      "gitlab",
+      "terraform"
+    ],
+    "icon": {
+      "provider": "selfhst",
+      "id": "gitlab"
+    },
+    "draft": false,
+    "version": {
+      "name": "19.1.0",
+      "source_dep_name": "gitlabhq/gitlab",
+      "source_dep_version": "19.1.0"
+    }
+  },
+  "variables": [
+    {
+      "title": "Terraform",
+      "name": "terraform",
+      "items": [
+        {
+          "name": "resource_name",
+          "type": "str",
+          "title": "Resource Name",
+          "required": false,
+          "default": "project",
+          "config": {
+            "placeholder": "project"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Project Identity",
+      "name": "identity",
+      "items": [
+        {
+          "name": "project_name",
+          "type": "str",
+          "title": "Project Name",
+          "required": true,
+          "config": {
+            "placeholder": "my-app"
+          }
+        },
+        {
+          "name": "path",
+          "type": "str",
+          "title": "Project Path",
+          "required": false,
+          "config": {
+            "placeholder": "my-app"
+          }
+        },
+        {
+          "name": "namespace_id",
+          "type": "int",
+          "title": "Namespace ID",
+          "required": false,
+          "description": "Numeric GitLab group or namespace ID where the project should be created.",
+          "config": {
+            "placeholder": "123456"
+          }
+        },
+        {
+          "name": "description",
+          "type": "str",
+          "title": "Description",
+          "required": false,
+          "config": {
+            "placeholder": "Application repository",
+            "textarea": true
+          }
+        },
+        {
+          "name": "visibility_level",
+          "type": "enum",
+          "title": "Visibility",
+          "required": false,
+          "default": "private",
+          "config": {
+            "options": [
+              "private",
+              "internal",
+              "public"
+            ]
+          }
+        },
+        {
+          "name": "topics",
+          "type": "str",
+          "title": "Topics",
+          "required": false,
+          "description": "Comma-separated project topics.",
+          "config": {
+            "placeholder": "terraform,homelab,app"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Repository",
+      "name": "repository",
+      "items": [
+        {
+          "name": "default_branch",
+          "type": "str",
+          "title": "Default Branch",
+          "required": false,
+          "default": "main",
+          "config": {
+            "placeholder": "main"
+          }
+        },
+        {
+          "name": "initialize_with_readme",
+          "type": "bool",
+          "title": "Initialize With README",
+          "required": false,
+          "default": true
+        },
+        {
+          "name": "lfs_enabled",
+          "type": "bool",
+          "title": "Git LFS",
+          "required": false,
+          "default": true
+        },
+        {
+          "name": "request_access_enabled",
+          "type": "bool",
+          "title": "Allow Access Requests",
+          "required": false,
+          "default": false
+        },
+        {
+          "name": "shared_runners_enabled",
+          "type": "bool",
+          "title": "Shared Runners",
+          "required": false,
+          "default": true
+        }
+      ]
+    }
+  ]
+}

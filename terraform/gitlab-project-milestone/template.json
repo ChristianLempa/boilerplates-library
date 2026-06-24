@@ -1,0 +1,108 @@
+{
+  "slug": "gitlab-project-milestone",
+  "kind": "terraform",
+  "metadata": {
+    "name": "GitLab Project Milestone",
+    "description": "Creates a GitLab project milestone with optional description, dates, and state.",
+    "tags": [
+      "gitlab",
+      "terraform"
+    ],
+    "icon": {
+      "provider": "selfhst",
+      "id": "gitlab"
+    },
+    "draft": false,
+    "version": {
+      "name": "19.1.0",
+      "source_dep_name": "gitlabhq/gitlab",
+      "source_dep_version": "19.1.0"
+    }
+  },
+  "variables": [
+    {
+      "title": "Terraform",
+      "name": "terraform",
+      "items": [
+        {
+          "name": "resource_name",
+          "type": "str",
+          "title": "Resource Name",
+          "required": false,
+          "default": "milestone",
+          "config": {
+            "placeholder": "milestone"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Milestone",
+      "name": "milestone",
+      "items": [
+        {
+          "name": "project",
+          "type": "str",
+          "title": "Project",
+          "required": true,
+          "description": "Project ID or full path, for example group/project.",
+          "config": {
+            "placeholder": "group/project"
+          }
+        },
+        {
+          "name": "title",
+          "type": "str",
+          "title": "Title",
+          "required": true,
+          "config": {
+            "placeholder": "v1.0"
+          }
+        },
+        {
+          "name": "description",
+          "type": "str",
+          "title": "Description",
+          "required": false,
+          "config": {
+            "placeholder": "First stable release",
+            "textarea": true
+          }
+        },
+        {
+          "name": "start_date",
+          "type": "str",
+          "title": "Start Date",
+          "required": false,
+          "description": "Date in YYYY-MM-DD format.",
+          "config": {
+            "placeholder": "2026-01-01"
+          }
+        },
+        {
+          "name": "due_date",
+          "type": "str",
+          "title": "Due Date",
+          "required": false,
+          "description": "Date in YYYY-MM-DD format.",
+          "config": {
+            "placeholder": "2026-03-31"
+          }
+        },
+        {
+          "name": "state",
+          "type": "enum",
+          "title": "State",
+          "required": false,
+          "default": "active",
+          "config": {
+            "options": [
+              "active",
+              "closed"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
