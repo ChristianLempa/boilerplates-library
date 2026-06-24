@@ -1,0 +1,52 @@
+terraform/gitlab-project/files/main.tf
+  s_25a93f73351b82::t_65e99e36bb1b41 1-25
+terraform/gitlab-group-variable/files/main.tf
+  s_25a93f73351b82::t_65e99e36bb1b41 1-15
+terraform/gitlab-group-variable/template.json
+  s_25a93f73351b82::t_4ab9f9833e103e 123-126
+  s_25a93f73351b82::t_65e99e36bb1b41 1-122,127-138
+terraform/gitlab-project-milestone/template.json
+  s_25a93f73351b82::t_65e99e36bb1b41 1-108
+terraform/gitlab-group/template.json
+  s_25a93f73351b82::t_65e99e36bb1b41 1-170
+terraform/gitlab-group-membership/files/main.tf
+  s_25a93f73351b82::t_65e99e36bb1b41 1-12
+terraform/gitlab-project-hook/files/main.tf
+  s_25a93f73351b82::t_65e99e36bb1b41 1-29
+terraform/gitlab-project-variable/files/main.tf
+  s_25a93f73351b82::t_65e99e36bb1b41 1-15
+terraform/gitlab-project-hook/template.json
+  s_25a93f73351b82::t_65e99e36bb1b41 1-184
+terraform/gitlab-project-milestone/files/main.tf
+  s_25a93f73351b82::t_65e99e36bb1b41 1-15
+terraform/gitlab-group/files/main.tf
+  s_25a93f73351b82::t_65e99e36bb1b41 1-20
+terraform/gitlab-project/template.json
+  s_25a93f73351b82::t_65e99e36bb1b41 1-152
+terraform/gitlab-project-environment/files/main.tf
+  s_25a93f73351b82::t_65e99e36bb1b41 1-16
+terraform/gitlab-project-environment/template.json
+  s_25a93f73351b82::t_65e99e36bb1b41 1-116
+terraform/gitlab-project-variable/template.json
+  s_25a93f73351b82::t_65e99e36bb1b41 1-122,127-138
+  s_25a93f73351b82::t_4ab9f9833e103e 123-126
+terraform/gitlab-group-membership/template.json
+  s_25a93f73351b82::t_4ab9f9833e103e 51-52,62-63
+  s_25a93f73351b82::t_65e99e36bb1b41 1-50,53-61,64-108
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.13",
+  "base_commit_sha": "c80b8ba4e5d20bcd93d705c3ec7d0da6400aaaba",
+  "prompts": {},
+  "sessions": {
+    "s_25a93f73351b82": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019efa3b-6fed-7e59-b85e-247aef50d0ac",
+        "model": "gpt-5.5"
+      },
+      "human_author": "xcad <christian.lempa@clcreative.de>"
+    }
+  }
+}
