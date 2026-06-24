@@ -48,6 +48,12 @@ services:
       <%- if project_mount_path %>
       - << project_mount_path >>:/app/data/projects
       <%- endif %>
+      <%- if builds_mount_path %>
+      - << builds_mount_path >>:/builds
+      <%- endif %>
+      <%- if backups_mount_path %>
+      - << backups_mount_path >>:/backups
+      <%- endif %>
     <%- if traefik_enabled %>
     networks:
       - << traefik_network >>
