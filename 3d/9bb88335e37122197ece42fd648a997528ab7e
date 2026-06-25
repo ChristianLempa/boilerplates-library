@@ -1,0 +1,271 @@
+compose/kestra/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 10-11
+kubernetes/twingate-connector/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 10-11
+terraform/gitlab-project-milestone/template.json
+  s_082bfc5af9830a::t_b202408edc7ffa 13-14
+kubernetes/core-clusterrolebinding/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 10-11
+terraform/gitlab-group/template.json
+  s_082bfc5af9830a::t_b202408edc7ffa 13-14
+compose/dockhand/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 14-15
+compose/prometheus/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 13-14
+terraform/netbird-network-router/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 13-14
+compose/teleport/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 10-11
+swarm/postgres/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 10-11
+helm/traefik-helm/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 9-11
+compose/forgejo/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 12-13
+ansible/docker-certs-enable/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 10-11
+helm/longhorn/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 10-11
+kubernetes/traefik-ingressroute/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 9-11
+compose/n8n/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 13-14
+kubernetes/kube-vip/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 10-11
+ansible/docker-certs/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 10-11
+terraform/cloudflare-zone-data/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 10
+compose/renovate/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 12-13
+terraform/dns-a-record-tsig/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 10
+ansible/docker-mysql-backup/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 16
+compose/homer/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 13-14
+kubernetes/core-ingress/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 10-11
+kubernetes/traefik-basicauth/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 9-11
+ansible/checkmk-install-agent/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 10-11
+compose/nextcloud/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 12-13
+compose/twingate-connector/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 10-11
+helm/certmanager/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 10-11
+ansible/checkmk-manage-host/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 10-11
+kubernetes/core-configmap/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 10-11
+ansible/docker-postgres-backup/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 16
+kubernetes/traefik-retry/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 9-11
+ansible/ubuntu-add-sshkey/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 10-11
+terraform/proxmox-lxc/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 10-11
+kubernetes/traefik-ipallowlist/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 9-11
+kubernetes/traefik-middleware/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 9-11
+compose/crowdsec/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 14-15
+kubernetes/core-service/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 10-11
+swarm/homer/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 13-14
+terraform/gitlab-provider/template.json
+  s_082bfc5af9830a::t_b202408edc7ffa 14-15
+compose/uptimekuma/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 10-11
+compose/netbird/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 14-15
+helm/portainer/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 10-11
+kubernetes/core-ingressclass/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 10-11
+compose/cloudflared/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 10-11
+swarm/pihole/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 14-15
+terraform/proxmox-vm-qemu/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 10-11
+terraform/gitlab-group-variable/template.json
+  s_082bfc5af9830a::t_b202408edc7ffa 13-14
+terraform/netbox-vm/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 10-11
+swarm/nginx/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 12-13
+python/server-disk-usage-monitor/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 16
+kubernetes/traefik-ingressroutetcp/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 9-11
+compose/gitlab/template.json
+  s_082bfc5af9830a::t_b202408edc7ffa 12-13
+compose/openwebui/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 13-14
+kubernetes/core-persistentvolume/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 10-11
+kubernetes/core-daemonset/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 10-11
+ansible/ubuntu-packages/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 15-16
+kubernetes/traefik-circuitbreaker/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 9-11
+terraform/cloudflare-ztna-application/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 10-11
+compose/mariadb/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 10-11
+compose/bind9/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 13-14
+compose/checkmk/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 12-13
+kubernetes/traefik-forwardauth-middleware/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 9-11
+helm/argocd/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 14-15
+kubernetes/core-secret/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 10-11
+compose/authentik/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 14
+terraform/netbird-network-resource/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 13-14
+compose/pihole/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 14-15
+kubernetes/core-deployment/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 10-11
+kubernetes/certmanager-clusterissuer/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 10-11
+swarm/renovate/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 12-13
+kubernetes/flux-bootstrap/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 10-11
+terraform/gitlab-group-membership/template.json
+  s_082bfc5af9830a::t_b202408edc7ffa 13-14
+terraform/gitlab-project-variable/template.json
+  s_082bfc5af9830a::t_b202408edc7ffa 13-14
+compose/postgres/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 10-11
+compose/semaphoreui/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 13-14
+terraform/netbird-reverse-proxy-service/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 14-15
+kubernetes/traefik-buffering/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 9-11
+swarm/nextcloud/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 12-13
+swarm/twingate-connector/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 10-11
+kubernetes/core-networkpolicy/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 10-11
+compose/technitium/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 15-16
+compose/homepage/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 13-14
+compose/loki/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 13-14
+terraform/gitlab-project-hook/template.json
+  s_082bfc5af9830a::t_b202408edc7ffa 13-14
+bash/docker-mysql-restore/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 18
+compose/nginx/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 12-13
+swarm/portainer/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 13-14
+compose/gitlab-runner/template.json
+  s_082bfc5af9830a::t_b202408edc7ffa 10-11
+ansible/k3sup-k3s-cluster/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 15-16
+kubernetes/core-namespace/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 10-11
+helm/netbox/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 10-11
+ansible/k3s-postinstall/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 16-17
+compose/passbolt/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 13-14
+kubernetes/core-storageclass/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 10-11
+swarm/komodo/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 14-15
+terraform/cloudflare-dns-record/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 10
+helm/authentik/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 10-11
+terraform/cloudflare-zero-trust-tunnel-config/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 10-11
+terraform/netbird-group/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 13-14
+kubernetes/certmanager-certificate/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 10-11
+compose/grafana/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 13-14
+terraform/netbird-network/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 13-14
+compose/alloy/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 12-13
+kubernetes/metallb/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 10-11
+swarm/n8n/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 13-14
+compose/dockge/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 12-13
+compose/netbox/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 14-15
+kubernetes/core-persistentvolumeclaim/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 10-11
+bash/docker-postgres-restore/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 17
+kubernetes/core-cronjob/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 10-11
+kubernetes/certmanager-issuer/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 10-11
+kubernetes/core-serviceaccount/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 10-11
+compose/traefik-addons/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 13-15
+terraform/gitlab-project-environment/template.json
+  s_082bfc5af9830a::t_b202408edc7ffa 13-14
+terraform/gitlab-project/template.json
+  s_082bfc5af9830a::t_b202408edc7ffa 13-14
+compose/adguardhome/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 14-15
+compose/homeassistant/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 10-11
+ansible/ubuntu-vm-core/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 10-11
+compose/portainer/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 13-14
+kubernetes/core-statefulset/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 10-11
+compose/komodo/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 14-15
+swarm/homepage/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 13-14
+terraform/netbird-policy/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 13-14
+python/broken-link-crawler/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 17
+compose/influxdb/template.json
+  s_082bfc5af9830a::t_452973acbef0dc 12-13
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.1",
+  "base_commit_sha": "3d9bb88335e37122197ece42fd648a997528ab7e",
+  "prompts": {},
+  "sessions": {
+    "s_082bfc5af9830a": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019efeac-7cc6-77e6-a695-9e92f961c81f",
+        "model": "gpt-5.5"
+      },
+      "human_author": "xcad <christian.lempa@clcreative.de>"
+    }
+  }
+}
