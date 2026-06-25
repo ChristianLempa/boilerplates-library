@@ -1,0 +1,25 @@
+terraform/gitlab-provider/template.json
+  s_e303167614c3bf::t_8ecaef39354364 1-75,77-96
+  s_e303167614c3bf::t_8d9531b861285d 76
+terraform/gitlab-provider/files/provider.tf
+  s_e303167614c3bf::t_9b1f2df63bf9ed 1-22
+terraform/gitlab-provider/files/variables.tf
+  s_e303167614c3bf::t_88394ddd34dbb3 1-10,12-26
+  s_e303167614c3bf::t_731f7c84e92058 11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.13",
+  "base_commit_sha": "7968da868cd09d4159f5c65648eec0a843c05fb5",
+  "prompts": {},
+  "sessions": {
+    "s_e303167614c3bf": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019efa67-d95e-7719-9f12-8bb7218d114f",
+        "model": "gpt-5.5"
+      },
+      "human_author": "xcad <christian.lempa@clcreative.de>"
+    }
+  }
+}
