@@ -1,0 +1,96 @@
+{
+  "slug": "gitlab-provider",
+  "kind": "terraform",
+  "metadata": {
+    "name": "GitLab Provider",
+    "description": "Creates Terraform provider configuration for the GitLab provider with optional self-managed GitLab URL, sensitive token variable, and custom CA certificate file.",
+    "tags": [
+      "gitlab",
+      "provider",
+      "terraform"
+    ],
+    "icon": {
+      "provider": "selfhst",
+      "id": "gitlab"
+    },
+    "draft": false,
+    "version": {
+      "name": "19.1.0",
+      "source_dep_name": "gitlabhq/gitlab",
+      "source_dep_version": "19.1.0"
+    }
+  },
+  "variables": [
+    {
+      "title": "Terraform",
+      "name": "terraform",
+      "items": [
+        {
+          "name": "terraform_required_version",
+          "type": "str",
+          "title": "Required Terraform Version",
+          "required": false,
+          "default": ">= 1.6.0",
+          "config": {
+            "placeholder": ">= 1.6.0"
+          }
+        },
+        {
+          "name": "gitlab_provider_version",
+          "type": "str",
+          "title": "GitLab Provider Version",
+          "required": false,
+          "default": "~> 19.1",
+          "config": {
+            "placeholder": "~> 19.1"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Provider",
+      "name": "provider",
+      "items": [
+        {
+          "name": "gitlab_base_url",
+          "type": "str",
+          "title": "GitLab API Base URL",
+          "required": false,
+          "default": "https://gitlab.com/api/v4/",
+          "config": {
+            "placeholder": "https://gitlab.example.com/api/v4/"
+          }
+        },
+        {
+          "name": "gitlab_token_enabled",
+          "type": "bool",
+          "title": "Configure Token Variable",
+          "required": false,
+          "default": true
+        },
+        {
+          "name": "gitlab_token",
+          "type": "secret",
+          "title": "GitLab Token",
+          "required": false,
+          "description": "Optional token default for the sensitive Terraform variable. Leave empty to provide TF_VAR_gitlab_token outside of the generated files, or disable this variable to rely on provider environment variables like GITLAB_TOKEN.",
+          "needs": [
+            "gitlab_token_enabled=true"
+          ],
+          "config": {
+            "placeholder": "glpat-..."
+          }
+        },
+        {
+          "name": "gitlab_cacert_file",
+          "type": "str",
+          "title": "Custom CA Certificate File",
+          "required": false,
+          "config": {
+            "placeholder": "/etc/ssl/certs/gitlab-ca.pem"
+          }
+        }
+      ]
+    }
+  ]
+}
