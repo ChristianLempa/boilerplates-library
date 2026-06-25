@@ -1,0 +1,21 @@
+terraform/gitlab-project/template.json
+  s_082bfc5af9830a::t_6e711ddb08f428 66,71-90
+terraform/gitlab-project/files/main.tf
+  s_082bfc5af9830a::t_7f3fd4b628be4c 1-12,20-23
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.1",
+  "base_commit_sha": "56cdc345b9a61c48a3f3c44f71098180c0df2020",
+  "prompts": {},
+  "sessions": {
+    "s_082bfc5af9830a": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019efeac-7cc6-77e6-a695-9e92f961c81f",
+        "model": "gpt-5.5"
+      },
+      "human_author": "xcad <christian.lempa@clcreative.de>"
+    }
+  }
+}
