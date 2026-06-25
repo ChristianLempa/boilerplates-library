@@ -63,9 +63,29 @@
           "type": "int",
           "title": "Namespace ID",
           "required": false,
-          "description": "Numeric GitLab group or namespace ID where the project should be created.",
+          "description": "Numeric GitLab group or namespace ID where the project should be created. Leave empty to resolve the namespace from a group full path or user username below.",
           "config": {
             "placeholder": "123456"
+          }
+        },
+        {
+          "name": "namespace_group_full_path",
+          "type": "str",
+          "title": "Namespace Group Full Path",
+          "required": false,
+          "description": "Optional GitLab group full path used to look up namespace_id, for example platform/team.",
+          "config": {
+            "placeholder": "platform/team"
+          }
+        },
+        {
+          "name": "namespace_user_username",
+          "type": "str",
+          "title": "Namespace User Username",
+          "required": false,
+          "description": "Optional GitLab username used to look up the user's namespace_id.",
+          "config": {
+            "placeholder": "octocat"
           }
         },
         {
