@@ -9,7 +9,8 @@
     ],
     "icon": {
       "provider": "selfhst",
-      "id": "nextcloud"
+      "id": "nextcloud",
+      "color": "blue"
     },
     "draft": false,
     "version": {

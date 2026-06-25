@@ -11,7 +11,8 @@
     ],
     "icon": {
       "provider": "selfhst",
-      "id": "argo-cd"
+      "id": "argo-cd",
+      "color": "orange"
     },
     "draft": false,
     "version": {

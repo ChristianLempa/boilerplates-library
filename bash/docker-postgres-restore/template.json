@@ -14,7 +14,7 @@
     "icon": {
       "provider": "simple-icons",
       "id": "postgresql",
-      "color": "emerald"
+      "color": "blue"
     },
     "draft": false,
     "version": {

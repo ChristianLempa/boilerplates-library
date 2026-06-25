@@ -6,8 +6,9 @@
     "description": "Traefik Middleware CRD for retrying failed upstream requests with a configurable attempt count and optional initial interval.",
     "tags": [],
     "icon": {
-      "provider": "selfhst",
-      "id": "traefik"
+      "provider": "devicon",
+      "id": "traefikproxy",
+      "color": "sky"
     },
     "draft": true,
     "version": {

@@ -10,7 +10,8 @@
     ],
     "icon": {
       "provider": "selfhst",
-      "id": "n8n"
+      "id": "n8n",
+      "color": "orange"
     },
     "draft": true,
     "version": {

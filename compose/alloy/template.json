@@ -9,7 +9,8 @@
     ],
     "icon": {
       "provider": "selfhst",
-      "id": "grafana-alloy"
+      "id": "grafana-alloy",
+      "color": "orange"
     },
     "draft": false,
     "version": {

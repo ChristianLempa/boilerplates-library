@@ -6,8 +6,9 @@
     "description": "Traefik Middleware CRD for tripping a circuit breaker when an upstream meets a configured failure expression.",
     "tags": [],
     "icon": {
-      "provider": "selfhst",
-      "id": "traefik"
+      "provider": "devicon",
+      "id": "traefikproxy",
+      "color": "sky"
     },
     "draft": true,
     "version": {

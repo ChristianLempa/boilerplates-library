@@ -10,7 +10,8 @@
     ],
     "icon": {
       "provider": "selfhst",
-      "id": "prometheus"
+      "id": "prometheus",
+      "color": "orange"
     },
     "draft": false,
     "version": {

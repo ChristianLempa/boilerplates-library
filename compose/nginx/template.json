@@ -9,7 +9,8 @@
     ],
     "icon": {
       "provider": "simple-icons",
-      "id": "nginx"
+      "id": "nginx",
+      "color": "emerald"
     },
     "draft": false,
     "version": {

@@ -10,7 +10,8 @@
     ],
     "icon": {
       "provider": "selfhst",
-      "id": "homer"
+      "id": "homer",
+      "color": "blue"
     },
     "draft": false,
     "version": {

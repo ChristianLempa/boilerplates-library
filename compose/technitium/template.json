@@ -12,7 +12,8 @@
     ],
     "icon": {
       "provider": "selfhst",
-      "id": "technitium"
+      "id": "technitium",
+      "color": "blue"
     },
     "draft": false,
     "version": {

@@ -6,8 +6,9 @@
     "description": "Traefik Middleware CRD for HTTP basic authentication using an htpasswd-formatted Kubernetes Secret.",
     "tags": [],
     "icon": {
-      "provider": "selfhst",
-      "id": "traefik"
+      "provider": "devicon",
+      "id": "traefikproxy",
+      "color": "sky"
     },
     "draft": true,
     "version": {

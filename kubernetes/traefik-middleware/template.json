@@ -6,8 +6,9 @@
     "description": "Traefik Middleware CRD for modifying HTTP requests and responses. Supports headers, redirects, rate-limiting, authentication, and more.",
     "tags": [],
     "icon": {
-      "provider": "selfhst",
-      "id": "traefik"
+      "provider": "devicon",
+      "id": "traefikproxy",
+      "color": "sky"
     },
     "draft": true,
     "version": {

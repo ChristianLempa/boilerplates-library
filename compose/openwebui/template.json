@@ -10,7 +10,8 @@
     ],
     "icon": {
       "provider": "selfhst",
-      "id": "open-webui"
+      "id": "open-webui",
+      "color": "default"
     },
     "draft": false,
     "version": {

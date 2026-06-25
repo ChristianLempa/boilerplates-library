@@ -13,7 +13,8 @@
     ],
     "icon": {
       "provider": "simple-icons",
-      "id": "kubernetes"
+      "id": "kubernetes",
+      "color": "blue"
     },
     "draft": false,
     "version": {

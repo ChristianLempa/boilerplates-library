@@ -6,8 +6,9 @@
     "description": "Traefik IngressRouteTCP CRD for TCP routing of non-HTTP protocols like databases, SSH, or any TCP-based service.",
     "tags": [],
     "icon": {
-      "provider": "selfhst",
-      "id": "traefik"
+      "provider": "devicon",
+      "id": "traefikproxy",
+      "color": "sky"
     },
     "draft": true,
     "version": {

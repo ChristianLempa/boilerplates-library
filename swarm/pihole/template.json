@@ -11,7 +11,8 @@
     ],
     "icon": {
       "provider": "selfhst",
-      "id": "pi-hole"
+      "id": "pi-hole",
+      "color": "rose"
     },
     "draft": false,
     "version": {

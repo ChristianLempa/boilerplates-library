@@ -6,8 +6,9 @@
     "description": "Helm chart for Traefik v3, a modern HTTP reverse proxy and load balancer designed for microservices and Kubernetes environments.",
     "tags": [],
     "icon": {
-      "provider": "selfhst",
-      "id": "traefik"
+      "provider": "devicon",
+      "id": "traefikproxy",
+      "color": "sky"
     },
     "draft": false,
     "version": {

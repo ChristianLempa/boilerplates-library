@@ -7,7 +7,8 @@
     "tags": [],
     "icon": {
       "provider": "selfhst",
-      "id": "kestra"
+      "id": "kestra",
+      "color": "violet"
     },
     "draft": true,
     "version": {

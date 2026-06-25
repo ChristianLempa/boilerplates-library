@@ -15,7 +15,7 @@
     "icon": {
       "provider": "simple-icons",
       "id": "mysql",
-      "color": "emerald"
+      "color": "blue"
     },
     "draft": false,
     "version": {

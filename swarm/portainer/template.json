@@ -10,7 +10,8 @@
     ],
     "icon": {
       "provider": "selfhst",
-      "id": "portainer"
+      "id": "portainer",
+      "color": "blue"
     },
     "draft": false,
     "version": {

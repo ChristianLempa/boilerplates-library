@@ -9,7 +9,8 @@
     ],
     "icon": {
       "provider": "selfhst",
-      "id": "influxdb"
+      "id": "influxdb",
+      "color": "violet"
     },
     "draft": false,
     "version": {

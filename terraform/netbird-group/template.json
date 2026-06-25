@@ -10,7 +10,8 @@
     ],
     "icon": {
       "provider": "selfhst",
-      "id": "netbird"
+      "id": "netbird",
+      "color": "cyan"
     },
     "draft": false,
     "version": {

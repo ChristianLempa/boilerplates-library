@@ -9,7 +9,8 @@
     ],
     "icon": {
       "provider": "selfhst",
-      "id": "checkmk"
+      "id": "checkmk",
+      "color": "emerald"
     },
     "draft": false,
     "version": {

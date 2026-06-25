@@ -9,7 +9,8 @@
     ],
     "icon": {
       "provider": "selfhst",
-      "id": "mend-renovate"
+      "id": "mend-renovate",
+      "color": "blue"
     },
     "draft": false,
     "version": {

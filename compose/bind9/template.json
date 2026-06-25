@@ -10,7 +10,8 @@
     ],
     "icon": {
       "provider": "selfhst",
-      "id": "bind-9"
+      "id": "bind-9",
+      "color": "blue"
     },
     "draft": false,
     "version": {

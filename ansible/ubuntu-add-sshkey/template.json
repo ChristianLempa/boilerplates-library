@@ -7,7 +7,8 @@
     "tags": [],
     "icon": {
       "provider": "simple-icons",
-      "id": "ansible"
+      "id": "ansible",
+      "color": "rose"
     },
     "draft": false,
     "version": {

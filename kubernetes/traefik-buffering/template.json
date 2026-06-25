@@ -6,8 +6,9 @@
     "description": "Traefik Middleware CRD for buffering request and response bodies so uploads, downloads, and upstream size controls behave more predictably.",
     "tags": [],
     "icon": {
-      "provider": "selfhst",
-      "id": "traefik"
+      "provider": "devicon",
+      "id": "traefikproxy",
+      "color": "sky"
     },
     "draft": true,
     "version": {

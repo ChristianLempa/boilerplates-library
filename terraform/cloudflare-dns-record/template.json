@@ -7,7 +7,7 @@
     "icon": {
       "provider": "selfhst",
       "id": "cloudflare",
-      "color": "default"
+      "color": "orange"
     },
     "draft": false,
     "version": {

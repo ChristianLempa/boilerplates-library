@@ -10,7 +10,8 @@
     ],
     "icon": {
       "provider": "selfhst",
-      "id": "semaphore-ui"
+      "id": "semaphore-ui",
+      "color": "blue"
     },
     "draft": false,
     "version": {

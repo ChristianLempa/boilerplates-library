@@ -7,7 +7,8 @@
     "tags": [],
     "icon": {
       "provider": "selfhst",
-      "id": "netbox"
+      "id": "netbox",
+      "color": "blue"
     },
     "draft": false,
     "version": {

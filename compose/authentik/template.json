@@ -11,7 +11,7 @@
     "icon": {
       "provider": "selfhst",
       "id": "authentik",
-      "color": "default"
+      "color": "blue"
     },
     "draft": false,
     "version": {

@@ -6,8 +6,9 @@
     "description": "Traefik Middleware CRD for restricting access to trusted source CIDR ranges, with optional client IP strategy controls for proxied deployments.",
     "tags": [],
     "icon": {
-      "provider": "selfhst",
-      "id": "traefik"
+      "provider": "devicon",
+      "id": "traefikproxy",
+      "color": "sky"
     },
     "draft": true,
     "version": {

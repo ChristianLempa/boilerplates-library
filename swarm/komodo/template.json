@@ -11,7 +11,8 @@
     ],
     "icon": {
       "provider": "selfhst",
-      "id": "komodo"
+      "id": "komodo",
+      "color": "emerald"
     },
     "draft": true,
     "version": {
