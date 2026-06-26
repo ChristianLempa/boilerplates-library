@@ -17,9 +17,9 @@ services:
       <%- endif %>
     volumes:
       - ./config/gitlab.rb:/etc/gitlab/gitlab.rb:ro
-      - << service_name >>_config:/etc/gitlab
-      - << service_name >>_logs:/var/log/gitlab
-      - << service_name >>_data:/var/opt/gitlab
+      - << volume_config_name or (service_name ~ "_config") >>:/etc/gitlab
+      - << volume_logs_name or (service_name ~ "_logs") >>:/var/log/gitlab
+      - << volume_data_name or (service_name ~ "_data") >>:/var/opt/gitlab
     <%- if traefik_enabled  %>
     labels:
       - traefik.enable=true
@@ -51,11 +51,11 @@ services:
     <%- endif %>
 
 volumes:
-  << service_name >>_config:
+  << volume_config_name or (service_name ~ "_config") >>:
     driver: local
-  << service_name >>_logs:
+  << volume_logs_name or (service_name ~ "_logs") >>:
     driver: local
-  << service_name >>_data:
+  << volume_data_name or (service_name ~ "_data") >>:
     driver: local
 
 <%- if traefik_enabled %>

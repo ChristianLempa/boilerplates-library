@@ -19,7 +19,7 @@ services:
       <%- if volume_mode == 'mount' %>
       - << volume_mount_path >>/data:/data
       <%- else %>
-      - << service_name >>_data:/data
+      - << volume_data_name or (service_name ~ "_data") >>:/data
       <%- endif %>
     <%- if traefik_enabled %>
     labels:
@@ -40,11 +40,11 @@ services:
 
 <%- if volume_mode == 'local' %>
 volumes:
-  << service_name >>_data:
+  << volume_data_name or (service_name ~ "_data") >>:
     driver: local
 <%- elif volume_mode == 'nfs' %>
 volumes:
-  << service_name >>_data:
+  << volume_data_name or (service_name ~ "_data") >>:
     driver: local
     driver_opts:
       type: nfs

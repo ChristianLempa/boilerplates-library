@@ -272,6 +272,72 @@
       ]
     },
     {
+      "title": "Volume Names",
+      "name": "volume_names",
+      "items": [
+        {
+          "name": "volume_data_name",
+          "type": "str",
+          "title": "Data Volume Name",
+          "required": false,
+          "default": "",
+          "config": {
+            "placeholder": "komodo-data"
+          }
+        },
+        {
+          "name": "volume_repos_name",
+          "type": "str",
+          "title": "Repos Volume Name",
+          "required": false,
+          "default": "",
+          "config": {
+            "placeholder": "komodo-repos"
+          }
+        },
+        {
+          "name": "volume_mongo_data_name",
+          "type": "str",
+          "title": "Mongo Data Volume Name",
+          "required": false,
+          "default": "",
+          "config": {
+            "placeholder": "komodo-mongo-data"
+          }
+        },
+        {
+          "name": "volume_mongo_config_name",
+          "type": "str",
+          "title": "Mongo Config Volume Name",
+          "required": false,
+          "default": "",
+          "config": {
+            "placeholder": "komodo-mongo-config"
+          }
+        },
+        {
+          "name": "volume_postgres_data_name",
+          "type": "str",
+          "title": "Postgres Data Volume Name",
+          "required": false,
+          "default": "",
+          "config": {
+            "placeholder": "komodo-postgres-data"
+          }
+        },
+        {
+          "name": "volume_ferretdb_state_name",
+          "type": "str",
+          "title": "FerretDB State Volume Name",
+          "required": false,
+          "default": "",
+          "config": {
+            "placeholder": "komodo-ferretdb-state"
+          }
+        }
+      ]
+    },
+    {
       "title": "Traefik",
       "name": "traefik",
       "toggle": "traefik_enabled",

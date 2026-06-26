@@ -25,8 +25,8 @@ services:
       - EMAIL_TRANSPORT_DEFAULT_TLS=<< email_use_tls | lower >>
       - EMAIL_DEFAULT_FROM=<< email_from >>
     volumes:
-      - << service_name >>-gpg:/etc/passbolt/gpg
-      - << service_name >>-jwt:/etc/passbolt/jwt
+      - << volume_gpg_name or (service_name ~ "-gpg") >>:/etc/passbolt/gpg
+      - << volume_jwt_name or (service_name ~ "-jwt") >>:/etc/passbolt/jwt
     command: ["/usr/bin/wait-for.sh", "-t", "0", "<< service_name >>-db:3306", "--", "/docker-entrypoint.sh"]
     depends_on:
       - << service_name >>-db
@@ -40,10 +40,10 @@ services:
       - MYSQL_USER=${DATABASE_USER}
       - MYSQL_PASSWORD=${DATABASE_PASSWORD}
     volumes:
-      - << service_name >>-db:/var/lib/mysql
+      - << volume_db_name or (service_name ~ "-db") >>:/var/lib/mysql
 
 
 volumes:
-  << service_name >>-db:
-  << service_name >>-gpg:
-  << service_name >>-jwt:
+  << volume_db_name or (service_name ~ "-db") >>:
+  << volume_gpg_name or (service_name ~ "-gpg") >>:
+  << volume_jwt_name or (service_name ~ "-jwt") >>:

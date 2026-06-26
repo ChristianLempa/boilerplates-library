@@ -260,6 +260,52 @@
       ]
     },
     {
+      "title": "Volume Names",
+      "name": "volume_names",
+      "items": [
+        {
+          "name": "volume_postgres_name",
+          "type": "str",
+          "title": "Postgres Volume Name",
+          "required": false,
+          "default": "",
+          "config": {
+            "placeholder": "authentik_postgres"
+          }
+        },
+        {
+          "name": "volume_data_name",
+          "type": "str",
+          "title": "Data Volume Name",
+          "required": false,
+          "default": "",
+          "config": {
+            "placeholder": "authentik_data"
+          }
+        },
+        {
+          "name": "volume_certs_name",
+          "type": "str",
+          "title": "Certificates Volume Name",
+          "required": false,
+          "default": "",
+          "config": {
+            "placeholder": "authentik_certs"
+          }
+        },
+        {
+          "name": "volume_templates_name",
+          "type": "str",
+          "title": "Templates Volume Name",
+          "required": false,
+          "default": "",
+          "config": {
+            "placeholder": "authentik_templates"
+          }
+        }
+      ]
+    },
+    {
       "name": "volume",
       "title": "Volume",
       "items": [

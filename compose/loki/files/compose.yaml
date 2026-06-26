@@ -9,7 +9,7 @@ services:
       - "<< ports_http >>:3100"
     <%- endif %>
     volumes:
-      - << service_name >>_data:/loki:rw
+      - << volume_data_name or (service_name ~ "_data") >>:/loki:rw
       - ./config/config.yaml:/etc/loki/config.yaml:ro
     <%- if traefik_enabled %>
     networks:
@@ -33,7 +33,7 @@ services:
     <%- endif %>
 
 volumes:
-  << service_name >>_data:
+  << volume_data_name or (service_name ~ "_data") >>:
     driver: local
 
 <%- if traefik_enabled %>

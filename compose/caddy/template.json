@@ -67,6 +67,42 @@
       ]
     },
     {
+      "title": "Volume Names",
+      "name": "volume_names",
+      "items": [
+        {
+          "name": "volume_site_name",
+          "type": "str",
+          "title": "Site Volume Name",
+          "required": false,
+          "default": "",
+          "config": {
+            "placeholder": "caddy_site"
+          }
+        },
+        {
+          "name": "volume_data_name",
+          "type": "str",
+          "title": "Data Volume Name",
+          "required": false,
+          "default": "",
+          "config": {
+            "placeholder": "caddy_data"
+          }
+        },
+        {
+          "name": "volume_config_name",
+          "type": "str",
+          "title": "Config Volume Name",
+          "required": false,
+          "default": "",
+          "config": {
+            "placeholder": "caddy_config"
+          }
+        }
+      ]
+    },
+    {
       "name": "network",
       "title": "Network",
       "description": "Port publishing and Docker network attachment.",

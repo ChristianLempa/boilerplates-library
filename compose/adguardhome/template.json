@@ -299,6 +299,32 @@
       ]
     },
     {
+      "title": "Volume Names",
+      "name": "volume_names",
+      "items": [
+        {
+          "name": "volume_work_name",
+          "type": "str",
+          "title": "Work Volume Name",
+          "required": false,
+          "default": "",
+          "config": {
+            "placeholder": "adguardhome_work"
+          }
+        },
+        {
+          "name": "volume_conf_name",
+          "type": "str",
+          "title": "Config Volume Name",
+          "required": false,
+          "default": "",
+          "config": {
+            "placeholder": "adguardhome_conf"
+          }
+        }
+      ]
+    },
+    {
       "title": "Volume",
       "name": "volume",
       "items": [

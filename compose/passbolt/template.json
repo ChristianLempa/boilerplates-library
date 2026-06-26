@@ -83,6 +83,42 @@
       ]
     },
     {
+      "title": "Volume Names",
+      "name": "volume_names",
+      "items": [
+        {
+          "name": "volume_db_name",
+          "type": "str",
+          "title": "Database Volume Name",
+          "required": false,
+          "default": "",
+          "config": {
+            "placeholder": "passbolt-db"
+          }
+        },
+        {
+          "name": "volume_gpg_name",
+          "type": "str",
+          "title": "GPG Volume Name",
+          "required": false,
+          "default": "",
+          "config": {
+            "placeholder": "passbolt-gpg"
+          }
+        },
+        {
+          "name": "volume_jwt_name",
+          "type": "str",
+          "title": "JWT Volume Name",
+          "required": false,
+          "default": "",
+          "config": {
+            "placeholder": "passbolt-jwt"
+          }
+        }
+      ]
+    },
+    {
       "title": "Database",
       "name": "database",
       "items": [

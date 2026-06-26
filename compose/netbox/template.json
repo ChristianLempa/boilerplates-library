@@ -237,6 +237,72 @@
       ]
     },
     {
+      "title": "Volume Names",
+      "name": "volume_names",
+      "items": [
+        {
+          "name": "volume_postgres_name",
+          "type": "str",
+          "title": "Postgres Volume Name",
+          "required": false,
+          "default": "",
+          "config": {
+            "placeholder": "netbox_postgres"
+          }
+        },
+        {
+          "name": "volume_redis_name",
+          "type": "str",
+          "title": "Redis Volume Name",
+          "required": false,
+          "default": "",
+          "config": {
+            "placeholder": "netbox_redis"
+          }
+        },
+        {
+          "name": "volume_redis_cache_name",
+          "type": "str",
+          "title": "Redis Cache Volume Name",
+          "required": false,
+          "default": "",
+          "config": {
+            "placeholder": "netbox_redis-cache"
+          }
+        },
+        {
+          "name": "volume_media_name",
+          "type": "str",
+          "title": "Media Volume Name",
+          "required": false,
+          "default": "",
+          "config": {
+            "placeholder": "netbox_media"
+          }
+        },
+        {
+          "name": "volume_reports_name",
+          "type": "str",
+          "title": "Reports Volume Name",
+          "required": false,
+          "default": "",
+          "config": {
+            "placeholder": "netbox_reports"
+          }
+        },
+        {
+          "name": "volume_scripts_name",
+          "type": "str",
+          "title": "Scripts Volume Name",
+          "required": false,
+          "default": "",
+          "config": {
+            "placeholder": "netbox_scripts"
+          }
+        }
+      ]
+    },
+    {
       "title": "Traefik",
       "name": "traefik",
       "toggle": "traefik_enabled",

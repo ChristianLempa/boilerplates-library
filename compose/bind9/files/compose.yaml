@@ -30,9 +30,9 @@ services:
       - << volume_mount_path >>/zones:/var/lib/bind:rw
       - << volume_mount_path >>/cache:/var/cache/bind:rw
       <%- else %>
-      - << service_name >>_config:/etc/bind
-      - << service_name >>_zones:/var/lib/bind
-      - << service_name >>_cache:/var/cache/bind
+      - << volume_config_name or (service_name ~ "_config") >>:/etc/bind
+      - << volume_zones_name or (service_name ~ "_zones") >>:/var/lib/bind
+      - << volume_cache_name or (service_name ~ "_cache") >>:/var/cache/bind
       <%- endif %>
 
 <%- if network_mode == 'bridge' or network_mode == 'macvlan' %>
@@ -58,27 +58,27 @@ networks:
 
 <%- if volume_mode == 'local' %>
 volumes:
-  << service_name >>_config:
+  << volume_config_name or (service_name ~ "_config") >>:
     driver: local
-  << service_name >>_zones:
+  << volume_zones_name or (service_name ~ "_zones") >>:
     driver: local
-  << service_name >>_cache:
+  << volume_cache_name or (service_name ~ "_cache") >>:
     driver: local
 <%- elif volume_mode == 'nfs' %>
 volumes:
-  << service_name >>_config:
+  << volume_config_name or (service_name ~ "_config") >>:
     driver: local
     driver_opts:
       type: nfs
       o: addr=<< volume_nfs_server >>,<< volume_nfs_options >>
       device: ":<< volume_nfs_path >>/config"
-  << service_name >>_zones:
+  << volume_zones_name or (service_name ~ "_zones") >>:
     driver: local
     driver_opts:
       type: nfs
       o: addr=<< volume_nfs_server >>,<< volume_nfs_options >>
       device: ":<< volume_nfs_path >>/zones"
-  << service_name >>_cache:
+  << volume_cache_name or (service_name ~ "_cache") >>:
     driver: local
     driver_opts:
       type: nfs

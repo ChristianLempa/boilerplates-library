@@ -56,8 +56,8 @@ services:
       - << volume_mount_path >>/config:/etc/dns:rw
       - << volume_mount_path >>/logs:/var/log/technitium/dns:rw
       <%- else %>
-      - << service_name >>_config:/etc/dns
-      - << service_name >>_logs:/var/log/technitium/dns
+      - << volume_config_name or (service_name ~ "_config") >>:/etc/dns
+      - << volume_logs_name or (service_name ~ "_logs") >>:/var/log/technitium/dns
       <%- endif %>
     <%- if network_mode != 'host' %>
     sysctls:
@@ -119,20 +119,20 @@ networks:
 <%- if volume_mode == 'local' %>
 
 volumes:
-  << service_name >>_config:
+  << volume_config_name or (service_name ~ "_config") >>:
     driver: local
-  << service_name >>_logs:
+  << volume_logs_name or (service_name ~ "_logs") >>:
     driver: local
 <%- elif volume_mode == 'nfs' %>
 
 volumes:
-  << service_name >>_config:
+  << volume_config_name or (service_name ~ "_config") >>:
     driver: local
     driver_opts:
       type: nfs
       o: addr=<< volume_nfs_server >>,nfsvers=4,<< volume_nfs_options >>
       device: ":<< volume_nfs_path >>/config"
-  << service_name >>_logs:
+  << volume_logs_name or (service_name ~ "_logs") >>:
     driver: local
     driver_opts:
       type: nfs

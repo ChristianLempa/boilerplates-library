@@ -98,6 +98,32 @@
       ]
     },
     {
+      "title": "Volume Names",
+      "name": "volume_names",
+      "items": [
+        {
+          "name": "volume_data_name",
+          "type": "str",
+          "title": "Data Volume Name",
+          "required": false,
+          "default": "",
+          "config": {
+            "placeholder": "influxdb_data"
+          }
+        },
+        {
+          "name": "volume_config_name",
+          "type": "str",
+          "title": "Config Volume Name",
+          "required": false,
+          "default": "",
+          "config": {
+            "placeholder": "influxdb_config"
+          }
+        }
+      ]
+    },
+    {
       "title": "Traefik",
       "name": "traefik",
       "toggle": "traefik_enabled",

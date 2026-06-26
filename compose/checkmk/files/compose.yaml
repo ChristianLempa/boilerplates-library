@@ -15,7 +15,7 @@ services:
       <%- if not container_timezone %>
       - /etc/localtime:/etc/localtime:ro
       <%- endif %>
-      - << service_name >>_data:/omd/sites:rw
+      - << volume_data_name or (service_name ~ "_data") >>:/omd/sites:rw
     <%- if traefik_enabled %>
     networks:
       << traefik_network >>:
@@ -45,7 +45,7 @@ services:
     <%- endif %>
 
 volumes:
-  << service_name >>_data:
+  << volume_data_name or (service_name ~ "_data") >>:
     driver: local
 
 <%- if traefik_enabled %>

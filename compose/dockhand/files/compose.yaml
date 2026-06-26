@@ -22,7 +22,7 @@ services:
     <%- endif %>
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - dockhand_data:/app/data
+      - << volume_data_name or 'dockhand_data' >>:/app/data
     <%- if traefik_enabled %>
     networks:
       - << traefik_network >>
@@ -49,7 +49,7 @@ services:
     <%- endif %>
 
 volumes:
-  dockhand_data:
+  << volume_data_name or 'dockhand_data' >>:
     driver: local
 
 <%- if traefik_enabled %>

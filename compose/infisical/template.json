@@ -484,6 +484,32 @@
       ]
     },
     {
+      "title": "Volume Names",
+      "name": "volume_names",
+      "items": [
+        {
+          "name": "volume_postgres_name",
+          "type": "str",
+          "title": "Postgres Volume Name",
+          "required": false,
+          "default": "",
+          "config": {
+            "placeholder": "infisical_postgres"
+          }
+        },
+        {
+          "name": "volume_redis_name",
+          "type": "str",
+          "title": "Redis Volume Name",
+          "required": false,
+          "default": "",
+          "config": {
+            "placeholder": "infisical_redis"
+          }
+        }
+      ]
+    },
+    {
       "name": "volume",
       "title": "Volumes",
       "items": [

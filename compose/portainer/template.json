@@ -183,6 +183,22 @@
       ]
     },
     {
+      "title": "Volume Names",
+      "name": "volume_names",
+      "items": [
+        {
+          "name": "volume_data_name",
+          "type": "str",
+          "title": "Data Volume Name",
+          "required": false,
+          "default": "",
+          "config": {
+            "placeholder": "portainer_data"
+          }
+        }
+      ]
+    },
+    {
       "title": "Volume",
       "name": "volume",
       "items": [

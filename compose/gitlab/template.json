@@ -201,6 +201,42 @@
       ]
     },
     {
+      "title": "Volume Names",
+      "name": "volume_names",
+      "items": [
+        {
+          "name": "volume_config_name",
+          "type": "str",
+          "title": "Config Volume Name",
+          "required": false,
+          "default": "",
+          "config": {
+            "placeholder": "gitlab_config"
+          }
+        },
+        {
+          "name": "volume_logs_name",
+          "type": "str",
+          "title": "Logs Volume Name",
+          "required": false,
+          "default": "",
+          "config": {
+            "placeholder": "gitlab_logs"
+          }
+        },
+        {
+          "name": "volume_data_name",
+          "type": "str",
+          "title": "Data Volume Name",
+          "required": false,
+          "default": "",
+          "config": {
+            "placeholder": "gitlab_data"
+          }
+        }
+      ]
+    },
+    {
       "title": "Traefik",
       "name": "traefik",
       "toggle": "traefik_enabled",

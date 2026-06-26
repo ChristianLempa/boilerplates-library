@@ -50,6 +50,22 @@
       ]
     },
     {
+      "title": "Volume Names",
+      "name": "volume_names",
+      "items": [
+        {
+          "name": "volume_data_name",
+          "type": "str",
+          "title": "Data Volume Name",
+          "required": false,
+          "default": "",
+          "config": {
+            "placeholder": "mariadb_data"
+          }
+        }
+      ]
+    },
+    {
       "title": "Ports",
       "name": "ports",
       "items": [

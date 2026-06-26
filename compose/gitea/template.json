@@ -203,6 +203,32 @@
       ]
     },
     {
+      "title": "Volume Names",
+      "name": "volume_names",
+      "items": [
+        {
+          "name": "volume_data_name",
+          "type": "str",
+          "title": "Data Volume Name",
+          "required": false,
+          "default": "",
+          "config": {
+            "placeholder": "gitea_data"
+          }
+        },
+        {
+          "name": "volume_db_name",
+          "type": "str",
+          "title": "Database Volume Name",
+          "required": false,
+          "default": "",
+          "config": {
+            "placeholder": "gitea_db"
+          }
+        }
+      ]
+    },
+    {
       "name": "traefik",
       "title": "Traefik",
       "toggle": "traefik_enabled",

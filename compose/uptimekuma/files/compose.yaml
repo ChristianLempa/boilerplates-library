@@ -7,8 +7,8 @@ services:
     ports:
       - "<< ports_http >>:3001"
     volumes:
-      - uptimekuma-data:/app/data
+      - << volume_data_name or 'uptimekuma-data' >>:/app/data
 
 volumes:
-  uptimekuma-data:
+  << volume_data_name or 'uptimekuma-data' >>:
     driver: local

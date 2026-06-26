@@ -190,6 +190,42 @@
       ]
     },
     {
+      "title": "Volume Names",
+      "name": "volume_names",
+      "items": [
+        {
+          "name": "volume_config_name",
+          "type": "str",
+          "title": "Config Volume Name",
+          "required": false,
+          "default": "",
+          "config": {
+            "placeholder": "homepage_config"
+          }
+        },
+        {
+          "name": "volume_images_name",
+          "type": "str",
+          "title": "Images Volume Name",
+          "required": false,
+          "default": "",
+          "config": {
+            "placeholder": "homepage_images"
+          }
+        },
+        {
+          "name": "volume_icons_name",
+          "type": "str",
+          "title": "Icons Volume Name",
+          "required": false,
+          "default": "",
+          "config": {
+            "placeholder": "homepage_icons"
+          }
+        }
+      ]
+    },
+    {
       "title": "Volume",
       "name": "volume",
       "items": [

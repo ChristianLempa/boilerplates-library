@@ -27,17 +27,17 @@ services:
     <%- endif %>
     volumes:
       <%- if volume_mode == 'local' %>
-      - << service_name >>_config:/app/config
-      - << service_name >>_images:/app/images
-      - << service_name >>_icons:/app/icons
+      - << volume_config_name or (service_name ~ "_config") >>:/app/config
+      - << volume_images_name or (service_name ~ "_images") >>:/app/images
+      - << volume_icons_name or (service_name ~ "_icons") >>:/app/icons
       <%- elif volume_mode == 'mount' %>
       - << volume_mount_path >>/<< service_name >>/config:/app/config
       - << volume_mount_path >>/<< service_name >>/images:/app/images
       - << volume_mount_path >>/<< service_name >>/icons:/app/icons
       <%- elif volume_mode == 'nfs' %>
-      - << service_name >>_config:/app/config
-      - << service_name >>_images:/app/images
-      - << service_name >>_icons:/app/icons
+      - << volume_config_name or (service_name ~ "_config") >>:/app/config
+      - << volume_images_name or (service_name ~ "_images") >>:/app/images
+      - << volume_icons_name or (service_name ~ "_icons") >>:/app/icons
       <%- endif %>
     <%- if traefik_enabled %>
     labels:
@@ -64,24 +64,24 @@ networks:
 
 <%- if volume_mode == 'local' %>
 volumes:
-  << service_name >>_config:
-  << service_name >>_images:
-  << service_name >>_icons:
+  << volume_config_name or (service_name ~ "_config") >>:
+  << volume_images_name or (service_name ~ "_images") >>:
+  << volume_icons_name or (service_name ~ "_icons") >>:
 <%- elif volume_mode == 'nfs' %>
 volumes:
-  << service_name >>_config:
+  << volume_config_name or (service_name ~ "_config") >>:
     driver: local
     driver_opts:
       type: nfs
       o: addr=<< volume_nfs_server >>,<< volume_nfs_options >>
       device: ":<< volume_nfs_path >>/config"
-  << service_name >>_images:
+  << volume_images_name or (service_name ~ "_images") >>:
     driver: local
     driver_opts:
       type: nfs
       o: addr=<< volume_nfs_server >>,<< volume_nfs_options >>
       device: ":<< volume_nfs_path >>/images"
-  << service_name >>_icons:
+  << volume_icons_name or (service_name ~ "_icons") >>:
     driver: local
     driver_opts:
       type: nfs

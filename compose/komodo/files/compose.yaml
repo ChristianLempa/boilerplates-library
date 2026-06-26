@@ -61,8 +61,8 @@ services:
       - << volume_mount_path >>/data:/app/data:rw
       - << volume_mount_path >>/repos:/app/repos:rw
       <%- elif volume_mode == 'local' or volume_mode == 'nfs' %>
-      - << service_name >>-data:/app/data
-      - << service_name >>-repos:/app/repos
+      - << volume_data_name or (service_name ~ "-data") >>:/app/data
+      - << volume_repos_name or (service_name ~ "-repos") >>:/app/repos
       <%- endif %>
     <%- if resources_enabled %>
     deploy:
@@ -105,8 +105,8 @@ services:
       << network_name >>:
     <%- endif %>
     volumes:
-      - << service_name >>-mongo-data:/data/db
-      - << service_name >>-mongo-config:/data/configdb
+      - << volume_mongo_data_name or (service_name ~ "-mongo-data") >>:/data/db
+      - << volume_mongo_config_name or (service_name ~ "-mongo-config") >>:/data/configdb
   <%- elif not database_external and database_type == 'ferretdb' %>
   << service_name >>-postgres:
     image: ghcr.io/ferretdb/postgres-documentdb:17
@@ -124,7 +124,7 @@ services:
       << network_name >>:
     <%- endif %>
     volumes:
-      - << service_name >>-postgres-data:/var/lib/postgresql/data
+      - << volume_postgres_data_name or (service_name ~ "-postgres-data") >>:/var/lib/postgresql/data
 
   << service_name >>-ferretdb:
     image: ghcr.io/ferretdb/ferretdb:2
@@ -146,24 +146,24 @@ services:
       << network_name >>:
     <%- endif %>
     volumes:
-      - << service_name >>-ferretdb-state:/state
+      - << volume_ferretdb_state_name or (service_name ~ "-ferretdb-state") >>:/state
   <%- endif %>
 
 <%- if volume_mode == 'local' or volume_mode == 'nfs' or not database_external %>
 volumes:
   <%- if volume_mode == 'local' %>
-  << service_name >>-data:
+  << volume_data_name or (service_name ~ "-data") >>:
     driver: local
-  << service_name >>-repos:
+  << volume_repos_name or (service_name ~ "-repos") >>:
     driver: local
   <%- elif volume_mode == 'nfs' %>
-  << service_name >>-data:
+  << volume_data_name or (service_name ~ "-data") >>:
     driver: local
     driver_opts:
       type: nfs
       o: addr=<< volume_nfs_server >>,<< volume_nfs_options >>
       device: ":<< volume_nfs_path >>/data"
-  << service_name >>-repos:
+  << volume_repos_name or (service_name ~ "-repos") >>:
     driver: local
     driver_opts:
       type: nfs
@@ -171,14 +171,14 @@ volumes:
       device: ":<< volume_nfs_path >>/repos"
   <%- endif %>
   <%- if not database_external and database_type == 'mongo' %>
-  << service_name >>-mongo-data:
+  << volume_mongo_data_name or (service_name ~ "-mongo-data") >>:
     driver: local
-  << service_name >>-mongo-config:
+  << volume_mongo_config_name or (service_name ~ "-mongo-config") >>:
     driver: local
   <%- elif not database_external and database_type == 'ferretdb' %>
-  << service_name >>-postgres-data:
+  << volume_postgres_data_name or (service_name ~ "-postgres-data") >>:
     driver: local
-  << service_name >>-ferretdb-state:
+  << volume_ferretdb_state_name or (service_name ~ "-ferretdb-state") >>:
     driver: local
   <%- endif %>
 <%- endif %>

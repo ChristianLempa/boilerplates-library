@@ -39,7 +39,7 @@ services:
       <%- endif %>
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - << service_name >>_data:/home/node/.n8n
+      - << volume_data_name or (service_name ~ "_data") >>:/home/node/.n8n
     <%- if traefik_enabled %>
     networks:
       - << traefik_network >>
@@ -66,7 +66,7 @@ services:
     <%- endif %>
 
 volumes:
-  << service_name >>_data:
+  << volume_data_name or (service_name ~ "_data") >>:
     driver: local
 
 <%- if traefik_enabled %>

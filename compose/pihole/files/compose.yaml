@@ -52,8 +52,8 @@ services:
       - << volume_mount_path >>/dnsmasq:/etc/dnsmasq.d:rw
       - << volume_mount_path >>/pihole:/etc/pihole:rw
       <%- else %>
-      - << service_name >>-dnsmasq:/etc/dnsmasq.d
-      - << service_name >>-pihole:/etc/pihole
+      - << volume_dnsmasq_name or (service_name ~ "-dnsmasq") >>:/etc/dnsmasq.d
+      - << volume_pihole_name or (service_name ~ "-pihole") >>:/etc/pihole
       <%- endif %>
 
     cap_add:
@@ -80,19 +80,19 @@ services:
 
 <%- if volume_mode == 'local' %>
 volumes:
-  << service_name >>-dnsmasq:
+  << volume_dnsmasq_name or (service_name ~ "-dnsmasq") >>:
     driver: local
-  << service_name >>-pihole:
+  << volume_pihole_name or (service_name ~ "-pihole") >>:
     driver: local
 <%- elif volume_mode == 'nfs' %>
 volumes:
-  << service_name >>-dnsmasq:
+  << volume_dnsmasq_name or (service_name ~ "-dnsmasq") >>:
     driver: local
     driver_opts:
       type: nfs
       o: addr=<< volume_nfs_server >>,<< volume_nfs_options >>
       device: ":<< volume_nfs_path >>/dnsmasq"
-  << service_name >>-pihole:
+  << volume_pihole_name or (service_name ~ "-pihole") >>:
     driver: local
     driver_opts:
       type: nfs

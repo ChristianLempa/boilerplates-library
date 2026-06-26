@@ -37,7 +37,7 @@ services:
       <%- endif %>
       - "<< ports_ssh >>:22"
     volumes:
-      - << service_name >>_data:/data
+      - << volume_data_name or (service_name ~ "_data") >>:/data
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
     <%- if traefik_enabled %>
@@ -79,7 +79,7 @@ services:
       timeout: 10s
       retries: 5
     volumes:
-      - << service_name >>_db:/var/lib/postgresql/data
+      - << volume_db_name or (service_name ~ "_db") >>:/var/lib/postgresql/data
   <%- elif not database_external and database_type == "mysql" %>
   << service_name >>_db:
     image: docker.io/library/mysql:8.1
@@ -92,15 +92,15 @@ services:
     networks:
       - << service_name >>_backend
     volumes:
-      - << service_name >>_db:/var/lib/mysql
+      - << volume_db_name or (service_name ~ "_db") >>:/var/lib/mysql
   <%- endif %>
 
 volumes:
-  << service_name >>_data:
+  << volume_data_name or (service_name ~ "_data") >>:
     driver: local
   <%- if not database_external %>
   <%- if database_type == "postgres" or database_type == "mysql" %>
-  << service_name >>_db:
+  << volume_db_name or (service_name ~ "_db") >>:
     driver: local
   <%- endif %>
   <%- endif %>

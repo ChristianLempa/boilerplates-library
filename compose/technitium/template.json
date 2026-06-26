@@ -395,6 +395,32 @@
       ]
     },
     {
+      "title": "Volume Names",
+      "name": "volume_names",
+      "items": [
+        {
+          "name": "volume_config_name",
+          "type": "str",
+          "title": "Config Volume Name",
+          "required": false,
+          "default": "",
+          "config": {
+            "placeholder": "technitium_config"
+          }
+        },
+        {
+          "name": "volume_logs_name",
+          "type": "str",
+          "title": "Logs Volume Name",
+          "required": false,
+          "default": "",
+          "config": {
+            "placeholder": "technitium_logs"
+          }
+        }
+      ]
+    },
+    {
       "title": "Volume",
       "name": "volume",
       "items": [

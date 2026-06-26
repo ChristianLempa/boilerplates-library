@@ -80,7 +80,7 @@ services:
       <%- if volume_mode == 'mount' %>
       - << volume_mount_path >>/postgres:/var/lib/postgresql/data
       <%- elif volume_mode == 'local' or volume_mode == 'nfs' %>
-      - << service_name or 'infisical' >>_postgres:/var/lib/postgresql/data
+      - << volume_postgres_name or ((service_name or 'infisical') ~ "_postgres") >>:/var/lib/postgresql/data
       <%- endif %>
   <%- endif %>
 
@@ -95,7 +95,7 @@ services:
       <%- if volume_mode == 'mount' %>
       - << volume_mount_path >>/redis:/data
       <%- elif volume_mode == 'local' or volume_mode == 'nfs' %>
-      - << service_name or 'infisical' >>_redis:/data
+      - << volume_redis_name or ((service_name or 'infisical') ~ "_redis") >>:/data
       <%- endif %>
   <%- endif %>
 
@@ -110,17 +110,17 @@ networks:
 <%- if volume_mode == 'local' and ((not database_external) or (not redis_external)) %>
 volumes:
   <%- if not database_external %>
-  << service_name or 'infisical' >>_postgres:
+  << volume_postgres_name or ((service_name or 'infisical') ~ "_postgres") >>:
     driver: local
   <%- endif %>
   <%- if not redis_external %>
-  << service_name or 'infisical' >>_redis:
+  << volume_redis_name or ((service_name or 'infisical') ~ "_redis") >>:
     driver: local
   <%- endif %>
 <%- elif volume_mode == 'nfs' and ((not database_external) or (not redis_external)) %>
 volumes:
   <%- if not database_external %>
-  << service_name or 'infisical' >>_postgres:
+  << volume_postgres_name or ((service_name or 'infisical') ~ "_postgres") >>:
     driver: local
     driver_opts:
       type: nfs
@@ -128,7 +128,7 @@ volumes:
       device: ":<< volume_nfs_path >>/postgres"
   <%- endif %>
   <%- if not redis_external %>
-  << service_name or 'infisical' >>_redis:
+  << volume_redis_name or ((service_name or 'infisical') ~ "_redis") >>:
     driver: local
     driver_opts:
       type: nfs

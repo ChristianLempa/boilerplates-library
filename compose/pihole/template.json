@@ -328,6 +328,32 @@
       ]
     },
     {
+      "title": "Volume Names",
+      "name": "volume_names",
+      "items": [
+        {
+          "name": "volume_dnsmasq_name",
+          "type": "str",
+          "title": "Dnsmasq Volume Name",
+          "required": false,
+          "default": "",
+          "config": {
+            "placeholder": "pihole-dnsmasq"
+          }
+        },
+        {
+          "name": "volume_pihole_name",
+          "type": "str",
+          "title": "Pi-hole Volume Name",
+          "required": false,
+          "default": "",
+          "config": {
+            "placeholder": "pihole-pihole"
+          }
+        }
+      ]
+    },
+    {
       "title": "Volume",
       "name": "volume",
       "items": [
