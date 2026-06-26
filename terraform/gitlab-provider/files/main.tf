@@ -19,4 +19,5 @@ provider "gitlab" {
 <%- if gitlab_cacert_file %>
   cacert_file = var.gitlab_cacert_file
 <%- endif %>
+  insecure    = var.gitlab_skip_tls_verify
 }

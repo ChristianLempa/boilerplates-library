@@ -1,0 +1,108 @@
+{
+  "slug": "proxmox-provider",
+  "kind": "terraform",
+  "metadata": {
+    "name": "Proxmox Provider",
+    "description": "Creates Terraform provider configuration for the Telmate Proxmox provider with API token authentication and TLS verification skip setting.",
+    "tags": [
+      "proxmox",
+      "provider",
+      "terraform"
+    ],
+    "icon": {
+      "provider": "selfhst",
+      "id": "proxmox",
+      "color": "orange"
+    },
+    "draft": false,
+    "version": {
+      "name": "3.0.2-rc07",
+      "source_dep_name": "telmate/proxmox",
+      "source_dep_version": "3.0.2-rc07"
+    }
+  },
+  "variables": [
+    {
+      "title": "Terraform",
+      "name": "terraform",
+      "items": [
+        {
+          "name": "terraform_required_version",
+          "type": "str",
+          "title": "Required Terraform Version",
+          "required": false,
+          "default": ">= 1.6.0",
+          "config": {
+            "placeholder": ">= 1.6.0"
+          }
+        },
+        {
+          "name": "proxmox_provider_version",
+          "type": "str",
+          "title": "Proxmox Provider Version",
+          "required": false,
+          "default": "3.0.2-rc07",
+          "config": {
+            "placeholder": "3.0.2-rc07"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Provider",
+      "name": "provider",
+      "items": [
+        {
+          "name": "proxmox_api_url",
+          "type": "str",
+          "title": "Proxmox API URL",
+          "required": true,
+          "description": "Include the /api2/json suffix.",
+          "config": {
+            "placeholder": "https://proxmox.example.com:8006/api2/json"
+          }
+        },
+        {
+          "name": "proxmox_api_token_enabled",
+          "type": "bool",
+          "title": "Configure API Token Variables",
+          "required": false,
+          "default": true
+        },
+        {
+          "name": "proxmox_api_token_id",
+          "type": "str",
+          "title": "Proxmox API Token ID",
+          "required": false,
+          "needs": [
+            "proxmox_api_token_enabled=true"
+          ],
+          "config": {
+            "placeholder": "root@pam!terraform"
+          }
+        },
+        {
+          "name": "proxmox_api_token_secret",
+          "type": "secret",
+          "title": "Proxmox API Token Secret",
+          "required": false,
+          "description": "Optional token secret default for the sensitive Terraform variable. Leave empty to provide TF_VAR_proxmox_api_token_secret outside of the generated files.",
+          "needs": [
+            "proxmox_api_token_enabled=true"
+          ],
+          "config": {
+            "placeholder": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+          }
+        },
+        {
+          "name": "proxmox_skip_tls_verify",
+          "type": "bool",
+          "title": "Skip TLS Verification",
+          "required": false,
+          "default": false,
+          "description": "Disable TLS certificate verification. Use only for self-signed lab endpoints when a CA bundle is not available."
+        }
+      ]
+    }
+  ]
+}

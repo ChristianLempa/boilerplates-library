@@ -23,4 +23,10 @@ variable "gitlab_cacert_file" {
   type        = string
   default     = "<< gitlab_cacert_file >>"
 }
+
 <%- endif %>
+variable "gitlab_skip_tls_verify" {
+  description = "Skip GitLab TLS certificate verification. Use only for self-signed lab endpoints when a CA bundle is not available."
+  type        = bool
+  default     = << gitlab_skip_tls_verify | lower >>
+}

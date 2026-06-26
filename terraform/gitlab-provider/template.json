@@ -3,7 +3,7 @@
   "kind": "terraform",
   "metadata": {
     "name": "GitLab Provider",
-    "description": "Creates Terraform provider configuration for the GitLab provider with optional self-managed GitLab URL, sensitive token variable, and custom CA certificate file.",
+    "description": "Creates Terraform provider configuration for the GitLab provider with optional self-managed GitLab URL, sensitive token variable, custom CA certificate file, and TLS verification skip setting.",
     "tags": [
       "gitlab",
       "provider",
@@ -90,6 +90,14 @@
           "config": {
             "placeholder": "/etc/ssl/certs/gitlab-ca.pem"
           }
+        },
+        {
+          "name": "gitlab_skip_tls_verify",
+          "type": "bool",
+          "title": "Skip TLS Verification",
+          "required": false,
+          "default": false,
+          "description": "Disable TLS certificate verification. Use only for self-signed lab endpoints when a CA bundle is not available."
         }
       ]
     }
