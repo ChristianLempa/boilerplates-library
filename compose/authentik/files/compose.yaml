@@ -44,8 +44,8 @@ services:
       - << volume_mount_path >>/data:/data
       - << volume_mount_path >>/templates:/templates
       <%- elif volume_mode == 'local' or volume_mode == 'nfs' %>
-      - << volume_data_name or (service_name ~ "_data") >>:/data
-      - << volume_templates_name or (service_name ~ "_templates") >>:/templates
+      - << volume_data_name or ((service_name | default('authentik', true)) ~ "_data") >>:/data
+      - << volume_templates_name or ((service_name | default('authentik', true)) ~ "_templates") >>:/templates
       <%- endif %>
     <%- if traefik_enabled %>
     labels:
@@ -126,9 +126,9 @@ services:
       - << volume_mount_path >>/certs:/certs
       - << volume_mount_path >>/templates:/templates
       <%- elif volume_mode == 'local' or volume_mode == 'nfs' %>
-      - << volume_data_name or (service_name ~ "_data") >>:/data
-      - << volume_certs_name or (service_name ~ "_certs") >>:/certs
-      - << volume_templates_name or (service_name ~ "_templates") >>:/templates
+      - << volume_data_name or ((service_name | default('authentik', true)) ~ "_data") >>:/data
+      - << volume_certs_name or ((service_name | default('authentik', true)) ~ "_certs") >>:/certs
+      - << volume_templates_name or ((service_name | default('authentik', true)) ~ "_templates") >>:/templates
       <%- endif %>
     <%- if not database_external %>
     depends_on:
@@ -155,7 +155,7 @@ services:
       <%- if volume_mode == 'mount' %>
       - << volume_mount_path >>/postgres:/var/lib/postgresql/data
       <%- elif volume_mode == 'local' or volume_mode == 'nfs' %>
-      - << volume_postgres_name or (service_name ~ "_postgres") >>:/var/lib/postgresql/data
+      - << volume_postgres_name or ((service_name | default('authentik', true)) ~ "_postgres") >>:/var/lib/postgresql/data
       <%- endif %>
   <%- endif %>
 
@@ -170,38 +170,38 @@ networks:
 <%- if volume_mode == 'local' %>
 volumes:
   <%- if not database_external %>
-  << volume_postgres_name or (service_name ~ "_postgres") >>:
+  << volume_postgres_name or ((service_name | default('authentik', true)) ~ "_postgres") >>:
     driver: local
   <%- endif %>
-  << volume_data_name or (service_name ~ "_data") >>:
+  << volume_data_name or ((service_name | default('authentik', true)) ~ "_data") >>:
     driver: local
-  << volume_certs_name or (service_name ~ "_certs") >>:
+  << volume_certs_name or ((service_name | default('authentik', true)) ~ "_certs") >>:
     driver: local
-  << volume_templates_name or (service_name ~ "_templates") >>:
+  << volume_templates_name or ((service_name | default('authentik', true)) ~ "_templates") >>:
     driver: local
 <%- elif volume_mode == 'nfs' %>
 volumes:
   <%- if not database_external %>
-  << volume_postgres_name or (service_name ~ "_postgres") >>:
+  << volume_postgres_name or ((service_name | default('authentik', true)) ~ "_postgres") >>:
     driver: local
     driver_opts:
       type: nfs
       o: addr=<< volume_nfs_server >>,nfsvers=4,<< volume_nfs_options >>
       device: ":<< volume_nfs_path >>/postgres"
   <%- endif %>
-  << volume_data_name or (service_name ~ "_data") >>:
+  << volume_data_name or ((service_name | default('authentik', true)) ~ "_data") >>:
     driver: local
     driver_opts:
       type: nfs
       o: addr=<< volume_nfs_server >>,nfsvers=4,<< volume_nfs_options >>
       device: ":<< volume_nfs_path >>/data"
-  << volume_certs_name or (service_name ~ "_certs") >>:
+  << volume_certs_name or ((service_name | default('authentik', true)) ~ "_certs") >>:
     driver: local
     driver_opts:
       type: nfs
       o: addr=<< volume_nfs_server >>,nfsvers=4,<< volume_nfs_options >>
       device: ":<< volume_nfs_path >>/certs"
-  << volume_templates_name or (service_name ~ "_templates") >>:
+  << volume_templates_name or ((service_name | default('authentik', true)) ~ "_templates") >>:
     driver: local
     driver_opts:  
       type: nfs

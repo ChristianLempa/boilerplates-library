@@ -20,8 +20,8 @@ services:
       - "<< ports_http >>:8086"
     <%- endif %>
     volumes:
-      - << volume_data_name or (service_name ~ "_data") >>:/var/lib/influxdb2
-      - << volume_config_name or (service_name ~ "_config") >>:/etc/influxdb2
+      - << volume_data_name or ((service_name | default('influxdb', true)) ~ "_data") >>:/var/lib/influxdb2
+      - << volume_config_name or ((service_name | default('influxdb', true)) ~ "_config") >>:/etc/influxdb2
     <%- if traefik_enabled %>
     labels:
       - traefik.enable=true
@@ -41,9 +41,9 @@ services:
     <%- endif %>
     
 volumes:
-  << volume_data_name or (service_name ~ "_data") >>:
+  << volume_data_name or ((service_name | default('influxdb', true)) ~ "_data") >>:
     driver: local
-  << volume_config_name or (service_name ~ "_config") >>:
+  << volume_config_name or ((service_name | default('influxdb', true)) ~ "_config") >>:
     driver: local
 
 <%- if traefik_enabled %>

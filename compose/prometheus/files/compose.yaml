@@ -24,7 +24,7 @@ services:
       - "<< ports_http >>:9090"
     <%- endif %>
     volumes:
-      - << volume_data_name or (service_name ~ "_data") >>:/prometheus
+      - << volume_data_name or ((service_name | default('prometheus', true)) ~ "_data") >>:/prometheus
       - ./config/prometheus.yaml:/etc/prometheus/prometheus.yaml:ro
     <%- if traefik_enabled  %>
     networks:
@@ -46,7 +46,7 @@ services:
     <%- endif %>
 
 volumes:
-  << volume_data_name or (service_name ~ "_data") >>:
+  << volume_data_name or ((service_name | default('prometheus', true)) ~ "_data") >>:
     driver: local
 
 <%- if traefik_enabled %>
