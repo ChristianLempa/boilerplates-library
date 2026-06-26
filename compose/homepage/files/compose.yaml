@@ -1,5 +1,5 @@
 services:
-  << service_name >>:
+  << (service_name | default('homepage', true)) >>:
     image: ghcr.io/gethomepage/homepage:v1.12.3
     restart: << restart_policy >>
     <%- if container_name %>
@@ -31,9 +31,9 @@ services:
       - << volume_images_name or ((service_name | default('homepage', true)) ~ "_images") >>:/app/images
       - << volume_icons_name or ((service_name | default('homepage', true)) ~ "_icons") >>:/app/icons
       <%- elif volume_mode == 'mount' %>
-      - << volume_mount_path >>/<< service_name >>/config:/app/config
-      - << volume_mount_path >>/<< service_name >>/images:/app/images
-      - << volume_mount_path >>/<< service_name >>/icons:/app/icons
+      - << volume_mount_path >>/<< (service_name | default('homepage', true)) >>/config:/app/config
+      - << volume_mount_path >>/<< (service_name | default('homepage', true)) >>/images:/app/images
+      - << volume_mount_path >>/<< (service_name | default('homepage', true)) >>/icons:/app/icons
       <%- elif volume_mode == 'nfs' %>
       - << volume_config_name or ((service_name | default('homepage', true)) ~ "_config") >>:/app/config
       - << volume_images_name or ((service_name | default('homepage', true)) ~ "_images") >>:/app/images
@@ -43,16 +43,16 @@ services:
     labels:
       - traefik.enable=true
       - traefik.docker.network=<< traefik_network >>
-      - traefik.http.services.<< service_name >>-web.loadbalancer.server.port=3000
-      - traefik.http.routers.<< service_name >>-http.service=<< service_name >>-web
-      - traefik.http.routers.<< service_name >>-http.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
-      - traefik.http.routers.<< service_name >>-http.entrypoints=<< traefik_entrypoint >>
+      - traefik.http.services.<< (service_name | default('homepage', true)) >>-web.loadbalancer.server.port=3000
+      - traefik.http.routers.<< (service_name | default('homepage', true)) >>-http.service=<< (service_name | default('homepage', true)) >>-web
+      - traefik.http.routers.<< (service_name | default('homepage', true)) >>-http.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
+      - traefik.http.routers.<< (service_name | default('homepage', true)) >>-http.entrypoints=<< traefik_entrypoint >>
       <%- if traefik_tls_enabled %>
-      - traefik.http.routers.<< service_name >>-https.service=<< service_name >>-web
-      - traefik.http.routers.<< service_name >>-https.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
-      - traefik.http.routers.<< service_name >>-https.entrypoints=<< traefik_tls_entrypoint >>
-      - traefik.http.routers.<< service_name >>-https.tls=true
-      - traefik.http.routers.<< service_name >>-https.tls.certresolver=<< traefik_tls_certresolver >>
+      - traefik.http.routers.<< (service_name | default('homepage', true)) >>-https.service=<< (service_name | default('homepage', true)) >>-web
+      - traefik.http.routers.<< (service_name | default('homepage', true)) >>-https.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
+      - traefik.http.routers.<< (service_name | default('homepage', true)) >>-https.entrypoints=<< traefik_tls_entrypoint >>
+      - traefik.http.routers.<< (service_name | default('homepage', true)) >>-https.tls=true
+      - traefik.http.routers.<< (service_name | default('homepage', true)) >>-https.tls.certresolver=<< traefik_tls_certresolver >>
       <%- endif %>
     <%- endif %>
 

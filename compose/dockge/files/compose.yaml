@@ -1,6 +1,6 @@
 ---
 services:
-  << service_name >>:
+  << (service_name | default('dockge', true)) >>:
     image: docker.io/louislam/dockge:1.5.0
     restart: << restart_policy >>
     environment:
@@ -22,16 +22,16 @@ services:
     labels:
       - traefik.enable=true
       - traefik.docker.network=<< traefik_network >>
-      - traefik.http.services.<< service_name >>-web.loadBalancer.server.port=5001
-      - traefik.http.routers.<< service_name >>-http.service=<< service_name >>-web
-      - traefik.http.routers.<< service_name >>-http.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
-      - traefik.http.routers.<< service_name >>-http.entrypoints=<< traefik_entrypoint >>
+      - traefik.http.services.<< (service_name | default('dockge', true)) >>-web.loadBalancer.server.port=5001
+      - traefik.http.routers.<< (service_name | default('dockge', true)) >>-http.service=<< (service_name | default('dockge', true)) >>-web
+      - traefik.http.routers.<< (service_name | default('dockge', true)) >>-http.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
+      - traefik.http.routers.<< (service_name | default('dockge', true)) >>-http.entrypoints=<< traefik_entrypoint >>
       <%- if traefik_tls_enabled %>
-      - traefik.http.routers.<< service_name >>-https.service=<< service_name >>-web
-      - traefik.http.routers.<< service_name >>-https.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
-      - traefik.http.routers.<< service_name >>-https.entrypoints=<< traefik_tls_entrypoint >>
-      - traefik.http.routers.<< service_name >>-https.tls=true
-      - traefik.http.routers.<< service_name >>-https.tls.certresolver=<< traefik_tls_certresolver >>
+      - traefik.http.routers.<< (service_name | default('dockge', true)) >>-https.service=<< (service_name | default('dockge', true)) >>-web
+      - traefik.http.routers.<< (service_name | default('dockge', true)) >>-https.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
+      - traefik.http.routers.<< (service_name | default('dockge', true)) >>-https.entrypoints=<< traefik_tls_entrypoint >>
+      - traefik.http.routers.<< (service_name | default('dockge', true)) >>-https.tls=true
+      - traefik.http.routers.<< (service_name | default('dockge', true)) >>-https.tls.certresolver=<< traefik_tls_certresolver >>
       <%- endif %>
     <%- endif %>
 

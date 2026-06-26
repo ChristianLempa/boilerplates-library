@@ -1,5 +1,5 @@
 services:
-  << service_name >>:
+  << (service_name | default('caddy', true)) >>:
     image: docker.io/library/caddy:2.11.2-alpine
     restart: << restart_policy >>
     <%- if container_timezone %>

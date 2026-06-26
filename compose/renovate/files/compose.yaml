@@ -1,6 +1,6 @@
 ---
 services:
-  << service_name >>:
+  << (service_name | default('renovate', true)) >>:
     image: ghcr.io/mend/renovate-ce:14.5.0-full
     container_name: << container_name >>
     restart: << restart_policy >>
@@ -32,14 +32,14 @@ services:
     labels:
       - traefik.enable=true
       - traefik.docker.network=<< traefik_network >>
-      - traefik.http.services.<< service_name >>.loadbalancer.server.port=8080
-      - traefik.http.routers.<< service_name >>-http.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
-      - traefik.http.routers.<< service_name >>-http.entrypoints=<< traefik_entrypoint >>
+      - traefik.http.services.<< (service_name | default('renovate', true)) >>.loadbalancer.server.port=8080
+      - traefik.http.routers.<< (service_name | default('renovate', true)) >>-http.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
+      - traefik.http.routers.<< (service_name | default('renovate', true)) >>-http.entrypoints=<< traefik_entrypoint >>
       <%- if traefik_tls_enabled %>
-      - traefik.http.routers.<< service_name >>-https.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
-      - traefik.http.routers.<< service_name >>-https.entrypoints=<< traefik_tls_entrypoint >>
-      - traefik.http.routers.<< service_name >>-https.tls=true
-      - traefik.http.routers.<< service_name >>-https.tls.certresolver=<< traefik_tls_certresolver >>
+      - traefik.http.routers.<< (service_name | default('renovate', true)) >>-https.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
+      - traefik.http.routers.<< (service_name | default('renovate', true)) >>-https.entrypoints=<< traefik_tls_entrypoint >>
+      - traefik.http.routers.<< (service_name | default('renovate', true)) >>-https.tls=true
+      - traefik.http.routers.<< (service_name | default('renovate', true)) >>-https.tls.certresolver=<< traefik_tls_certresolver >>
       <%- endif %>
     <%- endif %>
     healthcheck:

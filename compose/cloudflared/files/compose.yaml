@@ -1,5 +1,5 @@
 services:
-  << service_name >>:
+  << (service_name | default('cloudflared', true)) >>:
     image: cloudflare/cloudflared:2026.3.0
     container_name: << container_name >>
     environment:

@@ -1,6 +1,6 @@
 ---
 services:
-  << service_name >>:
+  << (service_name | default('uptimekuma', true)) >>:
     image: docker.io/louislam/uptime-kuma:2.3.2
     container_name: << container_name >>
     restart: << restart_policy >>

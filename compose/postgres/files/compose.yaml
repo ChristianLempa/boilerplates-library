@@ -1,5 +1,5 @@
 services:
-  << service_name >>:
+  << (service_name | default('postgres', true)) >>:
     image: docker.io/library/postgres:18.3
     restart: << restart_policy >>
     container_name: << container_name >>

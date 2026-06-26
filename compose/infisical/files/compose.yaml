@@ -1,6 +1,6 @@
 ---
 services:
-  << service_name or 'infisical' >>:
+  << (service_name | default('infisical', true)) or 'infisical' >>:
     image: infisical/infisical:v0.158.0
     restart: << restart_policy >>
     <%- if container_name %>
@@ -27,16 +27,16 @@ services:
     <%- if (not database_external) or (not redis_external) %>
     depends_on:
       <%- if not database_external %>
-      << service_name or 'infisical' >>_postgres:
+      << (service_name | default('infisical', true)) or 'infisical' >>_postgres:
         condition: service_healthy
       <%- endif %>
       <%- if not redis_external %>
-      << service_name or 'infisical' >>_redis:
+      << (service_name | default('infisical', true)) or 'infisical' >>_redis:
         condition: service_started
       <%- endif %>
     <%- endif %>
     networks:
-      - << service_name or 'infisical' >>_backend
+      - << (service_name | default('infisical', true)) or 'infisical' >>_backend
       <%- if traefik_enabled %>
       - << traefik_network >>
       <%- endif %>
@@ -48,21 +48,21 @@ services:
     labels:
       - traefik.enable=true
       - traefik.docker.network=<< traefik_network >>
-      - traefik.http.services.<< service_name or 'infisical' >>.loadBalancer.server.port=8080
-      - traefik.http.routers.<< service_name or 'infisical' >>_http.service=<< service_name or 'infisical' >>
-      - traefik.http.routers.<< service_name or 'infisical' >>_http.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
-      - traefik.http.routers.<< service_name or 'infisical' >>_http.entrypoints=<< traefik_entrypoint >>
+      - traefik.http.services.<< (service_name | default('infisical', true)) or 'infisical' >>.loadBalancer.server.port=8080
+      - traefik.http.routers.<< (service_name | default('infisical', true)) or 'infisical' >>_http.service=<< (service_name | default('infisical', true)) or 'infisical' >>
+      - traefik.http.routers.<< (service_name | default('infisical', true)) or 'infisical' >>_http.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
+      - traefik.http.routers.<< (service_name | default('infisical', true)) or 'infisical' >>_http.entrypoints=<< traefik_entrypoint >>
       <%- if traefik_tls_enabled %>
-      - traefik.http.routers.<< service_name or 'infisical' >>_https.service=<< service_name or 'infisical' >>
-      - traefik.http.routers.<< service_name or 'infisical' >>_https.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
-      - traefik.http.routers.<< service_name or 'infisical' >>_https.entrypoints=<< traefik_tls_entrypoint >>
-      - traefik.http.routers.<< service_name or 'infisical' >>_https.tls=true
-      - traefik.http.routers.<< service_name or 'infisical' >>_https.tls.certresolver=<< traefik_tls_certresolver >>
+      - traefik.http.routers.<< (service_name | default('infisical', true)) or 'infisical' >>_https.service=<< (service_name | default('infisical', true)) or 'infisical' >>
+      - traefik.http.routers.<< (service_name | default('infisical', true)) or 'infisical' >>_https.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
+      - traefik.http.routers.<< (service_name | default('infisical', true)) or 'infisical' >>_https.entrypoints=<< traefik_tls_entrypoint >>
+      - traefik.http.routers.<< (service_name | default('infisical', true)) or 'infisical' >>_https.tls=true
+      - traefik.http.routers.<< (service_name | default('infisical', true)) or 'infisical' >>_https.tls.certresolver=<< traefik_tls_certresolver >>
       <%- endif %>
     <%- endif %>
 
   <%- if not database_external %>
-  << service_name or 'infisical' >>_postgres:
+  << (service_name | default('infisical', true)) or 'infisical' >>_postgres:
     image: docker.io/library/postgres:14-alpine
     restart: << restart_policy >>
     environment:
@@ -75,32 +75,32 @@ services:
       timeout: 10s
       retries: 10
     networks:
-      - << service_name or 'infisical' >>_backend
+      - << (service_name | default('infisical', true)) or 'infisical' >>_backend
     volumes:
       <%- if volume_mode == 'mount' %>
       - << volume_mount_path >>/postgres:/var/lib/postgresql/data
       <%- elif volume_mode == 'local' or volume_mode == 'nfs' %>
-      - << volume_postgres_name or ((service_name or 'infisical') ~ "_postgres") >>:/var/lib/postgresql/data
+      - << volume_postgres_name or (((service_name | default('infisical', true)) or 'infisical') ~ "_postgres") >>:/var/lib/postgresql/data
       <%- endif %>
   <%- endif %>
 
   <%- if not redis_external %>
-  << service_name or 'infisical' >>_redis:
+  << (service_name | default('infisical', true)) or 'infisical' >>_redis:
     image: docker.io/library/redis:7-alpine
     restart: << restart_policy >>
     command: ["redis-server", "--appendonly", "yes", "--requirepass", "${REDIS_PASSWORD}"]
     networks:
-      - << service_name or 'infisical' >>_backend
+      - << (service_name | default('infisical', true)) or 'infisical' >>_backend
     volumes:
       <%- if volume_mode == 'mount' %>
       - << volume_mount_path >>/redis:/data
       <%- elif volume_mode == 'local' or volume_mode == 'nfs' %>
-      - << volume_redis_name or ((service_name or 'infisical') ~ "_redis") >>:/data
+      - << volume_redis_name or (((service_name | default('infisical', true)) or 'infisical') ~ "_redis") >>:/data
       <%- endif %>
   <%- endif %>
 
 networks:
-  << service_name or 'infisical' >>_backend:
+  << (service_name | default('infisical', true)) or 'infisical' >>_backend:
     driver: bridge
   <%- if traefik_enabled %>
   << traefik_network >>:
@@ -110,17 +110,17 @@ networks:
 <%- if volume_mode == 'local' and ((not database_external) or (not redis_external)) %>
 volumes:
   <%- if not database_external %>
-  << volume_postgres_name or ((service_name or 'infisical') ~ "_postgres") >>:
+  << volume_postgres_name or (((service_name | default('infisical', true)) or 'infisical') ~ "_postgres") >>:
     driver: local
   <%- endif %>
   <%- if not redis_external %>
-  << volume_redis_name or ((service_name or 'infisical') ~ "_redis") >>:
+  << volume_redis_name or (((service_name | default('infisical', true)) or 'infisical') ~ "_redis") >>:
     driver: local
   <%- endif %>
 <%- elif volume_mode == 'nfs' and ((not database_external) or (not redis_external)) %>
 volumes:
   <%- if not database_external %>
-  << volume_postgres_name or ((service_name or 'infisical') ~ "_postgres") >>:
+  << volume_postgres_name or (((service_name | default('infisical', true)) or 'infisical') ~ "_postgres") >>:
     driver: local
     driver_opts:
       type: nfs
@@ -128,7 +128,7 @@ volumes:
       device: ":<< volume_nfs_path >>/postgres"
   <%- endif %>
   <%- if not redis_external %>
-  << volume_redis_name or ((service_name or 'infisical') ~ "_redis") >>:
+  << volume_redis_name or (((service_name | default('infisical', true)) or 'infisical') ~ "_redis") >>:
     driver: local
     driver_opts:
       type: nfs

@@ -1,5 +1,5 @@
 services:
-  << service_name >>:
+  << (service_name | default('crowdsec', true)) >>:
     image: crowdsecurity/crowdsec:<< image_tag >>
     container_name: << container_name >>
     environment:

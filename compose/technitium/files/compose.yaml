@@ -1,6 +1,6 @@
 ---
 services:
-  << service_name >>:
+  << (service_name | default('technitium', true)) >>:
     image: docker.io/technitium/dns-server:15.1.0
     restart: << restart_policy >>
     <%- if container_name %>
@@ -67,24 +67,24 @@ services:
     labels:
       - traefik.enable=true
       - traefik.docker.network=<< traefik_network >>
-      - traefik.http.services.<< service_name >>-web.loadBalancer.server.port=5380
-      - traefik.http.routers.<< service_name >>-http.service=<< service_name >>-web
-      - traefik.http.routers.<< service_name >>-http.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
-      - traefik.http.routers.<< service_name >>-http.entrypoints=<< traefik_entrypoint >>
+      - traefik.http.services.<< (service_name | default('technitium', true)) >>-web.loadBalancer.server.port=5380
+      - traefik.http.routers.<< (service_name | default('technitium', true)) >>-http.service=<< (service_name | default('technitium', true)) >>-web
+      - traefik.http.routers.<< (service_name | default('technitium', true)) >>-http.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
+      - traefik.http.routers.<< (service_name | default('technitium', true)) >>-http.entrypoints=<< traefik_entrypoint >>
       <%- if traefik_tls_enabled %>
-      - traefik.http.routers.<< service_name >>-https.service=<< service_name >>-web
-      - traefik.http.routers.<< service_name >>-https.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
-      - traefik.http.routers.<< service_name >>-https.entrypoints=<< traefik_tls_entrypoint >>
-      - traefik.http.routers.<< service_name >>-https.tls=true
-      - traefik.http.routers.<< service_name >>-https.tls.certresolver=<< traefik_tls_certresolver >>
+      - traefik.http.routers.<< (service_name | default('technitium', true)) >>-https.service=<< (service_name | default('technitium', true)) >>-web
+      - traefik.http.routers.<< (service_name | default('technitium', true)) >>-https.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
+      - traefik.http.routers.<< (service_name | default('technitium', true)) >>-https.entrypoints=<< traefik_tls_entrypoint >>
+      - traefik.http.routers.<< (service_name | default('technitium', true)) >>-https.tls=true
+      - traefik.http.routers.<< (service_name | default('technitium', true)) >>-https.tls.certresolver=<< traefik_tls_certresolver >>
       <%- if dns_server_optional_protocol_dns_over_http %>
-      - traefik.http.services.<< service_name >>-doh.loadBalancer.server.port=80
-      - traefik.http.routers.<< service_name >>-doh.service=<< service_name >>-doh
-      - traefik.http.routers.<< service_name >>-doh.rule=Host(`<< traefik_host >>.<< traefik_domain >>`) && Path(`/dns-query`)
-      - traefik.http.routers.<< service_name >>-doh.entrypoints=<< traefik_tls_entrypoint >>
-      - traefik.http.routers.<< service_name >>-doh.tls=true
-      - traefik.http.routers.<< service_name >>-doh.tls.certresolver=<< traefik_tls_certresolver >>
-      - traefik.http.routers.<< service_name >>-doh.priority=100
+      - traefik.http.services.<< (service_name | default('technitium', true)) >>-doh.loadBalancer.server.port=80
+      - traefik.http.routers.<< (service_name | default('technitium', true)) >>-doh.service=<< (service_name | default('technitium', true)) >>-doh
+      - traefik.http.routers.<< (service_name | default('technitium', true)) >>-doh.rule=Host(`<< traefik_host >>.<< traefik_domain >>`) && Path(`/dns-query`)
+      - traefik.http.routers.<< (service_name | default('technitium', true)) >>-doh.entrypoints=<< traefik_tls_entrypoint >>
+      - traefik.http.routers.<< (service_name | default('technitium', true)) >>-doh.tls=true
+      - traefik.http.routers.<< (service_name | default('technitium', true)) >>-doh.tls.certresolver=<< traefik_tls_certresolver >>
+      - traefik.http.routers.<< (service_name | default('technitium', true)) >>-doh.priority=100
       <%- endif %>
       <%- endif %>
     <%- endif %>

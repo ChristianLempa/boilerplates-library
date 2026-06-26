@@ -1,6 +1,6 @@
 ---
 services:
-  << service_name >>:
+  << (service_name | default('arcane-agent', true)) >>:
     image: ghcr.io/getarcaneapp/agent:v2.1.0
     restart: << restart_policy >>
     <%- if container_name is string and container_name and (container_name | lower) not in ['true', 'false'] %>

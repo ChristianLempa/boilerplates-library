@@ -1,6 +1,6 @@
 ---
 services:
-  << service_name >>:
+  << (service_name | default('loki', true)) >>:
     image: docker.io/grafana/loki:3.7.1
     restart: << restart_policy >>
     command: "-config.file=/etc/loki/config.yaml"
@@ -19,16 +19,16 @@ services:
     labels:
       - traefik.enable=true
       - traefik.docker.network=<< traefik_network >>
-      - traefik.http.services.<< service_name >>_web.loadBalancer.server.port=3100
-      - traefik.http.routers.<< service_name >>_http.service=<< service_name >>_web
-      - traefik.http.routers.<< service_name >>_http.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
-      - traefik.http.routers.<< service_name >>_http.entrypoints=<< traefik_entrypoint >>
+      - traefik.http.services.<< (service_name | default('loki', true)) >>_web.loadBalancer.server.port=3100
+      - traefik.http.routers.<< (service_name | default('loki', true)) >>_http.service=<< (service_name | default('loki', true)) >>_web
+      - traefik.http.routers.<< (service_name | default('loki', true)) >>_http.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
+      - traefik.http.routers.<< (service_name | default('loki', true)) >>_http.entrypoints=<< traefik_entrypoint >>
       <%- if traefik_tls_enabled %>
-      - traefik.http.routers.<< service_name >>_https.service=<< service_name >>_web
-      - traefik.http.routers.<< service_name >>_https.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
-      - traefik.http.routers.<< service_name >>_https.entrypoints=<< traefik_tls_entrypoint >>
-      - traefik.http.routers.<< service_name >>_https.tls=true
-      - traefik.http.routers.<< service_name >>_https.tls.certresolver=<< traefik_tls_certresolver >>
+      - traefik.http.routers.<< (service_name | default('loki', true)) >>_https.service=<< (service_name | default('loki', true)) >>_web
+      - traefik.http.routers.<< (service_name | default('loki', true)) >>_https.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
+      - traefik.http.routers.<< (service_name | default('loki', true)) >>_https.entrypoints=<< traefik_tls_entrypoint >>
+      - traefik.http.routers.<< (service_name | default('loki', true)) >>_https.tls=true
+      - traefik.http.routers.<< (service_name | default('loki', true)) >>_https.tls.certresolver=<< traefik_tls_certresolver >>
       <%- endif %>
     <%- endif %>
 

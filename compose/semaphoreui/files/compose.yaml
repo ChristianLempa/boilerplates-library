@@ -1,5 +1,5 @@
 services:
-  << service_name >>:
+  << (service_name | default('semaphoreui', true)) >>:
     image: docker.io/semaphoreui/semaphore:v2.18.1
     restart: << restart_policy >>
     environment:
@@ -12,7 +12,7 @@ services:
       <%- if database_external %>
       - SEMAPHORE_DB_HOST=<< database_host >>
       <%- else %>
-      - SEMAPHORE_DB_HOST=<< service_name >>_db
+      - SEMAPHORE_DB_HOST=<< (service_name | default('semaphoreui', true)) >>_db
       <%- endif %>
       - SEMAPHORE_DB=<< database_name >>
       - SEMAPHORE_DB_USER=${DATABASE_USER}
@@ -32,7 +32,7 @@ services:
     <%- if (not database_external and database_type != "sqlite") or traefik_enabled %>
     networks:
     <%- if not database_external and database_type != "sqlite" %>
-      - << service_name >>_backend
+      - << (service_name | default('semaphoreui', true)) >>_backend
     <%- endif %>
     <%- if traefik_enabled %>
       - << traefik_network >>
@@ -46,25 +46,25 @@ services:
     labels:
       - traefik.enable=true
       - traefik.docker.network=<< traefik_network >>
-      - traefik.http.services.<< service_name >>-web.loadBalancer.server.port=3000
-      - traefik.http.routers.<< service_name >>-http.service=<< service_name >>-web
-      - traefik.http.routers.<< service_name >>-http.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
-      - traefik.http.routers.<< service_name >>-http.entrypoints=<< traefik_entrypoint >>
+      - traefik.http.services.<< (service_name | default('semaphoreui', true)) >>-web.loadBalancer.server.port=3000
+      - traefik.http.routers.<< (service_name | default('semaphoreui', true)) >>-http.service=<< (service_name | default('semaphoreui', true)) >>-web
+      - traefik.http.routers.<< (service_name | default('semaphoreui', true)) >>-http.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
+      - traefik.http.routers.<< (service_name | default('semaphoreui', true)) >>-http.entrypoints=<< traefik_entrypoint >>
       <%- if traefik_tls_enabled %>
-      - traefik.http.routers.<< service_name >>-https.service=<< service_name >>-web
-      - traefik.http.routers.<< service_name >>-https.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
-      - traefik.http.routers.<< service_name >>-https.entrypoints=<< traefik_tls_entrypoint >>
-      - traefik.http.routers.<< service_name >>-https.tls=true
-      - traefik.http.routers.<< service_name >>-https.tls.certresolver=<< traefik_tls_certresolver >>
+      - traefik.http.routers.<< (service_name | default('semaphoreui', true)) >>-https.service=<< (service_name | default('semaphoreui', true)) >>-web
+      - traefik.http.routers.<< (service_name | default('semaphoreui', true)) >>-https.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
+      - traefik.http.routers.<< (service_name | default('semaphoreui', true)) >>-https.entrypoints=<< traefik_tls_entrypoint >>
+      - traefik.http.routers.<< (service_name | default('semaphoreui', true)) >>-https.tls=true
+      - traefik.http.routers.<< (service_name | default('semaphoreui', true)) >>-https.tls.certresolver=<< traefik_tls_certresolver >>
       <%- endif %>
     <%- endif %>
     <%- if not database_external and database_type != "sqlite" %>
     depends_on:
-      - << service_name >>_db
+      - << (service_name | default('semaphoreui', true)) >>_db
     <%- endif %>
 
   <%- if not database_external and database_type == "postgres" %>
-  << service_name >>_db:
+  << (service_name | default('semaphoreui', true)) >>_db:
     image: docker.io/library/postgres:17.9
     restart: << restart_policy >>
     environment:
@@ -72,7 +72,7 @@ services:
       - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
       - POSTGRES_DB=<< database_name >>
     networks:
-      - << service_name >>_backend
+      - << (service_name | default('semaphoreui', true)) >>_backend
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U << database_user >>"]
       start_period: 30s
@@ -82,7 +82,7 @@ services:
     volumes:
       - << volume_db_name or ((service_name | default('semaphoreui', true)) ~ "_db") >>:/var/lib/postgresql/data
   <%- elif not database_external and database_type == "mysql" %>
-  << service_name >>_db:
+  << (service_name | default('semaphoreui', true)) >>_db:
     image: docker.io/library/mysql:8.1
     restart: << restart_policy >>
     environment:
@@ -91,7 +91,7 @@ services:
       - MYSQL_DATABASE=<< database_name >>
       - MYSQL_ROOT_PASSWORD=${DATABASE_PASSWORD}
     networks:
-      - << service_name >>_backend
+      - << (service_name | default('semaphoreui', true)) >>_backend
     volumes:
       - << volume_db_name or ((service_name | default('semaphoreui', true)) ~ "_db") >>:/var/lib/mysql
   <%- endif %>
@@ -111,7 +111,7 @@ volumes:
 <%- if (not database_external and database_type != "sqlite") or traefik_enabled %>
 networks:
   <%- if not database_external and database_type != "sqlite" %>
-  << service_name >>_backend:
+  << (service_name | default('semaphoreui', true)) >>_backend:
     driver: bridge
   <%- endif %>
   <%- if traefik_enabled %>

@@ -34,7 +34,8 @@
           "required": false,
           "config": {
             "placeholder": "infisical"
-          }
+          },
+          "default": "infisical"
         },
         {
           "name": "container_name",

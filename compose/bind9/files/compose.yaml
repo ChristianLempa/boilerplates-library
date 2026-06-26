@@ -1,5 +1,5 @@
 services:
-  << service_name >>:
+  << (service_name | default('bind9', true)) >>:
     image: docker.io/ubuntu/bind9:9.20-24.10_edge
     restart: << restart_policy >>
     <%- if container_hostname %>

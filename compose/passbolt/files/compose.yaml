@@ -1,6 +1,6 @@
 ---
 services:
-  << service_name >>:
+  << (service_name | default('passbolt', true)) >>:
     image: docker.io/passbolt/passbolt:5.11.0-1-ce
     restart: << restart_policy >>
     ports:
@@ -10,7 +10,7 @@ services:
       - APP_DEFAULT_TIMEZONE=<< container_timezone >>
       <%- endif %>
       - APP_FULL_BASE_URL=<< app_full_base_url >>
-      - DATASOURCES_DEFAULT_HOST=<< service_name >>-db
+      - DATASOURCES_DEFAULT_HOST=<< (service_name | default('passbolt', true)) >>-db
       - DATASOURCES_DEFAULT_USERNAME=${DATABASE_USER}
       - DATASOURCES_DEFAULT_PASSWORD=${DATABASE_PASSWORD}
       - DATASOURCES_DEFAULT_DATABASE=<< database_name >>
@@ -27,11 +27,11 @@ services:
     volumes:
       - << volume_gpg_name or ((service_name | default('passbolt', true)) ~ "-gpg") >>:/etc/passbolt/gpg
       - << volume_jwt_name or ((service_name | default('passbolt', true)) ~ "-jwt") >>:/etc/passbolt/jwt
-    command: ["/usr/bin/wait-for.sh", "-t", "0", "<< service_name >>-db:3306", "--", "/docker-entrypoint.sh"]
+    command: ["/usr/bin/wait-for.sh", "-t", "0", "<< (service_name | default('passbolt', true)) >>-db:3306", "--", "/docker-entrypoint.sh"]
     depends_on:
-      - << service_name >>-db
+      - << (service_name | default('passbolt', true)) >>-db
 
-  << service_name >>-db:
+  << (service_name | default('passbolt', true)) >>-db:
     image: docker.io/library/mariadb:12.2.2
     restart: << restart_policy >>
     environment:
