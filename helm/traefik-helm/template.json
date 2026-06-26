@@ -1,5 +1,5 @@
 {
-  "slug": "traefik",
+  "slug": "traefik-helm",
   "kind": "helm",
   "metadata": {
     "name": "Traefik Ingress Controller",

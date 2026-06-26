@@ -1,5 +1,5 @@
 {
-  "slug": "portainer",
+  "slug": "portainer-helm",
   "kind": "helm",
   "metadata": {
     "name": "Portainer CE",
