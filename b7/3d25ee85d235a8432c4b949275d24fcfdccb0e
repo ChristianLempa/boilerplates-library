@@ -1,0 +1,31 @@
+kubernetes/certmanager-issuer/template.json
+  s_2326ed8c8f73ad::t_0640240584b0e9 5-12,18,20-22,27-28,33,35,37,53,55-58,71,73,75,77,83-84,87-89,91,93-96,100,102,104-107,109,113,115,117-120,122,126,128,130-133,135,139,141,143-147,149
+kubernetes/certmanager-certificate/files/main.yaml
+  s_2326ed8c8f73ad::t_59f5c56b5b40a7 9-10,12-17,19-29
+kubernetes/certmanager-clusterissuer/files/main.yaml
+  s_2326ed8c8f73ad::t_84d01862a9fa85 13,17-18,26-27,30
+  s_2326ed8c8f73ad::t_f76eb02ed9b0f6 11,19-25,28-29
+kubernetes/certmanager-clusterissuer/template.json
+  s_2326ed8c8f73ad::t_2174c557c281e5 5-12,18,20-22,27-28,33,35,37,43,45-48,61,63,65,67,73-74,77-79,81,83-86,90,92,94-97,99,103,105,107-110,112,116,118,120-123,125,129,131,133-137,139
+kubernetes/certmanager-certificate/template.json
+  s_2326ed8c8f73ad::t_f6d76d77cffa3d 6-11,17,19-21,26-27,32,34,36,52,54,56,60,62,64-68,71,73,75,77,79-85,87,89,91,93,97-99,101,103-106,110,112,114,116,122-123,126,128-130,132,136,138-140,142,146-148,150,152-155,157,159-161,163,165,169,171,173,176-177
+kubernetes/certmanager-issuer/files/main.yaml
+  s_2326ed8c8f73ad::t_b26e0553f0d90e 12,20-26,29-30
+  s_2326ed8c8f73ad::t_709ca8fa1dbb7e 14,18-19,27-28,31
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.3",
+  "base_commit_sha": "b73d25ee85d235a8432c4b949275d24fcfdccb0e",
+  "prompts": {},
+  "sessions": {
+    "s_2326ed8c8f73ad": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019f0493-fdce-7252-8b6e-79cf622d0d28",
+        "model": "gpt-5.5"
+      },
+      "human_author": "xcad <christian.lempa@clcreative.de>"
+    }
+  }
+}
