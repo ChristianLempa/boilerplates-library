@@ -1,0 +1,153 @@
+compose/adguardhome/files/compose.yaml
+  s_dd21400a5cc928::t_607c958e1dce91 41-42,94,96,100,106
+compose/adguardhome/template.json
+  s_dd21400a5cc928::t_a03e6179b18d03 301-326
+compose/alloy/files/compose.yaml
+  s_dd21400a5cc928::t_c1e2659abaa8c9 21,61
+compose/alloy/template.json
+  s_dd21400a5cc928::t_c814007a5e159e 154-169
+compose/arcane-agent/files/compose.yaml
+  s_dd21400a5cc928::t_19f100eb316024 24,36,40
+compose/arcane-agent/template.json
+  s_dd21400a5cc928::t_70f53cbd2473ea 85-100
+compose/arcane/files/compose.yaml
+  s_dd21400a5cc928::t_d0293c4d29dbe2 46,84,88
+compose/arcane/template.json
+  s_dd21400a5cc928::t_26add48a4ea44f 255-270
+compose/authentik/files/compose.yaml
+  s_dd21400a5cc928::t_d22c298063e61b 47-48,129-131,158,173,176,178,180,185,192,198,204
+compose/authentik/template.json
+  s_dd21400a5cc928::t_10286b816b3140 262-307
+compose/bind9/files/compose.yaml
+  s_dd21400a5cc928::t_1fbe0befdb35b4 33-35,61,63,65,69,75,81
+compose/bind9/template.json
+  s_dd21400a5cc928::t_2cce15ea812344 73-108
+compose/caddy/files/compose.yaml
+  s_dd21400a5cc928::t_7a8d1f4046e766 20,23-24,39,46-47
+compose/caddy/template.json
+  s_dd21400a5cc928::t_f95dc96e74d53c 69-104
+compose/checkmk/files/compose.yaml
+  s_dd21400a5cc928::t_967a11741bfc92 18,48
+compose/checkmk/template.json
+  s_dd21400a5cc928::t_8876301bb6af47 104-119
+compose/crowdsec/files/compose.yaml
+  s_dd21400a5cc928::t_e980434ae974db 24,62
+compose/crowdsec/template.json
+  s_dd21400a5cc928::t_4470556d772a81 180-195
+compose/dockge/files/compose.yaml
+  s_dd21400a5cc928::t_ae58d54c1355dd 11,40
+compose/dockge/template.json
+  s_dd21400a5cc928::t_953f1aedbeb33d 74-89
+compose/dockhand/files/compose.yaml
+  s_dd21400a5cc928::t_5656e2c8884b2e 25,52
+compose/dockhand/template.json
+  s_dd21400a5cc928::t_5b92b7eef9f098 108-123
+compose/forgejo/files/compose.yaml
+  s_dd21400a5cc928::t_f2794c9de10902 40,82,95,99,103
+compose/forgejo/template.json
+  s_dd21400a5cc928::t_5403b34a936b46 205-230
+compose/gitea/files/compose.yaml
+  s_dd21400a5cc928::t_5dc8888d6bdcfa 40,82,95,99,103
+compose/gitea/template.json
+  s_dd21400a5cc928::t_73ed5656917ebc 205-230
+compose/gitlab/files/compose.yaml
+  s_dd21400a5cc928::t_988c31722dc438 20-22,54,56,58
+compose/gitlab/template.json
+  s_dd21400a5cc928::t_171852bbe35710 203-238
+compose/grafana/files/compose.yaml
+  s_dd21400a5cc928::t_6f3d381fab8586 51,86,103,106
+compose/grafana/template.json
+  s_dd21400a5cc928::t_63a1c2e9fc83f1 129-154
+compose/homepage/files/compose.yaml
+  s_dd21400a5cc928::t_fba17060eacd6c 30-32,38-40,67-69,72,78,84
+compose/homepage/template.json
+  s_dd21400a5cc928::t_6b8cc6aae63a3a 192-227
+compose/infisical/files/compose.yaml
+  s_dd21400a5cc928::t_59118e57747e65 83,98,113,117,123,131
+compose/infisical/template.json
+  s_dd21400a5cc928::t_da6da11403eb87 486-511
+compose/influxdb/files/compose.yaml
+  s_dd21400a5cc928::t_30af331c05c960 23-24,44,46
+compose/influxdb/template.json
+  s_dd21400a5cc928::t_45f5afd105c3f0 100-125
+compose/komodo/files/compose.yaml
+  s_dd21400a5cc928::t_68770d3d115cf8 64-65,108-109,127,149,155,157,160,166,174,176,179,181
+compose/komodo/template.json
+  s_dd21400a5cc928::t_1d0e40aff8f891 274-339
+compose/loki/files/compose.yaml
+  s_dd21400a5cc928::t_d37cd14f4c23ee 12,36
+compose/loki/template.json
+  s_dd21400a5cc928::t_5f50b3e7acfa71 87-102
+compose/mariadb/files/compose.yaml
+  s_dd21400a5cc928::t_742e663bf89ea4 15,18
+compose/mariadb/template.json
+  s_dd21400a5cc928::t_e1b4b17cdfb2ad 52-67
+compose/n8n/files/compose.yaml
+  s_dd21400a5cc928::t_0b5a187d06001f 42,69
+compose/n8n/template.json
+  s_dd21400a5cc928::t_d7d988cbc8487c 99-114
+compose/netbox/files/compose.yaml
+  s_dd21400a5cc928::t_006557fd745fd4 53-55,121-123,141,152,174,187,190,192,194,196,198
+compose/netbox/template.json
+  s_dd21400a5cc928::t_0a53e86815984a 239-304
+compose/nextcloud/files/compose.yaml
+  s_dd21400a5cc928::t_3028aadddddb39 36,82,94,113,126,132,134,136
+compose/nextcloud/template.json
+  s_dd21400a5cc928::t_70cd536db87e64 123-158
+compose/openwebui/files/compose.yaml
+  s_dd21400a5cc928::t_d4075a94c544e3 25,53
+compose/openwebui/template.json
+  s_dd21400a5cc928::t_ec0e869d240017 100-115
+compose/passbolt/files/compose.yaml
+  s_dd21400a5cc928::t_e949d0a839b502 28-29,43,47-49
+compose/passbolt/template.json
+  s_dd21400a5cc928::t_fa7373f61f4a7f 85-120
+compose/pihole/files/compose.yaml
+  s_dd21400a5cc928::t_4033927d26c22c 55-56,83,85,89,95
+compose/pihole/template.json
+  s_dd21400a5cc928::t_e82e57ff901c74 330-355
+compose/portainer/files/compose.yaml
+  s_dd21400a5cc928::t_5ed9035eb7c566 22,43,47
+compose/portainer/template.json
+  s_dd21400a5cc928::t_73e735f5b89edd 185-200
+compose/postgres/files/compose.yaml
+  s_dd21400a5cc928::t_b8cc125ce49429 28,39,43
+compose/postgres/template.json
+  s_dd21400a5cc928::t_d57c9b31192bf1 136-151
+compose/prometheus/files/compose.yaml
+  s_dd21400a5cc928::t_6b5b5d8e082233 27,49
+compose/prometheus/template.json
+  s_dd21400a5cc928::t_e0aa4610f9c14a 107-122
+compose/semaphoreui/files/compose.yaml
+  s_dd21400a5cc928::t_6d3cde7c6a6c6b 30,83,96,102,106
+compose/semaphoreui/template.json
+  s_dd21400a5cc928::t_26330090638348 141-166
+compose/technitium/files/compose.yaml
+  s_dd21400a5cc928::t_f5d768a6083110 59-60,122,124,129,135
+compose/technitium/template.json
+  s_dd21400a5cc928::t_bd5157534716df 397-422
+compose/traefik/files/compose.yaml
+  s_dd21400a5cc928::t_12284a5ce4fcbb 67,129,133
+compose/traefik/template.json
+  s_dd21400a5cc928::t_7b164c7847406e 344-359
+compose/uptimekuma/files/compose.yaml
+  s_dd21400a5cc928::t_ba13e7c804715d 10,13
+compose/uptimekuma/template.json
+  s_dd21400a5cc928::t_caa471aeb43459 72-87
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.1",
+  "base_commit_sha": "d5d3fa042b97e891c40ae20db02a02d51eae0631",
+  "prompts": {},
+  "sessions": {
+    "s_dd21400a5cc928": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019f03e5-d121-7932-b354-6089731e1740",
+        "model": "gpt-5.5"
+      },
+      "human_author": "xcad <christian.lempa@clcreative.de>"
+    }
+  }
+}
