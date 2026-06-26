@@ -1,0 +1,29 @@
+terraform/proxmox-provider/template.json
+  s_2eca40145aca86::t_4a09b5c9817202 1-108
+terraform/gitlab-provider/files/main.tf
+  s_2eca40145aca86::t_6cc530f022045b 22
+terraform/proxmox-provider/files/variables.tf
+  s_2eca40145aca86::t_501062d5762606 1-32
+terraform/proxmox-provider/files/main.tf
+  s_2eca40145aca86::t_cc58d9fc6b0197 1-21
+terraform/gitlab-provider/files/variables.tf
+  s_2eca40145aca86::t_fc8e9d70654be4 26,28-32
+terraform/gitlab-provider/template.json
+  s_2eca40145aca86::t_6695ba2f45b0c2 6,93-100
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.3",
+  "base_commit_sha": "32678a9fba53d3444045b5378f9062fe8340d2ec",
+  "prompts": {},
+  "sessions": {
+    "s_2eca40145aca86": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019f047c-2526-7b41-8bea-9dfcb45e498e",
+        "model": "gpt-5.5"
+      },
+      "human_author": "xcad <christian.lempa@clcreative.de>"
+    }
+  }
+}
