@@ -7,11 +7,12 @@ image:
 
 ports:
   web:
-    redirections:
-      entryPoint:
-        to: websecure
-        scheme: https
-        permanent: << http_redirect_permanent | lower >>
+    http:
+      redirections:
+        entryPoint:
+          to: websecure
+          scheme: https
+          permanent: << http_redirect_permanent | lower >>
 <%- endif %>
 <%- if dashboard_enabled or accesslog_enabled or prometheus_enabled %>
 

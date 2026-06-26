@@ -1,12 +1,12 @@
 ---
-# Infisical standalone Helm chart values.
+# Infisical standalone Helm release values.
 # Chart repo: https://dl.cloudsmith.io/public/infisical/helm-charts/helm/charts/
 # Install example:
 # helm upgrade --install << release_name >> infisical-helm-charts/infisical-standalone \
 #   --version 1.9.0 \
 #   --namespace << namespace >> \
-#   --values values.yaml \
-#   --values helm-secrets.yaml
+#   --create-namespace \
+#   --values values.yaml
 
 infisical:
   enabled: true
@@ -19,7 +19,8 @@ infisical:
     pullPolicy: IfNotPresent
 
   # This Kubernetes Secret must contain AUTH_SECRET, ENCRYPTION_KEY, SITE_URL,
-  # and optional SMTP/REDIS_URL keys. See secret.yaml.
+  # and any optional runtime keys needed by your deployment. This values file
+  # can create it through chart-supported extraDeploy when not using an existing Secret.
   kubeSecretRef: << infisical_secret_name >>
 
   service:
@@ -75,6 +76,8 @@ postgresql:
   useExistingPostgresSecret:
     enabled: true
     existingConnectionStringSecret:
+      # Kubernetes Secret containing DB_CONNECTION_URI. This values file can create
+      # it through chart-supported extraDeploy when a bundled subchart is enabled.
       name: << database_secret_name >>
       key: DB_CONNECTION_URI
 <%- else %>
@@ -82,6 +85,41 @@ postgresql:
   auth:
     username: << database_user >>
     database: << database_name >>
+    password: "<< database_password >>"
+  <%- if not infisical_secret_existing and redis_external %>
+  extraDeploy:
+    - |
+      apiVersion: v1
+      kind: Secret
+      metadata:
+        name: << infisical_secret_name >>
+        labels:
+          app.kubernetes.io/name: infisical
+          app.kubernetes.io/instance: << release_name >>
+      type: Opaque
+      stringData:
+        AUTH_SECRET: "<< infisical_auth_secret >>"
+        ENCRYPTION_KEY: "<< infisical_encryption_key >>"
+        SITE_URL: "<< infisical_site_url >>"
+        REDIS_URL: "<< redis_url >>"
+        <% if email_enabled %>
+        SMTP_HOST: "<< email_host >>"
+        SMTP_PORT: "<< email_port >>"
+        SMTP_FROM_ADDRESS: "<< email_from_address >>"
+        SMTP_FROM_NAME: "<< email_from_name >>"
+        SMTP_USERNAME: "<< email_username >>"
+        SMTP_PASSWORD: "<< email_password >>"
+        SMTP_SECURE: "<< email_secure | lower >>"
+        SMTP_REQUIRE_TLS: "<< email_require_tls | lower >>"
+        SMTP_IGNORE_TLS: "<< email_ignore_tls | lower >>"
+        <% endif %>
+  <%- endif %>
+<%- endif %>
+<%- if database_external and not database_secret_existing and redis_external %>
+# Both bundled PostgreSQL and bundled Redis are disabled, so this chart has no
+# enabled subchart extraDeploy hook available for creating Secrets. Create
+# << database_secret_name >> and << infisical_secret_name >> separately, or enable
+# one bundled subchart, or use existing Secrets.
 <%- endif %>
 
 redis:
@@ -92,8 +130,49 @@ redis:
   architecture: standalone
   usePassword: true
   auth:
-    # Override the real password from helm-secrets.yaml.
-    password: "REPLACE_FROM_HELM_SECRETS_FILE"
+    password: "<< redis_password >>"
+  <%- if not infisical_secret_existing or (database_external and not database_secret_existing) %>
+  extraDeploy:
+    <%- if not infisical_secret_existing %>
+    - |
+      apiVersion: v1
+      kind: Secret
+      metadata:
+        name: << infisical_secret_name >>
+        labels:
+          app.kubernetes.io/name: infisical
+          app.kubernetes.io/instance: << release_name >>
+      type: Opaque
+      stringData:
+        AUTH_SECRET: "<< infisical_auth_secret >>"
+        ENCRYPTION_KEY: "<< infisical_encryption_key >>"
+        SITE_URL: "<< infisical_site_url >>"
+        <% if email_enabled %>
+        SMTP_HOST: "<< email_host >>"
+        SMTP_PORT: "<< email_port >>"
+        SMTP_FROM_ADDRESS: "<< email_from_address >>"
+        SMTP_FROM_NAME: "<< email_from_name >>"
+        SMTP_USERNAME: "<< email_username >>"
+        SMTP_PASSWORD: "<< email_password >>"
+        SMTP_SECURE: "<< email_secure | lower >>"
+        SMTP_REQUIRE_TLS: "<< email_require_tls | lower >>"
+        SMTP_IGNORE_TLS: "<< email_ignore_tls | lower >>"
+        <% endif %>
+    <%- endif %>
+    <%- if database_external and not database_secret_existing %>
+    - |
+      apiVersion: v1
+      kind: Secret
+      metadata:
+        name: << database_secret_name >>
+        labels:
+          app.kubernetes.io/name: infisical
+          app.kubernetes.io/instance: << release_name >>
+      type: Opaque
+      stringData:
+        DB_CONNECTION_URI: "<< database_connection_uri >>"
+    <%- endif %>
+  <%- endif %>
   master:
     persistence:
       enabled: << redis_persistence_enabled | lower >>

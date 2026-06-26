@@ -1,9 +1,9 @@
 {
-  "slug": "traefik-helm",
+  "slug": "traefik",
   "kind": "helm",
   "metadata": {
     "name": "Traefik Ingress Controller",
-    "description": "Helm chart for Traefik v3, a modern HTTP reverse proxy and load balancer designed for microservices and Kubernetes environments.",
+    "description": "Helm release values for Traefik v3, a modern HTTP reverse proxy and load balancer designed for microservices and Kubernetes environments.",
     "tags": [],
     "icon": {
       "provider": "devicon",
@@ -12,9 +12,9 @@
     },
     "draft": false,
     "version": {
-      "name": "v3.7.1",
-      "source_dep_name": "traefik",
-      "source_dep_version": "v3.7.1"
+      "name": "40.2.0",
+      "source_dep_name": "traefik/traefik",
+      "source_dep_version": "40.2.0"
     }
   },
   "variables": [
@@ -120,5 +120,13 @@
         }
       ]
     }
-  ]
+  ],
+  "config": {
+    "helm": {
+      "chart": "traefik/traefik",
+      "repository_url": "https://helm.traefik.io/traefik",
+      "version": "40.2.0"
+    }
+  },
+  "file_metadata": {}
 }

@@ -1,9 +1,9 @@
 {
-  "slug": "portainer-helm",
+  "slug": "portainer",
   "kind": "helm",
   "metadata": {
     "name": "Portainer CE",
-    "description": "Helm chart for Portainer Community Edition, a web-based container management platform for Docker and Kubernetes environments.",
+    "description": "Helm release values for Portainer Community Edition, a web-based container management platform for Docker and Kubernetes environments.",
     "tags": [],
     "icon": {
       "provider": "selfhst",
@@ -12,9 +12,9 @@
     },
     "draft": false,
     "version": {
-      "name": "2.41.0",
-      "source_dep_name": "portainer/portainer-ce",
-      "source_dep_version": "2.41.0"
+      "name": "239.4.0",
+      "source_dep_name": "portainer/portainer",
+      "source_dep_version": "239.4.0"
     }
   },
   "variables": [
@@ -52,7 +52,8 @@
           "required": true,
           "config": {
             "placeholder": "portainer.home.arpa"
-          }
+          },
+          "default": "portainer.home.arpa"
         },
         {
           "name": "traefik_tls_enabled",
@@ -105,5 +106,13 @@
         }
       ]
     }
-  ]
+  ],
+  "config": {
+    "helm": {
+      "chart": "portainer/portainer",
+      "repository_url": "https://portainer.github.io/k8s/",
+      "version": "239.4.0"
+    }
+  },
+  "file_metadata": {}
 }

@@ -1,8 +1,0 @@
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: << namespace >>
-  labels:
-    app.kubernetes.io/name: infisical
-    app.kubernetes.io/instance: << release_name >>

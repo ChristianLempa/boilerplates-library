@@ -3,7 +3,7 @@
   "kind": "helm",
   "metadata": {
     "name": "Longhorn",
-    "description": "Helm chart for Longhorn, a distributed block storage system for Kubernetes with built-in backup, snapshots, and disaster recovery.",
+    "description": "Helm release values for Longhorn, a distributed block storage system for Kubernetes with built-in backup, snapshots, and disaster recovery.",
     "tags": [],
     "icon": {
       "provider": "selfhst",
@@ -12,9 +12,9 @@
     },
     "draft": false,
     "version": {
-      "name": "v1.11.2",
-      "source_dep_name": "longhornio/longhorn-manager",
-      "source_dep_version": "v1.11.2"
+      "name": "1.11.2",
+      "source_dep_name": "longhorn/longhorn",
+      "source_dep_version": "1.11.2"
     }
   },
   "variables": [
@@ -63,5 +63,13 @@
         }
       ]
     }
-  ]
+  ],
+  "config": {
+    "helm": {
+      "chart": "longhorn/longhorn",
+      "repository_url": "https://charts.longhorn.io",
+      "version": "1.11.2"
+    }
+  },
+  "file_metadata": {}
 }

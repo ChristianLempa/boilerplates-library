@@ -1,9 +1,9 @@
 {
-  "slug": "netbox-helm",
+  "slug": "netbox",
   "kind": "helm",
   "metadata": {
     "name": "NetBox",
-    "description": "Helm chart for NetBox, an open-source network infrastructure management (IPAM/DCIM) solution and network automation source of truth.",
+    "description": "Helm release values for NetBox, an open-source network infrastructure management (IPAM/DCIM) solution and network automation source of truth.",
     "tags": [],
     "icon": {
       "provider": "selfhst",
@@ -12,9 +12,9 @@
     },
     "draft": false,
     "version": {
-      "name": "v4.5.10",
-      "source_dep_name": "docker.io/netboxcommunity/netbox",
-      "source_dep_version": "v4.5.10"
+      "name": "8.2.5",
+      "source_dep_name": "netbox/netbox",
+      "source_dep_version": "8.2.5"
     }
   },
   "variables": [
@@ -246,7 +246,8 @@
           "required": true,
           "config": {
             "placeholder": "netbox.home.arpa"
-          }
+          },
+          "default": "netbox.home.arpa"
         },
         {
           "name": "traefik_tls_enabled",
@@ -351,7 +352,8 @@
           "required": true,
           "config": {
             "placeholder": "admin@home.arpa"
-          }
+          },
+          "default": "admin@home.arpa"
         },
         {
           "name": "netbox_superuser_password",
@@ -415,5 +417,13 @@
         }
       ]
     }
-  ]
+  ],
+  "config": {
+    "helm": {
+      "chart": "netbox/netbox",
+      "repository_url": "https://charts.netbox.oss.netboxlabs.com/",
+      "version": "8.2.5"
+    }
+  },
+  "file_metadata": {}
 }

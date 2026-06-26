@@ -1,9 +1,9 @@
 {
-  "slug": "infisical-helm",
+  "slug": "infisical",
   "kind": "helm",
   "metadata": {
     "name": "Infisical",
-    "description": "Helm values and Kubernetes secret manifests for deploying the Infisical standalone chart with external PostgreSQL, Redis, Traefik ingress, and homelab-friendly defaults.",
+    "description": "Helm release values for deploying the Infisical standalone chart with chart-managed PostgreSQL/Redis by default, optional existing services, Traefik ingress, and homelab-friendly defaults.",
     "tags": [
       "secrets",
       "kubernetes",
@@ -19,9 +19,9 @@
     },
     "draft": false,
     "version": {
-      "name": "v0.158.0",
-      "source_dep_name": "infisical/infisical",
-      "source_dep_version": "v0.158.0"
+      "name": "1.9.0",
+      "source_dep_name": "infisical-helm-charts/infisical-standalone",
+      "source_dep_version": "1.9.0"
     }
   },
   "variables": [
@@ -76,18 +76,29 @@
           "default": "https://infisical.home.arpa",
           "config": {
             "placeholder": "https://infisical.home.arpa"
-          }
+          },
+          "needs": [
+            "infisical_secret_existing=false"
+          ]
         },
         {
           "name": "infisical_secret_name",
           "type": "str",
-          "title": "Kubernetes Secret Name",
+          "title": "Infisical Secret Name",
           "required": true,
           "default": "infisical-secrets",
-          "description": "Kubernetes Secret referenced by infisical.kubeSecretRef.",
+          "description": "Kubernetes Secret referenced by infisical.kubeSecretRef. The template can create it through chart-supported extraDeploy unless you choose an existing secret.",
           "config": {
             "placeholder": "infisical-secrets"
           }
+        },
+        {
+          "name": "infisical_secret_existing",
+          "type": "bool",
+          "title": "Use existing Infisical Secret",
+          "required": false,
+          "default": false,
+          "description": "Use an already-created Secret instead of creating one from values.yaml. Required if both bundled PostgreSQL and bundled Redis are disabled."
         },
         {
           "name": "infisical_encryption_key",
@@ -117,7 +128,10 @@
                 "f"
               ]
             }
-          }
+          },
+          "needs": [
+            "infisical_secret_existing=false"
+          ]
         },
         {
           "name": "infisical_auth_secret",
@@ -129,7 +143,10 @@
               "kind": "base64",
               "bytes": 32
             }
-          }
+          },
+          "needs": [
+            "infisical_secret_existing=false"
+          ]
         }
       ]
     },
@@ -276,7 +293,8 @@
           "type": "bool",
           "title": "External PostgreSQL",
           "required": false,
-          "default": true
+          "default": false,
+          "description": "Use an external PostgreSQL database instead of the bundled chart-managed PostgreSQL."
         },
         {
           "name": "database_secret_name",
@@ -284,13 +302,24 @@
           "title": "DB Secret Name",
           "required": true,
           "default": "infisical-postgres",
-          "description": "Kubernetes Secret containing DB_CONNECTION_URI for external PostgreSQL.",
+          "description": "Kubernetes Secret containing DB_CONNECTION_URI for external PostgreSQL. The template can create it through chart-supported extraDeploy unless you choose an existing secret.",
           "needs": [
             "database_external=true"
           ],
           "config": {
             "placeholder": "infisical-postgres"
           }
+        },
+        {
+          "name": "database_secret_existing",
+          "type": "bool",
+          "title": "Use existing DB Secret",
+          "required": false,
+          "default": false,
+          "description": "Use an already-created Secret for DB_CONNECTION_URI instead of creating it from values.yaml.",
+          "needs": [
+            "database_external=true"
+          ]
         },
         {
           "name": "database_connection_uri",
@@ -300,7 +329,8 @@
           "default": "postgresql://infisical:CHANGE_ME@postgres.example.internal:5432/infisical?sslmode=disable",
           "description": "Full PostgreSQL connection URI for external databases. URL-encode special characters in usernames/passwords.",
           "needs": [
-            "database_external=true"
+            "database_external=true",
+            "database_secret_existing=false"
           ],
           "config": {
             "placeholder": "postgresql://infisical:password@postgres.example.internal:5432/infisical?sslmode=disable"
@@ -337,7 +367,7 @@
           "type": "secret",
           "title": "Database Password",
           "required": true,
-          "description": "PostgreSQL password for the bundled database, written to helm-secrets.yaml.",
+          "description": "PostgreSQL password for the bundled database, written to values.yaml.",
           "needs": [
             "database_external=false"
           ],
@@ -422,7 +452,8 @@
           "type": "bool",
           "title": "External Redis",
           "required": false,
-          "default": false
+          "default": false,
+          "description": "Use an external Redis instance instead of the bundled chart-managed Redis."
         },
         {
           "name": "redis_url",
@@ -430,9 +461,10 @@
           "title": "Redis URL",
           "required": true,
           "default": "redis://:CHANGE_ME@redis.example.internal:6379",
-          "description": "Full Redis URL for external Redis.",
+          "description": "Full Redis URL added to the generated Infisical Secret when using external Redis.",
           "needs": [
-            "redis_external=true"
+            "redis_external=true",
+            "infisical_secret_existing=false"
           ],
           "config": {
             "placeholder": "redis://:password@redis.example.internal:6379"
@@ -443,7 +475,7 @@
           "type": "secret",
           "title": "Redis Password",
           "required": true,
-          "description": "Redis password for the bundled Redis chart, written to helm-secrets.yaml.",
+          "description": "Redis password for the bundled Redis chart, written to values.yaml.",
           "needs": [
             "redis_external=false"
           ],
@@ -645,7 +677,7 @@
           "title": "SMTP Email",
           "required": false,
           "default": false,
-          "description": "Add SMTP keys to the Infisical Kubernetes Secret."
+          "description": "Add SMTP keys to the generated Infisical Secret. If using an existing Infisical Secret, add the SMTP keys there instead."
         },
         {
           "name": "email_host",
@@ -654,7 +686,8 @@
           "required": true,
           "default": "smtp.home.arpa",
           "needs": [
-            "email_enabled=true"
+            "email_enabled=true",
+            "infisical_secret_existing=false"
           ],
           "config": {
             "placeholder": "smtp.home.arpa"
@@ -667,7 +700,8 @@
           "required": true,
           "default": 587,
           "needs": [
-            "email_enabled=true"
+            "email_enabled=true",
+            "infisical_secret_existing=false"
           ],
           "config": {
             "placeholder": "587"
@@ -680,7 +714,8 @@
           "required": true,
           "default": "infisical@home.arpa",
           "needs": [
-            "email_enabled=true"
+            "email_enabled=true",
+            "infisical_secret_existing=false"
           ],
           "config": {
             "placeholder": "infisical@home.arpa"
@@ -693,7 +728,8 @@
           "required": false,
           "default": "Infisical",
           "needs": [
-            "email_enabled=true"
+            "email_enabled=true",
+            "infisical_secret_existing=false"
           ],
           "config": {
             "placeholder": "Infisical"
@@ -706,7 +742,8 @@
           "required": true,
           "default": "",
           "needs": [
-            "email_enabled=true"
+            "email_enabled=true",
+            "infisical_secret_existing=false"
           ],
           "config": {
             "placeholder": "user@example.com"
@@ -719,7 +756,8 @@
           "required": false,
           "default": "",
           "needs": [
-            "email_enabled=true"
+            "email_enabled=true",
+            "infisical_secret_existing=false"
           ]
         },
         {
@@ -729,7 +767,8 @@
           "required": false,
           "default": false,
           "needs": [
-            "email_enabled=true"
+            "email_enabled=true",
+            "infisical_secret_existing=false"
           ]
         },
         {
@@ -739,7 +778,8 @@
           "required": false,
           "default": true,
           "needs": [
-            "email_enabled=true"
+            "email_enabled=true",
+            "infisical_secret_existing=false"
           ]
         },
         {
@@ -749,10 +789,19 @@
           "required": false,
           "default": false,
           "needs": [
-            "email_enabled=true"
+            "email_enabled=true",
+            "infisical_secret_existing=false"
           ]
         }
       ]
     }
-  ]
+  ],
+  "config": {
+    "helm": {
+      "chart": "infisical-helm-charts/infisical-standalone",
+      "repository_url": "https://dl.cloudsmith.io/public/infisical/helm-charts/helm/charts/",
+      "version": "1.9.0"
+    }
+  },
+  "file_metadata": {}
 }

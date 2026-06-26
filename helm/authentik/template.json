@@ -1,9 +1,9 @@
 {
-  "slug": "authentik-helm",
+  "slug": "authentik",
   "kind": "helm",
   "metadata": {
     "name": "Authentik",
-    "description": "Helm chart for Authentik, an open-source Identity Provider supporting OAuth2, SAML, and LDAP for flexible single sign-on and authentication.",
+    "description": "Helm release values for Authentik, an open-source Identity Provider supporting OAuth2, SAML, and LDAP for flexible single sign-on and authentication.",
     "tags": [],
     "icon": {
       "provider": "selfhst",
@@ -13,7 +13,7 @@
     "draft": false,
     "version": {
       "name": "2026.2.2",
-      "source_dep_name": "ghcr.io/goauthentik/server",
+      "source_dep_name": "authentik/authentik",
       "source_dep_version": "2026.2.2"
     }
   },
@@ -229,7 +229,8 @@
           "required": true,
           "config": {
             "placeholder": "authentik.home.arpa"
-          }
+          },
+          "default": "authentik.home.arpa"
         },
         {
           "name": "traefik_tls_enabled",
@@ -270,5 +271,13 @@
         }
       ]
     }
-  ]
+  ],
+  "config": {
+    "helm": {
+      "chart": "authentik/authentik",
+      "repository_url": "https://charts.goauthentik.io",
+      "version": "2026.2.2"
+    }
+  },
+  "file_metadata": {}
 }

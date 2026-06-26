@@ -3,7 +3,7 @@
   "kind": "helm",
   "metadata": {
     "name": "Argo CD",
-    "description": "Helm values template for Argo CD with ingress, TLS, controller or repo-server sizing, Dex, Redis, and metrics toggles for homelab GitOps clusters.",
+    "description": "Helm release values for Argo CD with ingress, TLS, controller or repo-server sizing, Dex, Redis, and metrics toggles for homelab GitOps clusters.",
     "tags": [
       "gitops",
       "kubernetes",
@@ -17,7 +17,8 @@
     "draft": false,
     "version": {
       "name": "9.2.4",
-      "source_dep_name": "manual/argocd"
+      "source_dep_name": "argo/argo-cd",
+      "source_dep_version": "9.2.4"
     }
   },
   "variables": [
@@ -298,5 +299,13 @@
         }
       ]
     }
-  ]
+  ],
+  "config": {
+    "helm": {
+      "chart": "argo/argo-cd",
+      "repository_url": "https://argoproj.github.io/argo-helm",
+      "version": "9.2.4"
+    }
+  },
+  "file_metadata": {}
 }
