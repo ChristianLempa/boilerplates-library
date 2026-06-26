@@ -6,10 +6,24 @@ metadata:
   namespace: << namespace >>
 spec:
   secretName: << secret_name >>
+  duration: << duration >>
+  renewBefore: << renew_before >>
   issuerRef:
-    name: << certmanager_issuer >>
-    kind: << certmanager_issuer_kind >>
+    name: << issuer_name >>
+    kind: << issuer_kind >>
+    group: << issuer_group >>
+  <%- if common_name %>
+  commonName: << common_name >>
+  <%- endif %>
   dnsNames:
-<%- for dns_name in dns_names.split(',') %>
-    - << dns_name.strip() >>
-<%- endfor %>
+    <%- for name in dns_names.split(',') %>
+    - << name.strip() >>
+    <%- endfor %>
+  privateKey:
+    algorithm: << private_key_algorithm >>
+    size: << private_key_size >>
+    rotationPolicy: << private_key_rotation_policy >>
+  usages:
+    - digital signature
+    - key encipherment
+    - server auth

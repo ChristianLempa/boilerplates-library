@@ -3,32 +3,37 @@
   "kind": "kubernetes",
   "metadata": {
     "name": "Cert-Manager Certificate",
-    "description": "Cert-manager Certificate resource for requesting TLS certificates from an Issuer or ClusterIssuer. The certificate is stored in a Kubernetes Secret.",
-    "tags": [],
+    "description": "Cert-manager Certificate resource for requesting a TLS certificate from an Issuer or ClusterIssuer and storing it in a Kubernetes Secret.",
+    "tags": [
+      "cert-manager",
+      "tls",
+      "certificate"
+    ],
     "icon": {
       "provider": "mdi",
       "id": "certificate-outline",
       "color": "blue"
     },
-    "draft": true,
+    "draft": false,
     "version": {
-      "name": "1.16.2",
-      "source_dep_name": "manual/certmanager-certificate"
+      "name": "v1.20.2",
+      "source_dep_name": "cert-manager/cert-manager",
+      "source_dep_version": "v1.20.2"
     }
   },
   "variables": [
     {
-      "title": "General",
-      "name": "general",
+      "title": "Certificate",
+      "name": "certificate",
       "items": [
         {
           "name": "resource_name",
           "type": "str",
-          "title": "Resource Name",
+          "title": "Certificate name",
           "required": false,
-          "default": "tls-certificate",
+          "default": "app-tls",
           "config": {
-            "placeholder": "tls-certificate"
+            "placeholder": "app-tls"
           }
         },
         {
@@ -44,161 +49,132 @@
         {
           "name": "secret_name",
           "type": "str",
-          "title": "Secret Name",
+          "title": "TLS secret name",
           "required": false,
-          "default": "tls-secret",
+          "default": "app-tls",
           "config": {
-            "placeholder": "tls-secret"
+            "placeholder": "app-tls"
           }
         },
-        {
-          "name": "dns_name",
-          "type": "str",
-          "title": "Dns Name",
-          "required": false,
-          "default": ""
-        }
-      ]
-    },
-    {
-      "title": "Resource Limits",
-      "name": "resources",
-      "items": [
-        {
-          "name": "resources_enabled",
-          "type": "bool",
-          "title": "Resources",
-          "required": false,
-          "default": false
-        },
-        {
-          "name": "resources_cpu_limit",
-          "type": "str",
-          "title": "CPU limit",
-          "required": false,
-          "default": "100m",
-          "config": {
-            "placeholder": "100m"
-          }
-        },
-        {
-          "name": "resources_cpu_request",
-          "type": "str",
-          "title": "CPU request",
-          "required": false,
-          "default": "50m",
-          "config": {
-            "placeholder": "50m"
-          }
-        },
-        {
-          "name": "resources_memory_limit",
-          "type": "str",
-          "title": "Memory limit",
-          "required": false,
-          "default": "128Mi",
-          "config": {
-            "placeholder": "128Mi"
-          }
-        },
-        {
-          "name": "resources_memory_request",
-          "type": "str",
-          "title": "Memory request",
-          "required": false,
-          "default": "64Mi",
-          "config": {
-            "placeholder": "64Mi"
-          }
-        }
-      ]
-    },
-    {
-      "title": "Traefik Integration",
-      "name": "traefik",
-      "items": [
-        {
-          "name": "traefik_enabled",
-          "type": "bool",
-          "title": "Traefik",
-          "required": false,
-          "default": false
-        },
-        {
-          "name": "traefik_host",
-          "type": "str",
-          "title": "Traefik host",
-          "required": true,
-          "config": {
-            "placeholder": "app"
-          }
-        },
-        {
-          "name": "traefik_domain",
-          "type": "str",
-          "title": "Traefik domain",
-          "required": true,
-          "config": {
-            "placeholder": "home.arpa"
-          }
-        },
-        {
-          "name": "traefik_tls_enabled",
-          "type": "bool",
-          "title": "TLS",
-          "required": false,
-          "default": true
-        },
-        {
-          "name": "traefik_tls_certresolver",
-          "type": "str",
-          "title": "TLS certificate resolver",
-          "required": false,
-          "default": "letsencrypt-prod",
-          "config": {
-            "placeholder": "letsencrypt-prod"
-          }
-        }
-      ]
-    },
-    {
-      "title": "DNS Settings",
-      "name": "dns",
-      "items": [
         {
           "name": "dns_names",
           "type": "str",
-          "title": "DNS Names",
+          "title": "DNS names",
           "required": false,
-          "description": "DNS names for certificate (comma-separated, e.g., home.arpa,*.home.arpa)"
+          "default": "app.example.com",
+          "description": "Comma-separated DNS names for the certificate.",
+          "config": {
+            "placeholder": "app.example.com,*.example.com"
+          }
+        },
+        {
+          "name": "common_name",
+          "type": "str",
+          "title": "Common name",
+          "required": false,
+          "default": "",
+          "config": {
+            "placeholder": "app.example.com"
+          }
         }
       ]
     },
     {
-      "title": "Cert-Manager Settings",
-      "name": "certmanager",
+      "title": "Issuer Reference",
+      "name": "issuer",
       "items": [
         {
-          "name": "certmanager_issuer",
+          "name": "issuer_name",
           "type": "str",
-          "title": "Issuer",
+          "title": "Issuer name",
           "required": false,
           "default": "letsencrypt-prod",
-          "description": "Cert-manager Issuer or ClusterIssuer name",
           "config": {
             "placeholder": "letsencrypt-prod"
           }
         },
         {
-          "name": "certmanager_issuer_kind",
+          "name": "issuer_kind",
           "type": "enum",
-          "title": "Issuer type",
+          "title": "Issuer kind",
           "required": false,
           "default": "ClusterIssuer",
           "config": {
             "options": [
-              "Issuer",
-              "ClusterIssuer"
+              "ClusterIssuer",
+              "Issuer"
+            ]
+          }
+        },
+        {
+          "name": "issuer_group",
+          "type": "str",
+          "title": "Issuer group",
+          "required": false,
+          "default": "cert-manager.io",
+          "config": {
+            "placeholder": "cert-manager.io"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Certificate Options",
+      "name": "options",
+      "items": [
+        {
+          "name": "duration",
+          "type": "str",
+          "title": "Duration",
+          "required": false,
+          "default": "2160h",
+          "config": {
+            "placeholder": "2160h"
+          }
+        },
+        {
+          "name": "renew_before",
+          "type": "str",
+          "title": "Renew before",
+          "required": false,
+          "default": "360h",
+          "config": {
+            "placeholder": "360h"
+          }
+        },
+        {
+          "name": "private_key_algorithm",
+          "type": "enum",
+          "title": "Private key algorithm",
+          "required": false,
+          "default": "ECDSA",
+          "config": {
+            "options": [
+              "ECDSA",
+              "RSA"
+            ]
+          }
+        },
+        {
+          "name": "private_key_size",
+          "type": "int",
+          "title": "Private key size",
+          "required": false,
+          "default": 256,
+          "config": {
+            "placeholder": "256"
+          }
+        },
+        {
+          "name": "private_key_rotation_policy",
+          "type": "enum",
+          "title": "Private key rotation policy",
+          "required": false,
+          "default": "Always",
+          "config": {
+            "options": [
+              "Always",
+              "Never"
             ]
           }
         }

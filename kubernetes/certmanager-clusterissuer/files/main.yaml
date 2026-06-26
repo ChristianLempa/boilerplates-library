@@ -8,10 +8,23 @@ spec:
     email: << acme_email >>
     server: << acme_server >>
     privateKeySecretRef:
-      name: << privatekey_secret_name >>
+      name: << account_secret_name >>
     solvers:
+<%- if solver_type == 'cloudflare-dns01' %>
       - dns01:
           cloudflare:
             apiTokenSecretRef:
-              name: << api_token_secret_name >>
-              key: << api_token_secret_key >>
+              name: << cloudflare_api_token_secret_name >>
+              key: << cloudflare_api_token_secret_key >>
+        <%- if dns_zones %>
+        selector:
+          dnsZones:
+          <%- for zone in dns_zones.split(',') %>
+            - << zone.strip() >>
+          <%- endfor %>
+        <%- endif %>
+<%- else %>
+      - http01:
+          ingress:
+            ingressClassName: << http01_ingress_class >>
+<%- endif %>

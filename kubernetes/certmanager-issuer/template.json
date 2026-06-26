@@ -2,33 +2,39 @@
   "slug": "certmanager-issuer",
   "kind": "kubernetes",
   "metadata": {
-    "name": "Cert-Manager Issuer (Cloudflare)",
-    "description": "Cert-manager Issuer for automatic TLS certificate management using Let's Encrypt with Cloudflare DNS-01 challenge validation. Namespace-scoped (unlike ClusterIssuer).",
-    "tags": [],
+    "name": "Cert-Manager Issuer",
+    "description": "Namespace-scoped cert-manager ACME Issuer for requesting certificates with HTTP-01 or Cloudflare DNS-01 challenge validation.",
+    "tags": [
+      "cert-manager",
+      "tls",
+      "acme",
+      "letsencrypt"
+    ],
     "icon": {
       "provider": "mdi",
       "id": "certificate-outline",
       "color": "blue"
     },
-    "draft": true,
+    "draft": false,
     "version": {
-      "name": "1.16.2",
-      "source_dep_name": "manual/certmanager-issuer"
+      "name": "v1.20.2",
+      "source_dep_name": "cert-manager/cert-manager",
+      "source_dep_version": "v1.20.2"
     }
   },
   "variables": [
     {
-      "title": "General",
-      "name": "general",
+      "title": "Issuer",
+      "name": "issuer",
       "items": [
         {
           "name": "resource_name",
           "type": "str",
-          "title": "Resource Name",
+          "title": "Issuer name",
           "required": false,
-          "default": "cloudflare-issuer",
+          "default": "letsencrypt-prod",
           "config": {
-            "placeholder": "cloudflare-issuer"
+            "placeholder": "letsencrypt-prod"
           }
         },
         {
@@ -44,9 +50,12 @@
         {
           "name": "acme_email",
           "type": "str",
-          "title": "ACME Email",
+          "title": "ACME email",
           "required": true,
-          "description": "Email address for ACME account registration"
+          "default": "admin@example.com",
+          "config": {
+            "placeholder": "admin@example.com"
+          }
         },
         {
           "name": "acme_server",
@@ -59,135 +68,85 @@
           }
         },
         {
-          "name": "privatekey_secret_name",
+          "name": "account_secret_name",
           "type": "str",
-          "title": "Private Key Secret",
+          "title": "Account key secret",
           "required": false,
-          "default": "cloudflare-issuer-account-key",
+          "default": "letsencrypt-prod-account-key",
           "config": {
-            "placeholder": "cloudflare-issuer-account-key"
+            "placeholder": "letsencrypt-prod-account-key"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Solver",
+      "name": "solver",
+      "items": [
+        {
+          "name": "solver_type",
+          "type": "enum",
+          "title": "Challenge solver",
+          "required": false,
+          "default": "cloudflare-dns01",
+          "config": {
+            "options": [
+              "cloudflare-dns01",
+              "http01"
+            ]
           }
         },
         {
-          "name": "api_token_secret_name",
+          "name": "http01_ingress_class",
           "type": "str",
-          "title": "API Token Secret",
+          "title": "HTTP-01 ingress class",
+          "required": false,
+          "default": "traefik",
+          "needs": [
+            "solver_type=http01"
+          ],
+          "config": {
+            "placeholder": "traefik"
+          }
+        },
+        {
+          "name": "cloudflare_api_token_secret_name",
+          "type": "str",
+          "title": "Cloudflare API token secret",
           "required": false,
           "default": "cloudflare-api-token-secret",
+          "needs": [
+            "solver_type=cloudflare-dns01"
+          ],
           "config": {
             "placeholder": "cloudflare-api-token-secret"
           }
         },
         {
-          "name": "api_token_secret_key",
+          "name": "cloudflare_api_token_secret_key",
           "type": "str",
-          "title": "API Token Key",
+          "title": "Cloudflare API token key",
           "required": false,
           "default": "api-token",
-          "description": "Key name in secret containing Cloudflare API token",
+          "needs": [
+            "solver_type=cloudflare-dns01"
+          ],
           "config": {
             "placeholder": "api-token"
           }
-        }
-      ]
-    },
-    {
-      "title": "Resource Limits",
-      "name": "resources",
-      "items": [
-        {
-          "name": "resources_enabled",
-          "type": "bool",
-          "title": "Resources",
-          "required": false,
-          "default": false
         },
         {
-          "name": "resources_cpu_limit",
+          "name": "dns_zones",
           "type": "str",
-          "title": "CPU limit",
+          "title": "DNS zone selector",
           "required": false,
-          "default": "100m",
+          "default": "",
+          "description": "Optional comma-separated DNS zones this solver should match.",
+          "needs": [
+            "solver_type=cloudflare-dns01"
+          ],
           "config": {
-            "placeholder": "100m"
-          }
-        },
-        {
-          "name": "resources_cpu_request",
-          "type": "str",
-          "title": "CPU request",
-          "required": false,
-          "default": "50m",
-          "config": {
-            "placeholder": "50m"
-          }
-        },
-        {
-          "name": "resources_memory_limit",
-          "type": "str",
-          "title": "Memory limit",
-          "required": false,
-          "default": "128Mi",
-          "config": {
-            "placeholder": "128Mi"
-          }
-        },
-        {
-          "name": "resources_memory_request",
-          "type": "str",
-          "title": "Memory request",
-          "required": false,
-          "default": "64Mi",
-          "config": {
-            "placeholder": "64Mi"
-          }
-        }
-      ]
-    },
-    {
-      "title": "Traefik Integration",
-      "name": "traefik",
-      "items": [
-        {
-          "name": "traefik_enabled",
-          "type": "bool",
-          "title": "Traefik",
-          "required": false,
-          "default": false
-        },
-        {
-          "name": "traefik_host",
-          "type": "str",
-          "title": "Traefik host",
-          "required": true,
-          "config": {
-            "placeholder": "app"
-          }
-        },
-        {
-          "name": "traefik_domain",
-          "type": "str",
-          "title": "Traefik domain",
-          "required": true,
-          "config": {
-            "placeholder": "home.arpa"
-          }
-        },
-        {
-          "name": "traefik_tls_enabled",
-          "type": "bool",
-          "title": "TLS",
-          "required": false,
-          "default": true
-        },
-        {
-          "name": "traefik_tls_certresolver",
-          "type": "str",
-          "title": "TLS certificate resolver",
-          "required": false,
-          "default": "letsencrypt-prod",
-          "config": {
-            "placeholder": "letsencrypt-prod"
+            "placeholder": "example.com,home.arpa"
           }
         }
       ]
