@@ -1,6 +1,6 @@
 ---
 services:
-  << (service_name | default('prometheus', true)) >>:
+  << service_name >>:
     image: docker.io/prom/prometheus:v3.11.3
     restart: << restart_policy >>
     command:
@@ -24,7 +24,7 @@ services:
       - "<< ports_http >>:9090"
     <%- endif %>
     volumes:
-      - << ((volume_data_name | default('', true) | string | trim) if ((volume_data_name | default('', true) | string | trim) and ((volume_data_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('prometheus', true)) ~ "_data")) >>:/prometheus
+      - << ((volume_data_name | trim) if volume_data_name is string and (volume_data_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_data")) >>:/prometheus
       - ./config/prometheus.yaml:/etc/prometheus/prometheus.yaml:ro
     <%- if traefik_enabled  %>
     networks:
@@ -32,21 +32,21 @@ services:
     labels:
       - traefik.enable=true
       - traefik.docker.network=<< traefik_network >>
-      - traefik.http.services.<< (service_name | default('prometheus', true)) >>_web.loadBalancer.server.port=9090
-      - traefik.http.routers.<< (service_name | default('prometheus', true)) >>_http.service=<< (service_name | default('prometheus', true)) >>_web
-      - traefik.http.routers.<< (service_name | default('prometheus', true)) >>_http.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
-      - traefik.http.routers.<< (service_name | default('prometheus', true)) >>_http.entrypoints=<< traefik_entrypoint >>
+      - traefik.http.services.<< service_name >>_web.loadBalancer.server.port=9090
+      - traefik.http.routers.<< service_name >>_http.service=<< service_name >>_web
+      - traefik.http.routers.<< service_name >>_http.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
+      - traefik.http.routers.<< service_name >>_http.entrypoints=<< traefik_entrypoint >>
       <%- if traefik_tls_enabled %>
-      - traefik.http.routers.<< (service_name | default('prometheus', true)) >>_https.service=<< (service_name | default('prometheus', true)) >>_web
-      - traefik.http.routers.<< (service_name | default('prometheus', true)) >>_https.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
-      - traefik.http.routers.<< (service_name | default('prometheus', true)) >>_https.entrypoints=<< traefik_tls_entrypoint >>
-      - traefik.http.routers.<< (service_name | default('prometheus', true)) >>_https.tls=true
-      - traefik.http.routers.<< (service_name | default('prometheus', true)) >>_https.tls.certresolver=<< traefik_tls_certresolver >>
+      - traefik.http.routers.<< service_name >>_https.service=<< service_name >>_web
+      - traefik.http.routers.<< service_name >>_https.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
+      - traefik.http.routers.<< service_name >>_https.entrypoints=<< traefik_tls_entrypoint >>
+      - traefik.http.routers.<< service_name >>_https.tls=true
+      - traefik.http.routers.<< service_name >>_https.tls.certresolver=<< traefik_tls_certresolver >>
       <%- endif %>
     <%- endif %>
 
 volumes:
-  << ((volume_data_name | default('', true) | string | trim) if ((volume_data_name | default('', true) | string | trim) and ((volume_data_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('prometheus', true)) ~ "_data")) >>:
+  << ((volume_data_name | trim) if volume_data_name is string and (volume_data_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_data")) >>:
     driver: local
 
 <%- if traefik_enabled %>

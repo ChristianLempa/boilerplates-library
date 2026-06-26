@@ -29,7 +29,7 @@
           "name": "service_name",
           "type": "str",
           "title": "Service Name",
-          "required": false,
+          "required": true,
           "default": "n8n",
           "config": {
             "placeholder": "n8n"

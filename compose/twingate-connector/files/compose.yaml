@@ -1,5 +1,5 @@
 services:
-  << (service_name | default('twingate', true)) >>:
+  << service_name >>:
     image: docker.io/twingate/connector:1.88.0
     restart: << restart_policy >>
     container_name: << container_name >>

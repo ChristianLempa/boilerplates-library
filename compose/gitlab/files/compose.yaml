@@ -1,5 +1,5 @@
 services:
-  << (service_name | default('gitlab', true)) >>:
+  << service_name >>:
     image: docker.io/gitlab/gitlab-ce:18.11.2-ce.0
     restart: << restart_policy >>
     shm_size: '256m'
@@ -17,45 +17,45 @@ services:
       <%- endif %>
     volumes:
       - ./config/gitlab.rb:/etc/gitlab/gitlab.rb:ro
-      - << ((volume_config_name | default('', true) | string | trim) if ((volume_config_name | default('', true) | string | trim) and ((volume_config_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('gitlab', true)) ~ "_config")) >>:/etc/gitlab
-      - << ((volume_logs_name | default('', true) | string | trim) if ((volume_logs_name | default('', true) | string | trim) and ((volume_logs_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('gitlab', true)) ~ "_logs")) >>:/var/log/gitlab
-      - << ((volume_data_name | default('', true) | string | trim) if ((volume_data_name | default('', true) | string | trim) and ((volume_data_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('gitlab', true)) ~ "_data")) >>:/var/opt/gitlab
+      - << ((volume_config_name | trim) if volume_config_name is string and (volume_config_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_config")) >>:/etc/gitlab
+      - << ((volume_logs_name | trim) if volume_logs_name is string and (volume_logs_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_logs")) >>:/var/log/gitlab
+      - << ((volume_data_name | trim) if volume_data_name is string and (volume_data_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_data")) >>:/var/opt/gitlab
     <%- if traefik_enabled  %>
     labels:
       - traefik.enable=true
       - traefik.docker.network=<< traefik_network >>
-      - traefik.http.services.<< (service_name | default('gitlab', true)) >>_web.loadBalancer.server.port=80
-      - traefik.http.routers.<< (service_name | default('gitlab', true)) >>_http.service=<< (service_name | default('gitlab', true)) >>_web
-      - traefik.http.routers.<< (service_name | default('gitlab', true)) >>_http.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
-      - traefik.http.routers.<< (service_name | default('gitlab', true)) >>_http.entrypoints=<< traefik_entrypoint >>
+      - traefik.http.services.<< service_name >>_web.loadBalancer.server.port=80
+      - traefik.http.routers.<< service_name >>_http.service=<< service_name >>_web
+      - traefik.http.routers.<< service_name >>_http.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
+      - traefik.http.routers.<< service_name >>_http.entrypoints=<< traefik_entrypoint >>
       <%- if traefik_tls_enabled %>
-      - traefik.http.routers.<< (service_name | default('gitlab', true)) >>_https.service=<< (service_name | default('gitlab', true)) >>_web
-      - traefik.http.routers.<< (service_name | default('gitlab', true)) >>_https.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
-      - traefik.http.routers.<< (service_name | default('gitlab', true)) >>_https.entrypoints=<< traefik_tls_entrypoint >>
-      - traefik.http.routers.<< (service_name | default('gitlab', true)) >>_https.tls=true
-      - traefik.http.routers.<< (service_name | default('gitlab', true)) >>_https.tls.certresolver=<< traefik_tls_certresolver >>
+      - traefik.http.routers.<< service_name >>_https.service=<< service_name >>_web
+      - traefik.http.routers.<< service_name >>_https.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
+      - traefik.http.routers.<< service_name >>_https.entrypoints=<< traefik_tls_entrypoint >>
+      - traefik.http.routers.<< service_name >>_https.tls=true
+      - traefik.http.routers.<< service_name >>_https.tls.certresolver=<< traefik_tls_certresolver >>
       <%- endif %>
       <%- if registry_enabled %>
-      - traefik.http.services.<< (service_name | default('gitlab', true)) >>_registry.loadBalancer.server.port=5000
-      - traefik.http.routers.<< (service_name | default('gitlab', true)) >>_registry-http.service=<< (service_name | default('gitlab', true)) >>_registry
-      - traefik.http.routers.<< (service_name | default('gitlab', true)) >>_registry-http.rule=Host(`<< traefik_registry_host >>`)
-      - traefik.http.routers.<< (service_name | default('gitlab', true)) >>_registry-http.entrypoints=<< traefik_entrypoint >>
+      - traefik.http.services.<< service_name >>_registry.loadBalancer.server.port=5000
+      - traefik.http.routers.<< service_name >>_registry-http.service=<< service_name >>_registry
+      - traefik.http.routers.<< service_name >>_registry-http.rule=Host(`<< traefik_registry_host >>`)
+      - traefik.http.routers.<< service_name >>_registry-http.entrypoints=<< traefik_entrypoint >>
       <%- if traefik_tls_enabled %>
-      - traefik.http.routers.<< (service_name | default('gitlab', true)) >>_registry-https.service=<< (service_name | default('gitlab', true)) >>_registry
-      - traefik.http.routers.<< (service_name | default('gitlab', true)) >>_registry-https.rule=Host(`<< traefik_registry_host >>`)
-      - traefik.http.routers.<< (service_name | default('gitlab', true)) >>_registry-https.entrypoints=<< traefik_tls_entrypoint >>
-      - traefik.http.routers.<< (service_name | default('gitlab', true)) >>_registry-https.tls=true
-      - traefik.http.routers.<< (service_name | default('gitlab', true)) >>_registry-https.tls.certresolver=<< traefik_tls_certresolver >>
+      - traefik.http.routers.<< service_name >>_registry-https.service=<< service_name >>_registry
+      - traefik.http.routers.<< service_name >>_registry-https.rule=Host(`<< traefik_registry_host >>`)
+      - traefik.http.routers.<< service_name >>_registry-https.entrypoints=<< traefik_tls_entrypoint >>
+      - traefik.http.routers.<< service_name >>_registry-https.tls=true
+      - traefik.http.routers.<< service_name >>_registry-https.tls.certresolver=<< traefik_tls_certresolver >>
       <%- endif %>
       <%- endif %>
     <%- endif %>
 
 volumes:
-  << ((volume_config_name | default('', true) | string | trim) if ((volume_config_name | default('', true) | string | trim) and ((volume_config_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('gitlab', true)) ~ "_config")) >>:
+  << ((volume_config_name | trim) if volume_config_name is string and (volume_config_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_config")) >>:
     driver: local
-  << ((volume_logs_name | default('', true) | string | trim) if ((volume_logs_name | default('', true) | string | trim) and ((volume_logs_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('gitlab', true)) ~ "_logs")) >>:
+  << ((volume_logs_name | trim) if volume_logs_name is string and (volume_logs_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_logs")) >>:
     driver: local
-  << ((volume_data_name | default('', true) | string | trim) if ((volume_data_name | default('', true) | string | trim) and ((volume_data_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('gitlab', true)) ~ "_data")) >>:
+  << ((volume_data_name | trim) if volume_data_name is string and (volume_data_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_data")) >>:
     driver: local
 
 <%- if traefik_enabled %>

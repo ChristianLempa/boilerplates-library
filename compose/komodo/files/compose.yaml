@@ -1,6 +1,6 @@
 ---
 services:
-  << (service_name | default('komodo', true)) >>:
+  << service_name >>:
     image: ghcr.io/moghtech/komodo-core:2.1.2
     restart: << restart_policy >>
     container_name: << container_name >>
@@ -8,9 +8,9 @@ services:
     <%- if not database_external %>
     depends_on:
       <%- if database_type == 'mongo' %>
-      - << (service_name | default('komodo', true)) >>-mongo
+      - << service_name >>-mongo
       <%- elif database_type == 'ferretdb' %>
-      - << (service_name | default('komodo', true)) >>-ferretdb
+      - << service_name >>-ferretdb
       <%- endif %>
     <%- endif %>
     <%- if network_mode == 'host' %>
@@ -38,13 +38,13 @@ services:
       <%- if network_mode == 'host' %>
       KOMODO_DATABASE_ADDRESS: "localhost:27017"
       <%- else %>
-      KOMODO_DATABASE_ADDRESS: "<< (service_name | default('komodo', true)) >>-mongo:27017"
+      KOMODO_DATABASE_ADDRESS: "<< service_name >>-mongo:27017"
       <%- endif %>
       <%- elif database_type == 'ferretdb' %>
       <%- if network_mode == 'host' %>
       KOMODO_DATABASE_ADDRESS: "localhost:27017"
       <%- else %>
-      KOMODO_DATABASE_ADDRESS: "<< (service_name | default('komodo', true)) >>-ferretdb:27017"
+      KOMODO_DATABASE_ADDRESS: "<< service_name >>-ferretdb:27017"
       <%- endif %>
       <%- endif %>
       KOMODO_DATABASE_DB_NAME: "<< database_name >>"
@@ -61,8 +61,8 @@ services:
       - << volume_mount_path >>/data:/app/data:rw
       - << volume_mount_path >>/repos:/app/repos:rw
       <%- elif volume_mode == 'local' or volume_mode == 'nfs' %>
-      - << ((volume_data_name | default('', true) | string | trim) if ((volume_data_name | default('', true) | string | trim) and ((volume_data_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('komodo', true)) ~ "-data")) >>:/app/data
-      - << ((volume_repos_name | default('', true) | string | trim) if ((volume_repos_name | default('', true) | string | trim) and ((volume_repos_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('komodo', true)) ~ "-repos")) >>:/app/repos
+      - << ((volume_data_name | trim) if volume_data_name is string and (volume_data_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "-data")) >>:/app/data
+      - << ((volume_repos_name | trim) if volume_repos_name is string and (volume_repos_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "-repos")) >>:/app/repos
       <%- endif %>
     <%- if resources_enabled %>
     deploy:
@@ -75,21 +75,21 @@ services:
     labels:
       - traefik.enable=true
       - traefik.docker.network=<< traefik_network >>
-      - traefik.http.services.<< (service_name | default('komodo', true)) >>-web.loadBalancer.server.port=9120
-      - traefik.http.routers.<< (service_name | default('komodo', true)) >>-http.service=<< (service_name | default('komodo', true)) >>-web
-      - traefik.http.routers.<< (service_name | default('komodo', true)) >>-http.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
-      - traefik.http.routers.<< (service_name | default('komodo', true)) >>-http.entrypoints=<< traefik_entrypoint >>
+      - traefik.http.services.<< service_name >>-web.loadBalancer.server.port=9120
+      - traefik.http.routers.<< service_name >>-http.service=<< service_name >>-web
+      - traefik.http.routers.<< service_name >>-http.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
+      - traefik.http.routers.<< service_name >>-http.entrypoints=<< traefik_entrypoint >>
       <%- if traefik_tls_enabled %>
-      - traefik.http.routers.<< (service_name | default('komodo', true)) >>-https.service=<< (service_name | default('komodo', true)) >>-web
-      - traefik.http.routers.<< (service_name | default('komodo', true)) >>-https.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
-      - traefik.http.routers.<< (service_name | default('komodo', true)) >>-https.entrypoints=<< traefik_tls_entrypoint >>
-      - traefik.http.routers.<< (service_name | default('komodo', true)) >>-https.tls=true
-      - traefik.http.routers.<< (service_name | default('komodo', true)) >>-https.tls.certresolver=<< traefik_tls_certresolver >>
+      - traefik.http.routers.<< service_name >>-https.service=<< service_name >>-web
+      - traefik.http.routers.<< service_name >>-https.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
+      - traefik.http.routers.<< service_name >>-https.entrypoints=<< traefik_tls_entrypoint >>
+      - traefik.http.routers.<< service_name >>-https.tls=true
+      - traefik.http.routers.<< service_name >>-https.tls.certresolver=<< traefik_tls_certresolver >>
       <%- endif %>
     <%- endif %>
 
   <%- if not database_external and database_type == 'mongo' %>
-  << (service_name | default('komodo', true)) >>-mongo:
+  << service_name >>-mongo:
     image: docker.io/library/mongo:8
     restart: << restart_policy >>
     command: --quiet --wiredTigerCacheSizeGB 0.25
@@ -105,10 +105,10 @@ services:
       << network_name >>:
     <%- endif %>
     volumes:
-      - << ((volume_mongo_data_name | default('', true) | string | trim) if ((volume_mongo_data_name | default('', true) | string | trim) and ((volume_mongo_data_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('komodo', true)) ~ "-mongo-data")) >>:/data/db
-      - << ((volume_mongo_config_name | default('', true) | string | trim) if ((volume_mongo_config_name | default('', true) | string | trim) and ((volume_mongo_config_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('komodo', true)) ~ "-mongo-config")) >>:/data/configdb
+      - << ((volume_mongo_data_name | trim) if volume_mongo_data_name is string and (volume_mongo_data_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "-mongo-data")) >>:/data/db
+      - << ((volume_mongo_config_name | trim) if volume_mongo_config_name is string and (volume_mongo_config_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "-mongo-config")) >>:/data/configdb
   <%- elif not database_external and database_type == 'ferretdb' %>
-  << (service_name | default('komodo', true)) >>-postgres:
+  << service_name >>-postgres:
     image: ghcr.io/ferretdb/postgres-documentdb:17
     restart: << restart_policy >>
     labels:
@@ -124,20 +124,20 @@ services:
       << network_name >>:
     <%- endif %>
     volumes:
-      - << ((volume_postgres_data_name | default('', true) | string | trim) if ((volume_postgres_data_name | default('', true) | string | trim) and ((volume_postgres_data_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('komodo', true)) ~ "-postgres-data")) >>:/var/lib/postgresql/data
+      - << ((volume_postgres_data_name | trim) if volume_postgres_data_name is string and (volume_postgres_data_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "-postgres-data")) >>:/var/lib/postgresql/data
 
-  << (service_name | default('komodo', true)) >>-ferretdb:
+  << service_name >>-ferretdb:
     image: ghcr.io/ferretdb/ferretdb:2
     restart: << restart_policy >>
     labels:
       komodo.skip:
     depends_on:
-      - << (service_name | default('komodo', true)) >>-postgres
+      - << service_name >>-postgres
     environment:
       <%- if network_mode == 'host' %>
       FERRETDB_POSTGRESQL_URL: "postgres://${KOMODO_DATABASE_USERNAME}:${KOMODO_DATABASE_PASSWORD}@localhost:5432/postgres"
       <%- else %>
-      FERRETDB_POSTGRESQL_URL: "postgres://${KOMODO_DATABASE_USERNAME}:${KOMODO_DATABASE_PASSWORD}@<< (service_name | default('komodo', true)) >>-postgres:5432/postgres"
+      FERRETDB_POSTGRESQL_URL: "postgres://${KOMODO_DATABASE_USERNAME}:${KOMODO_DATABASE_PASSWORD}@<< service_name >>-postgres:5432/postgres"
       <%- endif %>
     <%- if network_mode == 'host' %>
     network_mode: host
@@ -146,24 +146,24 @@ services:
       << network_name >>:
     <%- endif %>
     volumes:
-      - << ((volume_ferretdb_state_name | default('', true) | string | trim) if ((volume_ferretdb_state_name | default('', true) | string | trim) and ((volume_ferretdb_state_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('komodo', true)) ~ "-ferretdb-state")) >>:/state
+      - << ((volume_ferretdb_state_name | trim) if volume_ferretdb_state_name is string and (volume_ferretdb_state_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "-ferretdb-state")) >>:/state
   <%- endif %>
 
 <%- if volume_mode == 'local' or volume_mode == 'nfs' or not database_external %>
 volumes:
   <%- if volume_mode == 'local' %>
-  << ((volume_data_name | default('', true) | string | trim) if ((volume_data_name | default('', true) | string | trim) and ((volume_data_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('komodo', true)) ~ "-data")) >>:
+  << ((volume_data_name | trim) if volume_data_name is string and (volume_data_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "-data")) >>:
     driver: local
-  << ((volume_repos_name | default('', true) | string | trim) if ((volume_repos_name | default('', true) | string | trim) and ((volume_repos_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('komodo', true)) ~ "-repos")) >>:
+  << ((volume_repos_name | trim) if volume_repos_name is string and (volume_repos_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "-repos")) >>:
     driver: local
   <%- elif volume_mode == 'nfs' %>
-  << ((volume_data_name | default('', true) | string | trim) if ((volume_data_name | default('', true) | string | trim) and ((volume_data_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('komodo', true)) ~ "-data")) >>:
+  << ((volume_data_name | trim) if volume_data_name is string and (volume_data_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "-data")) >>:
     driver: local
     driver_opts:
       type: nfs
       o: addr=<< volume_nfs_server >>,<< volume_nfs_options >>
       device: ":<< volume_nfs_path >>/data"
-  << ((volume_repos_name | default('', true) | string | trim) if ((volume_repos_name | default('', true) | string | trim) and ((volume_repos_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('komodo', true)) ~ "-repos")) >>:
+  << ((volume_repos_name | trim) if volume_repos_name is string and (volume_repos_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "-repos")) >>:
     driver: local
     driver_opts:
       type: nfs
@@ -171,14 +171,14 @@ volumes:
       device: ":<< volume_nfs_path >>/repos"
   <%- endif %>
   <%- if not database_external and database_type == 'mongo' %>
-  << ((volume_mongo_data_name | default('', true) | string | trim) if ((volume_mongo_data_name | default('', true) | string | trim) and ((volume_mongo_data_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('komodo', true)) ~ "-mongo-data")) >>:
+  << ((volume_mongo_data_name | trim) if volume_mongo_data_name is string and (volume_mongo_data_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "-mongo-data")) >>:
     driver: local
-  << ((volume_mongo_config_name | default('', true) | string | trim) if ((volume_mongo_config_name | default('', true) | string | trim) and ((volume_mongo_config_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('komodo', true)) ~ "-mongo-config")) >>:
+  << ((volume_mongo_config_name | trim) if volume_mongo_config_name is string and (volume_mongo_config_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "-mongo-config")) >>:
     driver: local
   <%- elif not database_external and database_type == 'ferretdb' %>
-  << ((volume_postgres_data_name | default('', true) | string | trim) if ((volume_postgres_data_name | default('', true) | string | trim) and ((volume_postgres_data_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('komodo', true)) ~ "-postgres-data")) >>:
+  << ((volume_postgres_data_name | trim) if volume_postgres_data_name is string and (volume_postgres_data_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "-postgres-data")) >>:
     driver: local
-  << ((volume_ferretdb_state_name | default('', true) | string | trim) if ((volume_ferretdb_state_name | default('', true) | string | trim) and ((volume_ferretdb_state_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('komodo', true)) ~ "-ferretdb-state")) >>:
+  << ((volume_ferretdb_state_name | trim) if volume_ferretdb_state_name is string and (volume_ferretdb_state_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "-ferretdb-state")) >>:
     driver: local
   <%- endif %>
 <%- endif %>

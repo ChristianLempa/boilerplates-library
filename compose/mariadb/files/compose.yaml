@@ -1,7 +1,7 @@
 
 ---
 services:
-  << (service_name | default('mariadb', true)) >>:
+  << service_name >>:
     image: docker.io/library/mariadb:12.2.2
     restart: << restart_policy >>
     environment:
@@ -12,8 +12,8 @@ services:
     ports:
       - "<< ports_mariadb >>:3306"
     volumes:
-      - << ((volume_data_name | default('', true) | string | trim) if ((volume_data_name | default('', true) | string | trim) and ((volume_data_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('mariadb', true)) ~ "_data")) >>:/var/lib/mysql
+      - << ((volume_data_name | trim) if volume_data_name is string and (volume_data_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_data")) >>:/var/lib/mysql
 
 volumes:
-  << ((volume_data_name | default('', true) | string | trim) if ((volume_data_name | default('', true) | string | trim) and ((volume_data_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('mariadb', true)) ~ "_data")) >>:
+  << ((volume_data_name | trim) if volume_data_name is string and (volume_data_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_data")) >>:
     driver: local

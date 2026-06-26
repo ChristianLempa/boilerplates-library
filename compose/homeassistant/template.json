@@ -51,7 +51,7 @@
           "name": "service_name",
           "type": "str",
           "title": "Service Name",
-          "required": false,
+          "required": true,
           "default": "homeassistant",
           "config": {
             "placeholder": "homeassistant"

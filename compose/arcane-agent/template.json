@@ -30,7 +30,7 @@
           "name": "service_name",
           "type": "str",
           "title": "Service Name",
-          "required": false,
+          "required": true,
           "default": "arcane-agent",
           "config": {
             "placeholder": "arcane-agent"

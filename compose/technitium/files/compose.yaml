@@ -1,6 +1,6 @@
 ---
 services:
-  << (service_name | default('technitium', true)) >>:
+  << service_name >>:
     image: docker.io/technitium/dns-server:15.1.0
     restart: << restart_policy >>
     <%- if container_name %>
@@ -56,8 +56,8 @@ services:
       - << volume_mount_path >>/config:/etc/dns:rw
       - << volume_mount_path >>/logs:/var/log/technitium/dns:rw
       <%- else %>
-      - << ((volume_config_name | default('', true) | string | trim) if ((volume_config_name | default('', true) | string | trim) and ((volume_config_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('technitium', true)) ~ "_config")) >>:/etc/dns
-      - << ((volume_logs_name | default('', true) | string | trim) if ((volume_logs_name | default('', true) | string | trim) and ((volume_logs_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('technitium', true)) ~ "_logs")) >>:/var/log/technitium/dns
+      - << ((volume_config_name | trim) if volume_config_name is string and (volume_config_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_config")) >>:/etc/dns
+      - << ((volume_logs_name | trim) if volume_logs_name is string and (volume_logs_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_logs")) >>:/var/log/technitium/dns
       <%- endif %>
     <%- if network_mode != 'host' %>
     sysctls:
@@ -67,24 +67,24 @@ services:
     labels:
       - traefik.enable=true
       - traefik.docker.network=<< traefik_network >>
-      - traefik.http.services.<< (service_name | default('technitium', true)) >>-web.loadBalancer.server.port=5380
-      - traefik.http.routers.<< (service_name | default('technitium', true)) >>-http.service=<< (service_name | default('technitium', true)) >>-web
-      - traefik.http.routers.<< (service_name | default('technitium', true)) >>-http.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
-      - traefik.http.routers.<< (service_name | default('technitium', true)) >>-http.entrypoints=<< traefik_entrypoint >>
+      - traefik.http.services.<< service_name >>-web.loadBalancer.server.port=5380
+      - traefik.http.routers.<< service_name >>-http.service=<< service_name >>-web
+      - traefik.http.routers.<< service_name >>-http.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
+      - traefik.http.routers.<< service_name >>-http.entrypoints=<< traefik_entrypoint >>
       <%- if traefik_tls_enabled %>
-      - traefik.http.routers.<< (service_name | default('technitium', true)) >>-https.service=<< (service_name | default('technitium', true)) >>-web
-      - traefik.http.routers.<< (service_name | default('technitium', true)) >>-https.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
-      - traefik.http.routers.<< (service_name | default('technitium', true)) >>-https.entrypoints=<< traefik_tls_entrypoint >>
-      - traefik.http.routers.<< (service_name | default('technitium', true)) >>-https.tls=true
-      - traefik.http.routers.<< (service_name | default('technitium', true)) >>-https.tls.certresolver=<< traefik_tls_certresolver >>
+      - traefik.http.routers.<< service_name >>-https.service=<< service_name >>-web
+      - traefik.http.routers.<< service_name >>-https.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
+      - traefik.http.routers.<< service_name >>-https.entrypoints=<< traefik_tls_entrypoint >>
+      - traefik.http.routers.<< service_name >>-https.tls=true
+      - traefik.http.routers.<< service_name >>-https.tls.certresolver=<< traefik_tls_certresolver >>
       <%- if dns_server_optional_protocol_dns_over_http %>
-      - traefik.http.services.<< (service_name | default('technitium', true)) >>-doh.loadBalancer.server.port=80
-      - traefik.http.routers.<< (service_name | default('technitium', true)) >>-doh.service=<< (service_name | default('technitium', true)) >>-doh
-      - traefik.http.routers.<< (service_name | default('technitium', true)) >>-doh.rule=Host(`<< traefik_host >>.<< traefik_domain >>`) && Path(`/dns-query`)
-      - traefik.http.routers.<< (service_name | default('technitium', true)) >>-doh.entrypoints=<< traefik_tls_entrypoint >>
-      - traefik.http.routers.<< (service_name | default('technitium', true)) >>-doh.tls=true
-      - traefik.http.routers.<< (service_name | default('technitium', true)) >>-doh.tls.certresolver=<< traefik_tls_certresolver >>
-      - traefik.http.routers.<< (service_name | default('technitium', true)) >>-doh.priority=100
+      - traefik.http.services.<< service_name >>-doh.loadBalancer.server.port=80
+      - traefik.http.routers.<< service_name >>-doh.service=<< service_name >>-doh
+      - traefik.http.routers.<< service_name >>-doh.rule=Host(`<< traefik_host >>.<< traefik_domain >>`) && Path(`/dns-query`)
+      - traefik.http.routers.<< service_name >>-doh.entrypoints=<< traefik_tls_entrypoint >>
+      - traefik.http.routers.<< service_name >>-doh.tls=true
+      - traefik.http.routers.<< service_name >>-doh.tls.certresolver=<< traefik_tls_certresolver >>
+      - traefik.http.routers.<< service_name >>-doh.priority=100
       <%- endif %>
       <%- endif %>
     <%- endif %>
@@ -119,20 +119,20 @@ networks:
 <%- if volume_mode == 'local' %>
 
 volumes:
-  << ((volume_config_name | default('', true) | string | trim) if ((volume_config_name | default('', true) | string | trim) and ((volume_config_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('technitium', true)) ~ "_config")) >>:
+  << ((volume_config_name | trim) if volume_config_name is string and (volume_config_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_config")) >>:
     driver: local
-  << ((volume_logs_name | default('', true) | string | trim) if ((volume_logs_name | default('', true) | string | trim) and ((volume_logs_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('technitium', true)) ~ "_logs")) >>:
+  << ((volume_logs_name | trim) if volume_logs_name is string and (volume_logs_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_logs")) >>:
     driver: local
 <%- elif volume_mode == 'nfs' %>
 
 volumes:
-  << ((volume_config_name | default('', true) | string | trim) if ((volume_config_name | default('', true) | string | trim) and ((volume_config_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('technitium', true)) ~ "_config")) >>:
+  << ((volume_config_name | trim) if volume_config_name is string and (volume_config_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_config")) >>:
     driver: local
     driver_opts:
       type: nfs
       o: addr=<< volume_nfs_server >>,nfsvers=4,<< volume_nfs_options >>
       device: ":<< volume_nfs_path >>/config"
-  << ((volume_logs_name | default('', true) | string | trim) if ((volume_logs_name | default('', true) | string | trim) and ((volume_logs_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('technitium', true)) ~ "_logs")) >>:
+  << ((volume_logs_name | trim) if volume_logs_name is string and (volume_logs_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_logs")) >>:
     driver: local
     driver_opts:
       type: nfs

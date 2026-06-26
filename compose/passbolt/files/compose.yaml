@@ -1,6 +1,6 @@
 ---
 services:
-  << (service_name | default('passbolt', true)) >>:
+  << service_name >>:
     image: docker.io/passbolt/passbolt:5.11.0-1-ce
     restart: << restart_policy >>
     ports:
@@ -10,7 +10,7 @@ services:
       - APP_DEFAULT_TIMEZONE=<< container_timezone >>
       <%- endif %>
       - APP_FULL_BASE_URL=<< app_full_base_url >>
-      - DATASOURCES_DEFAULT_HOST=<< (service_name | default('passbolt', true)) >>-db
+      - DATASOURCES_DEFAULT_HOST=<< service_name >>-db
       - DATASOURCES_DEFAULT_USERNAME=${DATABASE_USER}
       - DATASOURCES_DEFAULT_PASSWORD=${DATABASE_PASSWORD}
       - DATASOURCES_DEFAULT_DATABASE=<< database_name >>
@@ -25,13 +25,13 @@ services:
       - EMAIL_TRANSPORT_DEFAULT_TLS=<< email_use_tls | lower >>
       - EMAIL_DEFAULT_FROM=<< email_from >>
     volumes:
-      - << ((volume_gpg_name | default('', true) | string | trim) if ((volume_gpg_name | default('', true) | string | trim) and ((volume_gpg_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('passbolt', true)) ~ "-gpg")) >>:/etc/passbolt/gpg
-      - << ((volume_jwt_name | default('', true) | string | trim) if ((volume_jwt_name | default('', true) | string | trim) and ((volume_jwt_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('passbolt', true)) ~ "-jwt")) >>:/etc/passbolt/jwt
-    command: ["/usr/bin/wait-for.sh", "-t", "0", "<< (service_name | default('passbolt', true)) >>-db:3306", "--", "/docker-entrypoint.sh"]
+      - << ((volume_gpg_name | trim) if volume_gpg_name is string and (volume_gpg_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "-gpg")) >>:/etc/passbolt/gpg
+      - << ((volume_jwt_name | trim) if volume_jwt_name is string and (volume_jwt_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "-jwt")) >>:/etc/passbolt/jwt
+    command: ["/usr/bin/wait-for.sh", "-t", "0", "<< service_name >>-db:3306", "--", "/docker-entrypoint.sh"]
     depends_on:
-      - << (service_name | default('passbolt', true)) >>-db
+      - << service_name >>-db
 
-  << (service_name | default('passbolt', true)) >>-db:
+  << service_name >>-db:
     image: docker.io/library/mariadb:12.2.2
     restart: << restart_policy >>
     environment:
@@ -40,10 +40,10 @@ services:
       - MYSQL_USER=${DATABASE_USER}
       - MYSQL_PASSWORD=${DATABASE_PASSWORD}
     volumes:
-      - << ((volume_db_name | default('', true) | string | trim) if ((volume_db_name | default('', true) | string | trim) and ((volume_db_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('passbolt', true)) ~ "-db")) >>:/var/lib/mysql
+      - << ((volume_db_name | trim) if volume_db_name is string and (volume_db_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "-db")) >>:/var/lib/mysql
 
 
 volumes:
-  << ((volume_db_name | default('', true) | string | trim) if ((volume_db_name | default('', true) | string | trim) and ((volume_db_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('passbolt', true)) ~ "-db")) >>:
-  << ((volume_gpg_name | default('', true) | string | trim) if ((volume_gpg_name | default('', true) | string | trim) and ((volume_gpg_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('passbolt', true)) ~ "-gpg")) >>:
-  << ((volume_jwt_name | default('', true) | string | trim) if ((volume_jwt_name | default('', true) | string | trim) and ((volume_jwt_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('passbolt', true)) ~ "-jwt")) >>:
+  << ((volume_db_name | trim) if volume_db_name is string and (volume_db_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "-db")) >>:
+  << ((volume_gpg_name | trim) if volume_gpg_name is string and (volume_gpg_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "-gpg")) >>:
+  << ((volume_jwt_name | trim) if volume_jwt_name is string and (volume_jwt_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "-jwt")) >>:

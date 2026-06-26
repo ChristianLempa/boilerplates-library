@@ -1,5 +1,5 @@
 services:
-  << (service_name | default('homeassistant', true)) >>:
+  << service_name >>:
     container_name: << container_name >>
     image: ghcr.io/home-assistant/home-assistant:2026.4.4
     network_mode: host

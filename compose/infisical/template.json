@@ -31,7 +31,7 @@
           "name": "service_name",
           "type": "str",
           "title": "Service Name",
-          "required": false,
+          "required": true,
           "config": {
             "placeholder": "infisical"
           },

@@ -26,7 +26,7 @@
           "name": "service_name",
           "type": "str",
           "title": "Compose service name",
-          "required": false,
+          "required": true,
           "default": "cloudflared",
           "config": {
             "placeholder": "cloudflared"

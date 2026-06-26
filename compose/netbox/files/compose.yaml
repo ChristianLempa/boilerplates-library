@@ -1,6 +1,6 @@
 ---
 services:
-  << (service_name | default('netbox', true)) >>:
+  << service_name >>:
     image: docker.io/netboxcommunity/netbox:v4.5.10
     restart: << restart_policy >>
     environment:
@@ -15,14 +15,14 @@ services:
       <%- if database_external %>
       - DB_HOST=<< database_host >>
       <%- else %>
-      - DB_HOST=<< (service_name | default('netbox', true)) >>_postgres
+      - DB_HOST=<< service_name >>_postgres
       <%- endif %>
       - DB_NAME=<< database_name >>
       - DB_USER=${DATABASE_USER}
       - DB_PASSWORD=${DATABASE_PASSWORD}
-      - REDIS_HOST=<< (service_name | default('netbox', true)) >>_redis
+      - REDIS_HOST=<< service_name >>_redis
       - REDIS_PASSWORD=${REDIS_PASSWORD}
-      - REDIS_CACHE_HOST=<< (service_name | default('netbox', true)) >>_redis-cache
+      - REDIS_CACHE_HOST=<< service_name >>_redis-cache
       - REDIS_CACHE_PASSWORD=${REDIS_PASSWORD}
       - SECRET_KEY=${NETBOX_SECRET_KEY}
       <%- if netbox_metrics_enabled %>
@@ -44,39 +44,39 @@ services:
       <%- if traefik_enabled %>
       << traefik_network >>:
       <%- endif %>
-      << (service_name | default('netbox', true)) >>_backend:
+      << service_name >>_backend:
     <%- if not traefik_enabled %>
     ports:
       - "<< ports_http >>:8080"
     <%- endif %>
     volumes:
-      - << ((volume_media_name | default('', true) | string | trim) if ((volume_media_name | default('', true) | string | trim) and ((volume_media_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('netbox', true)) ~ "_media")) >>:/opt/netbox/netbox/media
-      - << ((volume_reports_name | default('', true) | string | trim) if ((volume_reports_name | default('', true) | string | trim) and ((volume_reports_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('netbox', true)) ~ "_reports")) >>:/opt/netbox/netbox/reports
-      - << ((volume_scripts_name | default('', true) | string | trim) if ((volume_scripts_name | default('', true) | string | trim) and ((volume_scripts_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('netbox', true)) ~ "_scripts")) >>:/opt/netbox/netbox/scripts
+      - << ((volume_media_name | trim) if volume_media_name is string and (volume_media_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_media")) >>:/opt/netbox/netbox/media
+      - << ((volume_reports_name | trim) if volume_reports_name is string and (volume_reports_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_reports")) >>:/opt/netbox/netbox/reports
+      - << ((volume_scripts_name | trim) if volume_scripts_name is string and (volume_scripts_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_scripts")) >>:/opt/netbox/netbox/scripts
     <%- if traefik_enabled %>
     labels:
       - traefik.enable=true
       - traefik.docker.network=<< traefik_network >>
-      - traefik.http.services.<< (service_name | default('netbox', true)) >>_web.loadBalancer.server.port=8080
-      - traefik.http.routers.<< (service_name | default('netbox', true)) >>_http.service=<< (service_name | default('netbox', true)) >>_web
-      - traefik.http.routers.<< (service_name | default('netbox', true)) >>_http.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
-      - traefik.http.routers.<< (service_name | default('netbox', true)) >>_http.entrypoints=<< traefik_entrypoint >>
+      - traefik.http.services.<< service_name >>_web.loadBalancer.server.port=8080
+      - traefik.http.routers.<< service_name >>_http.service=<< service_name >>_web
+      - traefik.http.routers.<< service_name >>_http.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
+      - traefik.http.routers.<< service_name >>_http.entrypoints=<< traefik_entrypoint >>
       <%- if traefik_tls_enabled %>
-      - traefik.http.routers.<< (service_name | default('netbox', true)) >>_https.service=<< (service_name | default('netbox', true)) >>_web
-      - traefik.http.routers.<< (service_name | default('netbox', true)) >>_https.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
-      - traefik.http.routers.<< (service_name | default('netbox', true)) >>_https.entrypoints=<< traefik_tls_entrypoint >>
-      - traefik.http.routers.<< (service_name | default('netbox', true)) >>_https.tls=true
-      - traefik.http.routers.<< (service_name | default('netbox', true)) >>_https.tls.certresolver=<< traefik_tls_certresolver >>
+      - traefik.http.routers.<< service_name >>_https.service=<< service_name >>_web
+      - traefik.http.routers.<< service_name >>_https.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
+      - traefik.http.routers.<< service_name >>_https.entrypoints=<< traefik_tls_entrypoint >>
+      - traefik.http.routers.<< service_name >>_https.tls=true
+      - traefik.http.routers.<< service_name >>_https.tls.certresolver=<< traefik_tls_certresolver >>
       <%- endif %>
     <%- endif %>
     depends_on:
       <%- if not database_external %>
-      - << (service_name | default('netbox', true)) >>_postgres
+      - << service_name >>_postgres
       <%- endif %>
-      - << (service_name | default('netbox', true)) >>_redis
-      - << (service_name | default('netbox', true)) >>_redis-cache
+      - << service_name >>_redis
+      - << service_name >>_redis-cache
 
-  << (service_name | default('netbox', true)) >>_worker:
+  << service_name >>_worker:
     image: docker.io/netboxcommunity/netbox:v4.5.10
     restart: << restart_policy >>
     command:
@@ -90,14 +90,14 @@ services:
       <%- if database_external %>
       - DB_HOST=<< database_host >>
       <%- else %>
-      - DB_HOST=<< (service_name | default('netbox', true)) >>_postgres
+      - DB_HOST=<< service_name >>_postgres
       <%- endif %>
       - DB_NAME=<< database_name >>
       - DB_USER=${DATABASE_USER}
       - DB_PASSWORD=${DATABASE_PASSWORD}
-      - REDIS_HOST=<< (service_name | default('netbox', true)) >>_redis
+      - REDIS_HOST=<< service_name >>_redis
       - REDIS_PASSWORD=${REDIS_PASSWORD}
-      - REDIS_CACHE_HOST=<< (service_name | default('netbox', true)) >>_redis-cache
+      - REDIS_CACHE_HOST=<< service_name >>_redis-cache
       - REDIS_CACHE_PASSWORD=${REDIS_PASSWORD}
       - SECRET_KEY=${NETBOX_SECRET_KEY}
       <%- if netbox_metrics_enabled %>
@@ -116,43 +116,43 @@ services:
       <%- endif %>
       <%- endif %>
     networks:
-      << (service_name | default('netbox', true)) >>_backend:
+      << service_name >>_backend:
     volumes:
-      - << ((volume_media_name | default('', true) | string | trim) if ((volume_media_name | default('', true) | string | trim) and ((volume_media_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('netbox', true)) ~ "_media")) >>:/opt/netbox/netbox/media
-      - << ((volume_reports_name | default('', true) | string | trim) if ((volume_reports_name | default('', true) | string | trim) and ((volume_reports_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('netbox', true)) ~ "_reports")) >>:/opt/netbox/netbox/reports
-      - << ((volume_scripts_name | default('', true) | string | trim) if ((volume_scripts_name | default('', true) | string | trim) and ((volume_scripts_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('netbox', true)) ~ "_scripts")) >>:/opt/netbox/netbox/scripts
+      - << ((volume_media_name | trim) if volume_media_name is string and (volume_media_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_media")) >>:/opt/netbox/netbox/media
+      - << ((volume_reports_name | trim) if volume_reports_name is string and (volume_reports_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_reports")) >>:/opt/netbox/netbox/reports
+      - << ((volume_scripts_name | trim) if volume_scripts_name is string and (volume_scripts_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_scripts")) >>:/opt/netbox/netbox/scripts
     depends_on:
       <%- if not database_external %>
-      - << (service_name | default('netbox', true)) >>_postgres
+      - << service_name >>_postgres
       <%- endif %>
-      - << (service_name | default('netbox', true)) >>
-      - << (service_name | default('netbox', true)) >>_redis
-      - << (service_name | default('netbox', true)) >>_redis-cache
+      - << service_name >>
+      - << service_name >>_redis
+      - << service_name >>_redis-cache
 
-  << (service_name | default('netbox', true)) >>_redis:
+  << service_name >>_redis:
     image: docker.io/library/redis:8.6.2-alpine
     restart: << restart_policy >>
     command: ["redis-server", "--requirepass", "${REDIS_PASSWORD}"]
     environment:
       - REDIS_PASSWORD=${REDIS_PASSWORD}
     networks:
-      << (service_name | default('netbox', true)) >>_backend:
+      << service_name >>_backend:
     volumes:
-      - << ((volume_redis_name | default('', true) | string | trim) if ((volume_redis_name | default('', true) | string | trim) and ((volume_redis_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('netbox', true)) ~ "_redis")) >>:/data
+      - << ((volume_redis_name | trim) if volume_redis_name is string and (volume_redis_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_redis")) >>:/data
 
-  << (service_name | default('netbox', true)) >>_redis-cache:
+  << service_name >>_redis-cache:
     image: docker.io/library/redis:8.6.2-alpine
     restart: << restart_policy >>
     command: ["redis-server", "--requirepass", "${REDIS_PASSWORD}"]
     environment:
       - REDIS_PASSWORD=${REDIS_PASSWORD}
     networks:
-      << (service_name | default('netbox', true)) >>_backend:
+      << service_name >>_backend:
     volumes:
-      - << ((volume_redis_cache_name | default('', true) | string | trim) if ((volume_redis_cache_name | default('', true) | string | trim) and ((volume_redis_cache_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('netbox', true)) ~ "_redis-cache")) >>:/data
+      - << ((volume_redis_cache_name | trim) if volume_redis_cache_name is string and (volume_redis_cache_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_redis-cache")) >>:/data
 
   <%- if not database_external %>
-  << (service_name | default('netbox', true)) >>_postgres:
+  << service_name >>_postgres:
     image: docker.io/library/postgres:17.9
     restart: << restart_policy >>
     environment:
@@ -169,13 +169,13 @@ services:
       timeout: 10s
       retries: 5
     networks:
-      - << (service_name | default('netbox', true)) >>_backend
+      - << service_name >>_backend
     volumes:
-      - << ((volume_postgres_name | default('', true) | string | trim) if ((volume_postgres_name | default('', true) | string | trim) and ((volume_postgres_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('netbox', true)) ~ "_postgres")) >>:/var/lib/postgresql/data
+      - << ((volume_postgres_name | trim) if volume_postgres_name is string and (volume_postgres_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_postgres")) >>:/var/lib/postgresql/data
   <%- endif %>
 
 networks:
-  << (service_name | default('netbox', true)) >>_backend:
+  << service_name >>_backend:
     driver: bridge
   <%- if traefik_enabled %>
   << traefik_network >>:
@@ -184,16 +184,16 @@ networks:
 
 volumes:
   <%- if not database_external %>
-  << ((volume_postgres_name | default('', true) | string | trim) if ((volume_postgres_name | default('', true) | string | trim) and ((volume_postgres_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('netbox', true)) ~ "_postgres")) >>:
+  << ((volume_postgres_name | trim) if volume_postgres_name is string and (volume_postgres_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_postgres")) >>:
     driver: local
   <%- endif %>
-  << ((volume_redis_name | default('', true) | string | trim) if ((volume_redis_name | default('', true) | string | trim) and ((volume_redis_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('netbox', true)) ~ "_redis")) >>:
+  << ((volume_redis_name | trim) if volume_redis_name is string and (volume_redis_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_redis")) >>:
     driver: local
-  << ((volume_redis_cache_name | default('', true) | string | trim) if ((volume_redis_cache_name | default('', true) | string | trim) and ((volume_redis_cache_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('netbox', true)) ~ "_redis-cache")) >>:
+  << ((volume_redis_cache_name | trim) if volume_redis_cache_name is string and (volume_redis_cache_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_redis-cache")) >>:
     driver: local
-  << ((volume_media_name | default('', true) | string | trim) if ((volume_media_name | default('', true) | string | trim) and ((volume_media_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('netbox', true)) ~ "_media")) >>:
+  << ((volume_media_name | trim) if volume_media_name is string and (volume_media_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_media")) >>:
     driver: local
-  << ((volume_reports_name | default('', true) | string | trim) if ((volume_reports_name | default('', true) | string | trim) and ((volume_reports_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('netbox', true)) ~ "_reports")) >>:
+  << ((volume_reports_name | trim) if volume_reports_name is string and (volume_reports_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_reports")) >>:
     driver: local
-  << ((volume_scripts_name | default('', true) | string | trim) if ((volume_scripts_name | default('', true) | string | trim) and ((volume_scripts_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('netbox', true)) ~ "_scripts")) >>:
+  << ((volume_scripts_name | trim) if volume_scripts_name is string and (volume_scripts_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_scripts")) >>:
     driver: local

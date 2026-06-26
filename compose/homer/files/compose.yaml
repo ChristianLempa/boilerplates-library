@@ -1,5 +1,5 @@
 services:
-  << (service_name | default('homer', true)) >>:
+  << service_name >>:
     image: docker.io/b4bz/homer:v26.4.2
     restart: << restart_policy >>
     <%- if container_name %>
@@ -23,16 +23,16 @@ services:
     labels:
       - traefik.enable=true
       - traefik.docker.network=<< traefik_network >>
-      - traefik.http.services.<< (service_name | default('homer', true)) >>-web.loadBalancer.server.port=8080
-      - traefik.http.routers.<< (service_name | default('homer', true)) >>-http.service=<< (service_name | default('homer', true)) >>-web
-      - traefik.http.routers.<< (service_name | default('homer', true)) >>-http.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
-      - traefik.http.routers.<< (service_name | default('homer', true)) >>-http.entrypoints=<< traefik_entrypoint >>
+      - traefik.http.services.<< service_name >>-web.loadBalancer.server.port=8080
+      - traefik.http.routers.<< service_name >>-http.service=<< service_name >>-web
+      - traefik.http.routers.<< service_name >>-http.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
+      - traefik.http.routers.<< service_name >>-http.entrypoints=<< traefik_entrypoint >>
       <%- if traefik_tls_enabled %>
-      - traefik.http.routers.<< (service_name | default('homer', true)) >>-https.service=<< (service_name | default('homer', true)) >>-web
-      - traefik.http.routers.<< (service_name | default('homer', true)) >>-https.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
-      - traefik.http.routers.<< (service_name | default('homer', true)) >>-https.entrypoints=<< traefik_tls_entrypoint >>
-      - traefik.http.routers.<< (service_name | default('homer', true)) >>-https.tls=true
-      - traefik.http.routers.<< (service_name | default('homer', true)) >>-https.tls.certresolver=<< traefik_tls_certresolver >>
+      - traefik.http.routers.<< service_name >>-https.service=<< service_name >>-web
+      - traefik.http.routers.<< service_name >>-https.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
+      - traefik.http.routers.<< service_name >>-https.entrypoints=<< traefik_tls_entrypoint >>
+      - traefik.http.routers.<< service_name >>-https.tls=true
+      - traefik.http.routers.<< service_name >>-https.tls.certresolver=<< traefik_tls_certresolver >>
       <%- endif %>
     <%- endif %>
 

@@ -1,6 +1,6 @@
 ---
 services:
-  << (service_name | default('influxdb', true)) >>:
+  << service_name >>:
     image: docker.io/library/influxdb:2.8.0-alpine
     restart: << restart_policy >>
     environment:
@@ -20,30 +20,30 @@ services:
       - "<< ports_http >>:8086"
     <%- endif %>
     volumes:
-      - << ((volume_data_name | default('', true) | string | trim) if ((volume_data_name | default('', true) | string | trim) and ((volume_data_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('influxdb', true)) ~ "_data")) >>:/var/lib/influxdb2
-      - << ((volume_config_name | default('', true) | string | trim) if ((volume_config_name | default('', true) | string | trim) and ((volume_config_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('influxdb', true)) ~ "_config")) >>:/etc/influxdb2
+      - << ((volume_data_name | trim) if volume_data_name is string and (volume_data_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_data")) >>:/var/lib/influxdb2
+      - << ((volume_config_name | trim) if volume_config_name is string and (volume_config_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_config")) >>:/etc/influxdb2
     <%- if traefik_enabled %>
     labels:
       - traefik.enable=true
       - traefik.docker.network=<< traefik_network >>
-      - traefik.http.services.<< (service_name | default('influxdb', true)) >>-web.loadbalancer.server.port=8086
-      - traefik.http.services.<< (service_name | default('influxdb', true)) >>-web.loadbalancer.server.scheme=http
-      - traefik.http.routers.<< (service_name | default('influxdb', true)) >>-web-http.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
-      - traefik.http.routers.<< (service_name | default('influxdb', true)) >>-web-http.entrypoints=<< traefik_entrypoint >>
-      - traefik.http.routers.<< (service_name | default('influxdb', true)) >>-web-http.service=<< (service_name | default('influxdb', true)) >>-web
+      - traefik.http.services.<< service_name >>-web.loadbalancer.server.port=8086
+      - traefik.http.services.<< service_name >>-web.loadbalancer.server.scheme=http
+      - traefik.http.routers.<< service_name >>-web-http.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
+      - traefik.http.routers.<< service_name >>-web-http.entrypoints=<< traefik_entrypoint >>
+      - traefik.http.routers.<< service_name >>-web-http.service=<< service_name >>-web
       <%- if traefik_tls_enabled %>
-      - traefik.http.routers.<< (service_name | default('influxdb', true)) >>-web-https.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
-      - traefik.http.routers.<< (service_name | default('influxdb', true)) >>-web-https.entrypoints=<< traefik_tls_entrypoint >>
-      - traefik.http.routers.<< (service_name | default('influxdb', true)) >>-web-https.tls=true
-      - traefik.http.routers.<< (service_name | default('influxdb', true)) >>-web-https.tls.certresolver=<< traefik_tls_certresolver >>
-      - traefik.http.routers.<< (service_name | default('influxdb', true)) >>-web-https.service=<< (service_name | default('influxdb', true)) >>-web
+      - traefik.http.routers.<< service_name >>-web-https.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
+      - traefik.http.routers.<< service_name >>-web-https.entrypoints=<< traefik_tls_entrypoint >>
+      - traefik.http.routers.<< service_name >>-web-https.tls=true
+      - traefik.http.routers.<< service_name >>-web-https.tls.certresolver=<< traefik_tls_certresolver >>
+      - traefik.http.routers.<< service_name >>-web-https.service=<< service_name >>-web
       <%- endif %>
     <%- endif %>
     
 volumes:
-  << ((volume_data_name | default('', true) | string | trim) if ((volume_data_name | default('', true) | string | trim) and ((volume_data_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('influxdb', true)) ~ "_data")) >>:
+  << ((volume_data_name | trim) if volume_data_name is string and (volume_data_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_data")) >>:
     driver: local
-  << ((volume_config_name | default('', true) | string | trim) if ((volume_config_name | default('', true) | string | trim) and ((volume_config_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('influxdb', true)) ~ "_config")) >>:
+  << ((volume_config_name | trim) if volume_config_name is string and (volume_config_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_config")) >>:
     driver: local
 
 <%- if traefik_enabled %>

@@ -29,7 +29,7 @@
           "name": "service_name",
           "type": "str",
           "title": "The service name",
-          "required": false,
+          "required": true,
           "default": "homepage",
           "config": {
             "placeholder": "homepage"

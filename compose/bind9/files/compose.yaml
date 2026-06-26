@@ -1,5 +1,5 @@
 services:
-  << (service_name | default('bind9', true)) >>:
+  << service_name >>:
     image: docker.io/ubuntu/bind9:9.20-24.10_edge
     restart: << restart_policy >>
     <%- if container_hostname %>
@@ -30,9 +30,9 @@ services:
       - << volume_mount_path >>/zones:/var/lib/bind:rw
       - << volume_mount_path >>/cache:/var/cache/bind:rw
       <%- else %>
-      - << ((volume_config_name | default('', true) | string | trim) if ((volume_config_name | default('', true) | string | trim) and ((volume_config_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('bind9', true)) ~ "_config")) >>:/etc/bind
-      - << ((volume_zones_name | default('', true) | string | trim) if ((volume_zones_name | default('', true) | string | trim) and ((volume_zones_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('bind9', true)) ~ "_zones")) >>:/var/lib/bind
-      - << ((volume_cache_name | default('', true) | string | trim) if ((volume_cache_name | default('', true) | string | trim) and ((volume_cache_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('bind9', true)) ~ "_cache")) >>:/var/cache/bind
+      - << ((volume_config_name | trim) if volume_config_name is string and (volume_config_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_config")) >>:/etc/bind
+      - << ((volume_zones_name | trim) if volume_zones_name is string and (volume_zones_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_zones")) >>:/var/lib/bind
+      - << ((volume_cache_name | trim) if volume_cache_name is string and (volume_cache_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_cache")) >>:/var/cache/bind
       <%- endif %>
 
 <%- if network_mode == 'bridge' or network_mode == 'macvlan' %>
@@ -58,27 +58,27 @@ networks:
 
 <%- if volume_mode == 'local' %>
 volumes:
-  << ((volume_config_name | default('', true) | string | trim) if ((volume_config_name | default('', true) | string | trim) and ((volume_config_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('bind9', true)) ~ "_config")) >>:
+  << ((volume_config_name | trim) if volume_config_name is string and (volume_config_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_config")) >>:
     driver: local
-  << ((volume_zones_name | default('', true) | string | trim) if ((volume_zones_name | default('', true) | string | trim) and ((volume_zones_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('bind9', true)) ~ "_zones")) >>:
+  << ((volume_zones_name | trim) if volume_zones_name is string and (volume_zones_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_zones")) >>:
     driver: local
-  << ((volume_cache_name | default('', true) | string | trim) if ((volume_cache_name | default('', true) | string | trim) and ((volume_cache_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('bind9', true)) ~ "_cache")) >>:
+  << ((volume_cache_name | trim) if volume_cache_name is string and (volume_cache_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_cache")) >>:
     driver: local
 <%- elif volume_mode == 'nfs' %>
 volumes:
-  << ((volume_config_name | default('', true) | string | trim) if ((volume_config_name | default('', true) | string | trim) and ((volume_config_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('bind9', true)) ~ "_config")) >>:
+  << ((volume_config_name | trim) if volume_config_name is string and (volume_config_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_config")) >>:
     driver: local
     driver_opts:
       type: nfs
       o: addr=<< volume_nfs_server >>,<< volume_nfs_options >>
       device: ":<< volume_nfs_path >>/config"
-  << ((volume_zones_name | default('', true) | string | trim) if ((volume_zones_name | default('', true) | string | trim) and ((volume_zones_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('bind9', true)) ~ "_zones")) >>:
+  << ((volume_zones_name | trim) if volume_zones_name is string and (volume_zones_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_zones")) >>:
     driver: local
     driver_opts:
       type: nfs
       o: addr=<< volume_nfs_server >>,<< volume_nfs_options >>
       device: ":<< volume_nfs_path >>/zones"
-  << ((volume_cache_name | default('', true) | string | trim) if ((volume_cache_name | default('', true) | string | trim) and ((volume_cache_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('bind9', true)) ~ "_cache")) >>:
+  << ((volume_cache_name | trim) if volume_cache_name is string and (volume_cache_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_cache")) >>:
     driver: local
     driver_opts:
       type: nfs

@@ -1,5 +1,5 @@
 services:
-  << (service_name | default('nextcloud', true)) >>-app:
+  << service_name >>-app:
     image: docker.io/library/nextcloud:33.0.3-apache
     restart: << restart_policy >>
     container_name: << container_name >>-app
@@ -7,17 +7,17 @@ services:
       - TZ=<< container_timezone >>
       - NEXTCLOUD_ADMIN_USER=${NEXTCLOUD_ADMIN_USER}
       - NEXTCLOUD_ADMIN_PASSWORD=${NEXTCLOUD_ADMIN_PASSWORD}
-      - REDIS_HOST=<< (service_name | default('nextcloud', true)) >>-redis
+      - REDIS_HOST=<< service_name >>-redis
       <%- if database_type == 'mysql' %>
       - MYSQL_USER=${DATABASE_USER}
       - MYSQL_PASSWORD=${DATABASE_PASSWORD}
       - MYSQL_DATABASE=<< database_name >>
-      - MYSQL_HOST=<< (service_name | default('nextcloud', true)) >>-db
+      - MYSQL_HOST=<< service_name >>-db
       <%- elif database_type == 'postgres' %>
       - POSTGRES_USER=${DATABASE_USER}
       - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
       - POSTGRES_DB=<< database_name >>
-      - POSTGRES_HOST=<< (service_name | default('nextcloud', true)) >>-db
+      - POSTGRES_HOST=<< service_name >>-db
       <%- endif %>
       <%- if traefik_enabled %>
       - NEXTCLOUD_TRUSTED_DOMAINS=<< traefik_host >>.<< traefik_domain >>
@@ -33,9 +33,9 @@ services:
       - "<< ports_http >>:80"
     <%- endif %>
     volumes:
-      - << ((volume_data_name | default('', true) | string | trim) if ((volume_data_name | default('', true) | string | trim) and ((volume_data_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else 'nextcloud-data') >>:/var/www/html
+      - << ((volume_data_name | trim) if volume_data_name is string and (volume_data_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else 'nextcloud-data') >>:/var/www/html
     networks:
-      - << (service_name | default('nextcloud', true)) >>-backend
+      - << service_name >>-backend
       <%- if traefik_enabled %>
       - << traefik_network >>
       <%- endif %>
@@ -43,65 +43,65 @@ services:
     labels:
       - traefik.enable=true
       - traefik.docker.network=<< traefik_network >>
-      - traefik.http.services.<< (service_name | default('nextcloud', true)) >>-web.loadbalancer.server.port=80
-      - traefik.http.routers.<< (service_name | default('nextcloud', true)) >>-web-http.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
-      - traefik.http.routers.<< (service_name | default('nextcloud', true)) >>-web-http.entrypoints=<< traefik_entrypoint >>
-      - traefik.http.routers.<< (service_name | default('nextcloud', true)) >>-web-http.service=<< (service_name | default('nextcloud', true)) >>-web
+      - traefik.http.services.<< service_name >>-web.loadbalancer.server.port=80
+      - traefik.http.routers.<< service_name >>-web-http.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
+      - traefik.http.routers.<< service_name >>-web-http.entrypoints=<< traefik_entrypoint >>
+      - traefik.http.routers.<< service_name >>-web-http.service=<< service_name >>-web
       <%- if traefik_tls_enabled %>
-      - traefik.http.routers.<< (service_name | default('nextcloud', true)) >>-web-https.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
-      - traefik.http.routers.<< (service_name | default('nextcloud', true)) >>-web-https.entrypoints=<< traefik_tls_entrypoint >>
-      - traefik.http.routers.<< (service_name | default('nextcloud', true)) >>-web-https.tls=true
-      - traefik.http.routers.<< (service_name | default('nextcloud', true)) >>-web-https.tls.certresolver=<< traefik_tls_certresolver >>
-      - traefik.http.routers.<< (service_name | default('nextcloud', true)) >>-web-https.service=<< (service_name | default('nextcloud', true)) >>-web
+      - traefik.http.routers.<< service_name >>-web-https.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
+      - traefik.http.routers.<< service_name >>-web-https.entrypoints=<< traefik_tls_entrypoint >>
+      - traefik.http.routers.<< service_name >>-web-https.tls=true
+      - traefik.http.routers.<< service_name >>-web-https.tls.certresolver=<< traefik_tls_certresolver >>
+      - traefik.http.routers.<< service_name >>-web-https.service=<< service_name >>-web
       <%- endif %>
     <%- endif %>
     depends_on:
-      - << (service_name | default('nextcloud', true)) >>-db
-      - << (service_name | default('nextcloud', true)) >>-redis
+      - << service_name >>-db
+      - << service_name >>-redis
 
-  << (service_name | default('nextcloud', true)) >>-cron:
+  << service_name >>-cron:
     image: docker.io/library/nextcloud:33.0.3-apache
     restart: << restart_policy >>
     container_name: << container_name >>-cron
     entrypoint: /cron.sh
     environment:
       - TZ=<< container_timezone >>
-      - REDIS_HOST=<< (service_name | default('nextcloud', true)) >>-redis
+      - REDIS_HOST=<< service_name >>-redis
       <%- if database_type == 'mysql' %>
       - MYSQL_USER=${DATABASE_USER}
       - MYSQL_PASSWORD=${DATABASE_PASSWORD}
       - MYSQL_DATABASE=<< database_name >>
-      - MYSQL_HOST=<< (service_name | default('nextcloud', true)) >>-db
+      - MYSQL_HOST=<< service_name >>-db
       <%- elif database_type == 'postgres' %>
       - POSTGRES_USER=${DATABASE_USER}
       - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
       - POSTGRES_DB=<< database_name >>
-      - POSTGRES_HOST=<< (service_name | default('nextcloud', true)) >>-db
+      - POSTGRES_HOST=<< service_name >>-db
       <%- endif %>
     volumes:
-      - << ((volume_data_name | default('', true) | string | trim) if ((volume_data_name | default('', true) | string | trim) and ((volume_data_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else 'nextcloud-data') >>:/var/www/html
+      - << ((volume_data_name | trim) if volume_data_name is string and (volume_data_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else 'nextcloud-data') >>:/var/www/html
     networks:
-      - << (service_name | default('nextcloud', true)) >>-backend
+      - << service_name >>-backend
     depends_on:
-      - << (service_name | default('nextcloud', true)) >>-app
+      - << service_name >>-app
 
-  << (service_name | default('nextcloud', true)) >>-redis:
+  << service_name >>-redis:
     image: docker.io/library/redis:8-alpine
     restart: << restart_policy >>
-    container_name: << (service_name | default('nextcloud', true)) >>-redis
+    container_name: << service_name >>-redis
     command: redis-server --appendonly yes
     volumes:
-      - << ((volume_redis_name | default('', true) | string | trim) if ((volume_redis_name | default('', true) | string | trim) and ((volume_redis_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else 'nextcloud-redis') >>:/data
+      - << ((volume_redis_name | trim) if volume_redis_name is string and (volume_redis_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else 'nextcloud-redis') >>:/data
     networks:
-      - << (service_name | default('nextcloud', true)) >>-backend
+      - << service_name >>-backend
 
-  << (service_name | default('nextcloud', true)) >>-db:
+  << service_name >>-db:
     <%- if database_type == 'mysql' %>
     # See compatibility matrix for Nextcloud 31
     # https://docs.nextcloud.com/server/31/admin_manual/installation/system_requirements.html
     image: docker.io/library/mariadb:10.11.16
     restart: << restart_policy >>
-    container_name: << (service_name | default('nextcloud', true)) >>-db
+    container_name: << service_name >>-db
     command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
     environment:
       - TZ=<< container_timezone >>
@@ -110,34 +110,34 @@ services:
       - MYSQL_PASSWORD=${DATABASE_PASSWORD}
       - MYSQL_DATABASE=<< database_name >>
     volumes:
-      - << ((volume_db_name | default('', true) | string | trim) if ((volume_db_name | default('', true) | string | trim) and ((volume_db_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else 'nextcloud-db') >>:/var/lib/mysql
+      - << ((volume_db_name | trim) if volume_db_name is string and (volume_db_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else 'nextcloud-db') >>:/var/lib/mysql
     networks:
-      - << (service_name | default('nextcloud', true)) >>-backend
+      - << service_name >>-backend
     <%- elif database_type == 'postgres' %>
     image: docker.io/library/postgres:17.9
     restart: << restart_policy >>
-    container_name: << (service_name | default('nextcloud', true)) >>-db
+    container_name: << service_name >>-db
     environment:
       - TZ=<< container_timezone >>
       - POSTGRES_USER=${DATABASE_USER}
       - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
       - POSTGRES_DB=<< database_name >>
     volumes:
-      - << ((volume_db_name | default('', true) | string | trim) if ((volume_db_name | default('', true) | string | trim) and ((volume_db_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else 'nextcloud-db') >>:/var/lib/postgresql/data
+      - << ((volume_db_name | trim) if volume_db_name is string and (volume_db_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else 'nextcloud-db') >>:/var/lib/postgresql/data
     networks:
-      - << (service_name | default('nextcloud', true)) >>-backend
+      - << service_name >>-backend
     <%- endif %>
 
 volumes:
-  << ((volume_data_name | default('', true) | string | trim) if ((volume_data_name | default('', true) | string | trim) and ((volume_data_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else 'nextcloud-data') >>:
+  << ((volume_data_name | trim) if volume_data_name is string and (volume_data_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else 'nextcloud-data') >>:
     driver: local
-  << ((volume_db_name | default('', true) | string | trim) if ((volume_db_name | default('', true) | string | trim) and ((volume_db_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else 'nextcloud-db') >>:
+  << ((volume_db_name | trim) if volume_db_name is string and (volume_db_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else 'nextcloud-db') >>:
     driver: local
-  << ((volume_redis_name | default('', true) | string | trim) if ((volume_redis_name | default('', true) | string | trim) and ((volume_redis_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else 'nextcloud-redis') >>:
+  << ((volume_redis_name | trim) if volume_redis_name is string and (volume_redis_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else 'nextcloud-redis') >>:
     driver: local
 
 networks:
-  << (service_name | default('nextcloud', true)) >>-backend:
+  << service_name >>-backend:
     driver: bridge
   <%- if traefik_enabled %>
   << traefik_network >>:

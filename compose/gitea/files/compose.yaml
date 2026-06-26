@@ -1,5 +1,5 @@
 services:
-  << (service_name | default('gitea', true)) >>:
+  << service_name >>:
     image: docker.io/gitea/gitea:1.26.1
     restart: << restart_policy >>
     environment:
@@ -10,7 +10,7 @@ services:
       <%- if database_external %>
       - GITEA__database__HOST=<< database_host >>
       <%- else %>
-      - GITEA__database__HOST=<< (service_name | default('gitea', true)) >>_db
+      - GITEA__database__HOST=<< service_name >>_db
       <%- endif %>
       - GITEA__database__NAME=<< database_name >>
       - GITEA__database__USER=${DATABASE_USER}
@@ -25,7 +25,7 @@ services:
     <%- if not database_external and (database_type == "postgres" or database_type == "mysql") or traefik_enabled %>
     networks:
     <%- if not database_external and database_type != 'sqlite' %>
-      - << (service_name | default('gitea', true)) >>_backend
+      - << service_name >>_backend
     <%- endif %>
     <%- if traefik_enabled %>
       - << traefik_network >>
@@ -37,32 +37,32 @@ services:
       <%- endif %>
       - "<< ports_ssh >>:22"
     volumes:
-      - << ((volume_data_name | default('', true) | string | trim) if ((volume_data_name | default('', true) | string | trim) and ((volume_data_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('gitea', true)) ~ "_data")) >>:/data
+      - << ((volume_data_name | trim) if volume_data_name is string and (volume_data_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_data")) >>:/data
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
     <%- if traefik_enabled %>
     labels:
       - traefik.enable=true
       - traefik.docker.network=<< traefik_network >>
-      - traefik.http.services.<< (service_name | default('gitea', true)) >>_web.loadBalancer.server.port=3000
-      - traefik.http.routers.<< (service_name | default('gitea', true)) >>_http.service=<< (service_name | default('gitea', true)) >>_web
-      - traefik.http.routers.<< (service_name | default('gitea', true)) >>_http.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
-      - traefik.http.routers.<< (service_name | default('gitea', true)) >>_http.entrypoints=<< traefik_entrypoint >>
+      - traefik.http.services.<< service_name >>_web.loadBalancer.server.port=3000
+      - traefik.http.routers.<< service_name >>_http.service=<< service_name >>_web
+      - traefik.http.routers.<< service_name >>_http.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
+      - traefik.http.routers.<< service_name >>_http.entrypoints=<< traefik_entrypoint >>
       <%- if traefik_tls_enabled %>
-      - traefik.http.routers.<< (service_name | default('gitea', true)) >>_https.service=<< (service_name | default('gitea', true)) >>_web
-      - traefik.http.routers.<< (service_name | default('gitea', true)) >>_https.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
-      - traefik.http.routers.<< (service_name | default('gitea', true)) >>_https.entrypoints=<< traefik_tls_entrypoint >>
-      - traefik.http.routers.<< (service_name | default('gitea', true)) >>_https.tls=true
-      - traefik.http.routers.<< (service_name | default('gitea', true)) >>_https.tls.certresolver=<< traefik_tls_certresolver >>
+      - traefik.http.routers.<< service_name >>_https.service=<< service_name >>_web
+      - traefik.http.routers.<< service_name >>_https.rule=Host(`<< traefik_host >>.<< traefik_domain >>`)
+      - traefik.http.routers.<< service_name >>_https.entrypoints=<< traefik_tls_entrypoint >>
+      - traefik.http.routers.<< service_name >>_https.tls=true
+      - traefik.http.routers.<< service_name >>_https.tls.certresolver=<< traefik_tls_certresolver >>
       <%- endif %>
     <%- endif %>
     <%- if not database_external and database_type != 'sqlite' %>
     depends_on:
-      - << (service_name | default('gitea', true)) >>_db
+      - << service_name >>_db
     <%- endif %>
 
   <%- if not database_external and database_type == "postgres" %>
-  << (service_name | default('gitea', true)) >>_db:
+  << service_name >>_db:
     image: docker.io/library/postgres:17.9
     restart: << restart_policy >>
     environment:
@@ -71,7 +71,7 @@ services:
       - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
       - POSTGRES_DB=<< database_name >>
     networks:
-      - << (service_name | default('gitea', true)) >>_backend
+      - << service_name >>_backend
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U << database_user >>"]
       start_period: 30s
@@ -79,9 +79,9 @@ services:
       timeout: 10s
       retries: 5
     volumes:
-      - << ((volume_db_name | default('', true) | string | trim) if ((volume_db_name | default('', true) | string | trim) and ((volume_db_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('gitea', true)) ~ "_db")) >>:/var/lib/postgresql/data
+      - << ((volume_db_name | trim) if volume_db_name is string and (volume_db_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_db")) >>:/var/lib/postgresql/data
   <%- elif not database_external and database_type == "mysql" %>
-  << (service_name | default('gitea', true)) >>_db:
+  << service_name >>_db:
     image: docker.io/library/mysql:8.1
     restart: << restart_policy >>
     environment:
@@ -90,17 +90,17 @@ services:
       - MYSQL_DATABASE=<< database_name >>
       - MYSQL_ROOT_PASSWORD=${DATABASE_PASSWORD}
     networks:
-      - << (service_name | default('gitea', true)) >>_backend
+      - << service_name >>_backend
     volumes:
-      - << ((volume_db_name | default('', true) | string | trim) if ((volume_db_name | default('', true) | string | trim) and ((volume_db_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('gitea', true)) ~ "_db")) >>:/var/lib/mysql
+      - << ((volume_db_name | trim) if volume_db_name is string and (volume_db_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_db")) >>:/var/lib/mysql
   <%- endif %>
 
 volumes:
-  << ((volume_data_name | default('', true) | string | trim) if ((volume_data_name | default('', true) | string | trim) and ((volume_data_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('gitea', true)) ~ "_data")) >>:
+  << ((volume_data_name | trim) if volume_data_name is string and (volume_data_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_data")) >>:
     driver: local
   <%- if not database_external %>
   <%- if database_type == "postgres" or database_type == "mysql" %>
-  << ((volume_db_name | default('', true) | string | trim) if ((volume_db_name | default('', true) | string | trim) and ((volume_db_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('gitea', true)) ~ "_db")) >>:
+  << ((volume_db_name | trim) if volume_db_name is string and (volume_db_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_db")) >>:
     driver: local
   <%- endif %>
   <%- endif %>
@@ -108,7 +108,7 @@ volumes:
 <%- if not database_external and (database_type == "postgres" or database_type == "mysql") or traefik_enabled %>
 networks:
   <%- if not database_external %>
-  << (service_name | default('gitea', true)) >>_backend:
+  << service_name >>_backend:
     driver: bridge
   <%- endif %>
   <%- if traefik_enabled %>

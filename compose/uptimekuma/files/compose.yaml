@@ -1,14 +1,14 @@
 ---
 services:
-  << (service_name | default('uptimekuma', true)) >>:
+  << service_name >>:
     image: docker.io/louislam/uptime-kuma:2.3.2
     container_name: << container_name >>
     restart: << restart_policy >>
     ports:
       - "<< ports_http >>:3001"
     volumes:
-      - << ((volume_data_name | default('', true) | string | trim) if ((volume_data_name | default('', true) | string | trim) and ((volume_data_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else 'uptimekuma-data') >>:/app/data
+      - << ((volume_data_name | trim) if volume_data_name is string and (volume_data_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else 'uptimekuma-data') >>:/app/data
 
 volumes:
-  << ((volume_data_name | default('', true) | string | trim) if ((volume_data_name | default('', true) | string | trim) and ((volume_data_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else 'uptimekuma-data') >>:
+  << ((volume_data_name | trim) if volume_data_name is string and (volume_data_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else 'uptimekuma-data') >>:
     driver: local
