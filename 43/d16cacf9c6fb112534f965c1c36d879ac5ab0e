@@ -1,0 +1,31 @@
+compose/traefik/template.json
+  s_8928afcb95b727::t_16fbc1276261e8 173-174
+  s_8928afcb95b727::t_78c510450bef66 169-172,175-181
+  s_8928afcb95b727::t_92eb548f41689d 168
+swarm/traefik/template.json
+  s_8928afcb95b727::t_838e97493d11d2 235-236
+  s_8928afcb95b727::t_73e397138fc00b 231-234,237-243
+  s_8928afcb95b727::t_d0c7264d70d863 230
+swarm/traefik/files/compose.yaml
+  s_8928afcb95b727::t_05ff1c3e11efcb 44
+  s_8928afcb95b727::t_46cdc852cfce5d 39-41,43
+compose/traefik/files/compose.yaml
+  s_8928afcb95b727::t_0d49eddd10c530 48
+  s_8928afcb95b727::t_6b26f240850e85 43-45,47
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.3",
+  "base_commit_sha": "43d16cacf9c6fb112534f965c1c36d879ac5ab0e",
+  "prompts": {},
+  "sessions": {
+    "s_8928afcb95b727": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019f047d-b5b6-7ffc-9285-2178a58f52c9",
+        "model": "gpt-5.5"
+      },
+      "human_author": "xcad <christian.lempa@clcreative.de>"
+    }
+  }
+}
