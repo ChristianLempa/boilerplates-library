@@ -1,0 +1,21 @@
+helm/portainer/template.json
+  s_2326ed8c8f73ad::t_096ffffd919e89 2
+helm/traefik-helm/template.json
+  s_2326ed8c8f73ad::t_3d75fb4d3541cf 2
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.3",
+  "base_commit_sha": "52f56f9f69895cd2564ba5bcd4e97a0ee83d5f21",
+  "prompts": {},
+  "sessions": {
+    "s_2326ed8c8f73ad": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019f0493-fdce-7252-8b6e-79cf622d0d28",
+        "model": "gpt-5.5"
+      },
+      "human_author": "xcad <christian.lempa@clcreative.de>"
+    }
+  }
+}
