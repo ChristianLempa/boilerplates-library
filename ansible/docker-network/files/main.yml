@@ -1,0 +1,48 @@
+---
+- name: Manage Docker network
+  hosts: all
+  become: true
+  gather_facts: false
+
+  tasks:
+    - name: Validate Docker network configuration
+      ansible.builtin.assert:
+        that:
+          - "'<< network_driver >>' in ['bridge', 'macvlan', 'ipvlan', 'overlay']"
+          - "'<< network_state >>' in ['present', 'absent']"
+          <%- if network_state == 'present' and (network_driver == 'macvlan' or network_driver == 'ipvlan') %>
+          - "'<< network_parent_interface >>' | length > 0"
+          <%- endif %>
+        fail_msg: "Invalid Docker network configuration. macvlan and ipvlan networks require a parent interface."
+
+    - name: Manage Docker network
+      community.docker.docker_network:
+        name: "<< network_name >>"
+        state: << network_state >>
+        <%- if network_state == 'present' %>
+        driver: << network_driver >>
+        internal: << network_internal | default(false) >>
+        enable_ipv6: << network_enable_ipv6 | default(false) >>
+        <%- if network_driver == 'overlay' %>
+        attachable: << network_attachable | default(false) >>
+        <%- endif %>
+        <%- if network_driver == 'macvlan' %>
+        driver_options:
+          parent: "<< network_parent_interface >>"
+          macvlan_mode: "<< network_macvlan_mode >>"
+        <%- elif network_driver == 'ipvlan' %>
+        driver_options:
+          parent: "<< network_parent_interface >>"
+          ipvlan_mode: "<< network_ipvlan_mode >>"
+        <%- endif %>
+        <%- if network_subnet %>
+        ipam_config:
+          - subnet: "<< network_subnet >>"
+            <%- if network_gateway %>
+            gateway: "<< network_gateway >>"
+            <%- endif %>
+            <%- if network_ip_range %>
+            iprange: "<< network_ip_range >>"
+            <%- endif %>
+        <%- endif %>
+        <%- endif %>

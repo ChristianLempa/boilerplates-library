@@ -1,0 +1,264 @@
+{
+  "slug": "docker-daemon-config",
+  "kind": "ansible",
+  "metadata": {
+    "name": "Docker Daemon Config",
+    "description": "Manages Docker daemon settings in daemon.json, including log rotation, address pools, registry settings, IPv6, and daemon behavior.",
+    "tags": [
+      "docker",
+      "daemon",
+      "config",
+      "maintenance"
+    ],
+    "icon": {
+      "provider": "simple-icons",
+      "id": "docker",
+      "color": "blue"
+    },
+    "draft": false,
+    "version": {
+      "name": "1",
+      "source_dep_name": "manual/docker-daemon-config"
+    }
+  },
+  "variables": [
+    {
+      "title": "Daemon File",
+      "name": "daemon-file",
+      "items": [
+        {
+          "name": "daemon_config_path",
+          "type": "str",
+          "title": "Config Path",
+          "required": true,
+          "default": "/etc/docker/daemon.json",
+          "config": {
+            "placeholder": "/etc/docker/daemon.json"
+          }
+        },
+        {
+          "name": "daemon_backup",
+          "type": "bool",
+          "title": "Backup Existing File",
+          "required": false,
+          "default": true
+        },
+        {
+          "name": "docker_restart_on_change",
+          "type": "bool",
+          "title": "Restart Docker",
+          "required": false,
+          "default": true
+        }
+      ]
+    },
+    {
+      "title": "Logging",
+      "name": "logging",
+      "items": [
+        {
+          "name": "log_driver",
+          "type": "enum",
+          "title": "Log Driver",
+          "required": true,
+          "default": "json-file",
+          "config": {
+            "options": [
+              "json-file",
+              "local",
+              "journald"
+            ]
+          }
+        },
+        {
+          "name": "log_max_size",
+          "type": "str",
+          "title": "Max Log Size",
+          "required": false,
+          "default": "10m",
+          "needs": [
+            "log_driver=json-file,local"
+          ],
+          "config": {
+            "placeholder": "10m"
+          }
+        },
+        {
+          "name": "log_max_file",
+          "type": "int",
+          "title": "Max Log Files",
+          "required": false,
+          "default": 3,
+          "needs": [
+            "log_driver=json-file,local"
+          ],
+          "config": {
+            "placeholder": "3"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Daemon Behavior",
+      "name": "daemon-behavior",
+      "items": [
+        {
+          "name": "live_restore",
+          "type": "bool",
+          "title": "Live Restore",
+          "required": false,
+          "default": true
+        },
+        {
+          "name": "userland_proxy",
+          "type": "bool",
+          "title": "Userland Proxy",
+          "required": false,
+          "default": false
+        },
+        {
+          "name": "experimental_enabled",
+          "type": "bool",
+          "title": "Experimental Features",
+          "required": false,
+          "default": false
+        },
+        {
+          "name": "data_root",
+          "type": "str",
+          "title": "Data Root",
+          "required": false,
+          "default": "",
+          "config": {
+            "placeholder": "/var/lib/docker"
+          }
+        },
+        {
+          "name": "cgroup_driver",
+          "type": "enum",
+          "title": "Cgroup Driver",
+          "required": false,
+          "default": "default",
+          "config": {
+            "options": [
+              "default",
+              "systemd",
+              "cgroupfs"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": "Networking",
+      "name": "networking",
+      "items": [
+        {
+          "name": "iptables_enabled",
+          "type": "bool",
+          "title": "Manage iptables",
+          "required": false,
+          "default": true
+        },
+        {
+          "name": "ip_forward_enabled",
+          "type": "bool",
+          "title": "IP Forwarding",
+          "required": false,
+          "default": true
+        },
+        {
+          "name": "default_address_pools_enabled",
+          "type": "bool",
+          "title": "Default Address Pool",
+          "required": false,
+          "default": false
+        },
+        {
+          "name": "default_address_pool_base",
+          "type": "str",
+          "title": "Pool Base",
+          "required": false,
+          "default": "172.30.0.0/16",
+          "needs": [
+            "default_address_pools_enabled=true"
+          ],
+          "config": {
+            "placeholder": "172.30.0.0/16"
+          }
+        },
+        {
+          "name": "default_address_pool_size",
+          "type": "int",
+          "title": "Pool Size",
+          "required": false,
+          "default": 24,
+          "needs": [
+            "default_address_pools_enabled=true"
+          ],
+          "config": {
+            "placeholder": "24"
+          }
+        },
+        {
+          "name": "ipv6_enabled",
+          "type": "bool",
+          "title": "Enable IPv6",
+          "required": false,
+          "default": false
+        },
+        {
+          "name": "fixed_cidr_v6",
+          "type": "str",
+          "title": "Fixed IPv6 CIDR",
+          "required": false,
+          "default": "",
+          "needs": [
+            "ipv6_enabled=true"
+          ],
+          "config": {
+            "placeholder": "fd00:dead:beef::/48"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Registries and DNS",
+      "name": "registries-dns",
+      "items": [
+        {
+          "name": "registry_mirrors",
+          "type": "str",
+          "title": "Registry Mirrors",
+          "required": false,
+          "default": "",
+          "description": "Comma-separated list of Docker registry mirror URLs.",
+          "config": {
+            "placeholder": "https://registry-cache.example.com"
+          }
+        },
+        {
+          "name": "insecure_registries",
+          "type": "str",
+          "title": "Insecure Registries",
+          "required": false,
+          "default": "",
+          "description": "Comma-separated list of registries that should allow HTTP or self-signed TLS.",
+          "config": {
+            "placeholder": "registry.lan:5000"
+          }
+        },
+        {
+          "name": "dns_servers",
+          "type": "str",
+          "title": "DNS Servers",
+          "required": false,
+          "default": "",
+          "config": {
+            "placeholder": "1.1.1.1,8.8.8.8"
+          }
+        }
+      ]
+    }
+  ]
+}

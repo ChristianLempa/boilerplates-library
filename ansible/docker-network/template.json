@@ -1,0 +1,186 @@
+{
+  "slug": "docker-network",
+  "kind": "ansible",
+  "metadata": {
+    "name": "Docker Network",
+    "description": "Creates or removes a Docker network on target hosts, including bridge, macvlan, ipvlan, and overlay networks.",
+    "tags": [
+      "docker",
+      "network",
+      "macvlan",
+      "ipvlan"
+    ],
+    "icon": {
+      "provider": "simple-icons",
+      "id": "docker",
+      "color": "blue"
+    },
+    "draft": false,
+    "version": {
+      "name": "1",
+      "source_dep_name": "manual/docker-network"
+    }
+  },
+  "variables": [
+    {
+      "title": "Network",
+      "name": "network",
+      "items": [
+        {
+          "name": "network_name",
+          "type": "str",
+          "title": "Network Name",
+          "required": true,
+          "default": "proxy",
+          "config": {
+            "placeholder": "proxy"
+          }
+        },
+        {
+          "name": "network_state",
+          "type": "enum",
+          "title": "State",
+          "required": true,
+          "default": "present",
+          "config": {
+            "options": [
+              "present",
+              "absent"
+            ]
+          }
+        },
+        {
+          "name": "network_driver",
+          "type": "enum",
+          "title": "Driver",
+          "required": true,
+          "default": "bridge",
+          "config": {
+            "options": [
+              "bridge",
+              "macvlan",
+              "ipvlan",
+              "overlay"
+            ]
+          }
+        },
+        {
+          "name": "network_internal",
+          "type": "bool",
+          "title": "Internal Network",
+          "required": false,
+          "default": false
+        },
+        {
+          "name": "network_enable_ipv6",
+          "type": "bool",
+          "title": "Enable IPv6",
+          "required": false,
+          "default": false
+        },
+        {
+          "name": "network_attachable",
+          "type": "bool",
+          "title": "Attachable",
+          "required": false,
+          "default": false,
+          "description": "Allow standalone containers to attach to an overlay network.",
+          "needs": [
+            "network_driver=overlay"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Parent Interface",
+      "name": "parent-interface",
+      "items": [
+        {
+          "name": "network_parent_interface",
+          "type": "str",
+          "title": "Parent Interface",
+          "required": false,
+          "default": "",
+          "description": "Host interface or VLAN sub-interface used as parent for macvlan/ipvlan networks.",
+          "needs": [
+            "network_driver=macvlan,ipvlan"
+          ],
+          "config": {
+            "placeholder": "eth0"
+          }
+        },
+        {
+          "name": "network_macvlan_mode",
+          "type": "enum",
+          "title": "Macvlan Mode",
+          "required": false,
+          "default": "bridge",
+          "needs": [
+            "network_driver=macvlan"
+          ],
+          "config": {
+            "options": [
+              "bridge",
+              "private",
+              "vepa",
+              "passthru"
+            ]
+          }
+        },
+        {
+          "name": "network_ipvlan_mode",
+          "type": "enum",
+          "title": "IPvlan Mode",
+          "required": false,
+          "default": "l2",
+          "needs": [
+            "network_driver=ipvlan"
+          ],
+          "config": {
+            "options": [
+              "l2",
+              "l3",
+              "l3s"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": "IPAM",
+      "name": "ipam",
+      "items": [
+        {
+          "name": "network_subnet",
+          "type": "str",
+          "title": "Subnet",
+          "required": false,
+          "default": "",
+          "config": {
+            "placeholder": "192.168.10.0/24"
+          }
+        },
+        {
+          "name": "network_gateway",
+          "type": "str",
+          "title": "Gateway",
+          "required": false,
+          "default": "",
+          "config": {
+            "placeholder": "192.168.10.1"
+          }
+        },
+        {
+          "name": "network_ip_range",
+          "type": "str",
+          "title": "IP Range",
+          "required": false,
+          "default": "",
+          "config": {
+            "placeholder": "192.168.10.128/25"
+          }
+        }
+      ]
+    }
+  ]
+}

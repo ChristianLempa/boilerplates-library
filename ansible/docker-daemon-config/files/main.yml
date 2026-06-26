@@ -1,0 +1,73 @@
+---
+- name: Configure Docker daemon
+  hosts: all
+  become: true
+  gather_facts: false
+
+  vars:
+    docker_daemon_config_path: "<< daemon_config_path >>"
+    docker_daemon_config:
+      "log-driver": "<< log_driver >>"
+      <%- if log_driver == 'json-file' or log_driver == 'local' %>
+      "log-opts":
+        "max-size": "<< log_max_size >>"
+        "max-file": "<< log_max_file >>"
+      <%- endif %>
+      "live-restore": << live_restore | default(true) >>
+      "userland-proxy": << userland_proxy | default(false) >>
+      "experimental": << experimental_enabled | default(false) >>
+      <%- if data_root %>
+      "data-root": "<< data_root >>"
+      <%- endif %>
+      <%- if cgroup_driver != 'default' %>
+      "exec-opts":
+        - "native.cgroupdriver=<< cgroup_driver >>"
+      <%- endif %>
+      "iptables": << iptables_enabled | default(true) >>
+      "ip-forward": << ip_forward_enabled | default(true) >>
+      <%- if default_address_pools_enabled %>
+      "default-address-pools":
+        - "base": "<< default_address_pool_base >>"
+          "size": << default_address_pool_size >>
+      <%- endif %>
+      "ipv6": << ipv6_enabled | default(false) >>
+      <%- if fixed_cidr_v6 %>
+      "fixed-cidr-v6": "<< fixed_cidr_v6 >>"
+      <%- endif %>
+      <%- if registry_mirrors %>
+      "registry-mirrors": "{{ '<< registry_mirrors >>'.split(',') | map('trim') | reject('equalto', '') | list }}"
+      <%- endif %>
+      <%- if insecure_registries %>
+      "insecure-registries": "{{ '<< insecure_registries >>'.split(',') | map('trim') | reject('equalto', '') | list }}"
+      <%- endif %>
+      <%- if dns_servers %>
+      "dns": "{{ '<< dns_servers >>'.split(',') | map('trim') | reject('equalto', '') | list }}"
+      <%- endif %>
+
+  tasks:
+    - name: Ensure Docker config directory exists
+      ansible.builtin.file:
+        path: "{{ docker_daemon_config_path | dirname }}"
+        state: directory
+        owner: root
+        group: root
+        mode: "0755"
+
+    - name: Write Docker daemon configuration
+      ansible.builtin.copy:
+        dest: "{{ docker_daemon_config_path }}"
+        content: "{{ docker_daemon_config | to_nice_json }}\n"
+        owner: root
+        group: root
+        mode: "0644"
+        backup: << daemon_backup | default(true) >>
+        validate: "python3 -m json.tool %s"
+      notify: Restart Docker
+
+  handlers:
+    - name: Restart Docker
+      ansible.builtin.systemd:
+        name: docker
+        state: restarted
+        daemon_reload: true
+      when: << docker_restart_on_change | default(true) >>
