@@ -1,0 +1,25 @@
+compose/arcane-agent/files/compose.yaml
+  s_2ae939d4bd634c::t_5bcd29f048480c 3,24,36,40
+compose/arcane/files/compose.yaml
+  s_2ae939d4bd634c::t_5bcd29f048480c 3,46,69-72,74-78,84,88
+compose/arcane-agent/template.json
+  s_2ae939d4bd634c::t_a2b63405a2d255 34
+compose/arcane/template.json
+  s_2ae939d4bd634c::t_dc74b885fae9de 34
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.1",
+  "base_commit_sha": "9cb10071ed5f1358ae512aaa2fce0d95f0b49a81",
+  "prompts": {},
+  "sessions": {
+    "s_2ae939d4bd634c": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019f0303-848e-7c0d-9277-522a0d9b2a7e",
+        "model": "gpt-5.5"
+      },
+      "human_author": "xcad <christian.lempa@clcreative.de>"
+    }
+  }
+}
