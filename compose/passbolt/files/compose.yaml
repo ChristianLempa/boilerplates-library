@@ -25,8 +25,8 @@ services:
       - EMAIL_TRANSPORT_DEFAULT_TLS=<< email_use_tls | lower >>
       - EMAIL_DEFAULT_FROM=<< email_from >>
     volumes:
-      - << ((volume_gpg_name | trim) if volume_gpg_name is string and (volume_gpg_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "-gpg")) >>:/etc/passbolt/gpg
-      - << ((volume_jwt_name | trim) if volume_jwt_name is string and (volume_jwt_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "-jwt")) >>:/etc/passbolt/jwt
+      - << volume_gpg_name if volume_gpg_name else service_name ~ "-gpg" >>:/etc/passbolt/gpg
+      - << volume_jwt_name if volume_jwt_name else service_name ~ "-jwt" >>:/etc/passbolt/jwt
     command: ["/usr/bin/wait-for.sh", "-t", "0", "<< service_name >>-db:3306", "--", "/docker-entrypoint.sh"]
     depends_on:
       - << service_name >>-db
@@ -40,10 +40,10 @@ services:
       - MYSQL_USER=${DATABASE_USER}
       - MYSQL_PASSWORD=${DATABASE_PASSWORD}
     volumes:
-      - << ((volume_db_name | trim) if volume_db_name is string and (volume_db_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "-db")) >>:/var/lib/mysql
+      - << volume_db_name if volume_db_name else service_name ~ "-db" >>:/var/lib/mysql
 
 
 volumes:
-  << ((volume_db_name | trim) if volume_db_name is string and (volume_db_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "-db")) >>:
-  << ((volume_gpg_name | trim) if volume_gpg_name is string and (volume_gpg_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "-gpg")) >>:
-  << ((volume_jwt_name | trim) if volume_jwt_name is string and (volume_jwt_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "-jwt")) >>:
+  << volume_db_name if volume_db_name else service_name ~ "-db" >>:
+  << volume_gpg_name if volume_gpg_name else service_name ~ "-gpg" >>:
+  << volume_jwt_name if volume_jwt_name else service_name ~ "-jwt" >>:

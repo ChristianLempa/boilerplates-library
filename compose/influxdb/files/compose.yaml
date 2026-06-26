@@ -20,8 +20,8 @@ services:
       - "<< ports_http >>:8086"
     <%- endif %>
     volumes:
-      - << ((volume_data_name | trim) if volume_data_name is string and (volume_data_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_data")) >>:/var/lib/influxdb2
-      - << ((volume_config_name | trim) if volume_config_name is string and (volume_config_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_config")) >>:/etc/influxdb2
+      - << volume_data_name if volume_data_name else service_name ~ "_data" >>:/var/lib/influxdb2
+      - << volume_config_name if volume_config_name else service_name ~ "_config" >>:/etc/influxdb2
     <%- if traefik_enabled %>
     labels:
       - traefik.enable=true
@@ -41,9 +41,9 @@ services:
     <%- endif %>
     
 volumes:
-  << ((volume_data_name | trim) if volume_data_name is string and (volume_data_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_data")) >>:
+  << volume_data_name if volume_data_name else service_name ~ "_data" >>:
     driver: local
-  << ((volume_config_name | trim) if volume_config_name is string and (volume_config_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_config")) >>:
+  << volume_config_name if volume_config_name else service_name ~ "_config" >>:
     driver: local
 
 <%- if traefik_enabled %>

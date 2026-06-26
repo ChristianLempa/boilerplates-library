@@ -8,7 +8,7 @@ services:
       - DOCKGE_STACKS_DIR=<< stacks_path >>
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - << ((volume_data_name | trim) if volume_data_name is string and (volume_data_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_data")) >>:/app/data
+      - << volume_data_name if volume_data_name else service_name ~ "_data" >>:/app/data
       - << stacks_path >>:<< stacks_path >>
     <%- if traefik_enabled %>
     networks:
@@ -37,7 +37,7 @@ services:
 
 
 volumes:
-  << ((volume_data_name | trim) if volume_data_name is string and (volume_data_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_data")) >>:
+  << volume_data_name if volume_data_name else service_name ~ "_data" >>:
     driver: local
 
 <%- if traefik_enabled %>

@@ -48,7 +48,7 @@ services:
       - "<< ports_http >>:3000"
     <%- endif %>
     volumes:
-      - << ((volume_data_name | trim) if volume_data_name is string and (volume_data_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_data")) >>:/var/lib/grafana
+      - << volume_data_name if volume_data_name else service_name ~ "_data" >>:/var/lib/grafana
     <%- if traefik_enabled %>
     labels:
       - traefik.enable=true
@@ -83,7 +83,7 @@ services:
       timeout: 10s
       retries: 5
     volumes:
-      - << ((volume_db_name | trim) if volume_db_name is string and (volume_db_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_db")) >>:/var/lib/postgresql/data
+      - << volume_db_name if volume_db_name else service_name ~ "_db" >>:/var/lib/postgresql/data
   <%- endif %>
 
 <%- if not database_external and (database_type == "postgres") or traefik_enabled %>
@@ -100,9 +100,9 @@ networks:
 
 
 volumes:
-  << ((volume_data_name | trim) if volume_data_name is string and (volume_data_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_data")) >>:
+  << volume_data_name if volume_data_name else service_name ~ "_data" >>:
     driver: local
   <%- if not database_external and database_type == 'postgres' %>
-  << ((volume_db_name | trim) if volume_db_name is string and (volume_db_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_db")) >>:
+  << volume_db_name if volume_db_name else service_name ~ "_db" >>:
     driver: local
   <%- endif %>

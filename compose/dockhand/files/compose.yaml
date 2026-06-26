@@ -22,7 +22,7 @@ services:
     <%- endif %>
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - << ((volume_data_name | trim) if volume_data_name is string and (volume_data_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else 'dockhand_data') >>:/app/data
+      - << volume_data_name if volume_data_name else 'dockhand_data' >>:/app/data
     <%- if traefik_enabled %>
     networks:
       - << traefik_network >>
@@ -49,7 +49,7 @@ services:
     <%- endif %>
 
 volumes:
-  << ((volume_data_name | trim) if volume_data_name is string and (volume_data_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else 'dockhand_data') >>:
+  << volume_data_name if volume_data_name else 'dockhand_data' >>:
     driver: local
 
 <%- if traefik_enabled %>

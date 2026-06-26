@@ -7,8 +7,8 @@ services:
     ports:
       - "<< ports_http >>:3001"
     volumes:
-      - << ((volume_data_name | trim) if volume_data_name is string and (volume_data_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else 'uptimekuma-data') >>:/app/data
+      - << volume_data_name if volume_data_name else 'uptimekuma-data' >>:/app/data
 
 volumes:
-  << ((volume_data_name | trim) if volume_data_name is string and (volume_data_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else 'uptimekuma-data') >>:
+  << volume_data_name if volume_data_name else 'uptimekuma-data' >>:
     driver: local

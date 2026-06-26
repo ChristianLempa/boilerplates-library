@@ -12,8 +12,8 @@ services:
     ports:
       - "<< ports_mariadb >>:3306"
     volumes:
-      - << ((volume_data_name | trim) if volume_data_name is string and (volume_data_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_data")) >>:/var/lib/mysql
+      - << volume_data_name if volume_data_name else service_name ~ "_data" >>:/var/lib/mysql
 
 volumes:
-  << ((volume_data_name | trim) if volume_data_name is string and (volume_data_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "_data")) >>:
+  << volume_data_name if volume_data_name else service_name ~ "_data" >>:
     driver: local

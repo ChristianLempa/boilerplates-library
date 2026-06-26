@@ -43,7 +43,7 @@ services:
       <%- if volume_mode == 'mount' and volume_mount_path %>
       - << volume_mount_path >>:/app/data
       <%- else %>
-      - << ((volume_data_name | trim) if volume_data_name is string and (volume_data_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "-data")) >>:/app/data
+      - << volume_data_name if volume_data_name else service_name ~ "-data" >>:/app/data
       <%- endif %>
       <%- if project_mount_path %>
       - << project_mount_path >>:/app/data/projects
@@ -81,11 +81,11 @@ services:
 
 <%- if volume_mode == 'local' or (volume_mode == 'mount' and not volume_mount_path) %>
 volumes:
-  << ((volume_data_name | trim) if volume_data_name is string and (volume_data_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "-data")) >>:
+  << volume_data_name if volume_data_name else service_name ~ "-data" >>:
     driver: local
 <%- elif volume_mode == 'nfs' %>
 volumes:
-  << ((volume_data_name | trim) if volume_data_name is string and (volume_data_name | trim | lower) not in ['', 'true', 'false', 'none', 'null'] else (service_name ~ "-data")) >>:
+  << volume_data_name if volume_data_name else service_name ~ "-data" >>:
     driver: local
     driver_opts:
       type: nfs
