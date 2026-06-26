@@ -1,0 +1,105 @@
+compose/adguardhome/files/compose.yaml
+  s_dd21400a5cc928::t_3c9c31c8b9ef97 3,52-55,57-61
+compose/alloy/files/compose.yaml
+  s_dd21400a5cc928::t_dc854fc3f86554 2,41-44,46-50
+compose/arcane-agent/files/compose.yaml
+  s_dd21400a5cc928::t_9c90dc3bd97aa5 3
+compose/arcane/files/compose.yaml
+  s_dd21400a5cc928::t_e849de26e135e5 3,69-72,74-78
+compose/authentik/files/compose.yaml
+  s_dd21400a5cc928::t_6520316684fca6 3,14,36,54-57,59,75-79,84,87,98,121,135,139,153,163
+compose/bind9/files/compose.yaml
+  s_dd21400a5cc928::t_3dc459bb2f1869 2
+compose/caddy/files/compose.yaml
+  s_dd21400a5cc928::t_68c11de793ba5f 2
+compose/checkmk/files/compose.yaml
+  s_dd21400a5cc928::t_1065e6b451d3ea 3,33-37,39-43
+compose/cloudflared/files/compose.yaml
+  s_dd21400a5cc928::t_69af8f7b625fbe 2
+compose/crowdsec/files/compose.yaml
+  s_dd21400a5cc928::t_03ce5f10382a26 2
+compose/dockge/files/compose.yaml
+  s_dd21400a5cc928::t_2625dc81f42114 3,25-28,30-34
+compose/dockhand/files/compose.yaml
+  s_dd21400a5cc928::t_852137bc3fc786 2,38-41,43-47
+compose/forgejo/files/compose.yaml
+  s_dd21400a5cc928::t_98df9bc8202c27 2,13,28,47-50,52-56,61,65,74,84,93,111
+compose/gitea/files/compose.yaml
+  s_dd21400a5cc928::t_6ae77b45f587e6 2,13,28,47-50,52-56,61,65,74,84,93,111
+compose/gitlab-runner/files/compose.yaml
+  s_dd21400a5cc928::t_b6da891997e32f 2
+compose/gitlab/files/compose.yaml
+  s_dd21400a5cc928::t_92cf12de669c2f 2,27-30,32-36,39-42,44-48
+compose/grafana/files/compose.yaml
+  s_dd21400a5cc928::t_34a6dfa2238cb9 2,12,40,56-59,61-65,70,78,92
+compose/homeassistant/files/compose.yaml
+  s_dd21400a5cc928::t_a7ac2cccfef423 2
+compose/homepage/files/compose.yaml
+  s_dd21400a5cc928::t_c076d613c2fedc 2,34-36,46-49,51-55
+compose/homepage/template.json
+  s_dd21400a5cc928::t_48a18737ef001c 32
+compose/homer/files/compose.yaml
+  s_dd21400a5cc928::t_2d502de456d555 2,26-29,31-35
+compose/infisical/files/compose.yaml
+  s_dd21400a5cc928::t_c2de332ed50ca3 3,30,34,39,51-54,56-60,65,78,83,88,93,98,103,113,117,123,131
+compose/infisical/template.json
+  s_dd21400a5cc928::t_fa41204c11939f 37-38
+compose/influxdb/files/compose.yaml
+  s_dd21400a5cc928::t_c74a1ea1ef9b2f 3,29-33,35-39
+compose/kestra/files/compose.yaml
+  s_dd21400a5cc928::t_b2901719d8f2a8 2,27,29,32-34,36,39,41-42
+compose/komodo/files/compose.yaml
+  s_dd21400a5cc928::t_ca29f8f9768230 3,11,13,41,47,78-81,83-87,92,111,129,135,140
+compose/loki/files/compose.yaml
+  s_dd21400a5cc928::t_5acca834f4d61e 3,22-25,27-31
+compose/mariadb/files/compose.yaml
+  s_dd21400a5cc928::t_3ee474230c52e0 4
+compose/n8n/files/compose.yaml
+  s_dd21400a5cc928::t_b59ba3a75140ad 2,55-58,60-64
+compose/netbox/files/compose.yaml
+  s_dd21400a5cc928::t_eeddab05beea59 3,18,23,25,47,60-63,65-69,74,76-77,79,93,98,100,119,126,128-130,132,139,143,150,155,172,178
+compose/nextcloud/files/compose.yaml
+  s_dd21400a5cc928::t_ad894d41a987e4 2,10,15,20,38,46-49,51-55,59-60,62,69,74,79,84,86,88,91,96,98,104,115,119,128,140
+compose/nginx/files/compose.yaml
+  s_dd21400a5cc928::t_9f8d73f929d149 2,22-25,27-31
+compose/openwebui/files/compose.yaml
+  s_dd21400a5cc928::t_8b328e653c7365 2,38-41,43-47
+compose/passbolt/files/compose.yaml
+  s_dd21400a5cc928::t_a1ac3d2065472b 3,13,30,32,34
+compose/pihole/files/compose.yaml
+  s_dd21400a5cc928::t_a9a22631055d7f 3,67-70,72-76
+compose/portainer/files/compose.yaml
+  s_dd21400a5cc928::t_13ef38ef4ec878 2,28-31,33-37
+compose/postgres/files/compose.yaml
+  s_dd21400a5cc928::t_e2621f6f6f1d08 2
+compose/prometheus/files/compose.yaml
+  s_dd21400a5cc928::t_60dbc34c797da0 3,35-38,40-44
+compose/renovate/files/compose.yaml
+  s_dd21400a5cc928::t_e3b5997dc4f0ba 3,35-37,39-42
+compose/semaphoreui/files/compose.yaml
+  s_dd21400a5cc928::t_668473326a7839 2,15,35,49-52,54-58,63,67,75,85,94,114
+compose/technitium/files/compose.yaml
+  s_dd21400a5cc928::t_cd021c87d3fefe 3,70-73,75-79,81-87
+compose/teleport/files/compose.yaml
+  s_dd21400a5cc928::t_8887abd813d4a0 2,16,18-22,24,26-27
+compose/twingate-connector/files/compose.yaml
+  s_dd21400a5cc928::t_0d440dec32245c 2
+compose/uptimekuma/files/compose.yaml
+  s_dd21400a5cc928::t_e60fd5ae165fd4 3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.1",
+  "base_commit_sha": "f4ff23032735be967367688448d69ad1eb275932",
+  "prompts": {},
+  "sessions": {
+    "s_dd21400a5cc928": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019f03e5-d121-7932-b354-6089731e1740",
+        "model": "gpt-5.5"
+      },
+      "human_author": "xcad <christian.lempa@clcreative.de>"
+    }
+  }
+}
