@@ -9,7 +9,7 @@ services:
       - "<< ports_http >>:3100"
     <%- endif %>
     volumes:
-      - << volume_data_name or ((service_name | default('loki', true)) ~ "_data") >>:/loki:rw
+      - << ((volume_data_name | default('', true) | string | trim) if ((volume_data_name | default('', true) | string | trim) and ((volume_data_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('loki', true)) ~ "_data")) >>:/loki:rw
       - ./config/config.yaml:/etc/loki/config.yaml:ro
     <%- if traefik_enabled %>
     networks:
@@ -33,7 +33,7 @@ services:
     <%- endif %>
 
 volumes:
-  << volume_data_name or ((service_name | default('loki', true)) ~ "_data") >>:
+  << ((volume_data_name | default('', true) | string | trim) if ((volume_data_name | default('', true) | string | trim) and ((volume_data_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('loki', true)) ~ "_data")) >>:
     driver: local
 
 <%- if traefik_enabled %>

@@ -18,7 +18,7 @@ services:
       - "<< ports_webui >>:12345"
     <%- endif %>
     volumes:
-      - << volume_data_name or ((service_name | default('alloy', true)) ~ "_data") >>:/alloy/data
+      - << ((volume_data_name | default('', true) | string | trim) if ((volume_data_name | default('', true) | string | trim) and ((volume_data_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('alloy', true)) ~ "_data")) >>:/alloy/data
       - ./config:/etc/alloy/alloy.d/:ro
       <%- if logs_enabled or metrics_enabled %>
       - /:/rootfs:ro
@@ -58,5 +58,5 @@ networks:
 <%- endif %>
 
 volumes:
-  << volume_data_name or ((service_name | default('alloy', true)) ~ "_data") >>:
+  << ((volume_data_name | default('', true) | string | trim) if ((volume_data_name | default('', true) | string | trim) and ((volume_data_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('alloy', true)) ~ "_data")) >>:
     driver: local

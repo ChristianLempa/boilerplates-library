@@ -80,7 +80,7 @@ services:
       <%- if volume_mode == 'mount' %>
       - << volume_mount_path >>/postgres:/var/lib/postgresql/data
       <%- elif volume_mode == 'local' or volume_mode == 'nfs' %>
-      - << volume_postgres_name or (((service_name | default('infisical', true)) or 'infisical') ~ "_postgres") >>:/var/lib/postgresql/data
+      - << ((volume_postgres_name | default('', true) | string | trim) if ((volume_postgres_name | default('', true) | string | trim) and ((volume_postgres_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else (((service_name | default('infisical', true)) or 'infisical') ~ "_postgres")) >>:/var/lib/postgresql/data
       <%- endif %>
   <%- endif %>
 
@@ -95,7 +95,7 @@ services:
       <%- if volume_mode == 'mount' %>
       - << volume_mount_path >>/redis:/data
       <%- elif volume_mode == 'local' or volume_mode == 'nfs' %>
-      - << volume_redis_name or (((service_name | default('infisical', true)) or 'infisical') ~ "_redis") >>:/data
+      - << ((volume_redis_name | default('', true) | string | trim) if ((volume_redis_name | default('', true) | string | trim) and ((volume_redis_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else (((service_name | default('infisical', true)) or 'infisical') ~ "_redis")) >>:/data
       <%- endif %>
   <%- endif %>
 
@@ -110,17 +110,17 @@ networks:
 <%- if volume_mode == 'local' and ((not database_external) or (not redis_external)) %>
 volumes:
   <%- if not database_external %>
-  << volume_postgres_name or (((service_name | default('infisical', true)) or 'infisical') ~ "_postgres") >>:
+  << ((volume_postgres_name | default('', true) | string | trim) if ((volume_postgres_name | default('', true) | string | trim) and ((volume_postgres_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else (((service_name | default('infisical', true)) or 'infisical') ~ "_postgres")) >>:
     driver: local
   <%- endif %>
   <%- if not redis_external %>
-  << volume_redis_name or (((service_name | default('infisical', true)) or 'infisical') ~ "_redis") >>:
+  << ((volume_redis_name | default('', true) | string | trim) if ((volume_redis_name | default('', true) | string | trim) and ((volume_redis_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else (((service_name | default('infisical', true)) or 'infisical') ~ "_redis")) >>:
     driver: local
   <%- endif %>
 <%- elif volume_mode == 'nfs' and ((not database_external) or (not redis_external)) %>
 volumes:
   <%- if not database_external %>
-  << volume_postgres_name or (((service_name | default('infisical', true)) or 'infisical') ~ "_postgres") >>:
+  << ((volume_postgres_name | default('', true) | string | trim) if ((volume_postgres_name | default('', true) | string | trim) and ((volume_postgres_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else (((service_name | default('infisical', true)) or 'infisical') ~ "_postgres")) >>:
     driver: local
     driver_opts:
       type: nfs
@@ -128,7 +128,7 @@ volumes:
       device: ":<< volume_nfs_path >>/postgres"
   <%- endif %>
   <%- if not redis_external %>
-  << volume_redis_name or (((service_name | default('infisical', true)) or 'infisical') ~ "_redis") >>:
+  << ((volume_redis_name | default('', true) | string | trim) if ((volume_redis_name | default('', true) | string | trim) and ((volume_redis_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else (((service_name | default('infisical', true)) or 'infisical') ~ "_redis")) >>:
     driver: local
     driver_opts:
       type: nfs

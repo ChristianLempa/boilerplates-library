@@ -37,7 +37,7 @@ services:
       <%- endif %>
       - "<< ports_ssh >>:22"
     volumes:
-      - << volume_data_name or ((service_name | default('forgejo', true)) ~ "_data") >>:/data
+      - << ((volume_data_name | default('', true) | string | trim) if ((volume_data_name | default('', true) | string | trim) and ((volume_data_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('forgejo', true)) ~ "_data")) >>:/data
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
     <%- if traefik_enabled %>
@@ -79,7 +79,7 @@ services:
       timeout: 10s
       retries: 5
     volumes:
-      - << volume_db_name or ((service_name | default('forgejo', true)) ~ "_db") >>:/var/lib/postgresql/data
+      - << ((volume_db_name | default('', true) | string | trim) if ((volume_db_name | default('', true) | string | trim) and ((volume_db_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('forgejo', true)) ~ "_db")) >>:/var/lib/postgresql/data
   <%- elif not database_external and database_type == "mysql" %>
   << (service_name | default('forgejo', true)) >>_db:
     image: docker.io/library/mysql:8.1
@@ -92,15 +92,15 @@ services:
     networks:
       - << (service_name | default('forgejo', true)) >>_backend
     volumes:
-      - << volume_db_name or ((service_name | default('forgejo', true)) ~ "_db") >>:/var/lib/mysql
+      - << ((volume_db_name | default('', true) | string | trim) if ((volume_db_name | default('', true) | string | trim) and ((volume_db_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('forgejo', true)) ~ "_db")) >>:/var/lib/mysql
   <%- endif %>
 
 volumes:
-  << volume_data_name or ((service_name | default('forgejo', true)) ~ "_data") >>:
+  << ((volume_data_name | default('', true) | string | trim) if ((volume_data_name | default('', true) | string | trim) and ((volume_data_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('forgejo', true)) ~ "_data")) >>:
     driver: local
   <%- if not database_external %>
   <%- if database_type == "postgres" or database_type == "mysql" %>
-  << volume_db_name or ((service_name | default('forgejo', true)) ~ "_db") >>:
+  << ((volume_db_name | default('', true) | string | trim) if ((volume_db_name | default('', true) | string | trim) and ((volume_db_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('forgejo', true)) ~ "_db")) >>:
     driver: local
   <%- endif %>
   <%- endif %>

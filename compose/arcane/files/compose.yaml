@@ -43,7 +43,7 @@ services:
       <%- if volume_mode == 'mount' and volume_mount_path %>
       - << volume_mount_path >>:/app/data
       <%- else %>
-      - << volume_data_name or ((service_name | default('arcane', true)) ~ "-data") >>:/app/data
+      - << ((volume_data_name | default('', true) | string | trim) if ((volume_data_name | default('', true) | string | trim) and ((volume_data_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('arcane', true)) ~ "-data")) >>:/app/data
       <%- endif %>
       <%- if project_mount_path %>
       - << project_mount_path >>:/app/data/projects
@@ -81,11 +81,11 @@ services:
 
 <%- if volume_mode == 'local' or (volume_mode == 'mount' and not volume_mount_path) %>
 volumes:
-  << volume_data_name or ((service_name | default('arcane', true)) ~ "-data") >>:
+  << ((volume_data_name | default('', true) | string | trim) if ((volume_data_name | default('', true) | string | trim) and ((volume_data_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('arcane', true)) ~ "-data")) >>:
     driver: local
 <%- elif volume_mode == 'nfs' %>
 volumes:
-  << volume_data_name or ((service_name | default('arcane', true)) ~ "-data") >>:
+  << ((volume_data_name | default('', true) | string | trim) if ((volume_data_name | default('', true) | string | trim) and ((volume_data_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('arcane', true)) ~ "-data")) >>:
     driver: local
     driver_opts:
       type: nfs

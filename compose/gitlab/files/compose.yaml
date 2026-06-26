@@ -17,9 +17,9 @@ services:
       <%- endif %>
     volumes:
       - ./config/gitlab.rb:/etc/gitlab/gitlab.rb:ro
-      - << volume_config_name or ((service_name | default('gitlab', true)) ~ "_config") >>:/etc/gitlab
-      - << volume_logs_name or ((service_name | default('gitlab', true)) ~ "_logs") >>:/var/log/gitlab
-      - << volume_data_name or ((service_name | default('gitlab', true)) ~ "_data") >>:/var/opt/gitlab
+      - << ((volume_config_name | default('', true) | string | trim) if ((volume_config_name | default('', true) | string | trim) and ((volume_config_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('gitlab', true)) ~ "_config")) >>:/etc/gitlab
+      - << ((volume_logs_name | default('', true) | string | trim) if ((volume_logs_name | default('', true) | string | trim) and ((volume_logs_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('gitlab', true)) ~ "_logs")) >>:/var/log/gitlab
+      - << ((volume_data_name | default('', true) | string | trim) if ((volume_data_name | default('', true) | string | trim) and ((volume_data_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('gitlab', true)) ~ "_data")) >>:/var/opt/gitlab
     <%- if traefik_enabled  %>
     labels:
       - traefik.enable=true
@@ -51,11 +51,11 @@ services:
     <%- endif %>
 
 volumes:
-  << volume_config_name or ((service_name | default('gitlab', true)) ~ "_config") >>:
+  << ((volume_config_name | default('', true) | string | trim) if ((volume_config_name | default('', true) | string | trim) and ((volume_config_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('gitlab', true)) ~ "_config")) >>:
     driver: local
-  << volume_logs_name or ((service_name | default('gitlab', true)) ~ "_logs") >>:
+  << ((volume_logs_name | default('', true) | string | trim) if ((volume_logs_name | default('', true) | string | trim) and ((volume_logs_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('gitlab', true)) ~ "_logs")) >>:
     driver: local
-  << volume_data_name or ((service_name | default('gitlab', true)) ~ "_data") >>:
+  << ((volume_data_name | default('', true) | string | trim) if ((volume_data_name | default('', true) | string | trim) and ((volume_data_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('gitlab', true)) ~ "_data")) >>:
     driver: local
 
 <%- if traefik_enabled %>

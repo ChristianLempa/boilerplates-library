@@ -56,8 +56,8 @@ services:
       - << volume_mount_path >>/config:/etc/dns:rw
       - << volume_mount_path >>/logs:/var/log/technitium/dns:rw
       <%- else %>
-      - << volume_config_name or ((service_name | default('technitium', true)) ~ "_config") >>:/etc/dns
-      - << volume_logs_name or ((service_name | default('technitium', true)) ~ "_logs") >>:/var/log/technitium/dns
+      - << ((volume_config_name | default('', true) | string | trim) if ((volume_config_name | default('', true) | string | trim) and ((volume_config_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('technitium', true)) ~ "_config")) >>:/etc/dns
+      - << ((volume_logs_name | default('', true) | string | trim) if ((volume_logs_name | default('', true) | string | trim) and ((volume_logs_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('technitium', true)) ~ "_logs")) >>:/var/log/technitium/dns
       <%- endif %>
     <%- if network_mode != 'host' %>
     sysctls:
@@ -119,20 +119,20 @@ networks:
 <%- if volume_mode == 'local' %>
 
 volumes:
-  << volume_config_name or ((service_name | default('technitium', true)) ~ "_config") >>:
+  << ((volume_config_name | default('', true) | string | trim) if ((volume_config_name | default('', true) | string | trim) and ((volume_config_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('technitium', true)) ~ "_config")) >>:
     driver: local
-  << volume_logs_name or ((service_name | default('technitium', true)) ~ "_logs") >>:
+  << ((volume_logs_name | default('', true) | string | trim) if ((volume_logs_name | default('', true) | string | trim) and ((volume_logs_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('technitium', true)) ~ "_logs")) >>:
     driver: local
 <%- elif volume_mode == 'nfs' %>
 
 volumes:
-  << volume_config_name or ((service_name | default('technitium', true)) ~ "_config") >>:
+  << ((volume_config_name | default('', true) | string | trim) if ((volume_config_name | default('', true) | string | trim) and ((volume_config_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('technitium', true)) ~ "_config")) >>:
     driver: local
     driver_opts:
       type: nfs
       o: addr=<< volume_nfs_server >>,nfsvers=4,<< volume_nfs_options >>
       device: ":<< volume_nfs_path >>/config"
-  << volume_logs_name or ((service_name | default('technitium', true)) ~ "_logs") >>:
+  << ((volume_logs_name | default('', true) | string | trim) if ((volume_logs_name | default('', true) | string | trim) and ((volume_logs_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('technitium', true)) ~ "_logs")) >>:
     driver: local
     driver_opts:
       type: nfs

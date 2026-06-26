@@ -22,7 +22,7 @@ services:
       - WEBUI_SESSION_COOKIE_SECURE=true
       <%- endif %>
     volumes:
-      - << volume_data_name or 'data' >>:/app/backend/data:rw
+      - << ((volume_data_name | default('', true) | string | trim) if ((volume_data_name | default('', true) | string | trim) and ((volume_data_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else 'data') >>:/app/backend/data:rw
     <%- if traefik_enabled %>
     networks:
       << traefik_network >>:
@@ -50,7 +50,7 @@ services:
     restart: << restart_policy >>
 
 volumes:
-  << volume_data_name or 'data' >>:
+  << ((volume_data_name | default('', true) | string | trim) if ((volume_data_name | default('', true) | string | trim) and ((volume_data_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else 'data') >>:
     driver: local
 
 <%- if traefik_enabled %>

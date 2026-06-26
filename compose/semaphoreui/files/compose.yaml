@@ -27,7 +27,7 @@ services:
       - ANSIBLE_HOST_KEY_CHECKING=<< ansible_host_key_checking >>
     <%- if database_type == "sqlite" %>
     volumes:
-      - << volume_config_name or ((service_name | default('semaphoreui', true)) ~ "_config") >>:/etc/semaphore
+      - << ((volume_config_name | default('', true) | string | trim) if ((volume_config_name | default('', true) | string | trim) and ((volume_config_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('semaphoreui', true)) ~ "_config")) >>:/etc/semaphore
     <%- endif %>
     <%- if (not database_external and database_type != "sqlite") or traefik_enabled %>
     networks:
@@ -80,7 +80,7 @@ services:
       timeout: 10s
       retries: 5
     volumes:
-      - << volume_db_name or ((service_name | default('semaphoreui', true)) ~ "_db") >>:/var/lib/postgresql/data
+      - << ((volume_db_name | default('', true) | string | trim) if ((volume_db_name | default('', true) | string | trim) and ((volume_db_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('semaphoreui', true)) ~ "_db")) >>:/var/lib/postgresql/data
   <%- elif not database_external and database_type == "mysql" %>
   << (service_name | default('semaphoreui', true)) >>_db:
     image: docker.io/library/mysql:8.1
@@ -93,17 +93,17 @@ services:
     networks:
       - << (service_name | default('semaphoreui', true)) >>_backend
     volumes:
-      - << volume_db_name or ((service_name | default('semaphoreui', true)) ~ "_db") >>:/var/lib/mysql
+      - << ((volume_db_name | default('', true) | string | trim) if ((volume_db_name | default('', true) | string | trim) and ((volume_db_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('semaphoreui', true)) ~ "_db")) >>:/var/lib/mysql
   <%- endif %>
 
 <%- if database_type == "sqlite" or (not database_external and (database_type == "postgres" or database_type == "mysql")) %>
 volumes:
   <%- if database_type == "sqlite" %>
-  << volume_config_name or ((service_name | default('semaphoreui', true)) ~ "_config") >>:
+  << ((volume_config_name | default('', true) | string | trim) if ((volume_config_name | default('', true) | string | trim) and ((volume_config_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('semaphoreui', true)) ~ "_config")) >>:
     driver: local
   <%- endif %>
   <%- if not database_external and (database_type == "postgres" or database_type == "mysql") %>
-  << volume_db_name or ((service_name | default('semaphoreui', true)) ~ "_db") >>:
+  << ((volume_db_name | default('', true) | string | trim) if ((volume_db_name | default('', true) | string | trim) and ((volume_db_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('semaphoreui', true)) ~ "_db")) >>:
     driver: local
   <%- endif %>
 <%- endif %>

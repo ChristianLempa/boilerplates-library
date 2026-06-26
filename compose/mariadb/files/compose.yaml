@@ -12,8 +12,8 @@ services:
     ports:
       - "<< ports_mariadb >>:3306"
     volumes:
-      - << volume_data_name or ((service_name | default('mariadb', true)) ~ "_data") >>:/var/lib/mysql
+      - << ((volume_data_name | default('', true) | string | trim) if ((volume_data_name | default('', true) | string | trim) and ((volume_data_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('mariadb', true)) ~ "_data")) >>:/var/lib/mysql
 
 volumes:
-  << volume_data_name or ((service_name | default('mariadb', true)) ~ "_data") >>:
+  << ((volume_data_name | default('', true) | string | trim) if ((volume_data_name | default('', true) | string | trim) and ((volume_data_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('mariadb', true)) ~ "_data")) >>:
     driver: local

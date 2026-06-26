@@ -48,7 +48,7 @@ services:
       - "<< ports_http >>:3000"
     <%- endif %>
     volumes:
-      - << volume_data_name or ((service_name | default('grafana', true)) ~ "_data") >>:/var/lib/grafana
+      - << ((volume_data_name | default('', true) | string | trim) if ((volume_data_name | default('', true) | string | trim) and ((volume_data_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('grafana', true)) ~ "_data")) >>:/var/lib/grafana
     <%- if traefik_enabled %>
     labels:
       - traefik.enable=true
@@ -83,7 +83,7 @@ services:
       timeout: 10s
       retries: 5
     volumes:
-      - << volume_db_name or ((service_name | default('grafana', true)) ~ "_db") >>:/var/lib/postgresql/data
+      - << ((volume_db_name | default('', true) | string | trim) if ((volume_db_name | default('', true) | string | trim) and ((volume_db_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('grafana', true)) ~ "_db")) >>:/var/lib/postgresql/data
   <%- endif %>
 
 <%- if not database_external and (database_type == "postgres") or traefik_enabled %>
@@ -100,9 +100,9 @@ networks:
 
 
 volumes:
-  << volume_data_name or ((service_name | default('grafana', true)) ~ "_data") >>:
+  << ((volume_data_name | default('', true) | string | trim) if ((volume_data_name | default('', true) | string | trim) and ((volume_data_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('grafana', true)) ~ "_data")) >>:
     driver: local
   <%- if not database_external and database_type == 'postgres' %>
-  << volume_db_name or ((service_name | default('grafana', true)) ~ "_db") >>:
+  << ((volume_db_name | default('', true) | string | trim) if ((volume_db_name | default('', true) | string | trim) and ((volume_db_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('grafana', true)) ~ "_db")) >>:
     driver: local
   <%- endif %>

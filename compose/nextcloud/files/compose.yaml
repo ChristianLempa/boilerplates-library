@@ -33,7 +33,7 @@ services:
       - "<< ports_http >>:80"
     <%- endif %>
     volumes:
-      - << volume_data_name or 'nextcloud-data' >>:/var/www/html
+      - << ((volume_data_name | default('', true) | string | trim) if ((volume_data_name | default('', true) | string | trim) and ((volume_data_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else 'nextcloud-data') >>:/var/www/html
     networks:
       - << (service_name | default('nextcloud', true)) >>-backend
       <%- if traefik_enabled %>
@@ -79,7 +79,7 @@ services:
       - POSTGRES_HOST=<< (service_name | default('nextcloud', true)) >>-db
       <%- endif %>
     volumes:
-      - << volume_data_name or 'nextcloud-data' >>:/var/www/html
+      - << ((volume_data_name | default('', true) | string | trim) if ((volume_data_name | default('', true) | string | trim) and ((volume_data_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else 'nextcloud-data') >>:/var/www/html
     networks:
       - << (service_name | default('nextcloud', true)) >>-backend
     depends_on:
@@ -91,7 +91,7 @@ services:
     container_name: << (service_name | default('nextcloud', true)) >>-redis
     command: redis-server --appendonly yes
     volumes:
-      - << volume_redis_name or 'nextcloud-redis' >>:/data
+      - << ((volume_redis_name | default('', true) | string | trim) if ((volume_redis_name | default('', true) | string | trim) and ((volume_redis_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else 'nextcloud-redis') >>:/data
     networks:
       - << (service_name | default('nextcloud', true)) >>-backend
 
@@ -110,7 +110,7 @@ services:
       - MYSQL_PASSWORD=${DATABASE_PASSWORD}
       - MYSQL_DATABASE=<< database_name >>
     volumes:
-      - << volume_db_name or 'nextcloud-db' >>:/var/lib/mysql
+      - << ((volume_db_name | default('', true) | string | trim) if ((volume_db_name | default('', true) | string | trim) and ((volume_db_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else 'nextcloud-db') >>:/var/lib/mysql
     networks:
       - << (service_name | default('nextcloud', true)) >>-backend
     <%- elif database_type == 'postgres' %>
@@ -123,17 +123,17 @@ services:
       - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
       - POSTGRES_DB=<< database_name >>
     volumes:
-      - << volume_db_name or 'nextcloud-db' >>:/var/lib/postgresql/data
+      - << ((volume_db_name | default('', true) | string | trim) if ((volume_db_name | default('', true) | string | trim) and ((volume_db_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else 'nextcloud-db') >>:/var/lib/postgresql/data
     networks:
       - << (service_name | default('nextcloud', true)) >>-backend
     <%- endif %>
 
 volumes:
-  << volume_data_name or 'nextcloud-data' >>:
+  << ((volume_data_name | default('', true) | string | trim) if ((volume_data_name | default('', true) | string | trim) and ((volume_data_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else 'nextcloud-data') >>:
     driver: local
-  << volume_db_name or 'nextcloud-db' >>:
+  << ((volume_db_name | default('', true) | string | trim) if ((volume_db_name | default('', true) | string | trim) and ((volume_db_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else 'nextcloud-db') >>:
     driver: local
-  << volume_redis_name or 'nextcloud-redis' >>:
+  << ((volume_redis_name | default('', true) | string | trim) if ((volume_redis_name | default('', true) | string | trim) and ((volume_redis_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else 'nextcloud-redis') >>:
     driver: local
 
 networks:

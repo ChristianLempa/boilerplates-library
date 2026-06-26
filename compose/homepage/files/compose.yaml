@@ -27,17 +27,17 @@ services:
     <%- endif %>
     volumes:
       <%- if volume_mode == 'local' %>
-      - << volume_config_name or ((service_name | default('homepage', true)) ~ "_config") >>:/app/config
-      - << volume_images_name or ((service_name | default('homepage', true)) ~ "_images") >>:/app/images
-      - << volume_icons_name or ((service_name | default('homepage', true)) ~ "_icons") >>:/app/icons
+      - << ((volume_config_name | default('', true) | string | trim) if ((volume_config_name | default('', true) | string | trim) and ((volume_config_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('homepage', true)) ~ "_config")) >>:/app/config
+      - << ((volume_images_name | default('', true) | string | trim) if ((volume_images_name | default('', true) | string | trim) and ((volume_images_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('homepage', true)) ~ "_images")) >>:/app/images
+      - << ((volume_icons_name | default('', true) | string | trim) if ((volume_icons_name | default('', true) | string | trim) and ((volume_icons_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('homepage', true)) ~ "_icons")) >>:/app/icons
       <%- elif volume_mode == 'mount' %>
       - << volume_mount_path >>/<< (service_name | default('homepage', true)) >>/config:/app/config
       - << volume_mount_path >>/<< (service_name | default('homepage', true)) >>/images:/app/images
       - << volume_mount_path >>/<< (service_name | default('homepage', true)) >>/icons:/app/icons
       <%- elif volume_mode == 'nfs' %>
-      - << volume_config_name or ((service_name | default('homepage', true)) ~ "_config") >>:/app/config
-      - << volume_images_name or ((service_name | default('homepage', true)) ~ "_images") >>:/app/images
-      - << volume_icons_name or ((service_name | default('homepage', true)) ~ "_icons") >>:/app/icons
+      - << ((volume_config_name | default('', true) | string | trim) if ((volume_config_name | default('', true) | string | trim) and ((volume_config_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('homepage', true)) ~ "_config")) >>:/app/config
+      - << ((volume_images_name | default('', true) | string | trim) if ((volume_images_name | default('', true) | string | trim) and ((volume_images_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('homepage', true)) ~ "_images")) >>:/app/images
+      - << ((volume_icons_name | default('', true) | string | trim) if ((volume_icons_name | default('', true) | string | trim) and ((volume_icons_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('homepage', true)) ~ "_icons")) >>:/app/icons
       <%- endif %>
     <%- if traefik_enabled %>
     labels:
@@ -64,24 +64,24 @@ networks:
 
 <%- if volume_mode == 'local' %>
 volumes:
-  << volume_config_name or ((service_name | default('homepage', true)) ~ "_config") >>:
-  << volume_images_name or ((service_name | default('homepage', true)) ~ "_images") >>:
-  << volume_icons_name or ((service_name | default('homepage', true)) ~ "_icons") >>:
+  << ((volume_config_name | default('', true) | string | trim) if ((volume_config_name | default('', true) | string | trim) and ((volume_config_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('homepage', true)) ~ "_config")) >>:
+  << ((volume_images_name | default('', true) | string | trim) if ((volume_images_name | default('', true) | string | trim) and ((volume_images_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('homepage', true)) ~ "_images")) >>:
+  << ((volume_icons_name | default('', true) | string | trim) if ((volume_icons_name | default('', true) | string | trim) and ((volume_icons_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('homepage', true)) ~ "_icons")) >>:
 <%- elif volume_mode == 'nfs' %>
 volumes:
-  << volume_config_name or ((service_name | default('homepage', true)) ~ "_config") >>:
+  << ((volume_config_name | default('', true) | string | trim) if ((volume_config_name | default('', true) | string | trim) and ((volume_config_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('homepage', true)) ~ "_config")) >>:
     driver: local
     driver_opts:
       type: nfs
       o: addr=<< volume_nfs_server >>,<< volume_nfs_options >>
       device: ":<< volume_nfs_path >>/config"
-  << volume_images_name or ((service_name | default('homepage', true)) ~ "_images") >>:
+  << ((volume_images_name | default('', true) | string | trim) if ((volume_images_name | default('', true) | string | trim) and ((volume_images_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('homepage', true)) ~ "_images")) >>:
     driver: local
     driver_opts:
       type: nfs
       o: addr=<< volume_nfs_server >>,<< volume_nfs_options >>
       device: ":<< volume_nfs_path >>/images"
-  << volume_icons_name or ((service_name | default('homepage', true)) ~ "_icons") >>:
+  << ((volume_icons_name | default('', true) | string | trim) if ((volume_icons_name | default('', true) | string | trim) and ((volume_icons_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('homepage', true)) ~ "_icons")) >>:
     driver: local
     driver_opts:
       type: nfs

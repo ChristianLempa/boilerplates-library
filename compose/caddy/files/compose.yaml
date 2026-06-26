@@ -17,11 +17,11 @@ services:
       <%- if webserver_content_type == 'mount' %>
       - << webserver_content_mount_path >>:/srv:ro
       <%- elif webserver_content_type == 'nfs' %>
-      - << volume_site_name or 'caddy_site' >>:/srv:ro
+      - << ((volume_site_name | default('', true) | string | trim) if ((volume_site_name | default('', true) | string | trim) and ((volume_site_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else 'caddy_site') >>:/srv:ro
       <%- endif %>
       <%- endif %>
-      - << volume_data_name or 'caddy_data' >>:/data
-      - << volume_config_name or 'caddy_config' >>:/config
+      - << ((volume_data_name | default('', true) | string | trim) if ((volume_data_name | default('', true) | string | trim) and ((volume_data_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else 'caddy_data') >>:/data
+      - << ((volume_config_name | default('', true) | string | trim) if ((volume_config_name | default('', true) | string | trim) and ((volume_config_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else 'caddy_config') >>:/config
     networks:
       - << docker_network >>
 
@@ -36,12 +36,12 @@ networks:
 
 volumes:
 <%- if webserver_enabled and webserver_content_type == 'nfs' %>
-  << volume_site_name or 'caddy_site' >>:
+  << ((volume_site_name | default('', true) | string | trim) if ((volume_site_name | default('', true) | string | trim) and ((volume_site_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else 'caddy_site') >>:
     driver: local
     driver_opts:
       type: nfs
       o: addr=<< webserver_content_nfs_server >>,nfsvers=4,<< webserver_content_nfs_options >>
       device: ":<< webserver_content_nfs_path >>"
 <%- endif %>
-  << volume_data_name or 'caddy_data' >>:
-  << volume_config_name or 'caddy_config' >>:
+  << ((volume_data_name | default('', true) | string | trim) if ((volume_data_name | default('', true) | string | trim) and ((volume_data_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else 'caddy_data') >>:
+  << ((volume_config_name | default('', true) | string | trim) if ((volume_config_name | default('', true) | string | trim) and ((volume_config_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else 'caddy_config') >>:

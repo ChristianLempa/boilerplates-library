@@ -38,8 +38,8 @@ services:
       - << volume_mount_path >>/work:/opt/adguardhome/work:rw
       - << volume_mount_path >>/conf:/opt/adguardhome/conf:rw
       <%- else  %>
-      - << volume_work_name or ((service_name | default('adguardhome', true)) ~ "_work") >>:/opt/adguardhome/work
-      - << volume_conf_name or ((service_name | default('adguardhome', true)) ~ "_conf") >>:/opt/adguardhome/conf
+      - << ((volume_work_name | default('', true) | string | trim) if ((volume_work_name | default('', true) | string | trim) and ((volume_work_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('adguardhome', true)) ~ "_work")) >>:/opt/adguardhome/work
+      - << ((volume_conf_name | default('', true) | string | trim) if ((volume_conf_name | default('', true) | string | trim) and ((volume_conf_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('adguardhome', true)) ~ "_conf")) >>:/opt/adguardhome/conf
       <%- endif %>
     cap_add:
       - NET_ADMIN
@@ -91,19 +91,19 @@ networks:
 
 <%- if volume_mode == 'local' %>
 volumes:
-  << volume_work_name or ((service_name | default('adguardhome', true)) ~ "_work") >>:
+  << ((volume_work_name | default('', true) | string | trim) if ((volume_work_name | default('', true) | string | trim) and ((volume_work_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('adguardhome', true)) ~ "_work")) >>:
     driver: local
-  << volume_conf_name or ((service_name | default('adguardhome', true)) ~ "_conf") >>:
+  << ((volume_conf_name | default('', true) | string | trim) if ((volume_conf_name | default('', true) | string | trim) and ((volume_conf_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('adguardhome', true)) ~ "_conf")) >>:
     driver: local
 <%- elif volume_mode == 'nfs' %>
 volumes:
-  << volume_work_name or ((service_name | default('adguardhome', true)) ~ "_work") >>:
+  << ((volume_work_name | default('', true) | string | trim) if ((volume_work_name | default('', true) | string | trim) and ((volume_work_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('adguardhome', true)) ~ "_work")) >>:
     driver: local
     driver_opts:
       type: nfs
       o: addr=<< volume_nfs_server >>,nfsvers=4,<< volume_nfs_options >>
       device: ":<< volume_nfs_path >>/work"
-  << volume_conf_name or ((service_name | default('adguardhome', true)) ~ "_conf") >>:
+  << ((volume_conf_name | default('', true) | string | trim) if ((volume_conf_name | default('', true) | string | trim) and ((volume_conf_name | default('', true) | string | trim) | lower) not in ['true', 'false', 'none', 'null']) else ((service_name | default('adguardhome', true)) ~ "_conf")) >>:
     driver: local
     driver_opts:
       type: nfs
