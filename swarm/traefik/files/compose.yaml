@@ -36,8 +36,12 @@ services:
       - "--certificatesresolvers.<< traefik_tls_certresolver >>.acme.email=<< traefik_tls_acme_email >>"
       - "--certificatesresolvers.<< traefik_tls_certresolver >>.acme.caServer=https://acme-v02.api.letsencrypt.org/directory"
       - "--certificatesresolvers.<< traefik_tls_certresolver >>.acme.storage=/var/traefik/certs/acme.json"
+      <%- if traefik_tls_certresolver == 'azure' %>
+      - "--certificatesresolvers.<< traefik_tls_certresolver >>.acme.dnsChallenge.provider=azuredns"
+      <%- else %>
       - "--certificatesresolvers.<< traefik_tls_certresolver >>.acme.dnsChallenge.provider=<< traefik_tls_certresolver >>"
-      - "--certificatesresolvers.<< traefik_tls_certresolver >>.acme.dnsChallenge.resolvers=1.1.1.1:53,8.8.8.8:53"
+      <%- endif %>
+      - "--certificatesresolvers.<< traefik_tls_certresolver >>.acme.dnsChallenge.resolvers=<< traefik_tls_acme_dns_resolvers >>"
       - "--tls.options.default.minVersion=<< traefik_tls_min_version >>"
       <%- endif %>
       <%- if traefik_tls_secure_ciphers %>

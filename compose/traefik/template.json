@@ -166,6 +166,20 @@
           ]
         },
         {
+          "name": "traefik_tls_acme_dns_resolvers",
+          "type": "str",
+          "title": "ACME DNS Resolvers",
+          "required": false,
+          "default": "1.1.1.1:53,8.8.8.8:53",
+          "description": "Comma-separated recursive DNS servers Traefik uses for ACME DNS-01 propagation checks.",
+          "config": {
+            "placeholder": "1.1.1.1:53,8.8.8.8:53"
+          },
+          "needs": [
+            "traefik_tls_enabled=true"
+          ]
+        },
+        {
           "name": "traefik_tls_acme_endpoint",
           "type": "str",
           "title": "OVH Endpoint",
