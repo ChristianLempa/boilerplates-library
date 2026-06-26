@@ -1,0 +1,28 @@
+ansible/docker-network/template.json
+  s_d2d75ef1eec299::t_629e192c173040 106
+  s_d2d75ef1eec299::t_cc0a0c6bb907a0 1-105,107-186
+ansible/docker-daemon-config/template.json
+  s_d2d75ef1eec299::t_928f0c899e5869 1-264
+ansible/docker-network/files/requirements.yml
+  s_d2d75ef1eec299::t_511bafd0a06ae5 1-3
+ansible/docker-daemon-config/files/main.yml
+  s_d2d75ef1eec299::t_65181f056761ee 1-73
+ansible/docker-network/files/main.yml
+  s_d2d75ef1eec299::t_4b3e0a68542f40 1-48
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.1",
+  "base_commit_sha": "8fd48823e8f9ffd88c39445c222247f07c0cffb3",
+  "prompts": {},
+  "sessions": {
+    "s_d2d75ef1eec299": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019f033b-3c54-789b-87a2-c7ab98ff971f",
+        "model": "gpt-5.5"
+      },
+      "human_author": "xcad <christian.lempa@clcreative.de>"
+    }
+  }
+}
