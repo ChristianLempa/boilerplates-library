@@ -1,0 +1,19 @@
+helm/certmanager/template.json
+  s_2326ed8c8f73ad::t_d7729d88c4b472 15,17,61
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.3",
+  "base_commit_sha": "cb664abe5c95a43bb14c670985f89159341a4418",
+  "prompts": {},
+  "sessions": {
+    "s_2326ed8c8f73ad": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019f0493-fdce-7252-8b6e-79cf622d0d28",
+        "model": "gpt-5.5"
+      },
+      "human_author": "xcad <christian.lempa@clcreative.de>"
+    }
+  }
+}
