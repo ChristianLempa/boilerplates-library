@@ -1,0 +1,50 @@
+helm/traefik-helm/template.json
+  s_2326ed8c8f73ad::t_41b7372e4ccb47 2
+  s_2326ed8c8f73ad::t_813c660ffcb904 6,15-17,123-131
+helm/certmanager/template.json
+  s_2326ed8c8f73ad::t_813c660ffcb904 6,16,56-64
+helm/traefik-helm/files/values.yaml
+  s_2326ed8c8f73ad::t_41b230c6ccf8dc 10-15
+helm/infisical/template.json
+  s_2326ed8c8f73ad::t_2a536f658a88bb 79-82,87,90,95-100,102,131-134,146-149,296-297,305,313-318,320-323,332-333,455-456,464,466-467,680,689-690,703-704,717-718,731-732,745-746,759-760,770-771,781-782,792-793
+  s_2326ed8c8f73ad::t_41b7372e4ccb47 2
+  s_2326ed8c8f73ad::t_813c660ffcb904 6,22-24,101,319,370,478,798-806
+helm/authentik/template.json
+  s_2326ed8c8f73ad::t_813c660ffcb904 6,16,274-282
+  s_2326ed8c8f73ad::t_41b7372e4ccb47 2
+  s_2326ed8c8f73ad::t_91889ab566764e 232-233
+helm/infisical/files/values.yaml
+  s_2326ed8c8f73ad::t_75f1225625f13f 8
+  s_2326ed8c8f73ad::t_2ca5f9e1b5a598 2,9,22,79-80,88-122,133-175
+  s_2326ed8c8f73ad::t_0c5cfc576d273a 23
+helm/authentik/files/values.yaml
+  s_2326ed8c8f73ad::t_e3d53300538a0e 8,21,56
+helm/argocd/template.json
+  s_2326ed8c8f73ad::t_813c660ffcb904 6,20-21,302-310
+helm/longhorn/template.json
+  s_2326ed8c8f73ad::t_813c660ffcb904 6,15-17,66-74
+helm/netbox/template.json
+  s_2326ed8c8f73ad::t_41b7372e4ccb47 2
+  s_2326ed8c8f73ad::t_813c660ffcb904 6,15-17,420-428
+  s_2326ed8c8f73ad::t_91889ab566764e 249-250,355-356
+helm/portainer/template.json
+  s_2326ed8c8f73ad::t_813c660ffcb904 6,15-17,109-117
+  s_2326ed8c8f73ad::t_91889ab566764e 55-56
+  s_2326ed8c8f73ad::t_41b7372e4ccb47 2
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.3",
+  "base_commit_sha": "70bc76196221fad4ddcf2dd2ad52c4d21a00113d",
+  "prompts": {},
+  "sessions": {
+    "s_2326ed8c8f73ad": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019f0493-fdce-7252-8b6e-79cf622d0d28",
+        "model": "gpt-5.5"
+      },
+      "human_author": "xcad <christian.lempa@clcreative.de>"
+    }
+  }
+}
