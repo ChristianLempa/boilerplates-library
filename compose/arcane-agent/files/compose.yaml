@@ -1,6 +1,6 @@
 ---
 services:
-  << service_name if service_name is string and service_name and (service_name | lower) not in ['true', 'false'] else 'arcane-agent' >>:
+  << service_name >>:
     image: ghcr.io/getarcaneapp/agent:v2.1.0
     restart: << restart_policy >>
     <%- if container_name is string and container_name and (container_name | lower) not in ['true', 'false'] %>
@@ -21,7 +21,7 @@ services:
       <%- if volume_mode == 'mount' and volume_mount_path %>
       - << volume_mount_path >>:/app/data
       <%- else %>
-      - << service_name if service_name is string and service_name and (service_name | lower) not in ['true', 'false'] else 'arcane-agent' >>-data:/app/data
+      - << service_name >>-data:/app/data
       <%- endif %>
       <%- if project_mount_path %>
       - << project_mount_path >>:/app/data/projects
@@ -33,11 +33,11 @@ services:
 
 <%- if volume_mode == 'local' or (volume_mode == 'mount' and not volume_mount_path) %>
 volumes:
-  << service_name if service_name is string and service_name and (service_name | lower) not in ['true', 'false'] else 'arcane-agent' >>-data:
+  << service_name >>-data:
     driver: local
 <%- elif volume_mode == 'nfs' %>
 volumes:
-  << service_name if service_name is string and service_name and (service_name | lower) not in ['true', 'false'] else 'arcane-agent' >>-data:
+  << service_name >>-data:
     driver: local
     driver_opts:
       type: nfs

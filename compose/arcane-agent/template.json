@@ -31,7 +31,7 @@
           "type": "str",
           "title": "Service Name",
           "required": false,
-          "description": "Name of the Docker Compose service. Leave empty to omit/fall back to Arcane defaults.",
+          "default": "arcane-agent",
           "config": {
             "placeholder": "arcane-agent"
           }

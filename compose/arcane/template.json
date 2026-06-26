@@ -31,6 +31,7 @@
           "type": "str",
           "title": "Service Name",
           "required": false,
+          "default": "arcane",
           "config": {
             "placeholder": "arcane"
           }
