@@ -11,9 +11,9 @@
       "webhook"
     ],
     "icon": {
-      "provider": "mdi",
-      "id": "certificate-outline",
-      "color": "blue"
+      "provider": "simple-icons",
+      "id": "netcup",
+      "color": "emerald"
     },
     "draft": false,
     "version": {
@@ -22,10 +22,17 @@
       "source_dep_version": "1.0.44"
     }
   },
+  "config": {
+    "helm": {
+      "chart": "cert-manager-webhook-netcup/cert-manager-webhook-netcup",
+      "repository_url": "https://aellwein.github.io/cert-manager-webhook-netcup/charts",
+      "version": "1.0.44"
+    }
+  },
   "variables": [
     {
-      "title": "Webhook Configuration",
       "name": "webhook",
+      "title": "Webhook Configuration",
       "items": [
         {
           "name": "group_name",
@@ -60,13 +67,5 @@
         }
       ]
     }
-  ],
-  "config": {
-    "helm": {
-      "chart": "cert-manager-webhook-netcup/cert-manager-webhook-netcup",
-      "repository_url": "https://aellwein.github.io/cert-manager-webhook-netcup/charts",
-      "version": "1.0.44"
-    }
-  },
-  "file_metadata": {}
+  ]
 }
