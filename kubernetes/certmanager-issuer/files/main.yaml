@@ -24,6 +24,21 @@ spec:
             - << zone.strip() >>
           <%- endfor %>
         <%- endif %>
+<%- elif solver_type == 'netcup-dns01' %>
+      - dns01:
+          webhook:
+            groupName: << netcup_group_name >>
+            solverName: netcup
+            config:
+              secretRef: << netcup_secret_name >>
+              secretNamespace: << netcup_secret_namespace >>
+        <%- if dns_zones %>
+        selector:
+          dnsZones:
+          <%- for zone in dns_zones.split(',') %>
+            - << zone.strip() >>
+          <%- endfor %>
+        <%- endif %>
 <%- else %>
       - http01:
           ingress:

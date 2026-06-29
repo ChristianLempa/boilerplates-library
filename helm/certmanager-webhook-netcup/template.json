@@ -1,0 +1,72 @@
+{
+  "slug": "certmanager-webhook-netcup",
+  "kind": "helm",
+  "metadata": {
+    "name": "Cert-Manager Webhook Netcup",
+    "description": "Helm release values for the cert-manager DNS01 webhook solver for Netcup.",
+    "tags": [
+      "cert-manager",
+      "netcup",
+      "dns01",
+      "webhook"
+    ],
+    "icon": {
+      "provider": "mdi",
+      "id": "certificate-outline",
+      "color": "blue"
+    },
+    "draft": false,
+    "version": {
+      "name": "1.0.49",
+      "source_dep_name": "aellwein/cert-manager-webhook-netcup",
+      "source_dep_version": "1.0.49"
+    }
+  },
+  "variables": [
+    {
+      "title": "Webhook Configuration",
+      "name": "webhook",
+      "items": [
+        {
+          "name": "group_name",
+          "type": "str",
+          "title": "Group name",
+          "required": false,
+          "default": "com.netcup.webhook",
+          "description": "Must match the groupName used by Issuer or ClusterIssuer webhook solvers.",
+          "config": {
+            "placeholder": "com.netcup.webhook"
+          }
+        },
+        {
+          "name": "cert_manager_namespace",
+          "type": "str",
+          "title": "cert-manager namespace",
+          "required": false,
+          "default": "cert-manager",
+          "config": {
+            "placeholder": "cert-manager"
+          }
+        },
+        {
+          "name": "cert_manager_service_account_name",
+          "type": "str",
+          "title": "cert-manager service account",
+          "required": false,
+          "default": "cert-manager",
+          "config": {
+            "placeholder": "cert-manager"
+          }
+        }
+      ]
+    }
+  ],
+  "config": {
+    "helm": {
+      "chart": "oci://ghcr.io/aellwein/cert-manager-webhook-netcup/cert-manager-webhook-netcup",
+      "repository_url": "oci://ghcr.io/aellwein/cert-manager-webhook-netcup",
+      "version": "1.0.49"
+    }
+  },
+  "file_metadata": {}
+}

@@ -1,0 +1,6 @@
+---
+groupName: << group_name >>
+
+certManager:
+  namespace: << cert_manager_namespace >>
+  serviceAccountName: << cert_manager_service_account_name >>

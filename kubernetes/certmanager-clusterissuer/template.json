@@ -3,7 +3,7 @@
   "kind": "kubernetes",
   "metadata": {
     "name": "Cert-Manager ClusterIssuer",
-    "description": "Cluster-scoped cert-manager ACME ClusterIssuer for requesting certificates with HTTP-01 or Cloudflare DNS-01 challenge validation.",
+    "description": "Cluster-scoped cert-manager ACME ClusterIssuer for requesting certificates with HTTP-01 or Cloudflare or Netcup DNS-01 challenge validation.",
     "tags": [
       "cert-manager",
       "tls",
@@ -82,6 +82,7 @@
           "config": {
             "options": [
               "cloudflare-dns01",
+              "netcup-dns01",
               "http01"
             ]
           }
@@ -133,10 +134,49 @@
           "default": "",
           "description": "Optional comma-separated DNS zones this solver should match.",
           "needs": [
-            "solver_type=cloudflare-dns01"
+            "solver_type=cloudflare-dns01|solver_type=netcup-dns01"
           ],
           "config": {
             "placeholder": "example.com,home.arpa"
+          }
+        },
+        {
+          "name": "netcup_group_name",
+          "type": "str",
+          "title": "Netcup webhook group name",
+          "required": false,
+          "default": "com.netcup.webhook",
+          "needs": [
+            "solver_type=netcup-dns01"
+          ],
+          "config": {
+            "placeholder": "com.netcup.webhook"
+          }
+        },
+        {
+          "name": "netcup_secret_name",
+          "type": "str",
+          "title": "Netcup secret name",
+          "required": false,
+          "default": "netcup-secret",
+          "needs": [
+            "solver_type=netcup-dns01"
+          ],
+          "config": {
+            "placeholder": "netcup-secret"
+          }
+        },
+        {
+          "name": "netcup_secret_namespace",
+          "type": "str",
+          "title": "Netcup secret namespace",
+          "required": false,
+          "default": "cert-manager",
+          "needs": [
+            "solver_type=netcup-dns01"
+          ],
+          "config": {
+            "placeholder": "cert-manager"
           }
         }
       ]
