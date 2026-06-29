@@ -64,7 +64,6 @@
   "config": {
     "helm": {
       "chart": "oci://ghcr.io/aellwein/cert-manager-webhook-netcup/cert-manager-webhook-netcup",
-      "repository_url": "oci://ghcr.io/aellwein/cert-manager-webhook-netcup",
       "version": "1.0.49"
     }
   },
