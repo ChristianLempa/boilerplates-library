@@ -1,0 +1,22 @@
+helm/certmanager/files/values.yaml
+  s_f9e9ec6f39cab4::t_eb0133a3469b68 15
+helm/certmanager/template.json
+  s_f9e9ec6f39cab4::t_f7e14359485948 22-33
+  s_f9e9ec6f39cab4::t_eb2cc7c4244d00 21
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.3",
+  "base_commit_sha": "b6c4403a33f804e7bfc5ef6642c648d75462b589",
+  "prompts": {},
+  "sessions": {
+    "s_f9e9ec6f39cab4": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019f12c8-c980-7921-99c1-51499b367381",
+        "model": "gpt-5.5"
+      },
+      "human_author": "xcad <christian.lempa@clcreative.de>"
+    }
+  }
+}
