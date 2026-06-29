@@ -1,0 +1,29 @@
+kubernetes/certmanager-issuer/template.json
+  s_f9e9ec6f39cab4::t_acc713ba8a8a5a 6,95,147,152-190
+kubernetes/certmanager-issuer/files/main.yaml
+  s_f9e9ec6f39cab4::t_58a97a8902d39e 27-41
+kubernetes/certmanager-clusterissuer/template.json
+  s_f9e9ec6f39cab4::t_acc713ba8a8a5a 6,85,137,142-180
+helm/certmanager-webhook-netcup/files/values.yaml
+  s_f9e9ec6f39cab4::t_e844e5dec2b94c 1-6
+helm/certmanager-webhook-netcup/template.json
+  s_f9e9ec6f39cab4::t_e844e5dec2b94c 1-72
+kubernetes/certmanager-clusterissuer/files/main.yaml
+  s_f9e9ec6f39cab4::t_f81ad522fc4d86 26-40
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.3",
+  "base_commit_sha": "709d9be968d560c05044a02b59effe5d6acf2c6f",
+  "prompts": {},
+  "sessions": {
+    "s_f9e9ec6f39cab4": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019f12c8-c980-7921-99c1-51499b367381",
+        "model": "gpt-5.5"
+      },
+      "human_author": "xcad <christian.lempa@clcreative.de>"
+    }
+  }
+}
