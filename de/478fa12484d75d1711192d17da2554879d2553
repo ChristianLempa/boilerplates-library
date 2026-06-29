@@ -1,0 +1,21 @@
+kubernetes/core-secret/files/main.yaml
+  s_f9e9ec6f39cab4::t_fd0a011f5c7651 8-9
+kubernetes/certmanager-webhook-netcup-secret/files/main.yaml
+  s_f9e9ec6f39cab4::t_d7130bdd797924 8-13
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.3",
+  "base_commit_sha": "de478fa12484d75d1711192d17da2554879d2553",
+  "prompts": {},
+  "sessions": {
+    "s_f9e9ec6f39cab4": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019f12c8-c980-7921-99c1-51499b367381",
+        "model": "gpt-5.5"
+      },
+      "human_author": "xcad <christian.lempa@clcreative.de>"
+    }
+  }
+}
