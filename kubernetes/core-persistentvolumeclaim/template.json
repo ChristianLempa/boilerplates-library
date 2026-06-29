@@ -1,5 +1,5 @@
 {
-  "slug": "core-persistentvolumeclaim",
+  "slug": "core-persistentvolumeclaim-kubernetes",
   "kind": "kubernetes",
   "metadata": {
     "name": "Kubernetes PersistentVolumeClaim",

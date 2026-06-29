@@ -1,5 +1,5 @@
 {
-  "slug": "cloudflared",
+  "slug": "cloudflared-compose",
   "kind": "compose",
   "metadata": {
     "name": "Cloudflared",

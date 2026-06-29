@@ -1,5 +1,5 @@
 {
-  "slug": "teleport",
+  "slug": "teleport-compose",
   "kind": "compose",
   "metadata": {
     "name": "Teleport",

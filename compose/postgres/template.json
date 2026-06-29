@@ -1,5 +1,5 @@
 {
-  "slug": "postgres",
+  "slug": "postgres-compose",
   "kind": "compose",
   "metadata": {
     "name": "PostgreSQL",

@@ -1,5 +1,5 @@
 {
-  "slug": "core-configmap",
+  "slug": "core-configmap-kubernetes",
   "kind": "kubernetes",
   "metadata": {
     "name": "Kubernetes ConfigMap",

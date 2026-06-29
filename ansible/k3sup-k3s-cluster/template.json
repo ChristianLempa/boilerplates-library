@@ -1,5 +1,5 @@
 {
-  "slug": "k3sup-k3s-cluster",
+  "slug": "k3sup-k3s-cluster-ansible",
   "kind": "ansible",
   "metadata": {
     "name": "Bootstrap K3s Cluster with k3sup",

@@ -1,5 +1,5 @@
 {
-  "slug": "gitlab-project-milestone",
+  "slug": "gitlab-project-milestone-terraform",
   "kind": "terraform",
   "metadata": {
     "name": "GitLab Project Milestone",

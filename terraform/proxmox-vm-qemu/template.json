@@ -1,5 +1,5 @@
 {
-  "slug": "proxmox-vm-qemu",
+  "slug": "proxmox-vm-qemu-terraform",
   "kind": "terraform",
   "metadata": {
     "name": "Proxmox VM (QEMU)",

@@ -1,5 +1,5 @@
 {
-  "slug": "core-daemonset",
+  "slug": "core-daemonset-kubernetes",
   "kind": "kubernetes",
   "metadata": {
     "name": "Kubernetes DaemonSet",

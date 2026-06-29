@@ -1,5 +1,5 @@
 {
-  "slug": "certmanager-clusterissuer",
+  "slug": "certmanager-clusterissuer-kubernetes",
   "kind": "kubernetes",
   "metadata": {
     "name": "Cert-Manager ClusterIssuer",

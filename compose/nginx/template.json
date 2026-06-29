@@ -1,5 +1,5 @@
 {
-  "slug": "nginx",
+  "slug": "nginx-compose",
   "kind": "compose",
   "metadata": {
     "name": "Nginx",

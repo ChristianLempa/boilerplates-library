@@ -1,5 +1,5 @@
 {
-  "slug": "docker-mysql-backup",
+  "slug": "docker-mysql-backup-ansible",
   "kind": "ansible",
   "metadata": {
     "name": "Docker MySQL Backup",

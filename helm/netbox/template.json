@@ -1,5 +1,5 @@
 {
-  "slug": "netbox",
+  "slug": "netbox-helm",
   "kind": "helm",
   "metadata": {
     "name": "NetBox",

@@ -1,5 +1,5 @@
 {
-  "slug": "core-clusterrolebinding",
+  "slug": "core-clusterrolebinding-kubernetes",
   "kind": "kubernetes",
   "metadata": {
     "name": "Kubernetes ClusterRoleBinding",

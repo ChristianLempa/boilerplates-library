@@ -1,5 +1,5 @@
 {
-  "slug": "dns-a-record-tsig",
+  "slug": "dns-a-record-tsig-terraform",
   "kind": "terraform",
   "metadata": {
     "name": "DNS Record A (TSIG)",

@@ -1,5 +1,5 @@
 {
-  "slug": "traefik",
+  "slug": "traefik-compose",
   "kind": "compose",
   "metadata": {
     "name": "Traefik",

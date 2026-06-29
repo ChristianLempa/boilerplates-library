@@ -1,5 +1,5 @@
 {
-  "slug": "k3s-postinstall",
+  "slug": "k3s-postinstall-ansible",
   "kind": "ansible",
   "metadata": {
     "name": "K3s Post-Install Platform Setup",

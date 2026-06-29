@@ -1,5 +1,5 @@
 {
-  "slug": "prometheus",
+  "slug": "prometheus-compose",
   "kind": "compose",
   "metadata": {
     "name": "Prometheus",

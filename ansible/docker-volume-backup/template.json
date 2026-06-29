@@ -1,5 +1,5 @@
 {
-  "slug": "docker-volume-backup",
+  "slug": "docker-volume-backup-ansible",
   "kind": "ansible",
   "metadata": {
     "name": "Docker Volume Backup",

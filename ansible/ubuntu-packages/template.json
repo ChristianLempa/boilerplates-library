@@ -1,5 +1,5 @@
 {
-  "slug": "ubuntu-packages",
+  "slug": "ubuntu-packages-ansible",
   "kind": "ansible",
   "metadata": {
     "name": "Install Ubuntu Packages",

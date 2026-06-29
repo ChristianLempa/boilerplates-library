@@ -1,5 +1,5 @@
 {
-  "slug": "core-service",
+  "slug": "core-service-kubernetes",
   "kind": "kubernetes",
   "metadata": {
     "name": "Kubernetes Service",

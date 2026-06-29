@@ -1,5 +1,5 @@
 {
-  "slug": "core-deployment",
+  "slug": "core-deployment-kubernetes",
   "kind": "kubernetes",
   "metadata": {
     "name": "Kubernetes Deployment",

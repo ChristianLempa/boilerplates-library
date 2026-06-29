@@ -1,5 +1,5 @@
 {
-  "slug": "traefik-ipallowlist",
+  "slug": "traefik-ipallowlist-kubernetes",
   "kind": "kubernetes",
   "metadata": {
     "name": "Traefik IPAllowList Middleware",

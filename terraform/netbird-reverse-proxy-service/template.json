@@ -1,5 +1,5 @@
 {
-  "slug": "netbird-reverse-proxy-service",
+  "slug": "netbird-reverse-proxy-service-terraform",
   "kind": "terraform",
   "metadata": {
     "name": "NetBird Reverse Proxy Service",

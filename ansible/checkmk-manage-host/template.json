@@ -1,5 +1,5 @@
 {
-  "slug": "checkmk-manage-host",
+  "slug": "checkmk-manage-host-ansible",
   "kind": "ansible",
   "metadata": {
     "name": "Manage Checkmk Host",

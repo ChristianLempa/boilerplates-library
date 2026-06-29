@@ -1,5 +1,5 @@
 {
-  "slug": "kube-vip",
+  "slug": "kube-vip-kubernetes",
   "kind": "kubernetes",
   "metadata": {
     "name": "kube-vip DaemonSet",

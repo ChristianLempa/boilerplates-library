@@ -1,5 +1,5 @@
 {
-  "slug": "nextcloud",
+  "slug": "nextcloud-compose",
   "kind": "compose",
   "metadata": {
     "name": "Nextcloud",

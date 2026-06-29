@@ -1,5 +1,5 @@
 {
-  "slug": "docker-install-ubuntu",
+  "slug": "docker-install-ubuntu-ansible",
   "kind": "ansible",
   "metadata": {
     "name": "Install Docker on Ubuntu",

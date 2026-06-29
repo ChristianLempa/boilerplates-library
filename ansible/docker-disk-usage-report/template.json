@@ -1,5 +1,5 @@
 {
-  "slug": "docker-disk-usage-report",
+  "slug": "docker-disk-usage-report-ansible",
   "kind": "ansible",
   "metadata": {
     "name": "Docker Disk Usage Report",

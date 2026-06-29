@@ -1,5 +1,5 @@
 {
-  "slug": "docker-healthcheck-audit",
+  "slug": "docker-healthcheck-audit-ansible",
   "kind": "ansible",
   "metadata": {
     "name": "Docker Healthcheck Audit",

@@ -1,5 +1,5 @@
 {
-  "slug": "gitlab-provider",
+  "slug": "gitlab-provider-terraform",
   "kind": "terraform",
   "metadata": {
     "name": "GitLab Provider",

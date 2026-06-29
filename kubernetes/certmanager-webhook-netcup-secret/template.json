@@ -1,5 +1,5 @@
 {
-  "slug": "certmanager-webhook-netcup-secret",
+  "slug": "certmanager-webhook-netcup-secret-kubernetes",
   "kind": "kubernetes",
   "metadata": {
     "name": "Cert-Manager Webhook Netcup Secret",

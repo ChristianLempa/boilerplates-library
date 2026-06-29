@@ -1,5 +1,5 @@
 {
-  "slug": "gitlab-project-variable",
+  "slug": "gitlab-project-variable-terraform",
   "kind": "terraform",
   "metadata": {
     "name": "GitLab Project Variable",

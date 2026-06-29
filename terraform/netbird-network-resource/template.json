@@ -1,5 +1,5 @@
 {
-  "slug": "netbird-network-resource",
+  "slug": "netbird-network-resource-terraform",
   "kind": "terraform",
   "metadata": {
     "name": "NetBird Network Resource",

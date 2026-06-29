@@ -1,5 +1,5 @@
 {
-  "slug": "gitlab",
+  "slug": "gitlab-compose",
   "kind": "compose",
   "metadata": {
     "name": "GitLab",

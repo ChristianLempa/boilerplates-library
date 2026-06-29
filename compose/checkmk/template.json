@@ -1,5 +1,5 @@
 {
-  "slug": "checkmk",
+  "slug": "checkmk-compose",
   "kind": "compose",
   "metadata": {
     "name": "Checkmk",

@@ -1,5 +1,5 @@
 {
-  "slug": "core-namespace",
+  "slug": "core-namespace-kubernetes",
   "kind": "kubernetes",
   "metadata": {
     "name": "Kubernetes Namespace",

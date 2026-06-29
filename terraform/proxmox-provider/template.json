@@ -1,5 +1,5 @@
 {
-  "slug": "proxmox-provider",
+  "slug": "proxmox-provider-terraform",
   "kind": "terraform",
   "metadata": {
     "name": "Proxmox Provider",

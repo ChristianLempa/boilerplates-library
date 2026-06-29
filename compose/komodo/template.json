@@ -1,5 +1,5 @@
 {
-  "slug": "komodo",
+  "slug": "komodo-compose",
   "kind": "compose",
   "metadata": {
     "name": "Komodo",

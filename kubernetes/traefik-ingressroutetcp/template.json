@@ -1,5 +1,5 @@
 {
-  "slug": "traefik-ingressroutetcp",
+  "slug": "traefik-ingressroutetcp-kubernetes",
   "kind": "kubernetes",
   "metadata": {
     "name": "Traefik IngressRouteTCP",

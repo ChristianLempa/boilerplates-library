@@ -1,5 +1,5 @@
 {
-  "slug": "core-ingress",
+  "slug": "core-ingress-kubernetes",
   "kind": "kubernetes",
   "metadata": {
     "name": "Kubernetes Ingress",

@@ -1,5 +1,5 @@
 {
-  "slug": "arcane-agent",
+  "slug": "arcane-agent-compose",
   "kind": "compose",
   "metadata": {
     "name": "Arcane Agent",

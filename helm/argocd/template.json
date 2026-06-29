@@ -1,5 +1,5 @@
 {
-  "slug": "argocd",
+  "slug": "argocd-helm",
   "kind": "helm",
   "metadata": {
     "name": "Argo CD",

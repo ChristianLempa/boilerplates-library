@@ -1,5 +1,5 @@
 {
-  "slug": "traefik-buffering",
+  "slug": "traefik-buffering-kubernetes",
   "kind": "kubernetes",
   "metadata": {
     "name": "Traefik Buffering Middleware",

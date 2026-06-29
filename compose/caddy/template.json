@@ -1,5 +1,5 @@
 {
-  "slug": "caddy",
+  "slug": "caddy-compose",
   "kind": "compose",
   "metadata": {
     "name": "Caddy",

@@ -1,5 +1,5 @@
 {
-  "slug": "docker-postgres-backup",
+  "slug": "docker-postgres-backup-ansible",
   "kind": "ansible",
   "metadata": {
     "name": "Docker Postgres Backup",

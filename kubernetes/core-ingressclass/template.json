@@ -1,5 +1,5 @@
 {
-  "slug": "core-ingressclass",
+  "slug": "core-ingressclass-kubernetes",
   "kind": "kubernetes",
   "metadata": {
     "name": "Kubernetes IngressClass",

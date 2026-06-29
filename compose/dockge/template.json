@@ -1,5 +1,5 @@
 {
-  "slug": "dockge",
+  "slug": "dockge-compose",
   "kind": "compose",
   "metadata": {
     "name": "Dockge",

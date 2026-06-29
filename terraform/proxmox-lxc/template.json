@@ -1,5 +1,5 @@
 {
-  "slug": "proxmox-lxc",
+  "slug": "proxmox-lxc-terraform",
   "kind": "terraform",
   "metadata": {
     "name": "Proxmox LXC",

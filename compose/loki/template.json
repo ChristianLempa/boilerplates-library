@@ -1,5 +1,5 @@
 {
-  "slug": "loki",
+  "slug": "loki-compose",
   "kind": "compose",
   "metadata": {
     "name": "Loki",

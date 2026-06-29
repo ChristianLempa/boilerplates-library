@@ -1,5 +1,5 @@
 {
-  "slug": "influxdb",
+  "slug": "influxdb-compose",
   "kind": "compose",
   "metadata": {
     "name": "Influxdb",

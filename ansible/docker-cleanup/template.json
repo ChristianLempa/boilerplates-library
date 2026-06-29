@@ -1,5 +1,5 @@
 {
-  "slug": "docker-cleanup",
+  "slug": "docker-cleanup-ansible",
   "kind": "ansible",
   "metadata": {
     "name": "Docker Cleanup",

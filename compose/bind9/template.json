@@ -1,5 +1,5 @@
 {
-  "slug": "bind9",
+  "slug": "bind9-compose",
   "kind": "compose",
   "metadata": {
     "name": "BIND9",

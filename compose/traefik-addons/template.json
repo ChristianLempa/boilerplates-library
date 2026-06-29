@@ -1,5 +1,5 @@
 {
-  "slug": "traefik-addons",
+  "slug": "traefik-addons-compose",
   "kind": "compose",
   "metadata": {
     "name": "Traefik Addons",

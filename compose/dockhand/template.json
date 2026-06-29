@@ -1,5 +1,5 @@
 {
-  "slug": "dockhand",
+  "slug": "dockhand-compose",
   "kind": "compose",
   "metadata": {
     "name": "Dockhand",

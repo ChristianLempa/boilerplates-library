@@ -1,5 +1,5 @@
 {
-  "slug": "cloudflare-ztna-application",
+  "slug": "cloudflare-ztna-application-terraform",
   "kind": "terraform",
   "metadata": {
     "name": "Cloudflare Zero Trust Access Application",

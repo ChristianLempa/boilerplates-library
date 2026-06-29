@@ -1,5 +1,5 @@
 {
-  "slug": "metallb",
+  "slug": "metallb-kubernetes",
   "kind": "kubernetes",
   "metadata": {
     "name": "MetalLB Layer2 Bootstrap",

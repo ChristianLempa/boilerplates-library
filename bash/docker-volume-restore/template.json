@@ -1,5 +1,5 @@
 {
-  "slug": "docker-volume-restore",
+  "slug": "docker-volume-restore-bash",
   "kind": "bash",
   "metadata": {
     "name": "Docker Volume Restore",

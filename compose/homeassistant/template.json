@@ -1,5 +1,5 @@
 {
-  "slug": "homeassistant",
+  "slug": "homeassistant-compose",
   "kind": "compose",
   "metadata": {
     "name": "Homeassistant",

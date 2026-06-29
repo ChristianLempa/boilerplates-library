@@ -1,5 +1,5 @@
 {
-  "slug": "twingate-connector",
+  "slug": "twingate-connector-swarm",
   "kind": "swarm",
   "metadata": {
     "name": "Twingate_Connector",

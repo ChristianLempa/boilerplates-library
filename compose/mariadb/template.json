@@ -1,5 +1,5 @@
 {
-  "slug": "mariadb",
+  "slug": "mariadb-compose",
   "kind": "compose",
   "metadata": {
     "name": "MariaDB",

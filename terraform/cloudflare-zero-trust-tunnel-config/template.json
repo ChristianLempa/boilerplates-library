@@ -1,5 +1,5 @@
 {
-  "slug": "cloudflare-zero-trust-tunnel-config",
+  "slug": "cloudflare-zero-trust-tunnel-config-terraform",
   "kind": "terraform",
   "metadata": {
     "name": "Cloudflare Zero Trust Tunnel Config",

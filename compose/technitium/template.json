@@ -1,5 +1,5 @@
 {
-  "slug": "technitium",
+  "slug": "technitium-compose",
   "kind": "compose",
   "metadata": {
     "name": "Technitium DNS Server",

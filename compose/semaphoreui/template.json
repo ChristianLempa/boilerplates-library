@@ -1,5 +1,5 @@
 {
-  "slug": "semaphoreui",
+  "slug": "semaphoreui-compose",
   "kind": "compose",
   "metadata": {
     "name": "Semaphore UI",

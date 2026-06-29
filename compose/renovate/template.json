@@ -1,5 +1,5 @@
 {
-  "slug": "renovate",
+  "slug": "renovate-compose",
   "kind": "compose",
   "metadata": {
     "name": "Renovate",

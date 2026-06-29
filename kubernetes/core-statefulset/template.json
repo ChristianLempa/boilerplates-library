@@ -1,5 +1,5 @@
 {
-  "slug": "core-statefulset",
+  "slug": "core-statefulset-kubernetes",
   "kind": "kubernetes",
   "metadata": {
     "name": "Kubernetes StatefulSet",

@@ -1,5 +1,5 @@
 {
-  "slug": "core-serviceaccount",
+  "slug": "core-serviceaccount-kubernetes",
   "kind": "kubernetes",
   "metadata": {
     "name": "Kubernetes ServiceAccount",

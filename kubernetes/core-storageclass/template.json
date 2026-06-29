@@ -1,5 +1,5 @@
 {
-  "slug": "core-storageclass",
+  "slug": "core-storageclass-kubernetes",
   "kind": "kubernetes",
   "metadata": {
     "name": "Kubernetes StorageClass",

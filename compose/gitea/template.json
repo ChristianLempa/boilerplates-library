@@ -1,5 +1,5 @@
 {
-  "slug": "gitea",
+  "slug": "gitea-compose",
   "kind": "compose",
   "metadata": {
     "name": "Gitea",

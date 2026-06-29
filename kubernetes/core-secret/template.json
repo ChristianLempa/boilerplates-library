@@ -1,5 +1,5 @@
 {
-  "slug": "core-secret",
+  "slug": "core-secret-kubernetes",
   "kind": "kubernetes",
   "metadata": {
     "name": "Kubernetes Secret (Opaque)",

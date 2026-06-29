@@ -1,5 +1,5 @@
 {
-  "slug": "certmanager-webhook-netcup",
+  "slug": "certmanager-webhook-netcup-helm",
   "kind": "helm",
   "metadata": {
     "name": "Cert-Manager Webhook Netcup",

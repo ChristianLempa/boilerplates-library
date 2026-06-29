@@ -1,5 +1,5 @@
 {
-  "slug": "gitlab-group-membership",
+  "slug": "gitlab-group-membership-terraform",
   "kind": "terraform",
   "metadata": {
     "name": "GitLab Group Membership",

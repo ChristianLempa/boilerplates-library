@@ -1,5 +1,5 @@
 {
-  "slug": "docker-network",
+  "slug": "docker-network-ansible",
   "kind": "ansible",
   "metadata": {
     "name": "Docker Network",

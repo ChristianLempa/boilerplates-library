@@ -1,5 +1,5 @@
 {
-  "slug": "kestra",
+  "slug": "kestra-compose",
   "kind": "compose",
   "metadata": {
     "name": "Kestra",

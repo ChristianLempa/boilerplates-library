@@ -1,5 +1,5 @@
 {
-  "slug": "cloudflare-dns-record",
+  "slug": "cloudflare-dns-record-terraform",
   "kind": "terraform",
   "metadata": {
     "name": "Cloudflare DNS Record",

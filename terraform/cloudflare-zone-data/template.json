@@ -1,5 +1,5 @@
 {
-  "slug": "cloudflare-zone-data",
+  "slug": "cloudflare-zone-data-terraform",
   "kind": "terraform",
   "metadata": {
     "name": "Cloudflare Zone (datasource)",

@@ -1,5 +1,5 @@
 {
-  "slug": "authentik",
+  "slug": "authentik-helm",
   "kind": "helm",
   "metadata": {
     "name": "Authentik",

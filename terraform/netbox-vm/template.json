@@ -1,5 +1,5 @@
 {
-  "slug": "netbox-vm",
+  "slug": "netbox-vm-terraform",
   "kind": "terraform",
   "metadata": {
     "name": "NetBox Virtual Machine",

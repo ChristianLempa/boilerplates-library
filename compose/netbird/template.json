@@ -1,5 +1,5 @@
 {
-  "slug": "netbird",
+  "slug": "netbird-compose",
   "kind": "compose",
   "metadata": {
     "name": "NetBird",

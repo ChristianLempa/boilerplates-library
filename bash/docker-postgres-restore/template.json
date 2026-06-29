@@ -1,5 +1,5 @@
 {
-  "slug": "docker-postgres-restore",
+  "slug": "docker-postgres-restore-bash",
   "kind": "bash",
   "metadata": {
     "name": "Docker Postgres Restore",

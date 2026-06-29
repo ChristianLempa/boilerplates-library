@@ -1,5 +1,5 @@
 {
-  "slug": "docker-daemon-config",
+  "slug": "docker-daemon-config-ansible",
   "kind": "ansible",
   "metadata": {
     "name": "Docker Daemon Config",

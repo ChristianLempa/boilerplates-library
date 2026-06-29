@@ -1,5 +1,5 @@
 {
-  "slug": "docker-certs-enable",
+  "slug": "docker-certs-enable-ansible",
   "kind": "ansible",
   "metadata": {
     "name": "Enable Docker TLS",

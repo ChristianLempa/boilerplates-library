@@ -1,5 +1,5 @@
 {
-  "slug": "docker-certs",
+  "slug": "docker-certs-ansible",
   "kind": "ansible",
   "metadata": {
     "name": "Generate Docker TLS Certificates",

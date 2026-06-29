@@ -1,5 +1,5 @@
 {
-  "slug": "traefik-basicauth",
+  "slug": "traefik-basicauth-kubernetes",
   "kind": "kubernetes",
   "metadata": {
     "name": "Traefik BasicAuth Middleware",

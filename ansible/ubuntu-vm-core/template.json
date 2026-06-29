@@ -1,5 +1,5 @@
 {
-  "slug": "ubuntu-vm-core",
+  "slug": "ubuntu-vm-core-ansible",
   "kind": "ansible",
   "metadata": {
     "name": "Install Ubuntu VM Core Packages",

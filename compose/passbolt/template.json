@@ -1,5 +1,5 @@
 {
-  "slug": "passbolt",
+  "slug": "passbolt-compose",
   "kind": "compose",
   "metadata": {
     "name": "Passbolt",

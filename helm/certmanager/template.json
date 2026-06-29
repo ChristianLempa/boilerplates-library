@@ -1,5 +1,5 @@
 {
-  "slug": "certmanager",
+  "slug": "certmanager-helm",
   "kind": "helm",
   "metadata": {
     "name": "Cert-Manager",

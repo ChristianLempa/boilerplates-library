@@ -1,5 +1,5 @@
 {
-  "slug": "longhorn",
+  "slug": "longhorn-helm",
   "kind": "helm",
   "metadata": {
     "name": "Longhorn",

@@ -1,5 +1,5 @@
 {
-  "slug": "crowdsec",
+  "slug": "crowdsec-compose",
   "kind": "compose",
   "metadata": {
     "name": "CrowdSec",

@@ -1,5 +1,5 @@
 {
-  "slug": "core-persistentvolume",
+  "slug": "core-persistentvolume-kubernetes",
   "kind": "kubernetes",
   "metadata": {
     "name": "Kubernetes PersistentVolume",

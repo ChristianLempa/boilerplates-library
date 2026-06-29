@@ -1,5 +1,5 @@
 {
-  "slug": "grafana",
+  "slug": "grafana-compose",
   "kind": "compose",
   "metadata": {
     "name": "Grafana",

@@ -1,5 +1,5 @@
 {
-  "slug": "traefik-retry",
+  "slug": "traefik-retry-kubernetes",
   "kind": "kubernetes",
   "metadata": {
     "name": "Traefik Retry Middleware",

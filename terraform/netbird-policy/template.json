@@ -1,5 +1,5 @@
 {
-  "slug": "netbird-policy",
+  "slug": "netbird-policy-terraform",
   "kind": "terraform",
   "metadata": {
     "name": "NetBird Policy",

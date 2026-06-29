@@ -1,5 +1,5 @@
 {
-  "slug": "core-cronjob",
+  "slug": "core-cronjob-kubernetes",
   "kind": "kubernetes",
   "metadata": {
     "name": "Kubernetes CronJob",

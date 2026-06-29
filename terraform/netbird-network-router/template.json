@@ -1,5 +1,5 @@
 {
-  "slug": "netbird-network-router",
+  "slug": "netbird-network-router-terraform",
   "kind": "terraform",
   "metadata": {
     "name": "NetBird Network Router",

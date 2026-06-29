@@ -1,5 +1,5 @@
 {
-  "slug": "flux-bootstrap",
+  "slug": "flux-bootstrap-kubernetes",
   "kind": "kubernetes",
   "metadata": {
     "name": "Flux Bootstrap",

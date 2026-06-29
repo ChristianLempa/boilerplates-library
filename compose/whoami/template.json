@@ -1,5 +1,5 @@
 {
-  "slug": "whoami",
+  "slug": "whoami-compose",
   "kind": "compose",
   "metadata": {
     "name": "Whoami",

@@ -1,5 +1,5 @@
 {
-  "slug": "alloy",
+  "slug": "alloy-compose",
   "kind": "compose",
   "metadata": {
     "name": "Grafana Alloy",

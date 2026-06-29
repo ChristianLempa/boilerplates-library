@@ -1,5 +1,5 @@
 {
-  "slug": "checkmk-install-agent",
+  "slug": "checkmk-install-agent-ansible",
   "kind": "ansible",
   "metadata": {
     "name": "Install Checkmk Agent",

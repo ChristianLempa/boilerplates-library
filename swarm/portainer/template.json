@@ -1,5 +1,5 @@
 {
-  "slug": "portainer",
+  "slug": "portainer-swarm",
   "kind": "swarm",
   "metadata": {
     "name": "Portainer",

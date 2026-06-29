@@ -1,5 +1,5 @@
 {
-  "slug": "uptimekuma",
+  "slug": "uptimekuma-compose",
   "kind": "compose",
   "metadata": {
     "name": "Uptimekuma",

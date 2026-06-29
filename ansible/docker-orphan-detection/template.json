@@ -1,5 +1,5 @@
 {
-  "slug": "docker-orphan-detection",
+  "slug": "docker-orphan-detection-ansible",
   "kind": "ansible",
   "metadata": {
     "name": "Docker Orphan Detection",

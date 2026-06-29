@@ -1,5 +1,5 @@
 {
-  "slug": "gitlab-group-variable",
+  "slug": "gitlab-group-variable-terraform",
   "kind": "terraform",
   "metadata": {
     "name": "GitLab Group Variable",

@@ -1,5 +1,5 @@
 {
-  "slug": "server-disk-usage-monitor",
+  "slug": "server-disk-usage-monitor-python",
   "kind": "python",
   "metadata": {
     "name": "Server Disk Usage Monitor",

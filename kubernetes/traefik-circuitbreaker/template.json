@@ -1,5 +1,5 @@
 {
-  "slug": "traefik-circuitbreaker",
+  "slug": "traefik-circuitbreaker-kubernetes",
   "kind": "kubernetes",
   "metadata": {
     "name": "Traefik CircuitBreaker Middleware",

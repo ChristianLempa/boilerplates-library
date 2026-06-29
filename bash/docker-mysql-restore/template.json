@@ -1,5 +1,5 @@
 {
-  "slug": "docker-mysql-restore",
+  "slug": "docker-mysql-restore-bash",
   "kind": "bash",
   "metadata": {
     "name": "Docker MySQL Restore",

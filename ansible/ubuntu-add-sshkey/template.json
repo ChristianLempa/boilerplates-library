@@ -1,5 +1,5 @@
 {
-  "slug": "ubuntu-add-sshkey",
+  "slug": "ubuntu-add-sshkey-ansible",
   "kind": "ansible",
   "metadata": {
     "name": "Add SSH Key and Configure Sudoers",

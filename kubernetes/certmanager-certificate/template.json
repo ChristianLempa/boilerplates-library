@@ -1,5 +1,5 @@
 {
-  "slug": "certmanager-certificate",
+  "slug": "certmanager-certificate-kubernetes",
   "kind": "kubernetes",
   "metadata": {
     "name": "Cert-Manager Certificate",

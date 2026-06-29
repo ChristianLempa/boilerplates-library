@@ -1,5 +1,5 @@
 {
-  "slug": "pihole",
+  "slug": "pihole-compose",
   "kind": "compose",
   "metadata": {
     "name": "Pihole",

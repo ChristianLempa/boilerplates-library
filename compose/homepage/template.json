@@ -1,5 +1,5 @@
 {
-  "slug": "homepage",
+  "slug": "homepage-compose",
   "kind": "compose",
   "metadata": {
     "name": "Homepage",

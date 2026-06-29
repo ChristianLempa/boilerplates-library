@@ -1,5 +1,5 @@
 {
-  "slug": "gitlab-project-environment",
+  "slug": "gitlab-project-environment-terraform",
   "kind": "terraform",
   "metadata": {
     "name": "GitLab Project Environment",

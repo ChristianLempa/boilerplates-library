@@ -1,5 +1,5 @@
 {
-  "slug": "core-networkpolicy",
+  "slug": "core-networkpolicy-kubernetes",
   "kind": "kubernetes",
   "metadata": {
     "name": "Kubernetes NetworkPolicy",
