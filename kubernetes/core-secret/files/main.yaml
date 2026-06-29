@@ -5,4 +5,5 @@ metadata:
   name: << resource_name >>
 type: << secret_type >>
 stringData:
-  api-token: << api_token >>
+  api-token: |-
+    << api_token >>

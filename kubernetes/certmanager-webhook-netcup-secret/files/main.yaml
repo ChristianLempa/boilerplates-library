@@ -5,6 +5,9 @@ metadata:
   name: << resource_name >>
 type: Opaque
 stringData:
-  customer-number: << customer_number >>
-  api-key: << api_key >>
-  api-password: << api_password >>
+  customer-number: |-
+    << customer_number >>
+  api-key: |-
+    << api_key >>
+  api-password: |-
+    << api_password >>
