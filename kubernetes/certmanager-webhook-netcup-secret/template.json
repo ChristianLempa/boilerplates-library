@@ -11,9 +11,9 @@
       "secret"
     ],
     "icon": {
-      "provider": "mdi",
-      "id": "certificate-outline",
-      "color": "blue"
+      "provider": "simple-icons",
+      "id": "netcup",
+      "color": "emerald"
     },
     "draft": false,
     "version": {
@@ -24,8 +24,8 @@
   },
   "variables": [
     {
-      "title": "Secret",
       "name": "secret",
+      "title": "Secret",
       "items": [
         {
           "name": "resource_name",
@@ -70,6 +70,5 @@
         }
       ]
     }
-  ],
-  "file_metadata": {}
+  ]
 }
