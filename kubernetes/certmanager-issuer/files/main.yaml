@@ -3,7 +3,6 @@ apiVersion: cert-manager.io/v1
 kind: Issuer
 metadata:
   name: << resource_name >>
-  namespace: << namespace >>
 spec:
   acme:
     email: << acme_email >>
@@ -31,7 +30,7 @@ spec:
             solverName: netcup
             config:
               secretRef: << netcup_secret_name >>
-              secretNamespace: << netcup_secret_namespace >>
+              secretNamespace: cert-manager
         <%- if dns_zones %>
         selector:
           dnsZones:

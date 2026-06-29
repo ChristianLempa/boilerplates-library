@@ -3,7 +3,6 @@ apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
   name: << resource_name >>
-  namespace: << namespace >>
 spec:
   forwardAuth:
     address: "<< address >>"

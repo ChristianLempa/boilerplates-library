@@ -33,16 +33,6 @@
           }
         },
         {
-          "name": "namespace",
-          "type": "str",
-          "title": "Namespace",
-          "required": false,
-          "default": "default",
-          "config": {
-            "placeholder": "default"
-          }
-        },
-        {
           "name": "connector_name",
           "type": "str",
           "title": "Twingate connector name",

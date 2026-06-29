@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: << resource_name >>
-  namespace: << namespace >>
 spec:
   serviceName: << service_name >>
   replicas: << replicas >>

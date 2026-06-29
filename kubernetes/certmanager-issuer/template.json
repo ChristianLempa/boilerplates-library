@@ -38,16 +38,6 @@
           }
         },
         {
-          "name": "namespace",
-          "type": "str",
-          "title": "Namespace",
-          "required": false,
-          "default": "default",
-          "config": {
-            "placeholder": "default"
-          }
-        },
-        {
           "name": "acme_email",
           "type": "str",
           "title": "ACME email",
@@ -174,19 +164,6 @@
           ],
           "config": {
             "placeholder": "netcup-secret"
-          }
-        },
-        {
-          "name": "netcup_secret_namespace",
-          "type": "str",
-          "title": "Netcup secret namespace",
-          "required": false,
-          "default": "cert-manager",
-          "needs": [
-            "solver_type=netcup-dns01"
-          ],
-          "config": {
-            "placeholder": "cert-manager"
           }
         }
       ]

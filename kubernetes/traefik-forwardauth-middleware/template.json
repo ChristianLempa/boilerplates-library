@@ -30,16 +30,6 @@
           "config": {
             "placeholder": "forwardauth"
           }
-        },
-        {
-          "name": "namespace",
-          "type": "str",
-          "title": "Namespace",
-          "required": false,
-          "default": "default",
-          "config": {
-            "placeholder": "default"
-          }
         }
       ]
     },

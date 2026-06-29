@@ -22,17 +22,6 @@
       "name": "general",
       "items": [
         {
-          "name": "namespace",
-          "type": "str",
-          "title": "MetalLB namespace",
-          "required": false,
-          "default": "metallb-system",
-          "description": "Namespace where MetalLB custom resources live.",
-          "config": {
-            "placeholder": "metallb-system"
-          }
-        },
-        {
           "name": "create_namespace",
           "type": "bool",
           "title": "Create namespace",

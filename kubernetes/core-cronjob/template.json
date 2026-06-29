@@ -32,16 +32,6 @@
           }
         },
         {
-          "name": "namespace",
-          "type": "str",
-          "title": "Namespace",
-          "required": false,
-          "default": "default",
-          "config": {
-            "placeholder": "default"
-          }
-        },
-        {
           "name": "app_label",
           "type": "str",
           "title": "App Label",

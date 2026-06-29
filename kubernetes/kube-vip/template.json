@@ -22,17 +22,6 @@
       "name": "general",
       "items": [
         {
-          "name": "namespace",
-          "type": "str",
-          "title": "Namespace",
-          "required": false,
-          "default": "kube-system",
-          "description": "Namespace where kube-vip should run.",
-          "config": {
-            "placeholder": "kube-system"
-          }
-        },
-        {
           "name": "service_account_name",
           "type": "str",
           "title": "Service account",

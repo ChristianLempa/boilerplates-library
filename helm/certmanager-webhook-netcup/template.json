@@ -46,16 +46,6 @@
           }
         },
         {
-          "name": "cert_manager_namespace",
-          "type": "str",
-          "title": "cert-manager namespace",
-          "required": false,
-          "default": "cert-manager",
-          "config": {
-            "placeholder": "cert-manager"
-          }
-        },
-        {
           "name": "cert_manager_service_account_name",
           "type": "str",
           "title": "cert-manager service account",

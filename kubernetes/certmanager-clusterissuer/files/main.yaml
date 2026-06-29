@@ -30,7 +30,7 @@ spec:
             solverName: netcup
             config:
               secretRef: << netcup_secret_name >>
-              secretNamespace: << netcup_secret_namespace >>
+              secretNamespace: cert-manager
         <%- if dns_zones %>
         selector:
           dnsZones:

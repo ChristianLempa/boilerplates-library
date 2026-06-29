@@ -4,7 +4,6 @@
 # Install example:
 # helm upgrade --install << release_name >> infisical-helm-charts/infisical-standalone \
 #   --version 1.9.0 \
-#   --namespace << namespace >> \
 #   --create-namespace \
 #   --values values.yaml
 

@@ -38,16 +38,6 @@
           }
         },
         {
-          "name": "namespace",
-          "type": "str",
-          "title": "Namespace",
-          "required": false,
-          "default": "cert-manager",
-          "config": {
-            "placeholder": "cert-manager"
-          }
-        },
-        {
           "name": "customer_number",
           "type": "str",
           "title": "Customer number",

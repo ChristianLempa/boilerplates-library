@@ -2,7 +2,6 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: << resource_name >>
-  namespace: << namespace >>
 spec:
 <%- if apply_to_all_pods %>
   podSelector: {}

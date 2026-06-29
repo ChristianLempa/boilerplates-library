@@ -3,14 +3,13 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: << namespace >>
+  name: flux-system
 <%- endif %>
 ---
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: GitRepository
 metadata:
   name: << git_repository_name >>
-  namespace: << namespace >>
 spec:
   interval: << git_interval >>
   timeout: << git_timeout >>
@@ -26,7 +25,6 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: << kustomization_name >>
-  namespace: << namespace >>
 spec:
   interval: << kustomization_interval >>
   timeout: << kustomization_timeout >>
@@ -56,7 +54,6 @@ apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: << helm_repository_name >>
-  namespace: << namespace >>
 spec:
   interval: << helm_repository_interval >>
   url: << helm_repository_url >>
@@ -77,7 +74,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: << helm_repository_name >>
-        namespace: << namespace >>
+        namespace: flux-system
 <%- if helm_target_namespace_enabled %>
   install:
     createNamespace: true

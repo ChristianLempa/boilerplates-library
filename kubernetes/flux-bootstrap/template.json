@@ -22,17 +22,6 @@
       "name": "general",
       "items": [
         {
-          "name": "namespace",
-          "type": "str",
-          "title": "Flux namespace",
-          "required": false,
-          "default": "flux-system",
-          "description": "Namespace where Flux source and Kustomization resources live.",
-          "config": {
-            "placeholder": "flux-system"
-          }
-        },
-        {
           "name": "create_namespace",
           "type": "bool",
           "title": "Create namespace",

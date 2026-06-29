@@ -2,7 +2,6 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: << resource_name >>
-  namespace: << namespace >>
 spec:
   schedule: "<< schedule >>"
   suspend: << suspend | lower >>
