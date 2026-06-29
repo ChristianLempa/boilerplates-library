@@ -12,7 +12,7 @@ cainjector:
     tag: v1.20.2
 
 crds:
-  enabled: true
+  enabled: << crds_enabled >>
 <%- if dns_recursive_nameservers_only %>
 
 extraArgs:

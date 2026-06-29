@@ -19,6 +19,19 @@
   },
   "variables": [
     {
+      "title": "CRD Configuration",
+      "name": "crds",
+      "items": [
+        {
+          "name": "crds_enabled",
+          "type": "bool",
+          "title": "Install CRDs",
+          "required": false,
+          "default": true
+        }
+      ]
+    },
+    {
       "title": "DNS Configuration",
       "name": "dns",
       "items": [
