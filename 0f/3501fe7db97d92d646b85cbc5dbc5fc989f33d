@@ -1,0 +1,29 @@
+kubernetes/flux-bootstrap/files/main.yaml
+  s_f9e9ec6f39cab4::t_a8e39ad03dfecf 6,77
+kubernetes/kube-vip/files/main.yaml
+  s_f9e9ec6f39cab4::t_a8e39ad03dfecf 57,112
+kubernetes/metallb/files/main.yaml
+  s_f9e9ec6f39cab4::t_a8e39ad03dfecf 6
+kubernetes/certmanager-clusterissuer/files/main.yaml
+  s_f9e9ec6f39cab4::t_e4c6460bbce7df 33
+helm/certmanager-webhook-netcup/files/values.yaml
+  s_f9e9ec6f39cab4::t_8355cb404899a4 5
+kubernetes/certmanager-issuer/files/main.yaml
+  s_f9e9ec6f39cab4::t_e4c6460bbce7df 33
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.3",
+  "base_commit_sha": "0f3501fe7db97d92d646b85cbc5dbc5fc989f33d",
+  "prompts": {},
+  "sessions": {
+    "s_f9e9ec6f39cab4": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019f12c8-c980-7921-99c1-51499b367381",
+        "model": "gpt-5.5"
+      },
+      "human_author": "xcad <christian.lempa@clcreative.de>"
+    }
+  }
+}
