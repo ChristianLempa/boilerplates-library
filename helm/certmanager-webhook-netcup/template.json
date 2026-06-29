@@ -17,9 +17,9 @@
     },
     "draft": false,
     "version": {
-      "name": "1.0.49",
+      "name": "1.0.44",
       "source_dep_name": "aellwein/cert-manager-webhook-netcup",
-      "source_dep_version": "1.0.49"
+      "source_dep_version": "1.0.44"
     }
   },
   "variables": [
@@ -63,8 +63,9 @@
   ],
   "config": {
     "helm": {
-      "chart": "oci://ghcr.io/aellwein/cert-manager-webhook-netcup/cert-manager-webhook-netcup",
-      "version": "1.0.49"
+      "chart": "cert-manager-webhook-netcup/cert-manager-webhook-netcup",
+      "repository_url": "https://aellwein.github.io/cert-manager-webhook-netcup/charts",
+      "version": "1.0.44"
     }
   },
   "file_metadata": {}
