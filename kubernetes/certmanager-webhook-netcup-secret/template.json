@@ -1,0 +1,75 @@
+{
+  "slug": "certmanager-webhook-netcup-secret",
+  "kind": "kubernetes",
+  "metadata": {
+    "name": "Cert-Manager Webhook Netcup Secret",
+    "description": "Kubernetes Secret containing Netcup DNS API credentials for the cert-manager Netcup DNS01 webhook solver.",
+    "tags": [
+      "cert-manager",
+      "netcup",
+      "dns01",
+      "secret"
+    ],
+    "icon": {
+      "provider": "mdi",
+      "id": "certificate-outline",
+      "color": "blue"
+    },
+    "draft": false,
+    "version": {
+      "name": "1.0.44",
+      "source_dep_name": "aellwein/cert-manager-webhook-netcup",
+      "source_dep_version": "1.0.44"
+    }
+  },
+  "variables": [
+    {
+      "title": "Secret",
+      "name": "secret",
+      "items": [
+        {
+          "name": "resource_name",
+          "type": "str",
+          "title": "Secret name",
+          "required": false,
+          "default": "netcup-secret",
+          "config": {
+            "placeholder": "netcup-secret"
+          }
+        },
+        {
+          "name": "namespace",
+          "type": "str",
+          "title": "Namespace",
+          "required": false,
+          "default": "cert-manager",
+          "config": {
+            "placeholder": "cert-manager"
+          }
+        },
+        {
+          "name": "customer_number",
+          "type": "str",
+          "title": "Customer number",
+          "required": true,
+          "config": {
+            "placeholder": "123456"
+          }
+        },
+        {
+          "name": "api_key",
+          "type": "secret",
+          "title": "API key",
+          "required": true
+        },
+        {
+          "name": "api_password",
+          "type": "secret",
+          "title": "API password",
+          "required": true
+        }
+      ]
+    }
+  ],
+  "file_metadata": {}
+}
