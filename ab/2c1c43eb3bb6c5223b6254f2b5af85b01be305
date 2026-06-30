@@ -1,0 +1,19 @@
+compose/infisical/files/compose.yaml
+  s_2e26d7d0148f36::t_c569f0e577be1e 3,30,34,39,51-54,56-60,65,78,83,88,93,98,103,113,117,123,131
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.5",
+  "base_commit_sha": "ab2c1c43eb3bb6c5223b6254f2b5af85b01be305",
+  "prompts": {},
+  "sessions": {
+    "s_2e26d7d0148f36": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019f1853-5476-7551-9105-12b187eea240",
+        "model": "gpt-5.5"
+      },
+      "human_author": "xcad <christian.lempa@clcreative.de>"
+    }
+  }
+}
