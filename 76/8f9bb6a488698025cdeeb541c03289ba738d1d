@@ -1,0 +1,27 @@
+compose/infisical/files/compose.yaml
+  s_99bbb4ae638db7::t_020847cff9e114 11,13
+  s_99bbb4ae638db7::t_ed23ab79f14996 12
+compose/infisical/template.json
+  s_99bbb4ae638db7::t_78fc48055a7e38 123-130
+helm/infisical/template.json
+  s_99bbb4ae638db7::t_7269157394504e 139-146
+helm/infisical/files/values.yaml
+  s_99bbb4ae638db7::t_01b93250d4dc73 28,32
+  s_99bbb4ae638db7::t_5c9a14fc047abc 29-31,33
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.5",
+  "base_commit_sha": "768f9bb6a488698025cdeeb541c03289ba738d1d",
+  "prompts": {},
+  "sessions": {
+    "s_99bbb4ae638db7": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019f18f8-474d-7f8e-b599-58d495f76228",
+        "model": "gpt-5.5"
+      },
+      "human_author": null
+    }
+  }
+}
