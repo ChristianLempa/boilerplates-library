@@ -1,0 +1,29 @@
+---
+- name: Install Infisical CLI
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Install prerequisites
+      ansible.builtin.apt:
+        name:
+          - ca-certificates
+          - curl
+        state: present
+        update_cache: true
+
+    - name: Install Infisical CLI apt repository
+      ansible.builtin.shell: |
+        curl -1sLf 'https://artifacts-cli.infisical.com/setup.deb.sh' | bash
+      args:
+        creates: /etc/apt/sources.list.d/infisical.list
+
+    - name: Install Infisical CLI
+      ansible.builtin.apt:
+        name: infisical
+        state: present
+        update_cache: true
+
+    - name: Verify Infisical CLI
+      ansible.builtin.command: infisical --version
+      changed_when: false

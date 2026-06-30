@@ -1,0 +1,25 @@
+{
+  "slug": "infisical-cli-ansible",
+  "kind": "ansible",
+  "metadata": {
+    "name": "Install Infisical CLI",
+    "description": "Installs the Infisical CLI on Ubuntu/Debian systems using the official Infisical APT repository.",
+    "tags": [
+      "infisical",
+      "cli",
+      "apt",
+      "ansible"
+    ],
+    "icon": {
+      "provider": "simple-icons",
+      "id": "infisical",
+      "color": "green"
+    },
+    "draft": false,
+    "version": {
+      "name": "1.0.0",
+      "source_dep_name": "manual/infisical-cli"
+    }
+  },
+  "variables": []
+}
