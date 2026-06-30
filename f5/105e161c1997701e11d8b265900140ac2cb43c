@@ -1,0 +1,19 @@
+ansible/infisical-cli/template.json
+  s_a49d5100e0ecb9::t_7bf3fd1a508308 14,16
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.5",
+  "base_commit_sha": "f5105e161c1997701e11d8b265900140ac2cb43c",
+  "prompts": {},
+  "sessions": {
+    "s_a49d5100e0ecb9": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019f1924-b0c8-7f61-88bc-b1f271378d2e",
+        "model": "gpt-5.5"
+      },
+      "human_author": "xcad <christian.lempa@clcreative.de>"
+    }
+  }
+}
