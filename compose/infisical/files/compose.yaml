@@ -8,6 +8,9 @@ services:
     <%- endif %>
     environment:
       - NODE_ENV=production
+      <%- if infisical_allow_internal_ip_connections %>
+      - ALLOW_INTERNAL_IP_CONNECTIONS=true
+      <%- endif %>
       - SITE_URL=${SITE_URL}
       - ENCRYPTION_KEY=${ENCRYPTION_KEY}
       - AUTH_SECRET=${AUTH_SECRET}
@@ -24,6 +27,12 @@ services:
       - SMTP_REQUIRE_TLS=${SMTP_REQUIRE_TLS}
       - SMTP_IGNORE_TLS=${SMTP_IGNORE_TLS}
       <%- endif %>
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8080/api/status || exit 1"]
+      interval: 30s
+      timeout: 3s
+      start_period: 120s
+      retries: 3
     <%- if (not database_external) or (not redis_external) %>
     depends_on:
       <%- if not database_external %>

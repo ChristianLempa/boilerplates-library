@@ -25,6 +25,12 @@ infisical:
   service:
     type: << service_type >>
 
+  <%- if infisical_allow_internal_ip_connections %>
+  extraEnv:
+    - name: ALLOW_INTERNAL_IP_CONNECTIONS
+      value: "true"
+  <%- endif %>
+
   autoBootstrap:
     enabled: false
 

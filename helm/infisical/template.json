@@ -136,6 +136,14 @@
           "needs": [
             "infisical_secret_existing=false"
           ]
+        },
+        {
+          "name": "infisical_allow_internal_ip_connections",
+          "type": "bool",
+          "title": "Allow Internal IP Connections",
+          "required": false,
+          "default": true,
+          "description": "Allow Infisical to connect to internal/private IP addresses. Disable this for stricter SSRF protection."
         }
       ]
     },
