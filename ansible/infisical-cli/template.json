@@ -11,9 +11,9 @@
       "ansible"
     ],
     "icon": {
-      "provider": "simple-icons",
+      "provider": "selfhst",
       "id": "infisical",
-      "color": "green"
+      "color": "amber"
     },
     "draft": false,
     "version": {
