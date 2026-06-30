@@ -1,0 +1,19 @@
+compose/infisical/files/.env
+  s_423967b406da20::t_8b260c3fc50cd3 13,19
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.5",
+  "base_commit_sha": "9ae1320d86f8ed72cbbddf98c18084c3f561b143",
+  "prompts": {},
+  "sessions": {
+    "s_423967b406da20": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019f188c-5e88-7f2d-abbf-e159b30888fd",
+        "model": "gpt-5.5"
+      },
+      "human_author": "xcad <christian.lempa@clcreative.de>"
+    }
+  }
+}
