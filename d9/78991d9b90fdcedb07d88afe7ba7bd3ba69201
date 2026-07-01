@@ -1,0 +1,41 @@
+packer/proxmox-ubuntu-26.04-lts/files/build.pkr.hcl
+  s_8c213f225c9a27::t_cdbb26323e51e8 1-98
+packer/proxmox-ubuntu-26.04-lts/files/http/user-data
+  s_8c213f225c9a27::t_e7372c89b4361f 1-38
+packer/proxmox-ubuntu-24.04-lts/files/files/99-pve.cfg
+  s_8c213f225c9a27::t_52db8d70d7a594 1
+packer/proxmox-ubuntu-24.04-lts/template.json
+  s_8c213f225c9a27::t_41d5904b4fcfc2 1-67
+packer/proxmox-ubuntu-24.04-lts/files/build.pkr.hcl
+  s_8c213f225c9a27::t_821ef7d2171399 1-97
+packer/proxmox-ubuntu-26.04-lts/template.json
+  s_8c213f225c9a27::t_a5861a2eae88ea 1-67
+packer/proxmox-ubuntu-24.04-lts/files/http/user-data
+  s_8c213f225c9a27::t_7a28a58ed008b7 1-36
+packer/proxmox-ubuntu-26.04-lts/files/files/99-pve.cfg
+  s_8c213f225c9a27::t_2059f19f5c95c6 1
+packer/proxmox-ubuntu-26.04-lts/files/config.pkr.hcl
+  s_8c213f225c9a27::t_60707c4b29d928 12,17,23,28,34
+  s_8c213f225c9a27::t_f632fc402e8c13 1-10,13-15,18-22,24-26,29-33,35-40
+  s_8c213f225c9a27::t_db1bfe0beaff17 11,16,27
+packer/proxmox-ubuntu-24.04-lts/files/config.pkr.hcl
+  s_8c213f225c9a27::t_8b9740b0d71d51 1-10,13-15,18-22,24-26,29-33,35-42
+  s_8c213f225c9a27::t_920691698b9955 11,16,27
+  s_8c213f225c9a27::t_e83d2f3071b493 12,17,23,28,34
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.8",
+  "base_commit_sha": "d978991d9b90fdcedb07d88afe7ba7bd3ba69201",
+  "prompts": {},
+  "sessions": {
+    "s_8c213f225c9a27": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019f1d64-1335-77d5-adc9-abf7fe601dba",
+        "model": "gpt-5.5"
+      },
+      "human_author": "xcad <christian.lempa@clcreative.de>"
+    }
+  }
+}
