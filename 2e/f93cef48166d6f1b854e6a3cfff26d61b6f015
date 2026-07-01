@@ -1,0 +1,85 @@
+packer/proxmox-nixos/files/http/user-data
+  s_8c213f225c9a27::t_a4da1567df11f5 1
+packer/proxmox-vyos/template.json
+  s_8c213f225c9a27::t_50764d516c693f 198-207
+  s_8c213f225c9a27::t_a4da1567df11f5 1-197,208-258
+packer/proxmox-fedora-server/template.json
+  s_8c213f225c9a27::t_a4da1567df11f5 1-258
+packer/proxmox-debian-12/files/http/preseed.cfg
+  s_8c213f225c9a27::t_a4da1567df11f5 1-13
+packer/proxmox-nixos/files/files/99-pve.cfg
+  s_8c213f225c9a27::t_a4da1567df11f5 1
+packer/proxmox-opensuse-microos/template.json
+  s_8c213f225c9a27::t_a4da1567df11f5 1-258
+packer/proxmox-fedora-server/files/http/ks.cfg
+  s_8c213f225c9a27::t_a4da1567df11f5 1-18
+packer/proxmox-opensuse-microos/files/main.pkr.hcl
+  s_8c213f225c9a27::t_a4da1567df11f5 1-71
+packer/proxmox-vyos/files/http/user-data
+  s_8c213f225c9a27::t_a4da1567df11f5 1
+packer/proxmox-debian-12/files/config.pkr.hcl
+  s_8c213f225c9a27::t_a4da1567df11f5 1-40
+packer/proxmox-nixos/files/config.pkr.hcl
+  s_8c213f225c9a27::t_a4da1567df11f5 1-40
+packer/proxmox-opensuse-microos/files/http/user-data
+  s_8c213f225c9a27::t_a4da1567df11f5 1
+packer/proxmox-talos/files/main.pkr.hcl
+  s_8c213f225c9a27::t_a4da1567df11f5 1-54
+packer/proxmox-talos/template.json
+  s_8c213f225c9a27::t_50764d516c693f 198-207
+  s_8c213f225c9a27::t_a4da1567df11f5 1-197,208-258
+packer/proxmox-debian-12/files/main.pkr.hcl
+  s_8c213f225c9a27::t_a4da1567df11f5 1-72
+packer/proxmox-nixos/template.json
+  s_8c213f225c9a27::t_a4da1567df11f5 1-258
+packer/proxmox-opensuse-microos/files/config.pkr.hcl
+  s_8c213f225c9a27::t_a4da1567df11f5 1-40
+packer/proxmox-fedora-server/files/config.pkr.hcl
+  s_8c213f225c9a27::t_a4da1567df11f5 1-40
+packer/proxmox-talos/files/http/user-data
+  s_8c213f225c9a27::t_a4da1567df11f5 1
+packer/proxmox-debian-12/template.json
+  s_8c213f225c9a27::t_a4da1567df11f5 1-258
+packer/proxmox-opensuse-microos/files/files/99-pve.cfg
+  s_8c213f225c9a27::t_a4da1567df11f5 1
+packer/proxmox-vyos/files/config.pkr.hcl
+  s_8c213f225c9a27::t_a4da1567df11f5 1-40
+packer/proxmox-fedora-server/files/http/user-data
+  s_8c213f225c9a27::t_a4da1567df11f5 1
+packer/proxmox-vyos/files/files/99-pve.cfg
+  s_8c213f225c9a27::t_a4da1567df11f5 1
+packer/proxmox-fedora-server/files/files/99-pve.cfg
+  s_8c213f225c9a27::t_a4da1567df11f5 1
+packer/proxmox-talos/files/files/99-pve.cfg
+  s_8c213f225c9a27::t_a4da1567df11f5 1
+packer/proxmox-nixos/files/main.pkr.hcl
+  s_8c213f225c9a27::t_a4da1567df11f5 1-69
+packer/proxmox-talos/files/config.pkr.hcl
+  s_8c213f225c9a27::t_a4da1567df11f5 1-40
+packer/proxmox-debian-12/files/files/99-pve.cfg
+  s_8c213f225c9a27::t_a4da1567df11f5 1
+packer/proxmox-debian-12/files/http/user-data
+  s_8c213f225c9a27::t_a4da1567df11f5 1
+packer/proxmox-nixos/files/files/configuration.nix
+  s_8c213f225c9a27::t_a4da1567df11f5 1-22
+packer/proxmox-fedora-server/files/main.pkr.hcl
+  s_8c213f225c9a27::t_a4da1567df11f5 1-71
+packer/proxmox-vyos/files/main.pkr.hcl
+  s_8c213f225c9a27::t_a4da1567df11f5 1-54
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.8",
+  "base_commit_sha": "2ef93cef48166d6f1b854e6a3cfff26d61b6f015",
+  "prompts": {},
+  "sessions": {
+    "s_8c213f225c9a27": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019f1d64-1335-77d5-adc9-abf7fe601dba",
+        "model": "gpt-5.5"
+      },
+      "human_author": "xcad <christian.lempa@clcreative.de>"
+    }
+  }
+}
