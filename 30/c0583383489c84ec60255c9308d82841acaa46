@@ -1,0 +1,54 @@
+packer/proxmox-ubuntu-24.04-lts/template.json
+  s_8c213f225c9a27::t_87c6d96c396373 7-12,26-61,66-124,131-190,197-256,263-301
+packer/proxmox-ubuntu-26.04-lts/template.json
+  s_8c213f225c9a27::t_87c6d96c396373 7-12,26-61,66-124,131-190,197-256,263-302
+packer/proxmox-ubuntu-24.04-lts/files/config.pkr.hcl
+  s_8c213f225c9a27::t_87c6d96c396373 12,17,23,34
+packer/proxmox-opensuse-microos/files/config.pkr.hcl
+  s_8c213f225c9a27::t_87c6d96c396373 12,17,23
+packer/proxmox-nixos/files/files/configuration.nix
+  s_8c213f225c9a27::t_87c6d96c396373 4-7,17
+packer/proxmox-fedora-server/files/config.pkr.hcl
+  s_8c213f225c9a27::t_87c6d96c396373 12,17,23
+packer/proxmox-debian-12/template.json
+  s_8c213f225c9a27::t_87c6d96c396373 25-59
+  s_8c213f225c9a27::t_61dc522c36e970 24
+packer/proxmox-nixos/files/config.pkr.hcl
+  s_8c213f225c9a27::t_87c6d96c396373 12,17,23
+packer/proxmox-opensuse-microos/template.json
+  s_8c213f225c9a27::t_87c6d96c396373 25-59
+  s_8c213f225c9a27::t_a6e4a0f8b26ce4 24
+packer/proxmox-ubuntu-26.04-lts/files/config.pkr.hcl
+  s_8c213f225c9a27::t_87c6d96c396373 12,17,23,34
+packer/proxmox-nixos/template.json
+  s_8c213f225c9a27::t_87c6d96c396373 25-59
+  s_8c213f225c9a27::t_7aa65d4c34afff 24
+packer/proxmox-talos/files/config.pkr.hcl
+  s_8c213f225c9a27::t_87c6d96c396373 12,17,23
+packer/proxmox-talos/files/main.pkr.hcl
+  s_8c213f225c9a27::t_87c6d96c396373 72
+packer/proxmox-talos/template.json
+  s_8c213f225c9a27::t_87c6d96c396373 25-59,293-303,305,307-328,330
+  s_8c213f225c9a27::t_f693eacfbe14ca 24
+packer/proxmox-debian-12/files/config.pkr.hcl
+  s_8c213f225c9a27::t_87c6d96c396373 12,17,23
+packer/proxmox-fedora-server/template.json
+  s_8c213f225c9a27::t_87c6d96c396373 25-59
+  s_8c213f225c9a27::t_c6a5745b4a76b0 24
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.8",
+  "base_commit_sha": "30c0583383489c84ec60255c9308d82841acaa46",
+  "prompts": {},
+  "sessions": {
+    "s_8c213f225c9a27": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019f1d64-1335-77d5-adc9-abf7fe601dba",
+        "model": "gpt-5.5"
+      },
+      "human_author": "xcad <christian.lempa@clcreative.de>"
+    }
+  }
+}
