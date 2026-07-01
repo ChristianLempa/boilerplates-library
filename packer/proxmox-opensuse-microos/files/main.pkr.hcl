@@ -39,7 +39,10 @@ source "proxmox-iso" "<< packer_source_name >>" {
     firewall = "false"
   }
 
-  boot_command = []
+  boot_command = [
+    "<enter><wait30>",
+    "<enter><wait>"
+  ]
 
   boot           = "c"
   boot_wait      = "<< boot_wait >>"

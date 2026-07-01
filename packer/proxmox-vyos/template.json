@@ -3,7 +3,7 @@
   "kind": "packer",
   "metadata": {
     "name": "Proxmox VyOS Template",
-    "description": "Builds a VyOS VM template on Proxmox for virtual routers, network labs, and firewall testing.",
+    "description": "Starter Proxmox Packer template for VyOS router images. The rendered template boots the live ISO with communicator none and is intended for further install automation testing.",
     "tags": [
       "proxmox",
       "packer"

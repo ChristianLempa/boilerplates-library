@@ -39,7 +39,20 @@ source "proxmox-iso" "<< packer_source_name >>" {
     firewall = "false"
   }
 
-  boot_command = ["<esc><wait>", "install auto=true priority=critical preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg <enter>"]
+  boot_command = [
+    "<esc><wait>",
+    "install <wait>",
+    "auto=true <wait>",
+    "priority=critical <wait>",
+    "debconf/priority=critical <wait>",
+    "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg <wait>",
+    "debian-installer=en_US.UTF-8 <wait>",
+    "locale=<< locale >> <wait>",
+    "keyboard-configuration/xkb-keymap=<< keyboard_layout >> <wait>",
+    "net.ifnames=0 <wait>",
+    "--- <wait>",
+    "<enter><wait>"
+  ]
 
   boot           = "c"
   boot_wait      = "<< boot_wait >>"

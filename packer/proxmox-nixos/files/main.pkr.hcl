@@ -39,7 +39,13 @@ source "proxmox-iso" "<< packer_source_name >>" {
     firewall = "false"
   }
 
-  boot_command = []
+  boot_command = [
+    "<enter><wait10>",
+    "sudo passwd nixos<enter><wait>",
+    "<< ssh_password >><enter><wait>",
+    "<< ssh_password >><enter><wait>",
+    "sudo systemctl start sshd<enter><wait>"
+  ]
 
   boot           = "c"
   boot_wait      = "<< boot_wait >>"
@@ -61,8 +67,26 @@ build {
 
   provisioner "shell" {
     inline = [
-      "sudo nix-collect-garbage -d || true",
-      "sudo rm -f /etc/ssh/ssh_host_* || true",
+      "set -eux",
+      "sudo parted /dev/vda -- mklabel msdos",
+      "sudo parted /dev/vda -- mkpart primary ext4 1MiB 100%",
+      "sudo mkfs.ext4 -F /dev/vda1",
+      "sudo mount /dev/vda1 /mnt",
+      "sudo nixos-generate-config --root /mnt"
+    ]
+  }
+
+  provisioner "file" {
+    source      = "files/configuration.nix"
+    destination = "/tmp/configuration.nix"
+  }
+
+  provisioner "shell" {
+    inline = [
+      "set -eux",
+      "sudo cp /tmp/configuration.nix /mnt/etc/nixos/configuration.nix",
+      "sudo nixos-install --no-root-passwd",
+      "sudo rm -f /mnt/etc/ssh/ssh_host_* || true",
       "sudo sync"
     ]
   }

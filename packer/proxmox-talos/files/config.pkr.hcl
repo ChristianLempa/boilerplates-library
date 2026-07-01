@@ -25,7 +25,7 @@ variable "proxmox_api_token_secret" {
 
 variable "ssh_username" {
   type    = string
-  default = "<< admin_username >>"
+  default = "root"
 }
 
 variable "ssh_password" {

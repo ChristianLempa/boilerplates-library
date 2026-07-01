@@ -39,16 +39,39 @@ source "proxmox-iso" "<< packer_source_name >>" {
     firewall = "false"
   }
 
-  boot_command = []
+  boot_command = [
+    "<enter><wait10>",
+    "passwd<enter><wait>",
+    "<< ssh_password >><enter><wait>",
+    "<< ssh_password >><enter><wait>",
+    "systemctl start sshd<enter><wait>"
+  ]
 
   boot           = "c"
   boot_wait      = "<< boot_wait >>"
-  communicator   = "none"
+  communicator   = "ssh"
   http_directory = "http"
   http_interface = var.http_interface
+
+  ssh_username = var.ssh_username
+  ssh_password = var.ssh_password
+
+  ssh_timeout            = "<< ssh_timeout >>"
+  ssh_pty                = true
+  ssh_handshake_attempts = 30
 }
 
 build {
   name = "<< packer_source_name >>"
   sources = ["source.proxmox-iso.<< packer_source_name >>"]
+
+  provisioner "shell" {
+    inline = [
+      "set -eux",
+      "pacman -Sy --noconfirm curl xz",
+      "curl -L '<< talos_image_url >>' -o /tmp/talos.raw.xz",
+      "xz -d -c /tmp/talos.raw.xz | dd of=/dev/vda bs=4M status=progress conv=fsync",
+      "sync"
+    ]
+  }
 }

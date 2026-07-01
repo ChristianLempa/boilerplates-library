@@ -191,17 +191,18 @@
           "type": "str",
           "title": "Admin Username",
           "required": true,
-          "default": "admin",
+          "default": "nixos",
           "config": {
-            "placeholder": "admin"
-          }
+            "placeholder": "nixos"
+          },
+          "description": "Temporary NixOS live ISO user used by Packer SSH."
         },
         {
           "name": "ssh_password",
           "type": "str",
           "title": "SSH Password",
           "required": true,
-          "description": "Temporary installation password used by Packer SSH during image creation.",
+          "description": "Temporary password assigned to the NixOS live user for Packer SSH.",
           "config": {
             "placeholder": "CHANGEME"
           }

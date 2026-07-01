@@ -39,7 +39,7 @@ source "proxmox-iso" "<< packer_source_name >>" {
     firewall = "false"
   }
 
-  boot_command = ["<up><wait>", "e<wait>", "<down><down><end> inst.ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<wait>", "<leftCtrlOn>x<leftCtrlOff>"]
+  boot_command = ["<up><wait>", "e<wait>", "<down><down><end> inst.text inst.ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<wait>", "<leftCtrlOn>x<leftCtrlOff>"]
 
   boot           = "c"
   boot_wait      = "<< boot_wait >>"

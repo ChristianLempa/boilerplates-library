@@ -49,19 +49,19 @@
           "type": "str",
           "title": "Template Description",
           "required": false,
-          "default": "Talos Linux Kubernetes node template",
+          "default": "Talos Linux nocloud template",
           "config": {
-            "placeholder": "Talos Linux Kubernetes node template"
+            "placeholder": "Talos Linux nocloud template"
           }
         },
         {
           "name": "iso_file",
           "type": "str",
-          "title": "ISO File",
+          "title": "Build ISO File",
           "required": true,
-          "default": "local:iso/talos-amd64.iso",
+          "default": "local:iso/archlinux-x86_64.iso",
           "config": {
-            "placeholder": "local:iso/talos-amd64.iso"
+            "placeholder": "local:iso/archlinux-x86_64.iso"
           }
         },
         {
@@ -191,17 +191,18 @@
           "type": "str",
           "title": "Admin Username",
           "required": true,
-          "default": "admin",
+          "default": "root",
           "config": {
-            "placeholder": "admin"
-          }
+            "placeholder": "root"
+          },
+          "description": "Temporary build user for the Arch live environment."
         },
         {
           "name": "ssh_password",
           "type": "str",
           "title": "SSH Password",
-          "required": false,
-          "description": "Optional placeholder used by shared Packer variable defaults; Talos/VyOS templates use communicator none by default.",
+          "required": true,
+          "description": "Temporary password assigned to the Arch live root user for Packer SSH.",
           "config": {
             "placeholder": "CHANGEME"
           }
@@ -250,6 +251,17 @@
           "default": "en0",
           "config": {
             "placeholder": "en0"
+          }
+        },
+        {
+          "name": "talos_image_url",
+          "type": "str",
+          "title": "Talos Image URL",
+          "required": true,
+          "default": "https://factory.talos.dev/image/nocloud/installer/latest/metal-amd64.raw.xz",
+          "description": "Talos nocloud raw.xz image that will be written to the VM disk from the temporary live environment.",
+          "config": {
+            "placeholder": "https://factory.talos.dev/image/nocloud/installer/latest/metal-amd64.raw.xz"
           }
         }
       ]
