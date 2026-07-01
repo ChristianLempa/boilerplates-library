@@ -22,6 +22,42 @@
   },
   "variables": [
     {
+      "title": "Credentials",
+      "name": "credentials",
+      "items": [
+        {
+          "name": "proxmox_api_url",
+          "type": "str",
+          "title": "Proxmox API URL",
+          "required": true,
+          "default": "https://proxmox.example.com:8006/api2/json",
+          "config": {
+            "placeholder": "https://proxmox.example.com:8006/api2/json"
+          }
+        },
+        {
+          "name": "proxmox_api_token_id",
+          "type": "str",
+          "title": "Proxmox API Token ID",
+          "required": true,
+          "default": "packer@pve!token",
+          "config": {
+            "placeholder": "packer@pve!token"
+          }
+        },
+        {
+          "name": "proxmox_api_token_secret",
+          "type": "str",
+          "title": "Proxmox API Token Secret",
+          "required": true,
+          "description": "Packer runtime secret for the Proxmox API token. Prefer overriding this at generation time or via pkrvars instead of committing real secrets.",
+          "config": {
+            "placeholder": "CHANGEME"
+          }
+        }
+      ]
+    },
+    {
       "title": "Proxmox",
       "name": "proxmox",
       "items": [

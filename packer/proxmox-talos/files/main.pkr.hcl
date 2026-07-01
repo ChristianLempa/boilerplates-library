@@ -69,7 +69,7 @@ build {
     inline = [
       "set -eux",
       "pacman -Sy --noconfirm curl xz",
-      "curl -L '<< talos_image_url >>' -o /tmp/talos.raw.xz",
+      "curl -L 'https://factory.talos.dev/image/<< talos_schematic_id >>/<< talos_version >>/metal-<< talos_arch >>.raw.xz' -o /tmp/talos.raw.xz",
       "xz -d -c /tmp/talos.raw.xz | dd of=/dev/vda bs=4M status=progress conv=fsync",
       "sync"
     ]

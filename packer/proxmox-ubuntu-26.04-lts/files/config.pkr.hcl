@@ -9,18 +9,18 @@ packer {
 
 variable "proxmox_api_url" {
   type    = string
-  default = "https://proxmox.example.com:8006/api2/json"
+  default = "<< proxmox_api_url >>"
 }
 
 variable "proxmox_api_token_id" {
   type    = string
-  default = "packer@pve!token"
+  default = "<< proxmox_api_token_id >>"
 }
 
 variable "proxmox_api_token_secret" {
   type      = string
   sensitive = true
-  default   = "CHANGEME"
+  default   = "<< proxmox_api_token_secret >>"
 }
 
 variable "ssh_username" {
@@ -31,7 +31,7 @@ variable "ssh_username" {
 variable "ssh_password" {
   type      = string
   sensitive = true
-  default   = "CHANGEME"
+  default   = "<%- if ssh_password %><< ssh_password >><%- else %>CHANGEME<%- endif %>"
 }
 
 variable "http_interface" {
