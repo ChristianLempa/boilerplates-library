@@ -12,20 +12,20 @@
     ],
     "icon": {
       "provider": "selfhst",
-      "id": "proxmox",
+      "id": "ubuntu",
       "color": "orange"
     },
     "draft": false,
     "version": {
-      "name": "1.0.0",
+      "name": "1.0.0-1",
       "source_dep_name": "github.com/hashicorp/proxmox",
-      "source_dep_version": ">= 1.1.3"
+      "source_dep_version": "\u003e= 1.1.3"
     }
   },
   "variables": [
     {
-      "title": "Credentials",
       "name": "credentials",
+      "title": "Credentials",
       "items": [
         {
           "name": "proxmox_api_url",
@@ -60,8 +60,8 @@
       ]
     },
     {
-      "title": "Proxmox",
       "name": "proxmox",
+      "title": "Proxmox",
       "items": [
         {
           "name": "proxmox_node",
@@ -125,8 +125,8 @@
       ]
     },
     {
-      "title": "Hardware",
       "name": "hardware",
+      "title": "Hardware",
       "items": [
         {
           "name": "cpu_cores",
@@ -191,8 +191,8 @@
       ]
     },
     {
-      "title": "Guest",
       "name": "guest",
+      "title": "Guest",
       "items": [
         {
           "name": "locale",
@@ -257,8 +257,8 @@
       ]
     },
     {
-      "title": "Build",
       "name": "build",
+      "title": "Build",
       "items": [
         {
           "name": "packer_source_name",
