@@ -1,0 +1,258 @@
+{
+  "slug": "proxmox-opensuse-microos",
+  "kind": "packer",
+  "metadata": {
+    "name": "Proxmox openSUSE MicroOS Template",
+    "description": "Builds an openSUSE MicroOS VM template on Proxmox for transactional container hosts.",
+    "tags": [
+      "proxmox",
+      "packer"
+    ],
+    "icon": {
+      "provider": "simple-icons",
+      "id": "opensuse",
+      "color": "emerald"
+    },
+    "draft": false,
+    "version": {
+      "name": "1.0.0",
+      "source_dep_name": "github.com/hashicorp/proxmox",
+      "source_dep_version": ">= 1.1.3"
+    }
+  },
+  "variables": [
+    {
+      "title": "Proxmox",
+      "name": "proxmox",
+      "items": [
+        {
+          "name": "proxmox_node",
+          "type": "str",
+          "title": "Proxmox Node",
+          "required": true,
+          "config": {
+            "placeholder": "prx-prod-1"
+          }
+        },
+        {
+          "name": "vm_name",
+          "type": "str",
+          "title": "Template VM Name",
+          "required": true,
+          "default": "pkr-opensuse-microos",
+          "config": {
+            "placeholder": "pkr-opensuse-microos"
+          }
+        },
+        {
+          "name": "template_description",
+          "type": "str",
+          "title": "Template Description",
+          "required": false,
+          "default": "openSUSE MicroOS template",
+          "config": {
+            "placeholder": "openSUSE MicroOS template"
+          }
+        },
+        {
+          "name": "iso_file",
+          "type": "str",
+          "title": "ISO File",
+          "required": true,
+          "default": "local:iso/openSUSE-MicroOS-DVD-x86_64.iso",
+          "config": {
+            "placeholder": "local:iso/openSUSE-MicroOS-DVD-x86_64.iso"
+          }
+        },
+        {
+          "name": "iso_storage_pool",
+          "type": "str",
+          "title": "ISO Storage Pool",
+          "required": false,
+          "default": "local",
+          "config": {
+            "placeholder": "local"
+          }
+        },
+        {
+          "name": "cloud_init_storage_pool",
+          "type": "str",
+          "title": "Cloud-Init Storage Pool",
+          "required": false,
+          "default": "rbd",
+          "config": {
+            "placeholder": "rbd"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Hardware",
+      "name": "hardware",
+      "items": [
+        {
+          "name": "cpu_cores",
+          "type": "str",
+          "title": "CPU Cores",
+          "required": false,
+          "default": "2",
+          "config": {
+            "placeholder": "2"
+          }
+        },
+        {
+          "name": "cpu_sockets",
+          "type": "str",
+          "title": "CPU Sockets",
+          "required": false,
+          "default": "1",
+          "config": {
+            "placeholder": "1"
+          }
+        },
+        {
+          "name": "memory",
+          "type": "str",
+          "title": "Memory (MiB)",
+          "required": false,
+          "default": "2048",
+          "config": {
+            "placeholder": "2048"
+          }
+        },
+        {
+          "name": "disk_size",
+          "type": "str",
+          "title": "Disk Size",
+          "required": false,
+          "default": "20G",
+          "config": {
+            "placeholder": "20G"
+          }
+        },
+        {
+          "name": "disk_storage_pool",
+          "type": "str",
+          "title": "Disk Storage Pool",
+          "required": false,
+          "default": "rbd",
+          "config": {
+            "placeholder": "rbd"
+          }
+        },
+        {
+          "name": "network_bridge",
+          "type": "str",
+          "title": "Network Bridge",
+          "required": false,
+          "default": "vmbr1",
+          "config": {
+            "placeholder": "vmbr1"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Guest",
+      "name": "guest",
+      "items": [
+        {
+          "name": "locale",
+          "type": "str",
+          "title": "Locale",
+          "required": false,
+          "default": "en_US",
+          "config": {
+            "placeholder": "en_US"
+          }
+        },
+        {
+          "name": "keyboard_layout",
+          "type": "str",
+          "title": "Keyboard Layout",
+          "required": false,
+          "default": "de",
+          "config": {
+            "placeholder": "de"
+          }
+        },
+        {
+          "name": "timezone",
+          "type": "str",
+          "title": "Timezone",
+          "required": false,
+          "default": "Europe/Berlin",
+          "config": {
+            "placeholder": "Europe/Berlin"
+          }
+        },
+        {
+          "name": "admin_username",
+          "type": "str",
+          "title": "Admin Username",
+          "required": true,
+          "default": "admin",
+          "config": {
+            "placeholder": "admin"
+          }
+        },
+        {
+          "name": "ssh_password",
+          "type": "str",
+          "title": "SSH Password",
+          "required": true,
+          "description": "Temporary installation password used by Packer SSH during image creation.",
+          "config": {
+            "placeholder": "CHANGEME"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Build",
+      "name": "build",
+      "items": [
+        {
+          "name": "packer_source_name",
+          "type": "str",
+          "title": "Packer Source Name",
+          "required": false,
+          "default": "pkr-opensuse-microos",
+          "config": {
+            "placeholder": "pkr-opensuse-microos"
+          }
+        },
+        {
+          "name": "boot_wait",
+          "type": "str",
+          "title": "Boot Wait",
+          "required": false,
+          "default": "10s",
+          "config": {
+            "placeholder": "10s"
+          }
+        },
+        {
+          "name": "ssh_timeout",
+          "type": "str",
+          "title": "SSH Timeout",
+          "required": false,
+          "default": "35m",
+          "config": {
+            "placeholder": "35m"
+          }
+        },
+        {
+          "name": "http_interface",
+          "type": "str",
+          "title": "HTTP Interface",
+          "required": false,
+          "default": "en0",
+          "config": {
+            "placeholder": "en0"
+          }
+        }
+      ]
+    }
+  ]
+}
