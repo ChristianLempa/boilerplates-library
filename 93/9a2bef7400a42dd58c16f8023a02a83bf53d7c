@@ -1,0 +1,40 @@
+packer/proxmox-nixos/files/main.pkr.hcl
+  s_8c213f225c9a27::t_d2112e96d5329a 42-48,70-89
+packer/proxmox-nixos/template.json
+  s_8c213f225c9a27::t_d2112e96d5329a 194,196-198,205
+packer/proxmox-debian-12/files/main.pkr.hcl
+  s_8c213f225c9a27::t_c3a77f79366970 42-55
+packer/proxmox-talos/files/config.pkr.hcl
+  s_8c213f225c9a27::t_c3a77f79366970 28
+packer/proxmox-talos/template.json
+  s_8c213f225c9a27::t_c3a77f79366970 52,54,60,62,64,194,196-198,204-205,255-264
+  s_8c213f225c9a27::t_bba3b5e556ece5 265
+packer/proxmox-debian-12/files/http/preseed.cfg
+  s_8c213f225c9a27::t_c3a77f79366970 11-15
+packer/proxmox-nixos/files/config.pkr.hcl
+  s_8c213f225c9a27::t_d2112e96d5329a 28
+packer/proxmox-opensuse-microos/files/main.pkr.hcl
+  s_8c213f225c9a27::t_d2112e96d5329a 42-45
+packer/proxmox-talos/files/main.pkr.hcl
+  s_8c213f225c9a27::t_c3a77f79366970 42-48,52,55-61,67-76
+packer/proxmox-vyos/template.json
+  s_8c213f225c9a27::t_d2112e96d5329a 6
+packer/proxmox-fedora-server/files/main.pkr.hcl
+  s_8c213f225c9a27::t_d2112e96d5329a 42
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.8",
+  "base_commit_sha": "939a2bef7400a42dd58c16f8023a02a83bf53d7c",
+  "prompts": {},
+  "sessions": {
+    "s_8c213f225c9a27": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019f1d64-1335-77d5-adc9-abf7fe601dba",
+        "model": "gpt-5.5"
+      },
+      "human_author": "xcad <christian.lempa@clcreative.de>"
+    }
+  }
+}
