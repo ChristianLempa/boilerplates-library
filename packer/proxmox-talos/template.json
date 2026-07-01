@@ -10,20 +10,20 @@
     ],
     "icon": {
       "provider": "simple-icons",
-      "id": "kubernetes",
-      "color": "blue"
+      "id": "talos",
+      "color": "rose"
     },
     "draft": false,
     "version": {
-      "name": "1.0.0",
+      "name": "1.0.0-2",
       "source_dep_name": "github.com/hashicorp/proxmox",
-      "source_dep_version": ">= 1.1.3"
+      "source_dep_version": "\u003e= 1.1.3"
     }
   },
   "variables": [
     {
-      "title": "Credentials",
       "name": "credentials",
+      "title": "Credentials",
       "items": [
         {
           "name": "proxmox_api_url",
@@ -58,8 +58,8 @@
       ]
     },
     {
-      "title": "Proxmox",
       "name": "proxmox",
+      "title": "Proxmox",
       "items": [
         {
           "name": "proxmox_node",
@@ -123,8 +123,8 @@
       ]
     },
     {
-      "title": "Hardware",
       "name": "hardware",
+      "title": "Hardware",
       "items": [
         {
           "name": "cpu_cores",
@@ -189,8 +189,8 @@
       ]
     },
     {
-      "title": "Guest",
       "name": "guest",
+      "title": "Guest",
       "items": [
         {
           "name": "locale",
@@ -228,10 +228,10 @@
           "title": "Admin Username",
           "required": true,
           "default": "root",
+          "description": "Temporary build user for the Arch live environment.",
           "config": {
             "placeholder": "root"
-          },
-          "description": "Temporary build user for the Arch live environment."
+          }
         },
         {
           "name": "ssh_password",
@@ -246,8 +246,8 @@
       ]
     },
     {
-      "title": "Build",
       "name": "build",
+      "title": "Build",
       "items": [
         {
           "name": "packer_source_name",
