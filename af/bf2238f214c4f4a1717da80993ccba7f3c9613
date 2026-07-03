@@ -1,0 +1,20 @@
+compose/nextcloud/files/compose.yaml
+  s_2be5defb2774c5::t_d491343fe6a7b4 7,9,70,72,111,113,127,129
+  s_2be5defb2774c5::t_86b23630f55053 104-105
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.9",
+  "base_commit_sha": "afbf2238f214c4f4a1717da80993ccba7f3c9613",
+  "prompts": {},
+  "sessions": {
+    "s_2be5defb2774c5": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019f26fe-7bda-70cd-9ef7-da68218f14c2",
+        "model": "gpt-5.5"
+      },
+      "human_author": "xcad <christian.lempa@clcreative.de>"
+    }
+  }
+}
