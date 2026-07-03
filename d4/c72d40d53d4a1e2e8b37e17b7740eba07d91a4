@@ -1,0 +1,39 @@
+compose/nginx/template.json
+  s_2be5defb2774c5::t_3352dc5490160f 136
+compose/nextcloud/template.json
+  s_2be5defb2774c5::t_3352dc5490160f 194,221
+compose/n8n/template.json
+  s_2be5defb2774c5::t_3352dc5490160f 150,180
+compose/renovate/template.json
+  s_2be5defb2774c5::t_3352dc5490160f 160
+compose/netbird/template.json
+  s_2be5defb2774c5::t_3352dc5490160f 156,204
+compose/openwebui/template.json
+  s_2be5defb2774c5::t_3352dc5490160f 151,178
+compose/whoami/template.json
+  s_2be5defb2774c5::t_3352dc5490160f 104
+compose/teleport/template.json
+  s_2be5defb2774c5::t_3352dc5490160f 224,241
+compose/kestra/template.json
+  s_2be5defb2774c5::t_3352dc5490160f 220,267
+compose/alloy/template.json
+  s_2be5defb2774c5::t_3352dc5490160f 225
+compose/infisical/template.json
+  s_2be5defb2774c5::t_3352dc5490160f 396,458
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.9",
+  "base_commit_sha": "d4c72d40d53d4a1e2e8b37e17b7740eba07d91a4",
+  "prompts": {},
+  "sessions": {
+    "s_2be5defb2774c5": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019f26fe-7bda-70cd-9ef7-da68218f14c2",
+        "model": "gpt-5.5"
+      },
+      "human_author": "xcad <christian.lempa@clcreative.de>"
+    }
+  }
+}
