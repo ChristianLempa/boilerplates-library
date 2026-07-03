@@ -393,7 +393,7 @@
           "type": "bool",
           "title": "Traefik",
           "required": false,
-          "default": true,
+          "default": false,
           "description": "Attach to an external Traefik network and create routing labels."
         },
         {
@@ -455,7 +455,7 @@
           "type": "bool",
           "title": "TLS",
           "required": false,
-          "default": true,
+          "default": false,
           "description": "Create a TLS router for Traefik.",
           "needs": [
             "traefik_enabled=true"

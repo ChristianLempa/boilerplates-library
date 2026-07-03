@@ -191,7 +191,7 @@
           "type": "str",
           "title": "Traefik Entrypoint",
           "required": false,
-          "default": "",
+          "default": "web",
           "config": {
             "placeholder": "web"
           }
@@ -218,7 +218,7 @@
           "type": "str",
           "title": "Traefik Tls Entrypoint",
           "required": false,
-          "default": "",
+          "default": "websecure",
           "needs": [
             "traefik_tls_enabled=true"
           ],

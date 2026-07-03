@@ -217,7 +217,7 @@
           "type": "bool",
           "title": "Traefik",
           "required": false,
-          "default": true
+          "default": false
         },
         {
           "name": "public_hostname",
@@ -264,7 +264,7 @@
           "type": "bool",
           "title": "TLS",
           "required": false,
-          "default": true
+          "default": false
         },
         {
           "name": "traefik_tls_entrypoint",

@@ -222,7 +222,7 @@
           "type": "bool",
           "title": "TLS",
           "required": false,
-          "default": true
+          "default": false
         },
         {
           "name": "traefik_tls_entrypoint",
