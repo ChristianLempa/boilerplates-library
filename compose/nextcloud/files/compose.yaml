@@ -4,7 +4,9 @@ services:
     restart: << restart_policy >>
     container_name: << container_name >>-app
     environment:
+      <%- if container_timezone %>
       - TZ=<< container_timezone >>
+      <%- endif %>
       - NEXTCLOUD_ADMIN_USER=${NEXTCLOUD_ADMIN_USER}
       - NEXTCLOUD_ADMIN_PASSWORD=${NEXTCLOUD_ADMIN_PASSWORD}
       - REDIS_HOST=<< service_name >>-redis
@@ -65,7 +67,9 @@ services:
     container_name: << container_name >>-cron
     entrypoint: /cron.sh
     environment:
+      <%- if container_timezone %>
       - TZ=<< container_timezone >>
+      <%- endif %>
       - REDIS_HOST=<< service_name >>-redis
       <%- if database_type == 'mysql' %>
       - MYSQL_USER=${DATABASE_USER}
@@ -97,14 +101,16 @@ services:
 
   << service_name >>-db:
     <%- if database_type == 'mysql' %>
-    # See compatibility matrix for Nextcloud 31
-    # https://docs.nextcloud.com/server/31/admin_manual/installation/system_requirements.html
+    # See compatibility matrix for Nextcloud 33
+    # https://docs.nextcloud.com/server/33/admin_manual/installation/system_requirements.html
     image: docker.io/library/mariadb:10.11.16
     restart: << restart_policy >>
     container_name: << service_name >>-db
     command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
     environment:
+      <%- if container_timezone %>
       - TZ=<< container_timezone >>
+      <%- endif %>
       - MYSQL_RANDOM_ROOT_PASSWORD=true
       - MYSQL_USER=${DATABASE_USER}
       - MYSQL_PASSWORD=${DATABASE_PASSWORD}
@@ -118,7 +124,9 @@ services:
     restart: << restart_policy >>
     container_name: << service_name >>-db
     environment:
+      <%- if container_timezone %>
       - TZ=<< container_timezone >>
+      <%- endif %>
       - POSTGRES_USER=${DATABASE_USER}
       - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
       - POSTGRES_DB=<< database_name >>

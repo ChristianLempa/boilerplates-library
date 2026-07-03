@@ -242,39 +242,6 @@
       ]
     },
     {
-      "title": "Network",
-      "name": "network",
-      "items": [
-        {
-          "name": "network_mode",
-          "type": "enum",
-          "title": "Network Mode",
-          "required": false,
-          "default": "bridge",
-          "config": {
-            "options": [
-              "bridge",
-              "macvlan"
-            ]
-          }
-        },
-        {
-          "name": "network_macvlan_ipv4_address_db",
-          "type": "str",
-          "title": "Database IP",
-          "required": false,
-          "default": "IP_ADDRESS",
-          "description": "Static IP address for database container (macvlan only)",
-          "needs": [
-            "network_mode=macvlan"
-          ],
-          "config": {
-            "placeholder": "IP_ADDRESS"
-          }
-        }
-      ]
-    },
-    {
       "title": "Ports",
       "name": "ports",
       "items": [
