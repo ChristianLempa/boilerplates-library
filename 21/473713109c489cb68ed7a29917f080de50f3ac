@@ -1,0 +1,19 @@
+compose/nextcloud/files/compose.yaml
+  s_2be5defb2774c5::t_bf99ef03d6365b 48,52
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.9",
+  "base_commit_sha": "21473713109c489cb68ed7a29917f080de50f3ac",
+  "prompts": {},
+  "sessions": {
+    "s_2be5defb2774c5": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019f26fe-7bda-70cd-9ef7-da68218f14c2",
+        "model": "gpt-5.5"
+      },
+      "human_author": "xcad <christian.lempa@clcreative.de>"
+    }
+  }
+}
