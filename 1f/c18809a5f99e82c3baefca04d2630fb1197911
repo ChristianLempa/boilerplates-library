@@ -1,0 +1,29 @@
+bash/docker-mysql-backup/files/main.sh
+  s_eb13e6b48a7d84::t_4b7e9f632bc947 8-294
+bash/docker-volume-backup/files/main.sh
+  s_eb13e6b48a7d84::t_7776ed80682bcc 8-307
+bash/docker-postgres-backup/template.json
+  s_eb13e6b48a7d84::t_32989d73713d09 2-133
+bash/docker-postgres-backup/files/main.sh
+  s_eb13e6b48a7d84::t_0d76ba3df8bc2d 8-300
+bash/docker-volume-backup/template.json
+  s_eb13e6b48a7d84::t_8ba2ac7ae7be1e 2-130
+bash/docker-mysql-backup/template.json
+  s_eb13e6b48a7d84::t_2d584c347b0d64 2-133
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "1fc18809a5f99e82c3baefca04d2630fb1197911",
+  "prompts": {},
+  "sessions": {
+    "s_eb13e6b48a7d84": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019f3d35-a891-7b39-8b27-0da300b04c3d",
+        "model": "gpt-5.5"
+      },
+      "human_author": "xcad <christian.lempa@clcreative.de>"
+    }
+  }
+}
