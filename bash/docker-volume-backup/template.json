@@ -1,0 +1,135 @@
+{
+  "slug": "docker-volume-backup-bash",
+  "kind": "bash",
+  "metadata": {
+    "name": "Docker Volume Backup",
+    "description": "One-shot Bash backup script for archiving a path from a Docker container's mounted volumes to timestamped .tar.gz files with optional container stop/start, retention cleanup, latest symlink support, dry-run mode, and automation-friendly exit codes.",
+    "tags": [
+      "docker",
+      "backup",
+      "volume",
+      "container",
+      "bash"
+    ],
+    "icon": {
+      "provider": "mdi",
+      "id": "harddisk",
+      "color": "emerald"
+    },
+    "draft": false,
+    "version": {
+      "name": "1.0.0",
+      "source_dep_name": "manual/docker-volume-backup"
+    }
+  },
+  "variables": [
+    {
+      "title": "Backup",
+      "name": "backup",
+      "items": [
+        {
+          "name": "container_name",
+          "type": "str",
+          "title": "Container Name",
+          "required": true,
+          "default": "app",
+          "config": {
+            "placeholder": "app"
+          }
+        },
+        {
+          "name": "backup_dir",
+          "type": "str",
+          "title": "Backup Directory",
+          "required": true,
+          "default": "/backups/docker",
+          "description": "Host directory where timestamped backup files are written.",
+          "config": {
+            "placeholder": "/backups/docker"
+          }
+        },
+        {
+          "name": "backup_prefix",
+          "type": "str",
+          "title": "Backup Filename Prefix",
+          "required": true,
+          "default": "backup_volume",
+          "config": {
+            "placeholder": "backup_volume"
+          }
+        },
+        {
+          "name": "backup_container_path",
+          "type": "str",
+          "title": "Container Path",
+          "required": true,
+          "default": "/config",
+          "description": "Container path to archive from the target container's mounted volumes.",
+          "config": {
+            "placeholder": "/config"
+          }
+        },
+        {
+          "name": "helper_image",
+          "type": "str",
+          "title": "Helper Image",
+          "required": false,
+          "default": "busybox:1.36.1",
+          "description": "Temporary helper image used to read the target container's mounted volumes.",
+          "config": {
+            "placeholder": "busybox:1.36.1"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Automation",
+      "name": "automation",
+      "items": [
+        {
+          "name": "stop_container_during_backup",
+          "type": "bool",
+          "title": "Stop Container",
+          "required": false,
+          "default": false,
+          "description": "Stop the target container before backup for a more consistent filesystem snapshot."
+        },
+        {
+          "name": "start_container_after_backup",
+          "type": "bool",
+          "title": "Restart After Backup",
+          "required": false,
+          "default": true,
+          "description": "Start the container again after backup if this script stopped it."
+        },
+        {
+          "name": "retention_days",
+          "type": "int",
+          "title": "Retention Days",
+          "required": false,
+          "default": 14,
+          "description": "Delete matching backup files older than this many days. Use 0 to disable cleanup.",
+          "config": {
+            "placeholder": "14"
+          }
+        },
+        {
+          "name": "create_latest_symlink",
+          "type": "bool",
+          "title": "Create Latest Symlink",
+          "required": false,
+          "default": true,
+          "description": "Update a latest symlink next to the timestamped backup file."
+        },
+        {
+          "name": "dry_run",
+          "type": "bool",
+          "title": "Dry Run",
+          "required": false,
+          "default": false,
+          "description": "Print planned actions without writing backup files, stopping containers, or deleting old backups."
+        }
+      ]
+    }
+  ]
+}

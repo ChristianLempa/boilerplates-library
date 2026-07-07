@@ -1,0 +1,138 @@
+{
+  "slug": "docker-postgres-backup-bash",
+  "kind": "bash",
+  "metadata": {
+    "name": "Docker Postgres Backup",
+    "description": "One-shot Bash backup script for dumping PostgreSQL databases from a running Docker container to timestamped .sql or .sql.gz files with retention cleanup, latest symlink support, dry-run mode, and automation-friendly exit codes.",
+    "tags": [
+      "docker",
+      "backup",
+      "postgres",
+      "postgresql",
+      "database",
+      "bash"
+    ],
+    "icon": {
+      "provider": "simple-icons",
+      "id": "postgresql",
+      "color": "blue"
+    },
+    "draft": false,
+    "version": {
+      "name": "1.0.0",
+      "source_dep_name": "manual/docker-postgres-backup"
+    }
+  },
+  "variables": [
+    {
+      "title": "Backup",
+      "name": "backup",
+      "items": [
+        {
+          "name": "container_name",
+          "type": "str",
+          "title": "Container Name",
+          "required": true,
+          "default": "postgres",
+          "config": {
+            "placeholder": "postgres"
+          }
+        },
+        {
+          "name": "backup_dir",
+          "type": "str",
+          "title": "Backup Directory",
+          "required": true,
+          "default": "/backups/postgres",
+          "description": "Host directory where timestamped backup files are written.",
+          "config": {
+            "placeholder": "/backups/postgres"
+          }
+        },
+        {
+          "name": "backup_prefix",
+          "type": "str",
+          "title": "Backup Filename Prefix",
+          "required": true,
+          "default": "backup_postgres",
+          "config": {
+            "placeholder": "backup_postgres"
+          }
+        },
+        {
+          "name": "postgres_user",
+          "type": "str",
+          "title": "Postgres User",
+          "required": false,
+          "default": "postgres",
+          "config": {
+            "placeholder": "postgres"
+          }
+        },
+        {
+          "name": "postgres_database",
+          "type": "str",
+          "title": "Database Name",
+          "required": false,
+          "default": "all",
+          "description": "Database to dump with pg_dump, or 'all' for pg_dumpall.",
+          "config": {
+            "placeholder": "all"
+          }
+        },
+        {
+          "name": "postgres_password_env",
+          "type": "str",
+          "title": "Password Env Variable",
+          "required": false,
+          "default": "PGPASSWORD",
+          "description": "Host environment variable that stores the PostgreSQL password.",
+          "config": {
+            "placeholder": "PGPASSWORD"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Automation",
+      "name": "automation",
+      "items": [
+        {
+          "name": "compress_backup",
+          "type": "bool",
+          "title": "Compress Backup",
+          "required": false,
+          "default": true,
+          "description": "Write gzip-compressed .sql.gz backups instead of plain .sql files."
+        },
+        {
+          "name": "retention_days",
+          "type": "int",
+          "title": "Retention Days",
+          "required": false,
+          "default": 14,
+          "description": "Delete matching backup files older than this many days. Use 0 to disable cleanup.",
+          "config": {
+            "placeholder": "14"
+          }
+        },
+        {
+          "name": "create_latest_symlink",
+          "type": "bool",
+          "title": "Create Latest Symlink",
+          "required": false,
+          "default": true,
+          "description": "Update a latest symlink next to the timestamped backup file."
+        },
+        {
+          "name": "dry_run",
+          "type": "bool",
+          "title": "Dry Run",
+          "required": false,
+          "default": false,
+          "description": "Print planned actions without writing backup files or deleting old backups."
+        }
+      ]
+    }
+  ]
+}

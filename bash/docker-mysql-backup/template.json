@@ -1,0 +1,138 @@
+{
+  "slug": "docker-mysql-backup-bash",
+  "kind": "bash",
+  "metadata": {
+    "name": "Docker MySQL Backup",
+    "description": "One-shot Bash backup script for dumping MySQL or MariaDB databases from a running Docker container to timestamped .sql or .sql.gz files with retention cleanup, latest symlink support, dry-run mode, and automation-friendly exit codes.",
+    "tags": [
+      "docker",
+      "backup",
+      "mysql",
+      "mariadb",
+      "database",
+      "bash"
+    ],
+    "icon": {
+      "provider": "simple-icons",
+      "id": "mysql",
+      "color": "blue"
+    },
+    "draft": false,
+    "version": {
+      "name": "1.0.0",
+      "source_dep_name": "manual/docker-mysql-backup"
+    }
+  },
+  "variables": [
+    {
+      "title": "Backup",
+      "name": "backup",
+      "items": [
+        {
+          "name": "container_name",
+          "type": "str",
+          "title": "Container Name",
+          "required": true,
+          "default": "mysql",
+          "config": {
+            "placeholder": "mysql"
+          }
+        },
+        {
+          "name": "backup_dir",
+          "type": "str",
+          "title": "Backup Directory",
+          "required": true,
+          "default": "/backups/mysql",
+          "description": "Host directory where timestamped backup files are written.",
+          "config": {
+            "placeholder": "/backups/mysql"
+          }
+        },
+        {
+          "name": "backup_prefix",
+          "type": "str",
+          "title": "Backup Filename Prefix",
+          "required": true,
+          "default": "backup_mysql",
+          "config": {
+            "placeholder": "backup_mysql"
+          }
+        },
+        {
+          "name": "mysql_user",
+          "type": "str",
+          "title": "MySQL User",
+          "required": false,
+          "default": "root",
+          "config": {
+            "placeholder": "root"
+          }
+        },
+        {
+          "name": "mysql_database",
+          "type": "str",
+          "title": "Database Name",
+          "required": false,
+          "default": "all",
+          "description": "Database to dump, or 'all' for all databases.",
+          "config": {
+            "placeholder": "all"
+          }
+        },
+        {
+          "name": "mysql_password_env",
+          "type": "str",
+          "title": "Password Env Variable",
+          "required": false,
+          "default": "MYSQL_PWD",
+          "description": "Host environment variable that stores the MySQL password.",
+          "config": {
+            "placeholder": "MYSQL_PWD"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Automation",
+      "name": "automation",
+      "items": [
+        {
+          "name": "compress_backup",
+          "type": "bool",
+          "title": "Compress Backup",
+          "required": false,
+          "default": true,
+          "description": "Write gzip-compressed .sql.gz backups instead of plain .sql files."
+        },
+        {
+          "name": "retention_days",
+          "type": "int",
+          "title": "Retention Days",
+          "required": false,
+          "default": 14,
+          "description": "Delete matching backup files older than this many days. Use 0 to disable cleanup.",
+          "config": {
+            "placeholder": "14"
+          }
+        },
+        {
+          "name": "create_latest_symlink",
+          "type": "bool",
+          "title": "Create Latest Symlink",
+          "required": false,
+          "default": true,
+          "description": "Update a latest symlink next to the timestamped backup file."
+        },
+        {
+          "name": "dry_run",
+          "type": "bool",
+          "title": "Dry Run",
+          "required": false,
+          "default": false,
+          "description": "Print planned actions without writing backup files or deleting old backups."
+        }
+      ]
+    }
+  ]
+}
