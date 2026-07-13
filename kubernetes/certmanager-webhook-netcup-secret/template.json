@@ -39,7 +39,7 @@
         },
         {
           "name": "customer_number",
-          "type": "str",
+          "type": "secret",
           "title": "Customer number",
           "required": true,
           "config": {

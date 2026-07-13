@@ -219,7 +219,7 @@
         },
         {
           "name": "traefik_tls_acme_customer_number",
-          "type": "str",
+          "type": "secret",
           "title": "Customer Number",
           "required": true,
           "description": "Netcup customer number used for the ACME DNS challenge.",
