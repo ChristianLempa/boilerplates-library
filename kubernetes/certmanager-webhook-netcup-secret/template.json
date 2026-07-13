@@ -41,10 +41,7 @@
           "name": "customer_number",
           "type": "secret",
           "title": "Customer number",
-          "required": true,
-          "config": {
-            "placeholder": "123456"
-          }
+          "required": true
         },
         {
           "name": "api_key",

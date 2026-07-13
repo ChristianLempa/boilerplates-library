@@ -226,10 +226,7 @@
           "needs": [
             "traefik_tls_enabled=true",
             "traefik_tls_certresolver=netcup"
-          ],
-          "config": {
-            "placeholder": "123456"
-          }
+          ]
         },
         {
           "name": "traefik_tls_acme_token",
