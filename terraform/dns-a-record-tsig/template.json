@@ -5,16 +5,16 @@
     "name": "DNS Record A (TSIG)",
     "description": "Creates a DNS A record using TSIG-authenticated dynamic DNS updates. Maps a hostname to an IP address on a TSIG-enabled DNS server.",
     "icon": {
-      "provider": "selfhst",
-      "id": "bind-9",
-      "color": "blue"
+      "provider": "lucide",
+      "id": "globe",
+      "color": "violet"
     },
-    "draft": false,
     "version": {
       "name": "3.5.0",
       "source_dep_name": "hashicorp/dns",
       "source_dep_version": "3.5.0"
-    }
+    },
+    "draft": false
   },
   "variables": [
     {
@@ -23,44 +23,45 @@
       "items": [
         {
           "name": "dns_hostname",
-          "title": "Hostname",
           "type": "str",
+          "title": "Hostname",
+          "required": true,
           "config": {
             "placeholder": "hostname"
-          },
-          "required": true
+          }
         },
         {
           "name": "dns_zone",
-          "title": "Zone",
           "type": "str",
+          "title": "Zone",
+          "required": true,
           "config": {
             "placeholder": "home.arpa."
-          },
-          "required": true
+          }
         },
         {
           "name": "ip_address",
-          "title": "IP Address",
           "type": "str",
+          "title": "IP Address",
+          "required": true,
           "config": {
             "placeholder": "192.168.0.1/24"
-          },
-          "required": true
+          }
         },
         {
           "name": "dns_ttl",
-          "title": "TTL",
-          "description": "Time to live (TTL) for the DNS record in seconds (default: 3600)",
           "type": "int",
+          "title": "TTL",
+          "required": false,
           "default": 3600,
+          "description": "Time to live (TTL) for the DNS record in seconds (default: 3600)",
           "config": {
+            "placeholder": "3600",
             "unit": "seconds",
             "slider": true,
             "min": 60,
             "max": 86400,
-            "step": 60,
-            "placeholder": "3600"
+            "step": 60
           }
         }
       ]
