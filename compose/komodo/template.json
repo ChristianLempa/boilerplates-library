@@ -459,7 +459,7 @@
           "type": "float",
           "title": "Resources Cpu Limit",
           "required": true,
-          "default": 1.0,
+          "default": "1.0",
           "config": {
             "placeholder": "1"
           }

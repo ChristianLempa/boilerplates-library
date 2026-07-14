@@ -166,7 +166,7 @@
           "type": "float",
           "title": "Resources Cpu Limit",
           "required": true,
-          "default": 1.0,
+          "default": "1.0",
           "config": {
             "placeholder": "1"
           }
@@ -176,7 +176,7 @@
           "type": "float",
           "title": "Resources Cpu Reservation",
           "required": true,
-          "default": 0.25,
+          "default": "0.25",
           "config": {
             "placeholder": "0.25"
           }
