@@ -1,0 +1,19 @@
+ansible/docker-certs/files/main.yml
+  s_b7229fdbb4f25d::t_3f226d0cb59b6e 13,18,41,55,66,72,81,84-89,100,106,115,118-122,133,135,137,142,147,152,157
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.13",
+  "base_commit_sha": "c192cae573c9324e8b51033571dd5d61366e1ec8",
+  "prompts": {},
+  "sessions": {
+    "s_b7229fdbb4f25d": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019f5a8e-67fc-732c-8b29-3ec133c97332",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "xcad <christian.lempa@clcreative.de>"
+    }
+  }
+}
