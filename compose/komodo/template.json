@@ -456,10 +456,10 @@
         },
         {
           "name": "resources_cpu_limit",
-          "type": "str",
+          "type": "float",
           "title": "Resources Cpu Limit",
           "required": true,
-          "default": 1,
+          "default": 1.0,
           "config": {
             "placeholder": "1"
           }

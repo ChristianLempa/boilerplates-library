@@ -192,8 +192,7 @@
           "name": "email_password",
           "type": "secret",
           "title": "SMTP password",
-          "required": false,
-          "default": ""
+          "required": false
         },
         {
           "name": "email_from",

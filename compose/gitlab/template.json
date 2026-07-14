@@ -145,7 +145,7 @@
       "items": [
         {
           "name": "ports_http",
-          "type": "str",
+          "type": "int",
           "title": "HTTP Port",
           "required": false,
           "default": 80,
@@ -155,7 +155,7 @@
         },
         {
           "name": "ports_ssh",
-          "type": "str",
+          "type": "int",
           "title": "Ports Ssh",
           "required": false,
           "default": 2424,
@@ -381,8 +381,7 @@
           "name": "email_password",
           "type": "secret",
           "title": "SMTP password",
-          "required": false,
-          "default": ""
+          "required": false
         },
         {
           "name": "email_from",
@@ -456,7 +455,6 @@
           "type": "secret",
           "title": "Client Secret",
           "required": false,
-          "default": "",
           "description": "OAuth client secret from Authentik provider"
         }
       ]

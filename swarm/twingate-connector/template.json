@@ -163,17 +163,17 @@
         },
         {
           "name": "resources_cpu_limit",
-          "type": "str",
+          "type": "float",
           "title": "Resources Cpu Limit",
           "required": true,
-          "default": 1,
+          "default": 1.0,
           "config": {
             "placeholder": "1"
           }
         },
         {
           "name": "resources_cpu_reservation",
-          "type": "str",
+          "type": "float",
           "title": "Resources Cpu Reservation",
           "required": true,
           "default": 0.25,

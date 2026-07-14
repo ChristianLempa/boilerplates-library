@@ -323,7 +323,6 @@
           "type": "secret",
           "title": "DB Connection URI",
           "required": true,
-          "default": "postgresql://infisical:CHANGE_ME@postgres.example.internal:5432/infisical?sslmode=disable",
           "description": "Full PostgreSQL connection URI for external databases. URL-encode special characters in usernames/passwords.",
           "needs": [
             "database_external=true",
@@ -457,7 +456,6 @@
           "type": "secret",
           "title": "Redis URL",
           "required": true,
-          "default": "redis://:CHANGE_ME@redis.example.internal:6379",
           "description": "Full Redis URL added to the generated Infisical Secret when using external Redis.",
           "needs": [
             "redis_external=true",
@@ -751,7 +749,6 @@
           "type": "secret",
           "title": "SMTP Password",
           "required": false,
-          "default": "",
           "needs": [
             "email_enabled=true",
             "infisical_secret_existing=false"

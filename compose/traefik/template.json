@@ -85,7 +85,7 @@
         },
         {
           "name": "ports_http",
-          "type": "str",
+          "type": "int",
           "title": "HTTP Port",
           "required": false,
           "default": 80,
@@ -95,7 +95,7 @@
         },
         {
           "name": "ports_https",
-          "type": "str",
+          "type": "int",
           "title": "HTTPS Port",
           "required": false,
           "default": 443,

@@ -58,7 +58,7 @@
       "items": [
         {
           "name": "ports_http",
-          "type": "str",
+          "type": "int",
           "title": "HTTP Port",
           "required": false,
           "default": 3000,

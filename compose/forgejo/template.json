@@ -182,7 +182,7 @@
       "items": [
         {
           "name": "ports_http",
-          "type": "str",
+          "type": "int",
           "title": "HTTP Port",
           "required": false,
           "default": 3000,
@@ -192,7 +192,7 @@
         },
         {
           "name": "ports_ssh",
-          "type": "str",
+          "type": "int",
           "title": "Ports Ssh",
           "required": false,
           "default": 2222,

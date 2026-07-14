@@ -237,7 +237,6 @@
           "type": "secret",
           "title": "Webhook Secret",
           "required": false,
-          "default": "renovate",
           "description": "Webhook secret for platform integration",
           "config": {
             "placeholder": "renovate"

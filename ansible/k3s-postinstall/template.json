@@ -316,7 +316,6 @@
           "type": "secret",
           "title": "Cloudflare Token",
           "required": false,
-          "default": "",
           "description": "Optional Cloudflare API token value used to populate the placeholder secret",
           "needs": [
             "cert_manager_create_cloudflare_secret=true"

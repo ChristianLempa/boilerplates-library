@@ -63,7 +63,6 @@
           "type": "secret",
           "title": "Discord Webhook URL",
           "required": false,
-          "default": "",
           "description": "Optional Discord webhook endpoint for warning notifications."
         },
         {

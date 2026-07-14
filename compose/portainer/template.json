@@ -67,7 +67,7 @@
       "items": [
         {
           "name": "ports_http",
-          "type": "str",
+          "type": "int",
           "title": "HTTP Port",
           "required": false,
           "default": 9000,
@@ -77,7 +77,7 @@
         },
         {
           "name": "ports_https",
-          "type": "str",
+          "type": "int",
           "title": "HTTPS Port",
           "required": false,
           "default": 9443,
