@@ -10,12 +10,12 @@
   tasks:
     - name: Check if docker certs are existing
       ansible.builtin.stat:
-        path: {{ certs_path }}
+        path: "{{ certs_path }}"
       register: certs_dir
 
     - name: Create docker certs directory (if needed)
       ansible.builtin.file:
-        path: {{ certs_path }}
+        path: "{{ certs_path }}"
         state: directory
         mode: '0700'
       when: not certs_dir.stat.exists
@@ -38,7 +38,7 @@
 
     - name: Set machine's primary internal ip address
       ansible.builtin.set_fact:
-        ip_address: {{ ip_address.ansible_facts.ansible_default_ipv4.address }}
+        ip_address: "{{ ip_address.ansible_facts.ansible_default_ipv4.address }}"
 
     - name: Check if ip_address is a valid ip address
       ansible.builtin.assert:
@@ -52,7 +52,7 @@
         cmd: >
           openssl genrsa -out {{ certs_path }}/ca-key.pem 4096
       args:
-        creates: {{ certs_path }}/ca-key.pem
+        creates: "{{ certs_path }}/ca-key.pem"
 
     - name: Generate CA certificate
       ansible.builtin.command:
@@ -63,13 +63,13 @@
             -key {{ certs_path }}/ca-key.pem
             -out {{ certs_path }}/ca.pem
       args:
-        creates: {{ certs_path }}/ca.pem
+        creates: "{{ certs_path }}/ca.pem"
 
     - name: Generate server private key
       ansible.builtin.command:
         cmd: >
           openssl genrsa -out {{ certs_path }}/server-key.pem 4096
-        creates: {{ certs_path }}/server-key.pem
+        creates: "{{ certs_path }}/server-key.pem"
 
     - name: Generate server certificate signing request
       ansible.builtin.command:
@@ -78,14 +78,15 @@
             -subj "/CN={{ inventory_hostname }}"
             -key {{ certs_path }}/server-key.pem
             -out {{ certs_path }}/server.csr
-        creates: {{ certs_path }}/server.csr
+        creates: "{{ certs_path }}/server.csr"
 
     - name: Generate server certificate extension file
-      ansible.builtin.shell: |
-        echo "subjectAltName = DNS:{{ inventory_hostname }},IP:{{ ip_address }},IP:127.0.0.1" >> {{ certs_path }}/extfile.cnf
-        echo "extendedKeyUsage = serverAuth" >> {{ certs_path }}/extfile.cnf
-      args:
-        creates: {{ certs_path }}/extfile.cnf
+      ansible.builtin.copy:
+        dest: "{{ certs_path }}/extfile.cnf"
+        content: |
+          subjectAltName = DNS:{{ inventory_hostname }},IP:{{ ip_address }},IP:127.0.0.1
+          extendedKeyUsage = serverAuth
+        mode: '0600'
 
     - name: Generate server certificate
       ansible.builtin.command:
@@ -96,13 +97,13 @@
             -CAkey {{ certs_path }}/ca-key.pem
             -CAcreateserial -out {{ certs_path }}/server-cert.pem
             -extfile {{ certs_path }}/extfile.cnf
-        creates: {{ certs_path }}/server-cert.pem
+        creates: "{{ certs_path }}/server-cert.pem"
 
     - name: Generate client private key
       ansible.builtin.command:
         cmd: >
           openssl genrsa -out {{ certs_path }}/key.pem 4096
-        creates: {{ certs_path }}/key.pem
+        creates: "{{ certs_path }}/key.pem"
 
     - name: Generate client certificate signing request
       ansible.builtin.command:
@@ -111,13 +112,14 @@
             -subj "/CN=client"
             -key {{ certs_path }}/key.pem
             -out {{ certs_path }}/client.csr
-        creates: {{ certs_path }}/client.csr
+        creates: "{{ certs_path }}/client.csr"
 
     - name: Generate client certificate extension file
-      ansible.builtin.shell: |
-        echo "extendedKeyUsage = clientAuth" >> {{ certs_path }}/client-extfile.cnf
-      args:
-        creates: {{ certs_path }}/client-extfile.cnf
+      ansible.builtin.copy:
+        dest: "{{ certs_path }}/client-extfile.cnf"
+        content: |
+          extendedKeyUsage = clientAuth
+        mode: '0600'
 
     - name: Generate client certificate
       ansible.builtin.command:
@@ -128,31 +130,31 @@
             -CAkey {{ certs_path }}/ca-key.pem
             -CAcreateserial -out {{ certs_path }}/cert.pem
             -extfile {{ certs_path }}/client-extfile.cnf
-        creates: {{ certs_path }}/cert.pem
+        creates: "{{ certs_path }}/cert.pem"
 
-    - name: Remove client certificate signing request
+    - name: Remove server certificate signing request
       ansible.builtin.file:
-        path: {{ certs_path }}/server.csr
+        path: "{{ certs_path }}/server.csr"
         state: absent
 
     - name: Remove client certificate signing request
       ansible.builtin.file:
-        path: {{ certs_path }}/client.csr
+        path: "{{ certs_path }}/client.csr"
         state: absent
 
     - name: Remove server certificate extension file
       ansible.builtin.file:
-        path: {{ certs_path }}/extfile.cnf
+        path: "{{ certs_path }}/extfile.cnf"
         state: absent
 
     - name: Remove client certificate extension file
       ansible.builtin.file:
-        path: {{ certs_path }}/client-extfile.cnf
+        path: "{{ certs_path }}/client-extfile.cnf"
         state: absent
 
     - name: Set permissions for docker certs
       ansible.builtin.file:
-        path: {{ certs_path }}
+        path: "{{ certs_path }}"
         mode: '0700'
         recurse: true
         follow: true
