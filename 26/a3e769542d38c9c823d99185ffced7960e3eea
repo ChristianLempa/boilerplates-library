@@ -1,0 +1,59 @@
+compose/semaphoreui/template.json
+  s_ec8e831d708b6e::t_a98942e3e61d9e 131
+swarm/komodo/template.json
+  s_ec8e831d708b6e::t_cee9bb171c67dc 320,323,330
+compose/netbox/template.json
+  s_ec8e831d708b6e::t_448c4d6b5ba683 229
+compose/twingate-connector/template.json
+  s_ec8e831d708b6e::t_bf6e5141c41621 144,147,154
+compose/traefik/template.json
+  s_ec8e831d708b6e::t_aae298342023dd 88,98
+swarm/twingate-connector/template.json
+  s_ec8e831d708b6e::t_4a4bddbcb1be4d 166,169,176
+compose/portainer/template.json
+  s_ec8e831d708b6e::t_c68cb4dc85a07a 70,80
+compose/adguardhome/template.json
+  s_ec8e831d708b6e::t_382fda271a0cf8 151,161
+compose/gitea/template.json
+  s_ec8e831d708b6e::t_0086163300176c 185,195
+README.md
+  s_ec8e831d708b6e::t_e943f906207019 42
+  s_ec8e831d708b6e::t_0f01d8fe3c59af 29-41,43
+helm/authentik/template.json
+  s_ec8e831d708b6e::t_bebdb81d4a41ba 193
+compose/loki/template.json
+  s_ec8e831d708b6e::t_3745d7ba9aed6e 77
+compose/forgejo/template.json
+  s_ec8e831d708b6e::t_0d19bbceeec229 185,195
+compose/komodo/template.json
+  s_ec8e831d708b6e::t_9ff6344dc3437c 459,462
+compose/authentik/template.json
+  s_ec8e831d708b6e::t_69323bf1177783 127,137
+compose/gitlab/template.json
+  s_ec8e831d708b6e::t_f019bd43965304 384
+  s_ec8e831d708b6e::t_24b3f6b3a6adc8 148,158
+compose/dockge/template.json
+  s_ec8e831d708b6e::t_5512ec68987d22 181
+compose/prometheus/template.json
+  s_ec8e831d708b6e::t_46f0e9ec1e0965 96
+compose/passbolt/template.json
+  s_ec8e831d708b6e::t_c719fcd9117a64 195
+compose/grafana/template.json
+  s_ec8e831d708b6e::t_21db3fd17f00cf 61
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.13",
+  "base_commit_sha": "26a3e769542d38c9c823d99185ffced7960e3eea",
+  "prompts": {},
+  "sessions": {
+    "s_ec8e831d708b6e": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019f6061-3545-7625-b16f-4409d4b32661",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "xcad <christian.lempa@clcreative.de>"
+    }
+  }
+}
