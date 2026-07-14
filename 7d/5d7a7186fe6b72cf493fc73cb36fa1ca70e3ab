@@ -1,0 +1,27 @@
+compose/twingate-connector/template.json
+  s_ec8e831d708b6e::t_60226f9814b651 147,157
+README.md
+  s_ec8e831d708b6e::t_e89fbb82548524 42
+swarm/komodo/template.json
+  s_ec8e831d708b6e::t_72d29e473a7d8c 323,333
+swarm/twingate-connector/template.json
+  s_ec8e831d708b6e::t_5e80b4abeb9f30 169,179
+compose/komodo/template.json
+  s_ec8e831d708b6e::t_e509f0b53b2049 462
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.13",
+  "base_commit_sha": "7d5d7a7186fe6b72cf493fc73cb36fa1ca70e3ab",
+  "prompts": {},
+  "sessions": {
+    "s_ec8e831d708b6e": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019f6061-3545-7625-b16f-4409d4b32661",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "xcad <christian.lempa@clcreative.de>"
+    }
+  }
+}
