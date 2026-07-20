@@ -109,7 +109,7 @@
   ],
   "config": {
     "helm": {
-      "chart": "portainer/portainer",
+      "chart": "portainer",
       "repository_url": "https://portainer.github.io/k8s/",
       "version": "239.4.0"
     }

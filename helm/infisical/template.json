@@ -792,7 +792,7 @@
   ],
   "config": {
     "helm": {
-      "chart": "infisical-helm-charts/infisical-standalone",
+      "chart": "infisical-standalone",
       "repository_url": "https://dl.cloudsmith.io/public/infisical/helm-charts/helm/charts/",
       "version": "1.9.0"
     }

@@ -66,7 +66,7 @@
   ],
   "config": {
     "helm": {
-      "chart": "longhorn/longhorn",
+      "chart": "longhorn",
       "repository_url": "https://charts.longhorn.io",
       "version": "1.11.2"
     }

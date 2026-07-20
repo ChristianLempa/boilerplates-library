@@ -273,7 +273,7 @@
   ],
   "config": {
     "helm": {
-      "chart": "authentik/authentik",
+      "chart": "authentik",
       "repository_url": "https://charts.goauthentik.io",
       "version": "2026.2.2"
     }

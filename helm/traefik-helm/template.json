@@ -123,7 +123,7 @@
   ],
   "config": {
     "helm": {
-      "chart": "traefik/traefik",
+      "chart": "traefik",
       "repository_url": "https://helm.traefik.io/traefik",
       "version": "40.2.0"
     }
