@@ -1,0 +1,35 @@
+helm/traefik-helm/template.json
+  s_0736e362d269de::t_e6ccb2919965fb 126
+helm/certmanager-webhook-netcup/template.json
+  s_0736e362d269de::t_d35d5fdc1927f7 27
+helm/infisical/template.json
+  s_0736e362d269de::t_606d7dc6640168 795
+helm/authentik/template.json
+  s_0736e362d269de::t_affd3ef08b8bec 276
+helm/argocd/template.json
+  s_0736e362d269de::t_45309ad6a562b7 305
+helm/longhorn/template.json
+  s_0736e362d269de::t_b77002049ac7eb 69
+helm/netbox/template.json
+  s_0736e362d269de::t_ad5d346ea5d4b2 423
+helm/portainer/template.json
+  s_0736e362d269de::t_bcdf4cbd22dcf2 112
+helm/certmanager/template.json
+  s_0736e362d269de::t_f66396f3141522 72
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "649add26c16d47d3d07860a734ea17a32398ed5a",
+  "prompts": {},
+  "sessions": {
+    "s_0736e362d269de": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019f7e7a-8ad6-7ebe-84a0-ef68a918414b",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "xcad <christian.lempa@clcreative.de>"
+    }
+  }
+}
