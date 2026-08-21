@@ -77,7 +77,6 @@ gitlab_rails['gitlab_email_reply_to'] = '<< email_from >>'
 # Performance optimizations for homelab/low-resource environments
 # NOTE: These settings reduce resource usage but may impact performance under high load
 postgresql['shared_buffers'] = "256MB"
-sidekiq['max_concurrency'] = 4
 sidekiq['concurrency'] = 1
 puma['worker_timeout'] = 120
 puma['worker_processes'] = 1
