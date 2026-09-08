@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "argocd-helm",
-  "kind": "helm",
+  "kind": "configuration",
   "metadata": {
     "name": "Argo CD",
     "description": "Helm release values for Argo CD with ingress, TLS, controller or repo-server sizing, Dex, Redis, and metrics toggles for homelab GitOps clusters.",

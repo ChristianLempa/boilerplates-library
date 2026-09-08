@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "agents-codex-static",
-  "kind": "static",
+  "kind": "generic",
   "metadata": {
     "name": "AGENTS.md Codex Best Practices",
     "description": "Generates a small, expandable AGENTS.md starter file for AI coding agents with a repository map, optional docs, validation commands, and conventions.",

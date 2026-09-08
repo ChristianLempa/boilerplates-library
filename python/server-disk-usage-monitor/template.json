@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "server-disk-usage-monitor-python",
-  "kind": "python",
+  "kind": "generic",
   "metadata": {
     "name": "Server Disk Usage Monitor",
     "description": "Standalone Python monitor that checks local disk usage for one path and sends a Discord warning when usage reaches a configurable threshold.",

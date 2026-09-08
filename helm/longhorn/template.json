@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "longhorn-helm",
-  "kind": "helm",
+  "kind": "configuration",
   "metadata": {
     "name": "Longhorn",
     "description": "Helm release values for Longhorn, a distributed block storage system for Kubernetes with built-in backup, snapshots, and disaster recovery.",

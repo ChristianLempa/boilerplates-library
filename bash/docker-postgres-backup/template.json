@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "docker-postgres-backup-bash",
-  "kind": "bash",
+  "kind": "generic",
   "metadata": {
     "name": "Docker Postgres Backup",
     "description": "One-shot Bash backup script for dumping PostgreSQL databases from a running Docker container to timestamped .sql or .sql.gz files with retention cleanup, latest symlink support, dry-run mode, and automation-friendly exit codes.",

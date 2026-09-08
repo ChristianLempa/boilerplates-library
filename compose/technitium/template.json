@@ -126,10 +126,7 @@
               "Https",
               "HttpsJson"
             ]
-          },
-          "needs": [
-            "dns_server_forwarders"
-          ]
+          }
         },
         {
           "name": "dns_server_enable_blocking",

@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "certmanager-webhook-netcup-helm",
-  "kind": "helm",
+  "kind": "configuration",
   "metadata": {
     "name": "Cert-Manager Webhook Netcup",
     "description": "Helm release values for the cert-manager DNS01 webhook solver for Netcup.",

@@ -26,6 +26,8 @@ Each template in this repository includes metadata, variables, and one or more o
 
 Before deploying anything, it is worth checking the generated files for ports, volumes, credentials, domains, image tags, provider settings, and other environment-specific values. Once everything looks correct, deploy the rendered files with the appropriate tool for that template.
 
+Directory names group templates by technology, not by the application's kind identifiers. Bash, Python, and static-file bundles use `generic`; the Helm values-only bundles use `configuration`. Validate compatibility with the current application importer: the older CLI uses retired kind identifiers.
+
 Each `template.json` must declare `"schema": "boilerplates/template/v1"`. Template revisions are assigned by Boilerplates; `metadata.version` is no longer supported. Dependency versions stay in authored files or variable defaults. See the [canonical manifest reference](https://github.com/christianlempa/boilerplates/blob/main/docs/features/templates/templates-json.md).
 
 ### Template Variable Types
@@ -46,9 +48,7 @@ Defaults must be valid for the declared variable type. Use JSON integers for `in
 
 Generated ZIPs and managed artifacts contain configuration and external references only. Templates no longer accept secret inputs or generate `.env` files, passwords, tokens, keys, or password hashes. Supply credentials through the deployment environment or a separate secret manager before running the generated configuration. Ordinary customization remains available.
 
-This is a breaking library update: re-render existing templates with the new schema, remove obsolete secret inputs, and provision the references described in [CREDENTIALS.md](CREDENTIALS.md). Older downloads and published files are not rewritten by this change; remove their credential files from managed output and rotate any exposed credentials.
-
-Run `python3 scripts/check-credentials.py` to check the library credential boundary.
+This is a breaking library update: re-render existing templates with the new schema, remove obsolete secret inputs, and provision the external credentials required by the generated configuration. Older downloads and published files are not rewritten by this change; remove their credential files from managed output and rotate any exposed credentials.
 
 ## Contributing
 

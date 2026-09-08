@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "netbox-helm",
-  "kind": "helm",
+  "kind": "configuration",
   "metadata": {
     "name": "NetBox",
     "description": "Helm release values for NetBox, an open-source network infrastructure management (IPAM/DCIM) solution and network automation source of truth.",

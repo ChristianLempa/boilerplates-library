@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "docker-volume-backup-bash",
-  "kind": "bash",
+  "kind": "generic",
   "metadata": {
     "name": "Docker Volume Backup",
     "description": "One-shot Bash backup script for archiving a path from a Docker container's mounted volumes to timestamped .tar.gz files with optional container stop/start, retention cleanup, latest symlink support, dry-run mode, and automation-friendly exit codes.",
