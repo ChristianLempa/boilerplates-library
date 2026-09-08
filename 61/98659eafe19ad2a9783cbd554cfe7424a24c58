@@ -1,0 +1,211 @@
+CREDENTIALS.md
+  s_0876c43bc729eb::t_2cb31488b77757 92
+  s_0876c43bc729eb::t_28a180ecb6814a 89-91
+  s_0876c43bc729eb::t_b24134602ebb46 1-88
+README.md
+  s_2029ea3bf1423a::t_1948af7c0a8c54 13,33,43-51
+ansible/checkmk-install-agent/files/main.yml
+  s_2029ea3bf1423a::t_e30a86d96c27ce 5,16
+ansible/checkmk-manage-host/files/main.yml
+  s_2029ea3bf1423a::t_5d362f46eb260c 11,17
+ansible/k3s-postinstall/files/main.yml
+  s_2029ea3bf1423a::t_523adc8096e7dd 172
+bash/docker-mysql-backup/files/main.sh
+  s_2029ea3bf1423a::t_84f96acadea219 56
+bash/docker-postgres-backup/files/main.sh
+  s_2029ea3bf1423a::t_30f7b45cd7078c 56
+compose/arcane-agent/files/compose.yaml
+  s_2029ea3bf1423a::t_62b5fc3e00b536 16
+compose/arcane/files/compose.yaml
+  s_2029ea3bf1423a::t_bdeb6be0b03f8b 17-18,26
+compose/authentik/files/compose.yaml
+  s_2029ea3bf1423a::t_334e1549903c24 8,17,19,24-25,92,101,103,108-109,116-117,143-144
+compose/authentik/template.json
+  s_2029ea3bf1423a::t_54606b46826e19 48-54
+compose/bind9/files/compose.yaml
+  s_2029ea3bf1423a::t_d657fca01f2da6 28-30
+compose/checkmk/files/compose.yaml
+  s_2029ea3bf1423a::t_61cb5de1d3c1ea 10
+compose/cloudflared/files/compose.yaml
+  s_2029ea3bf1423a::t_78c95342915095 6
+compose/crowdsec/files/compose.yaml
+  s_2029ea3bf1423a::t_b2860ba95271dd 12,18-19
+compose/crowdsec/template.json
+  s_2029ea3bf1423a::t_1ef8bbe464dc62 82-88
+compose/dockhand/files/compose.yaml
+  s_2029ea3bf1423a::t_9fcd33158b9f58 5,8,10-11
+compose/dockhand/template.json
+  s_2029ea3bf1423a::t_56240b4ce02c10 69-75
+compose/forgejo/files/compose.yaml
+  s_2029ea3bf1423a::t_6c438ff56f22a9 16-17,70-71,88-89,91
+compose/gitea/files/compose.yaml
+  s_2029ea3bf1423a::t_8cfb73e81e8815 16-17,70-71,88-89,91
+compose/gitlab-runner/files/compose.yaml
+  s_2029ea3bf1423a::t_c47309b61d0b46 6
+compose/gitlab/files/compose.yaml
+  s_2029ea3bf1423a::t_e046e6d05186cc 6-13
+compose/gitlab/files/config/gitlab.rb
+  s_2029ea3bf1423a::t_7f0b9a24f5d639 5,50,64
+compose/grafana/files/compose.yaml
+  s_2029ea3bf1423a::t_40a6ae275d96e2 15-16,22-23,74-75
+compose/grafana/template.json
+  s_2029ea3bf1423a::t_8796be5fe50ccd 107
+compose/infisical/files/compose.yaml
+  s_2029ea3bf1423a::t_5523137034abd1 14-18,20-28,78-80,100
+compose/influxdb/files/compose.yaml
+  s_2029ea3bf1423a::t_dd64759e09715b 9-13
+compose/kestra/files/compose.yaml
+  s_2029ea3bf1423a::t_50ab1babdfdce5 5-6
+compose/komodo/files/compose.yaml
+  s_2029ea3bf1423a::t_ecb6fe0e25b261 51-54,99-100,117-118,138,140
+compose/komodo/template.json
+  s_2029ea3bf1423a::t_f70c5c00f69b0e 191-197
+compose/mariadb/files/compose.yaml
+  s_2029ea3bf1423a::t_70af8b6404e8f3 8,10-11
+compose/n8n/files/compose.yaml
+  s_2029ea3bf1423a::t_10036faa2c5d2a 17,23-24
+compose/netbird/files/compose.yaml
+  s_2029ea3bf1423a::t_2f875a8b7d59f1 122
+compose/netbird/files/config/config.yaml
+  s_2029ea3bf1423a::t_1eb940b9d81f8b 1
+compose/netbox/files/compose.yaml
+  s_2029ea3bf1423a::t_426fbfddf7a711 21-22,24,26-27,35-36,96-97,99,101-102,110-111,135,137,146,148,162-163
+compose/nextcloud/files/compose.yaml
+  s_2029ea3bf1423a::t_ca3f713d9763bb 10-11,14-15,19-20,75-76,80-81,115-116,130-131
+compose/openwebui/files/compose.yaml
+  s_2029ea3bf1423a::t_11bb951e34704a 16-17
+compose/openwebui/template.json
+  s_2029ea3bf1423a::t_72d7a162544e63 276
+compose/passbolt/files/compose.yaml
+  s_2029ea3bf1423a::t_75403b2647c27d 14-15,20,22,38-39
+compose/pihole/files/compose.yaml
+  s_2029ea3bf1423a::t_a2fe146af81df8 19
+compose/postgres/files/compose.yaml
+  s_2029ea3bf1423a::t_ae71114f1f94b0 12-13,31
+compose/renovate/files/compose.yaml
+  s_2029ea3bf1423a::t_00120bd6840f72 18,21-22
+compose/semaphoreui/files/compose.yaml
+  s_2029ea3bf1423a::t_62068608ea1096 18-19,21,24,26,71-72,89-90,92
+compose/technitium/files/compose.yaml
+  s_2029ea3bf1423a::t_ebba8290065b43 14
+compose/traefik/files/compose.yaml
+  s_2029ea3bf1423a::t_587144fe52d950 77,79-80,82-83,86,88-89,91-92,97-98,100-102,105-107
+compose/twingate-connector/files/compose.yaml
+  s_2029ea3bf1423a::t_38ad9c8be01afe 10-11
+helm/authentik/files/values.yaml
+  s_2029ea3bf1423a::t_d618e3e64837de 3-5,57-60
+helm/authentik/template.json
+  s_2029ea3bf1423a::t_55dc366b7d2f2f 30-43
+helm/infisical/files/values.yaml
+  s_0876c43bc729eb::t_083dbe022e53bf 20-21,28-30,33-51,97-98
+helm/infisical/template.json
+  s_2029ea3bf1423a::t_37c0e801b82372 65,295,308,321,334,347,360,370,380
+helm/netbox/files/values.yaml
+  s_2029ea3bf1423a::t_2c81ea816889b2 12,26-27,34,46-47,53-54,61-62,65,72-73
+helm/netbox/template.json
+  s_2029ea3bf1423a::t_593a6c9238ea94 75-93
+kubernetes/certmanager-webhook-netcup-secret/files/main.yaml
+  s_2029ea3bf1423a::t_227642bc0a5f72 2-3,6-25
+kubernetes/certmanager-webhook-netcup-secret/template.json
+  s_2029ea3bf1423a::t_c829d074c2705e 6-7,23-24,37-41,44-48
+kubernetes/core-secret/files/main.yaml
+  s_2029ea3bf1423a::t_4480641c98a122 2-3,6-16
+kubernetes/core-secret/template.json
+  s_2029ea3bf1423a::t_fed118cd9c4c6b 6-7,19,32,34,36,39,41,43
+packer/proxmox-debian-12/files/http/preseed.cfg.pkrtpl
+  s_2029ea3bf1423a::t_1914435e913030 8-9
+packer/proxmox-debian-12/files/main.pkr.hcl
+  s_2029ea3bf1423a::t_7ab72b5b4c6e48 60-62
+packer/proxmox-fedora-server/files/http/ks.cfg.pkrtpl
+  s_2029ea3bf1423a::t_65e948afb3bf7f 6
+packer/proxmox-fedora-server/files/main.pkr.hcl
+  s_2029ea3bf1423a::t_4965d1fd40a42f 47-49
+packer/proxmox-nixos/files/main.pkr.hcl
+  s_2029ea3bf1423a::t_2e05f7c4dfe43d 45-46
+packer/proxmox-talos/files/main.pkr.hcl
+  s_2029ea3bf1423a::t_d9e327d941e610 45-46
+packer/proxmox-ubuntu-24.04-lts/files/config.pkr.hcl
+  s_2029ea3bf1423a::t_aec65f20b9dd03 41-46
+packer/proxmox-ubuntu-24.04-lts/files/http/user-data.pkrtpl
+  s_2029ea3bf1423a::t_faaa824d1baa52 30
+packer/proxmox-ubuntu-24.04-lts/files/main.pkr.hcl
+  s_0024b5f322ec1c::t_f7f12d549f47e1 55-58
+packer/proxmox-ubuntu-26.04-lts/files/config.pkr.hcl
+  s_2029ea3bf1423a::t_c489a342106c70 39-44
+packer/proxmox-ubuntu-26.04-lts/files/http/user-data.pkrtpl
+  s_2029ea3bf1423a::t_43693a4e4fcae5 32
+packer/proxmox-ubuntu-26.04-lts/files/main.pkr.hcl
+  s_0024b5f322ec1c::t_5eb97a8279a7d6 55-58
+python/server-disk-usage-monitor/files/main.py
+  s_2029ea3bf1423a::t_54f8af1b7431ca 6,16
+scripts/check-credentials.py
+  s_2029ea3bf1423a::t_4c18fae6dbbdbb 1-44
+scripts/credential-validation.md
+  s_0876c43bc729eb::t_f4a814fa3b9a84 1-29
+scripts/removed-credential-inputs.json
+  s_2029ea3bf1423a::t_67a54e10f3d8cb 1-255
+swarm/komodo/files/compose.yaml
+  s_2029ea3bf1423a::t_2cd51ccbb130e9 34-35
+swarm/nextcloud/files/compose.yaml
+  s_59a610d1ac89d0::t_990f0e9ea9accf 7,10,15,72,77,110,122
+swarm/pihole/files/compose.yaml
+  s_59a610d1ac89d0::t_53287fee1f9a71 105
+swarm/postgres/files/compose.yaml
+  s_59a610d1ac89d0::t_a2d8f08b1fc190 11
+swarm/renovate/files/compose.yaml
+  s_59a610d1ac89d0::t_3f5419fe4926cc 16,19-20
+swarm/traefik/files/compose.yaml
+  s_59a610d1ac89d0::t_755f2e20a56292 156,159,162,166
+swarm/twingate-connector/files/compose.yaml
+  s_59a610d1ac89d0::t_7177b1ced28032 8-9
+terraform/gitlab-group-variable/files/main.tf
+  s_2029ea3bf1423a::t_c3d0fefa16f248 4,16-20
+terraform/gitlab-project-hook/files/main.tf
+  s_2029ea3bf1423a::t_45bf7378988685 10,28-32
+terraform/gitlab-project-variable/files/main.tf
+  s_2029ea3bf1423a::t_40fc2d05e72f6e 4,16-20
+terraform/gitlab-provider/files/main.tf
+  s_2029ea3bf1423a::t_e80413c751c7e3 16
+terraform/netbird-reverse-proxy-service/files/main.tf
+  s_2029ea3bf1423a::t_04af6ded28cc2b 127,133,146-159
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "6198659eafe19ad2a9783cbd554cfe7424a24c58",
+  "prompts": {},
+  "sessions": {
+    "s_0024b5f322ec1c": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "01a0801d-e83e-7725-9f3b-992232e2d8ea",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "xcad <christian.lempa@clcreative.de>"
+    },
+    "s_0876c43bc729eb": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "01a08046-41ef-704a-ac75-fcd68561ca4d",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "xcad <christian.lempa@clcreative.de>"
+    },
+    "s_2029ea3bf1423a": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0804c-fa09-7f31-a4c2-6d21126e86fe",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "xcad <christian.lempa@clcreative.de>"
+    },
+    "s_59a610d1ac89d0": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0804c-fa09-72d2-9c15-aad7a80a9f91",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "xcad <christian.lempa@clcreative.de>"
+    }
+  }
+}
