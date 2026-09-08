@@ -1,0 +1,315 @@
+python/server-disk-usage-monitor/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,19
+kubernetes/core-storageclass/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,14
+packer/proxmox-ubuntu-26.04-lts/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,19
+kubernetes/core-namespace/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,14
+compose/crowdsec/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,18
+compose/homeassistant/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,14
+ansible/docker-certs-enable/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,14
+compose/dockhand/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,18
+kubernetes/kube-vip/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,14
+compose/uptimekuma/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,14
+kubernetes/core-secret/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,14
+compose/adguardhome/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,18
+compose/portainer/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,17
+helm/certmanager-webhook-netcup/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,19
+kubernetes/certmanager-certificate/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,18
+kubernetes/core-clusterrolebinding/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,14
+terraform/cloudflare-dns-record/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,13
+kubernetes/core-service/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,14
+ansible/docker-certs/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,14
+kubernetes/core-configmap/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,14
+kubernetes/core-serviceaccount/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,14
+terraform/gitlab-project-variable/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,17
+compose/openwebui/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,17
+compose/alloy/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,16
+kubernetes/flux-bootstrap/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,14
+ansible/docker-install-ubuntu/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,14
+terraform/dns-a-record-tsig/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2
+swarm/homepage/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,17
+ansible/ubuntu-add-sshkey/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,14
+kubernetes/certmanager-webhook-netcup-secret/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,19
+kubernetes/traefik-ingressroute/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,14
+ansible/infisical-cli/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,19
+compose/checkmk/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,16
+terraform/gitlab-group-variable/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,17
+swarm/pihole/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,18
+compose/dockge/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,16
+compose/postgres/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,14
+compose/netbox/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,18
+helm/certmanager/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,14
+helm/longhorn/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,14
+kubernetes/traefik-circuitbreaker/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,14
+kubernetes/core-networkpolicy/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,14
+helm/argocd/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,18
+terraform/netbox-vm/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,14
+terraform/netbird-group/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,17
+kubernetes/traefik-ingressroutetcp/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,14
+packer/proxmox-debian-12/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,17
+swarm/portainer/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,17
+static/agents-codex/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,20
+terraform/proxmox-lxc/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,14
+kubernetes/core-deployment/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,14
+terraform/gitlab-group/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,17
+packer/proxmox-ubuntu-24.04-lts/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,19
+README.md
+  s_884f118f2dc6b5::t_c3c71a0fa58c61 29-30
+kubernetes/twingate-connector/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,14
+compose/gitea/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,16
+helm/netbox/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,14
+ansible/checkmk-install-agent/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,14
+kubernetes/metallb/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,14
+swarm/homer/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,17
+compose/mariadb/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,14
+ansible/ubuntu-packages/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,19
+compose/twingate-connector/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,14
+compose/homer/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,17
+compose/homepage/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,17
+ansible/k3sup-k3s-cluster/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,19
+kubernetes/core-statefulset/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,14
+ansible/k3s-postinstall/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,20
+bash/docker-mysql-backup/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,21
+swarm/nextcloud/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,16
+compose/renovate/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,16
+terraform/netbird-network/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,17
+compose/caddy/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,18
+terraform/cloudflare-zone-data/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,13
+helm/authentik/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,14
+compose/whoami/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,18
+swarm/komodo/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,18
+compose/semaphoreui/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,17
+compose/netbird/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,18
+compose/authentik/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,17
+ansible/docker-daemon-config/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,19
+terraform/gitlab-project-environment/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,17
+compose/komodo/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,18
+kubernetes/certmanager-issuer/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,19
+swarm/traefik/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,17
+terraform/netbird-reverse-proxy-service/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,18
+ansible/docker-network/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,19
+compose/grafana/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,17
+packer/proxmox-fedora-server/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,17
+terraform/gitlab-group-membership/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,17
+kubernetes/core-persistentvolume/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,14
+compose/arcane-agent/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,18
+kubernetes/certmanager-clusterissuer/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,19
+swarm/nginx/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,16
+kubernetes/core-ingressclass/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,14
+packer/proxmox-talos/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,17
+compose/pihole/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,18
+compose/prometheus/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,17
+helm/traefik-helm/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,14
+compose/infisical/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,19
+kubernetes/traefik-middleware/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,14
+compose/gitlab/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,16
+terraform/netbird-network-router/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,17
+kubernetes/traefik-ipallowlist/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,14
+terraform/netbird-policy/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,17
+compose/n8n/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,17
+kubernetes/core-persistentvolumeclaim/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,14
+packer/proxmox-opensuse-microos/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,17
+terraform/gitlab-project/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,17
+kubernetes/traefik-forwardauth-middleware/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,14
+swarm/n8n/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,17
+compose/gitlab-runner/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,14
+compose/traefik/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,16
+compose/loki/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,17
+ansible/checkmk-manage-host/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,14
+kubernetes/core-ingress/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,14
+compose/technitium/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,19
+compose/cloudflared/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,14
+terraform/gitlab-provider/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,18
+compose/forgejo/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,16
+compose/arcane/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,18
+compose/bind9/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,17
+terraform/gitlab-project-milestone/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,17
+compose/nginx/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,16
+compose/nextcloud/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,16
+swarm/twingate-connector/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,14
+kubernetes/core-daemonset/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,14
+swarm/renovate/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,16
+terraform/gitlab-project-hook/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,17
+packer/proxmox-nixos/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,17
+terraform/proxmox-vm-qemu/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,14
+bash/docker-postgres-backup/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,21
+kubernetes/core-cronjob/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,14
+terraform/cloudflare-zero-trust-tunnel-config/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,14
+compose/influxdb/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,16
+terraform/proxmox-provider/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,18
+kubernetes/traefik-retry/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,14
+kubernetes/traefik-basicauth/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,14
+terraform/cloudflare-ztna-application/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,14
+terraform/netbird-network-resource/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,17
+ansible/docker-cleanup/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,19
+helm/infisical/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,21
+compose/teleport/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,14
+kubernetes/traefik-buffering/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,14
+swarm/postgres/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,14
+helm/portainer/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,14
+compose/kestra/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,14
+compose/passbolt/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,17
+bash/docker-volume-backup/template.json
+  s_884f118f2dc6b5::t_4c80d121d1a653 2,20
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "fbf94a54cc1c7cc5de5ca9273fcad3e7a86c41b0",
+  "prompts": {},
+  "sessions": {
+    "s_884f118f2dc6b5": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "01a08016-2e53-76f1-ae56-9a9b69bd4bc0",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "xcad <christian.lempa@clcreative.de>"
+    }
+  }
+}
