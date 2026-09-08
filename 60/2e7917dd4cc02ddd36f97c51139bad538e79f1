@@ -1,0 +1,58 @@
+helm/infisical/files/values.yaml
+  s_a0965f6bf94cd4::t_3471e6c8aac46d 2-4
+helm/argocd/template.json
+  s_a0965f6bf94cd4::t_e384b96a8aa3ec 298
+renovate.json
+  s_a0965f6bf94cd4::t_ec25ca43c4ad1e 170-178
+  s_a0965f6bf94cd4::t_6271a91dae4b40 168-169
+helm/longhorn/template.json
+  s_a0965f6bf94cd4::t_a3c6d721ac2e49 62
+helm/authentik/template.json
+  s_a0965f6bf94cd4::t_1d4dd3cd91e3b0 253
+helm/authentik/files/values.yaml
+  s_a0965f6bf94cd4::t_70f28712121baf 2-5
+helm/certmanager-webhook-netcup/files/values.yaml
+  s_a0965f6bf94cd4::t_cd6733616cc64b 2-5
+helm/certmanager/files/values.yaml
+  s_a0965f6bf94cd4::t_715f3bb0ca39f8 2-5
+helm/infisical/template.json
+  s_a0965f6bf94cd4::t_f916d27d7bed81 385
+helm/traefik-helm/files/values.yaml
+  s_a0965f6bf94cd4::t_312620bb1e31d6 2-5
+tests/check_helm_metadata.py
+  s_a0965f6bf94cd4::t_2580c3fe974c44 1-27
+helm/portainer/files/values.yaml
+  s_a0965f6bf94cd4::t_d381031891dff9 2-5
+helm/netbox/template.json
+  s_a0965f6bf94cd4::t_5ec21d4bbbc5fa 373
+helm/netbox/files/values.yaml
+  s_a0965f6bf94cd4::t_d0947ce4f5df37 2-5
+helm/longhorn/files/values.yaml
+  s_a0965f6bf94cd4::t_43c1e340e1c3e1 2-5
+helm/certmanager/template.json
+  s_a0965f6bf94cd4::t_84841ca955059d 65
+helm/portainer/template.json
+  s_a0965f6bf94cd4::t_28aaec58d37ece 105
+helm/traefik-helm/template.json
+  s_a0965f6bf94cd4::t_948f491dda05b3 119
+helm/argocd/files/values.yaml
+  s_a0965f6bf94cd4::t_9a9c7fe8b8a90c 1-4
+README.md
+  s_a0965f6bf94cd4::t_92043ca98633d3 31-34
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "602e7917dd4cc02ddd36f97c51139bad538e79f1",
+  "prompts": {},
+  "sessions": {
+    "s_a0965f6bf94cd4": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "01a0806d-8423-7228-9a81-6a3c8c25bacc",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "xcad <christian.lempa@clcreative.de>"
+    }
+  }
+}
