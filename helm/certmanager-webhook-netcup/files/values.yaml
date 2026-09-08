@@ -1,4 +1,8 @@
 ---
+# Helm chart: cert-manager-webhook-netcup
+# Helm repository: https://aellwein.github.io/cert-manager-webhook-netcup/charts
+# Helm chart version: 1.0.44
+
 groupName: << group_name >>
 
 certManager:

@@ -1,3 +1,7 @@
+# Helm chart: argo-cd
+# Helm repository: https://argoproj.github.io/argo-helm
+# Helm chart version: 9.2.4
+
 configs:
   cm:
     url: << public_url >>

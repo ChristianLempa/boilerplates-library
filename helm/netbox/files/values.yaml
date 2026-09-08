@@ -1,4 +1,8 @@
 ---
+# Helm chart: netbox
+# Helm repository: https://charts.netbox.oss.netboxlabs.com/
+# Helm chart version: 8.2.5
+
 image:
   repository: docker.io/netboxcommunity/netbox
   tag: v4.5.10

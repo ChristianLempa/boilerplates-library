@@ -1,4 +1,8 @@
 ---
+# Helm chart: portainer
+# Helm repository: https://portainer.github.io/k8s/
+# Helm chart version: 239.4.0
+
 image:
   repository: portainer/portainer-ce
   tag: 2.41.0

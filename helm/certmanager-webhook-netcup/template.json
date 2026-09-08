@@ -18,13 +18,6 @@
     },
     "draft": false
   },
-  "config": {
-    "helm": {
-      "chart": "cert-manager-webhook-netcup",
-      "repository_url": "https://aellwein.github.io/cert-manager-webhook-netcup/charts",
-      "version": "1.0.44"
-    }
-  },
   "variables": [
     {
       "name": "webhook",

@@ -250,13 +250,5 @@
         }
       ]
     }
-  ],
-  "config": {
-    "helm": {
-      "chart": "authentik",
-      "repository_url": "https://charts.goauthentik.io",
-      "version": "2026.2.2"
-    }
-  },
-  "file_metadata": {}
+  ]
 }

@@ -1,4 +1,8 @@
 ---
+# Helm chart: cert-manager
+# Helm repository: https://charts.jetstack.io
+# Helm chart version: v1.20.2
+
 image:
   repository: quay.io/jetstack/cert-manager-controller
   tag: v1.20.2

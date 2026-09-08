@@ -295,13 +295,5 @@
         }
       ]
     }
-  ],
-  "config": {
-    "helm": {
-      "chart": "argo-cd",
-      "repository_url": "https://argoproj.github.io/argo-helm",
-      "version": "9.2.4"
-    }
-  },
-  "file_metadata": {}
+  ]
 }

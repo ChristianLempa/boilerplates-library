@@ -370,13 +370,5 @@
         }
       ]
     }
-  ],
-  "config": {
-    "helm": {
-      "chart": "netbox",
-      "repository_url": "https://charts.netbox.oss.netboxlabs.com/",
-      "version": "8.2.5"
-    }
-  },
-  "file_metadata": {}
+  ]
 }

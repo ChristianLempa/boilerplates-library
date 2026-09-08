@@ -28,6 +28,10 @@ Before deploying anything, it is worth checking the generated files for ports, v
 
 Directory names group templates by technology, not by the application's kind identifiers. Bash, Python, and static-file bundles use `generic`; the Helm values-only bundles use `configuration`. Validate compatibility with the current application importer: the older CLI uses retired kind identifiers.
 
+Helm values-only bundles keep chart names, repository URLs, and pinned chart versions in the header comments of `files/values.yaml`. These comments survive Boilerplates rendering/export and are tracked by Renovate; they are reference information, not Helm values or an automatic installation command. Use the listed chart/repository/version with your chosen release name and namespace. Top-level manifest `config` and `file_metadata` are not supported; variable-level `config` remains supported.
+
+Check these headers and manifest fields with `python3 tests/check_helm_metadata.py`.
+
 Each `template.json` must declare `"schema": "boilerplates/template/v1"`. Template revisions are assigned by Boilerplates; `metadata.version` is no longer supported. Dependency versions stay in authored files or variable defaults. See the [canonical manifest reference](https://github.com/christianlempa/boilerplates/blob/main/docs/features/templates/templates-json.md).
 
 ### Template Variable Types

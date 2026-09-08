@@ -167,6 +167,17 @@
   "customManagers": [
     {
       "customType": "regex",
+      "description": "Update Helm chart versions in values-only template headers",
+      "fileMatch": [
+        "^helm/.+/files/values\\.ya?ml$"
+      ],
+      "matchStrings": [
+        "# Helm chart: (?<depName>[^\\s]+)\\r?\\n# Helm repository: (?<registryUrl>https?://[^\\s]+)\\r?\\n# Helm chart version: (?<currentValue>[^\\s]+)"
+      ],
+      "datasourceTemplate": "helm"
+    },
+    {
+      "customType": "regex",
       "description": "Update Docker images in Compose and Swarm templates",
       "fileMatch": [
         "^(compose|swarm)\/.+\/files\/.+\\.ya?ml$"

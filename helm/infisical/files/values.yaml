@@ -1,11 +1,7 @@
 ---
-# Infisical standalone Helm release values.
-# Chart repo: https://dl.cloudsmith.io/public/infisical/helm-charts/helm/charts/
-# Install example:
-# helm upgrade --install << release_name >> infisical-helm-charts/infisical-standalone \
-#   --version 1.9.0 \
-#   --create-namespace \
-#   --values values.yaml
+# Helm chart: infisical-standalone
+# Helm repository: https://dl.cloudsmith.io/public/infisical/helm-charts/helm/charts/
+# Helm chart version: 1.9.0
 
 infisical:
   enabled: true

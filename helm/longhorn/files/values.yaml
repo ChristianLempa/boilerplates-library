@@ -1,4 +1,8 @@
 ---
+# Helm chart: longhorn
+# Helm repository: https://charts.longhorn.io
+# Helm chart version: 1.11.2
+
 image:
   longhorn:
     engine:
