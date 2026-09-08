@@ -225,13 +225,6 @@
           "default": ""
         },
         {
-          "name": "authentik_client_secret",
-          "type": "str",
-          "title": "Client Secret",
-          "required": false,
-          "default": ""
-        },
-        {
           "name": "authentik_enabled",
           "type": "bool",
           "title": "Authentik SSO",

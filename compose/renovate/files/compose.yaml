@@ -15,11 +15,11 @@ services:
     <%- endif %>
     environment:
       - MEND_RNV_ACCEPT_TOS=y
-      - MEND_RNV_LICENSE_KEY=${MEND_RNV_LICENSE_KEY}
+      - MEND_RNV_LICENSE_KEY=${MEND_RNV_LICENSE_KEY:?Set MEND_RNV_LICENSE_KEY}
       - MEND_RNV_PLATFORM=<< renovate_platform >>
       - MEND_RNV_ENDPOINT=<< renovate_endpoint >>
-      - MEND_RNV_GITLAB_PAT=${MEND_RNV_GITLAB_PAT}
-      - MEND_RNV_WEBHOOK_SECRET=${MEND_RNV_WEBHOOK_SECRET}
+      - MEND_RNV_GITLAB_PAT=${MEND_RNV_GITLAB_PAT:?Set MEND_RNV_GITLAB_PAT}
+      - MEND_RNV_WEBHOOK_SECRET=${MEND_RNV_WEBHOOK_SECRET:?Set MEND_RNV_WEBHOOK_SECRET}
       - MEND_RNV_SERVER_PORT=8080
       - RENOVATE_AUTODISCOVER=<< renovate_autodiscover | lower >>
       <%- if container_timezone %>

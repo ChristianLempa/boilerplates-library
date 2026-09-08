@@ -1,7 +1,7 @@
 resource "gitlab_project_variable" "<< resource_name >>" {
   project           = "<< project >>"
   key               = "<< key >>"
-  value             = "<< value >>"
+  value             = var.ci_variable_value
 <%- if description %>
   description       = "<< description >>"
 <%- endif %>
@@ -13,3 +13,8 @@ resource "gitlab_project_variable" "<< resource_name >>" {
   raw               = << raw | lower >>
 }
 
+
+variable "ci_variable_value" {
+  type      = string
+  sensitive = true
+}

@@ -214,37 +214,6 @@
           ]
         },
         {
-          "name": "traefik_tls_acme_customer_number",
-          "type": "secret",
-          "title": "Customer Number",
-          "required": true,
-          "description": "Netcup customer number used for the ACME DNS challenge.",
-          "needs": [
-            "traefik_tls_enabled=true",
-            "traefik_tls_certresolver=netcup"
-          ]
-        },
-        {
-          "name": "traefik_tls_acme_token",
-          "type": "secret",
-          "title": "API Token",
-          "required": true,
-          "needs": [
-            "traefik_tls_enabled=true",
-            "traefik_tls_certresolver=cloudflare,digitalocean,godaddy,namecheap,ovh,porkbun,netcup"
-          ]
-        },
-        {
-          "name": "traefik_tls_acme_secret_key",
-          "type": "secret",
-          "title": "Secret Key",
-          "required": true,
-          "needs": [
-            "traefik_tls_enabled=true",
-            "traefik_tls_certresolver=azure,godaddy,ovh,porkbun,route53,netcup"
-          ]
-        },
-        {
           "name": "traefik_tls_acme_subscription_id",
           "type": "str",
           "title": "Subscription ID",
@@ -272,16 +241,6 @@
           "needs": [
             "traefik_tls_enabled=true",
             "traefik_tls_certresolver=namecheap"
-          ]
-        },
-        {
-          "name": "traefik_tls_acme_consumer_key",
-          "type": "secret",
-          "title": "Consumer Key",
-          "required": true,
-          "needs": [
-            "traefik_tls_enabled=true",
-            "traefik_tls_certresolver=ovh"
           ]
         },
         {

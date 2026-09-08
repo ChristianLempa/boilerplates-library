@@ -242,26 +242,6 @@
           }
         },
         {
-          "name": "auth_password",
-          "type": "secret",
-          "title": "Password",
-          "required": true,
-          "description": "Shared password for password-based access.",
-          "needs": [
-            "auth_mode=password"
-          ]
-        },
-        {
-          "name": "auth_pin",
-          "type": "secret",
-          "title": "PIN",
-          "required": true,
-          "description": "Shared PIN for PIN-based access.",
-          "needs": [
-            "auth_mode=pin"
-          ]
-        },
-        {
           "name": "bearer_distribution_group_names",
           "type": "str",
           "title": "Bearer Distribution Groups",

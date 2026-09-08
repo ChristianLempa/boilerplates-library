@@ -2,7 +2,7 @@
 external_url '<< external_url >>'
 
 # Initial root user configuration (only used on first initialization)
-gitlab_rails['initial_root_password'] = '<< root_password >>'
+gitlab_rails['initial_root_password'] = ENV.fetch('GITLAB_ROOT_PASSWORD')
 gitlab_rails['initial_root_email'] = '<< root_email >>'
 
 # GitLab Shell SSH settings
@@ -47,7 +47,7 @@ gitlab_rails['omniauth_providers'] = [
       pkce: true,
       client_options: {
         identifier: "<< authentik_client_id >>",
-        secret: "<< authentik_client_secret >>",
+        secret: ENV.fetch('GITLAB_OIDC_CLIENT_SECRET'),
         redirect_uri: "<< external_url >>/users/auth/openid_connect/callback"
       }
     }
@@ -61,7 +61,7 @@ gitlab_rails['smtp_enable']           = true
 gitlab_rails['smtp_address']          = "<< email_host >>"
 gitlab_rails['smtp_port']             = << email_port >>
 gitlab_rails['smtp_user_name']        = "<< email_username >>"
-gitlab_rails['smtp_password']         = "<< email_password >>"
+gitlab_rails['smtp_password']         = ENV.fetch('GITLAB_SMTP_PASSWORD')
 gitlab_rails['smtp_authentication']   = "login"
 <%- if email_use_ssl %>
 gitlab_rails['smtp_ssl']              = true

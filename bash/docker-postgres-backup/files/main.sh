@@ -53,7 +53,7 @@ usage() {
     "  -h, --help               Show this help output" \
     "" \
     "Examples:" \
-    "  export PGPASSWORD='supersecret'" \
+    "  export PGPASSWORD  # supply through your secret manager" \
     "  $SCRIPT_NAME --container postgres --backup-dir /backups/postgres --database appdb" \
     "  $SCRIPT_NAME --container postgres --database all --retention-days 30" \
     "  $SCRIPT_NAME --database appdb --no-compress --dry-run" \

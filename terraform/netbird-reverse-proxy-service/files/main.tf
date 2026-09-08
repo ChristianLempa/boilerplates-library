@@ -124,13 +124,13 @@ resource "netbird_reverse_proxy_service" "reverse_proxy_service" {
 <%- if auth_mode == "password" %>
     password_auth = {
       enabled  = true
-      password = "<< auth_password >>"
+      password = var.auth_password
     }
 <%- endif %>
 <%- if auth_mode == "pin" %>
     pin_auth = {
       enabled = true
-      pin     = "<< auth_pin >>"
+      pin     = var.auth_pin
     }
 <%- endif %>
 <%- if auth_mode == "bearer" %>
@@ -143,3 +143,17 @@ resource "netbird_reverse_proxy_service" "reverse_proxy_service" {
 <%- endif %>
   }
 }
+
+<%- if auth_mode == "password" %>
+variable "auth_password" {
+  type      = string
+  sensitive = true
+}
+<%- endif %>
+
+<%- if auth_mode == "pin" %>
+variable "auth_pin" {
+  type      = string
+  sensitive = true
+}
+<%- endif %>

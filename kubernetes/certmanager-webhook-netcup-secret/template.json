@@ -3,8 +3,8 @@
   "slug": "certmanager-webhook-netcup-secret-kubernetes",
   "kind": "kubernetes",
   "metadata": {
-    "name": "Cert-Manager Webhook Netcup Secret",
-    "description": "Kubernetes Secret containing Netcup DNS API credentials for the cert-manager Netcup DNS01 webhook solver.",
+    "name": "Cert-Manager Netcup External Secret",
+    "description": "Reference credentials in an existing external secret store; requires External Secrets Operator.",
     "tags": [
       "cert-manager",
       "netcup",
@@ -20,8 +20,8 @@
   },
   "variables": [
     {
-      "name": "secret",
-      "title": "Secret",
+      "name": "general",
+      "title": "External Secret",
       "items": [
         {
           "name": "resource_name",
@@ -34,22 +34,18 @@
           }
         },
         {
-          "name": "customer_number",
-          "type": "secret",
-          "title": "Customer number",
-          "required": true
+          "name": "secret_store_name",
+          "type": "str",
+          "title": "Secret Store Name",
+          "required": true,
+          "default": "secret-store"
         },
         {
-          "name": "api_key",
-          "type": "secret",
-          "title": "API key",
-          "required": true
-        },
-        {
-          "name": "api_password",
-          "type": "secret",
-          "title": "API password",
-          "required": true
+          "name": "remote_secret_key",
+          "type": "str",
+          "title": "Remote Secret Key",
+          "required": true,
+          "default": "netcup"
         }
       ]
     }

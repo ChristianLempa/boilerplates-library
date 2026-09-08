@@ -62,13 +62,6 @@
           "config": {
             "placeholder": "tunnel --no-autoupdate run"
           }
-        },
-        {
-          "name": "tunnel_token",
-          "type": "secret",
-          "title": "Tunnel Token",
-          "required": true,
-          "description": "Cloudflare tunnel token used by the connector."
         }
       ]
     },

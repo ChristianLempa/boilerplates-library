@@ -102,7 +102,7 @@ services:
 
 secrets:
   << service_name >>_webpassword:
-    file: ./.env.secret.webpassword
+    external: true
 
 
 <%- if volume_mode == 'local' %>

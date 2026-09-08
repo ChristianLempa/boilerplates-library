@@ -31,12 +31,8 @@ services:
       <%- if environment_database_username %>
       KOMODO_DATABASE_USERNAME: "<< environment_database_username >>"
       <%- endif %>
-      <%- if environment_database_password %>
-      KOMODO_DATABASE_PASSWORD: "<< environment_database_password >>"
-      <%- endif %>
-      <%- if environment_jwt_secret %>
-      KOMODO_JWT_SECRET: "<< environment_jwt_secret >>"
-      <%- endif %>
+      KOMODO_DATABASE_PASSWORD: "${ENVIRONMENT_DATABASE_PASSWORD:?Set ENVIRONMENT_DATABASE_PASSWORD}"
+      KOMODO_JWT_SECRET: "${ENVIRONMENT_JWT_SECRET:?Set ENVIRONMENT_JWT_SECRET}"
       LOG_LEVEL: "<< environment_log_level >>"
     <%- endif %>
     volumes:

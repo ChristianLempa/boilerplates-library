@@ -7,8 +7,8 @@ services:
     environment:
       - TZ=<< container_timezone >>
       - TWINGATE_NETWORK=<< twingate_network >>
-      - TWINGATE_ACCESS_TOKEN=${TWINGATE_ACCESS_TOKEN}
-      - TWINGATE_REFRESH_TOKEN=${TWINGATE_REFRESH_TOKEN}
+      - TWINGATE_ACCESS_TOKEN=${TWINGATE_ACCESS_TOKEN:?Set TWINGATE_ACCESS_TOKEN}
+      - TWINGATE_REFRESH_TOKEN=${TWINGATE_REFRESH_TOKEN:?Set TWINGATE_REFRESH_TOKEN}
       - TWINGATE_LOG_LEVEL=<< twingate_log_level >>
       <%- if twingate_dns %>
       - TWINGATE_DNS=<< twingate_dns >>

@@ -16,7 +16,7 @@ services:
       - TZ=<< container_timezone >>
       - PIHOLE_UID=<< user_uid >>
       - PIHOLE_GID=<< user_gid >>
-      - FTLCONF_webserver_api_password=${WEBPASSWORD}
+      - FTLCONF_webserver_api_password=${WEBPASSWORD:?Set WEBPASSWORD}
       <%- if network_mode == 'bridge' %>
       - FTLCONF_dns_listeningMode=all
       <%- endif %>

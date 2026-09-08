@@ -119,7 +119,7 @@ services:
       - "<< stun_port >>:<< stun_port >>/udp"
     volumes:
       - netbird_data:/var/lib/netbird
-      - ./config:/etc/netbird:ro
+      - ${NETBIRD_CONFIG_FILE:?Set NETBIRD_CONFIG_FILE}:/etc/netbird/config.yaml:ro
     <%- if traefik_enabled %>
     labels:
       - "traefik.enable=true"

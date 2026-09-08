@@ -53,7 +53,7 @@ usage() {
     "  -h, --help               Show this help output" \
     "" \
     "Examples:" \
-    "  export MYSQL_PWD='supersecret'" \
+    "  export MYSQL_PWD  # supply through your secret manager" \
     "  $SCRIPT_NAME --container mariadb --backup-dir /backups/mysql --database appdb" \
     "  $SCRIPT_NAME --container mysql --database all --retention-days 30" \
     "  $SCRIPT_NAME --database appdb --no-compress --dry-run" \

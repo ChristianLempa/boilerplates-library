@@ -11,21 +11,21 @@ services:
       <%- if infisical_allow_internal_ip_connections %>
       - ALLOW_INTERNAL_IP_CONNECTIONS=true
       <%- endif %>
-      - SITE_URL=${SITE_URL}
-      - ENCRYPTION_KEY=${ENCRYPTION_KEY}
-      - AUTH_SECRET=${AUTH_SECRET}
-      - DB_CONNECTION_URI=${DB_CONNECTION_URI}
-      - REDIS_URL=${REDIS_URL}
+      - SITE_URL=${SITE_URL:-<< infisical_site_url >>}
+      - ENCRYPTION_KEY=${ENCRYPTION_KEY:?Set ENCRYPTION_KEY}
+      - AUTH_SECRET=${AUTH_SECRET:?Set AUTH_SECRET}
+      - DB_CONNECTION_URI=${DB_CONNECTION_URI:?Set DB_CONNECTION_URI}
+      - REDIS_URL=${REDIS_URL:?Set REDIS_URL}
       <%- if email_enabled %>
-      - SMTP_HOST=${SMTP_HOST}
-      - SMTP_PORT=${SMTP_PORT}
-      - SMTP_FROM_ADDRESS=${SMTP_FROM_ADDRESS}
-      - SMTP_FROM_NAME=${SMTP_FROM_NAME}
-      - SMTP_USERNAME=${SMTP_USERNAME}
-      - SMTP_PASSWORD=${SMTP_PASSWORD}
-      - SMTP_SECURE=${SMTP_SECURE}
-      - SMTP_REQUIRE_TLS=${SMTP_REQUIRE_TLS}
-      - SMTP_IGNORE_TLS=${SMTP_IGNORE_TLS}
+      - SMTP_HOST=${SMTP_HOST:-<< email_host >>}
+      - SMTP_PORT=${SMTP_PORT:-<< email_port >>}
+      - SMTP_FROM_ADDRESS=${SMTP_FROM_ADDRESS:-<< email_from_address >>}
+      - SMTP_FROM_NAME=${SMTP_FROM_NAME:-<< email_from_name >>}
+      - SMTP_USERNAME=${SMTP_USERNAME:-<< email_username >>}
+      - SMTP_PASSWORD=${SMTP_PASSWORD:?Set SMTP_PASSWORD}
+      - SMTP_SECURE=${SMTP_SECURE:-<< email_secure | lower >>}
+      - SMTP_REQUIRE_TLS=${SMTP_REQUIRE_TLS:-<< email_require_tls | lower >>}
+      - SMTP_IGNORE_TLS=${SMTP_IGNORE_TLS:-<< email_ignore_tls | lower >>}
       <%- endif %>
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:8080/api/status || exit 1"]
@@ -75,9 +75,9 @@ services:
     image: docker.io/library/postgres:14-alpine
     restart: << restart_policy >>
     environment:
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER:-<< database_user >>}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB:-<< database_name >>}
     healthcheck:
       test: ["CMD-SHELL", "pg_isready --username=$${POSTGRES_USER} --dbname=$${POSTGRES_DB}"]
       interval: 5s
@@ -97,7 +97,7 @@ services:
   << service_name >>_redis:
     image: docker.io/library/redis:7-alpine
     restart: << restart_policy >>
-    command: ["redis-server", "--appendonly", "yes", "--requirepass", "${REDIS_PASSWORD}"]
+    command: ["redis-server", "--appendonly", "yes", "--requirepass", "${REDIS_PASSWORD:?Set REDIS_PASSWORD}"]
     networks:
       - << service_name >>_backend
     volumes:

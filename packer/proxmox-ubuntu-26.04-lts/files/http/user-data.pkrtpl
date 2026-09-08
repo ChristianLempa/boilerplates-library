@@ -29,7 +29,7 @@ autoinstall:
         lock-passwd: false
         sudo: ALL=(ALL) NOPASSWD:ALL
         shell: /bin/bash
-        passwd: << admin_password_hash >>
+        passwd: ${admin_password_hash}
   packages:
     - qemu-guest-agent
     - sudo

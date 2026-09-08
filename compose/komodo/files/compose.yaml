@@ -48,10 +48,10 @@ services:
       <%- endif %>
       <%- endif %>
       KOMODO_DATABASE_DB_NAME: "<< database_name >>"
-      KOMODO_DATABASE_USERNAME: "${KOMODO_DATABASE_USERNAME}"
-      KOMODO_DATABASE_PASSWORD: "${KOMODO_DATABASE_PASSWORD}"
-      <%- if environment_enabled and environment_jwt_secret %>
-      KOMODO_JWT_SECRET: "${KOMODO_JWT_SECRET}"
+      KOMODO_DATABASE_USERNAME: "${KOMODO_DATABASE_USERNAME:-<< database_username >>}"
+      KOMODO_DATABASE_PASSWORD: "${KOMODO_DATABASE_PASSWORD:?Set KOMODO_DATABASE_PASSWORD}"
+      <%- if environment_enabled and jwt_enabled %>
+      KOMODO_JWT_SECRET: "${KOMODO_JWT_SECRET:?Set KOMODO_JWT_SECRET}"
       <%- endif %>
       <%- if environment_enabled %>
       LOG_LEVEL: "<< environment_log_level >>"
@@ -96,8 +96,8 @@ services:
     labels:
       komodo.skip:
     environment:
-      MONGO_INITDB_ROOT_USERNAME: "${KOMODO_DATABASE_USERNAME}"
-      MONGO_INITDB_ROOT_PASSWORD: "${KOMODO_DATABASE_PASSWORD}"
+      MONGO_INITDB_ROOT_USERNAME: "${KOMODO_DATABASE_USERNAME:-<< database_username >>}"
+      MONGO_INITDB_ROOT_PASSWORD: "${KOMODO_DATABASE_PASSWORD:?Set KOMODO_DATABASE_PASSWORD}"
     <%- if network_mode == 'host' %>
     network_mode: host
     <%- else %>
@@ -114,8 +114,8 @@ services:
     labels:
       komodo.skip:
     environment:
-      POSTGRES_USER: "${KOMODO_DATABASE_USERNAME}"
-      POSTGRES_PASSWORD: "${KOMODO_DATABASE_PASSWORD}"
+      POSTGRES_USER: "${KOMODO_DATABASE_USERNAME:-<< database_username >>}"
+      POSTGRES_PASSWORD: "${KOMODO_DATABASE_PASSWORD:?Set KOMODO_DATABASE_PASSWORD}"
       POSTGRES_DB: postgres
     <%- if network_mode == 'host' %>
     network_mode: host
@@ -135,9 +135,9 @@ services:
       - << service_name >>-postgres
     environment:
       <%- if network_mode == 'host' %>
-      FERRETDB_POSTGRESQL_URL: "postgres://${KOMODO_DATABASE_USERNAME}:${KOMODO_DATABASE_PASSWORD}@localhost:5432/postgres"
+      FERRETDB_POSTGRESQL_URL: "postgres://${KOMODO_DATABASE_USERNAME:-<< database_username >>}:${KOMODO_DATABASE_PASSWORD:?Set KOMODO_DATABASE_PASSWORD}@localhost:5432/postgres"
       <%- else %>
-      FERRETDB_POSTGRESQL_URL: "postgres://${KOMODO_DATABASE_USERNAME}:${KOMODO_DATABASE_PASSWORD}@<< service_name >>-postgres:5432/postgres"
+      FERRETDB_POSTGRESQL_URL: "postgres://${KOMODO_DATABASE_USERNAME:-<< database_username >>}:${KOMODO_DATABASE_PASSWORD:?Set KOMODO_DATABASE_PASSWORD}@<< service_name >>-postgres:5432/postgres"
       <%- endif %>
     <%- if network_mode == 'host' %>
     network_mode: host

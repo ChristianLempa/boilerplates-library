@@ -40,16 +40,6 @@
           "config": {
             "placeholder": "packer@pve!token"
           }
-        },
-        {
-          "name": "proxmox_api_token_secret",
-          "type": "str",
-          "title": "Proxmox API Token Secret",
-          "required": true,
-          "description": "Packer runtime secret for the Proxmox API token. Prefer overriding this at generation time or via pkrvars instead of committing real secrets.",
-          "config": {
-            "placeholder": "CHANGEME"
-          }
         }
       ]
     },
@@ -227,16 +217,6 @@
           "description": "Temporary build user for the Arch live environment.",
           "config": {
             "placeholder": "root"
-          }
-        },
-        {
-          "name": "ssh_password",
-          "type": "str",
-          "title": "SSH Password",
-          "required": true,
-          "description": "Temporary password assigned to the Arch live root user for Packer SSH.",
-          "config": {
-            "placeholder": "CHANGEME"
           }
         }
       ]

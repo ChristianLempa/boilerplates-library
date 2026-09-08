@@ -9,14 +9,14 @@ services:
       - GID=<< docker_group_id >>
       <%- endif %>
       <%- if console_enrollment_enabled %>
-      - ENROLL_KEY=${ENROLL_KEY}
+      - ENROLL_KEY=${ENROLL_KEY:?Set ENROLL_KEY}
       - ENROLL_INSTANCE_NAME=<< console_enrollment_name >>
       <%- if console_enrollment_tags %>
       - ENROLL_TAGS=<< console_enrollment_tags >>
       <%- endif %>
       <%- endif %>
-      <%- if bouncer_traefik_key %>
-      - BOUNCER_KEY_TRAEFIK=${BOUNCER_KEY_TRAEFIK}
+      <%- if bouncer_traefik_enabled %>
+      - BOUNCER_KEY_TRAEFIK=${BOUNCER_KEY_TRAEFIK:?Set BOUNCER_KEY_TRAEFIK}
       <%- endif %>
     volumes:
       - ./config/acquis.yaml:/etc/crowdsec/acquis.yaml:ro

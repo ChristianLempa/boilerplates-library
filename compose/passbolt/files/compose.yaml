@@ -11,17 +11,15 @@ services:
       <%- endif %>
       - APP_FULL_BASE_URL=<< app_full_base_url >>
       - DATASOURCES_DEFAULT_HOST=<< service_name >>-db
-      - DATASOURCES_DEFAULT_USERNAME=${DATABASE_USER}
-      - DATASOURCES_DEFAULT_PASSWORD=${DATABASE_PASSWORD}
+      - DATASOURCES_DEFAULT_USERNAME=${DATABASE_USER:-<< database_user >>}
+      - DATASOURCES_DEFAULT_PASSWORD=${DATABASE_PASSWORD:?Set DATABASE_PASSWORD}
       - DATASOURCES_DEFAULT_DATABASE=<< database_name >>
       - EMAIL_TRANSPORT_DEFAULT_HOST=<< email_host >>
       - EMAIL_TRANSPORT_DEFAULT_PORT=<< email_port >>
       <%- if email_username %>
-      - EMAIL_TRANSPORT_DEFAULT_USERNAME=${EMAIL_USERNAME}
+      - EMAIL_TRANSPORT_DEFAULT_USERNAME=${EMAIL_USERNAME:-<< email_username >>}
       <%- endif %>
-      <%- if email_password %>
-      - EMAIL_TRANSPORT_DEFAULT_PASSWORD=${EMAIL_PASSWORD}
-      <%- endif %>
+      - EMAIL_TRANSPORT_DEFAULT_PASSWORD=${EMAIL_PASSWORD:?Set EMAIL_PASSWORD}
       - EMAIL_TRANSPORT_DEFAULT_TLS=<< email_use_tls | lower >>
       - EMAIL_DEFAULT_FROM=<< email_from >>
     volumes:
@@ -37,8 +35,8 @@ services:
     environment:
       - MYSQL_RANDOM_ROOT_PASSWORD=true
       - MYSQL_DATABASE=<< database_name >>
-      - MYSQL_USER=${DATABASE_USER}
-      - MYSQL_PASSWORD=${DATABASE_PASSWORD}
+      - MYSQL_USER=${DATABASE_USER:-<< database_user >>}
+      - MYSQL_PASSWORD=${DATABASE_PASSWORD:?Set DATABASE_PASSWORD}
     volumes:
       - << volume_db_name if volume_db_name else service_name ~ "-db" >>:/var/lib/mysql
 

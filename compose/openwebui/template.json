@@ -273,17 +273,8 @@
         },
         {
           "name": "authentik_client_id",
-          "type": "secret",
+          "type": "str",
           "title": "Authentik Client Id",
-          "required": true,
-          "needs": [
-            "authentik_enabled=true"
-          ]
-        },
-        {
-          "name": "authentik_client_secret",
-          "type": "secret",
-          "title": "Authentik Client Secret",
           "required": true,
           "needs": [
             "authentik_enabled=true"

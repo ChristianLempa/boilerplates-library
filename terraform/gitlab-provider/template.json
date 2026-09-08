@@ -59,26 +59,6 @@
           }
         },
         {
-          "name": "gitlab_token_enabled",
-          "type": "bool",
-          "title": "Configure Token Variable",
-          "required": false,
-          "default": true
-        },
-        {
-          "name": "gitlab_token",
-          "type": "secret",
-          "title": "GitLab Token",
-          "required": false,
-          "description": "Optional token default for the sensitive Terraform variable. Leave empty to provide TF_VAR_gitlab_token outside of the generated files, or disable this variable to rely on provider environment variables like GITLAB_TOKEN.",
-          "needs": [
-            "gitlab_token_enabled=true"
-          ],
-          "config": {
-            "placeholder": "glpat-..."
-          }
-        },
-        {
           "name": "gitlab_cacert_file",
           "type": "str",
           "title": "Custom CA Certificate File",

@@ -114,25 +114,6 @@
           }
         },
         {
-          "name": "env_file_enabled",
-          "type": "bool",
-          "title": "Env File",
-          "required": false,
-          "default": true,
-          "description": "Load environment variables from an env file"
-        },
-        {
-          "name": "env_file_path",
-          "type": "str",
-          "title": "Env File Path",
-          "required": false,
-          "default": ".env",
-          "description": "Path used for Env File.",
-          "config": {
-            "placeholder": ".env"
-          }
-        },
-        {
           "name": "kestra_public_url",
           "type": "str",
           "title": "Public Kestra URL",
@@ -171,12 +152,6 @@
           "config": {
             "placeholder": "kestra"
           }
-        },
-        {
-          "name": "postgres_password",
-          "type": "secret",
-          "title": "PostgreSQL password",
-          "required": true
         }
       ]
     },

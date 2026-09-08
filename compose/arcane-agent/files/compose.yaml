@@ -13,7 +13,7 @@ services:
       EDGE_AGENT: "true"
       <%- endif %>
       EDGE_TRANSPORT: "<< edge_transport >>"
-      AGENT_TOKEN: "${ARCANE_AGENT_TOKEN}"
+      AGENT_TOKEN: "${ARCANE_AGENT_TOKEN:?Set ARCANE_AGENT_TOKEN}"
       MANAGER_API_URL: "<< manager_api_url >>"
       TZ: "<< container_timezone >>"
     volumes:

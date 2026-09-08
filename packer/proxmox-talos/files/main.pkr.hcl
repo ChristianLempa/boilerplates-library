@@ -42,8 +42,8 @@ source "proxmox-iso" "<< packer_source_name >>" {
   boot_command = [
     "<enter><wait10>",
     "passwd<enter><wait>",
-    "<< ssh_password >><enter><wait>",
-    "<< ssh_password >><enter><wait>",
+    "${var.ssh_password}<enter><wait>",
+    "${var.ssh_password}<enter><wait>",
     "systemctl start sshd<enter><wait>"
   ]
 

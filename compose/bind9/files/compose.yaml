@@ -25,6 +25,9 @@ services:
       - "53:53/udp"
     <%- endif %>
     volumes:
+      <%- if tsig_enabled %>
+      - ${BIND_TSIG_KEY_FILE:?Set BIND_TSIG_KEY_FILE}:/etc/bind/tsig.key:ro
+      <%- endif %>
       <%- if volume_mode == 'mount' %>
       - << volume_mount_path >>/config:/etc/bind:rw
       - << volume_mount_path >>/zones:/var/lib/bind:rw

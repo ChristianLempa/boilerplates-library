@@ -3,6 +3,14 @@ services:
     image: docker.io/gitlab/gitlab-ce:18.11.2-ce.0
     restart: << restart_policy >>
     shm_size: '256m'
+    environment:
+      GITLAB_ROOT_PASSWORD: "${GITLAB_ROOT_PASSWORD:?Set GITLAB_ROOT_PASSWORD}"
+      <%- if authentik_enabled %>
+      GITLAB_OIDC_CLIENT_SECRET: "${GITLAB_OIDC_CLIENT_SECRET:?Set GITLAB_OIDC_CLIENT_SECRET}"
+      <%- endif %>
+      <%- if email_enabled %>
+      GITLAB_SMTP_PASSWORD: "${GITLAB_SMTP_PASSWORD:?Set GITLAB_SMTP_PASSWORD}"
+      <%- endif %>
     <%- if traefik_enabled %>
     networks:
       << traefik_network >>:

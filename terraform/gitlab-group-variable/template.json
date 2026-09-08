@@ -57,16 +57,6 @@
           }
         },
         {
-          "name": "value",
-          "type": "str",
-          "title": "Value",
-          "required": true,
-          "config": {
-            "placeholder": "registry.example.com",
-            "textarea": true
-          }
-        },
-        {
           "name": "description",
           "type": "str",
           "title": "Description",

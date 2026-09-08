@@ -104,20 +104,6 @@
           "required": true
         },
         {
-          "name": "twingate_access_token",
-          "type": "secret",
-          "title": "Access Token",
-          "required": true,
-          "description": "Connector access token from Twingate."
-        },
-        {
-          "name": "twingate_refresh_token",
-          "type": "secret",
-          "title": "Refresh Token",
-          "required": true,
-          "description": "Connector refresh token from Twingate."
-        },
-        {
           "name": "twingate_log_level",
           "type": "int",
           "title": "Log Level",

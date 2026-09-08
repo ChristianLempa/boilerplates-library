@@ -1,11 +1,13 @@
 ---
 global:
+  envFrom:
+    - secretRef:
+        name: << authentik_existing_secret >>
   image:
     repository: "ghcr.io/goauthentik/server"
     tag: "2026.2.2"
     pullPolicy: IfNotPresent
 authentik:
-  secret_key: << authentik_secret_key >>
   postgresql:
     name: << database_name >>
     user: << database_user >>
@@ -18,7 +20,6 @@ authentik:
     host: << email_host >>
     port: << email_port >>
     username: << email_username >>
-    password: << email_password >>
     use_tls: << email_use_tls | lower >>
     from: << email_from >>
 <%- endif %>
@@ -53,7 +54,10 @@ postgresql:
   auth:
     database: << database_name >>
     username: << database_user >>
-    password: << database_password >>
+    existingSecret: << database_secret_name >>
+    secretKeys:
+      userPasswordKey: AUTHENTIK_POSTGRESQL__PASSWORD
+      adminPasswordKey: postgres-password
 <%- endif %>
 redis:
   enabled: true

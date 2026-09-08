@@ -15,15 +15,15 @@ services:
       - SEMAPHORE_DB_HOST=<< service_name >>_db
       <%- endif %>
       - SEMAPHORE_DB=<< database_name >>
-      - SEMAPHORE_DB_USER=${DATABASE_USER}
-      - SEMAPHORE_DB_PASS=${DATABASE_PASSWORD}
+      - SEMAPHORE_DB_USER=${DATABASE_USER:-<< database_user >>}
+      - SEMAPHORE_DB_PASS=${DATABASE_PASSWORD:?Set DATABASE_PASSWORD}
       <%- endif %>
-      - SEMAPHORE_ADMIN=${SEMAPHORE_ADMIN}
+      - SEMAPHORE_ADMIN=${SEMAPHORE_ADMIN:-<< admin_user >>}
       - SEMAPHORE_ADMIN_NAME=<< admin_name >>
       - SEMAPHORE_ADMIN_EMAIL=<< admin_email >>
-      - SEMAPHORE_ADMIN_PASSWORD=${SEMAPHORE_ADMIN_PASSWORD}
+      - SEMAPHORE_ADMIN_PASSWORD=${SEMAPHORE_ADMIN_PASSWORD:?Set SEMAPHORE_ADMIN_PASSWORD}
       - SEMAPHORE_PLAYBOOK_PATH=/tmp/semaphore/
-      - SEMAPHORE_ACCESS_KEY_ENCRYPTION=${SEMAPHORE_ACCESS_KEY_ENCRYPTION}
+      - SEMAPHORE_ACCESS_KEY_ENCRYPTION=${SEMAPHORE_ACCESS_KEY_ENCRYPTION:?Set SEMAPHORE_ACCESS_KEY_ENCRYPTION}
       - ANSIBLE_HOST_KEY_CHECKING=<< ansible_host_key_checking >>
     <%- if database_type == "sqlite" %>
     volumes:
@@ -68,8 +68,8 @@ services:
     image: docker.io/library/postgres:17.9
     restart: << restart_policy >>
     environment:
-      - POSTGRES_USER=${DATABASE_USER}
-      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_USER=${DATABASE_USER:-<< database_user >>}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD:?Set DATABASE_PASSWORD}
       - POSTGRES_DB=<< database_name >>
     networks:
       - << service_name >>_backend
@@ -86,10 +86,10 @@ services:
     image: docker.io/library/mysql:8.1
     restart: << restart_policy >>
     environment:
-      - MYSQL_USER=${DATABASE_USER}
-      - MYSQL_PASSWORD=${DATABASE_PASSWORD}
+      - MYSQL_USER=${DATABASE_USER:-<< database_user >>}
+      - MYSQL_PASSWORD=${DATABASE_PASSWORD:?Set DATABASE_PASSWORD}
       - MYSQL_DATABASE=<< database_name >>
-      - MYSQL_ROOT_PASSWORD=${DATABASE_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${DATABASE_PASSWORD:?Set DATABASE_PASSWORD}
     networks:
       - << service_name >>_backend
     volumes:

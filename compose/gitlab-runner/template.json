@@ -52,56 +52,6 @@
               "no"
             ]
           }
-        },
-        {
-          "name": "gitlab_url",
-          "type": "str",
-          "title": "GitLab URL",
-          "required": true,
-          "config": {
-            "placeholder": "https://gitlab.example.com/"
-          },
-          "description": "Base URL of the GitLab instance."
-        },
-        {
-          "name": "gitlab_runner_name",
-          "type": "str",
-          "title": "Runner Name",
-          "required": false,
-          "default": "gitlab-runner",
-          "config": {
-            "placeholder": "gitlab-runner"
-          },
-          "description": "Runner name shown in GitLab."
-        },
-        {
-          "name": "gitlab_runner_token",
-          "type": "secret",
-          "title": "Runner Authentication Token",
-          "required": true,
-          "description": "Runner authentication token created in GitLab."
-        },
-        {
-          "name": "gitlab_runner_concurrent",
-          "type": "int",
-          "title": "Concurrent Jobs",
-          "required": false,
-          "default": 4,
-          "description": "Maximum number of jobs the runner can process at the same time.",
-          "config": {
-            "placeholder": "4"
-          }
-        },
-        {
-          "name": "gitlab_executor_image",
-          "type": "str",
-          "title": "Default Executor Image",
-          "required": false,
-          "default": "alpine:latest",
-          "config": {
-            "placeholder": "alpine:latest"
-          },
-          "description": "Default Docker image used for jobs that do not specify one."
         }
       ]
     }

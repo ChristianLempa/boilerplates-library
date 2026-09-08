@@ -3,6 +3,6 @@ services:
     image: docker.io/gitlab/gitlab-runner:alpine-v17.9.1
     container_name: << container_name >>
     volumes:
-      - ./config/config.toml:/etc/gitlab-runner/config.toml:ro
+      - ${GITLAB_RUNNER_CONFIG_FILE:?Set GITLAB_RUNNER_CONFIG_FILE}:/etc/gitlab-runner/config.toml:ro
       - /var/run/docker.sock:/var/run/docker.sock
     restart: << restart_policy >>

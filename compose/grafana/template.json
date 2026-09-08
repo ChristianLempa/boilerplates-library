@@ -104,17 +104,8 @@
         },
         {
           "name": "authentik_client_id",
-          "type": "secret",
+          "type": "str",
           "title": "Authentik Client Id",
-          "required": true,
-          "needs": [
-            "authentik_enabled=true"
-          ]
-        },
-        {
-          "name": "authentik_client_secret",
-          "type": "secret",
-          "title": "Authentik Client Secret",
           "required": true,
           "needs": [
             "authentik_enabled=true"
@@ -284,15 +275,6 @@
           "config": {
             "placeholder": "grafana"
           }
-        },
-        {
-          "name": "database_password",
-          "type": "secret",
-          "title": "Database Password",
-          "required": true,
-          "needs": [
-            "database_type=postgres"
-          ]
         },
         {
           "name": "database_host",

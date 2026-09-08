@@ -44,7 +44,9 @@ source "proxmox-iso" "<< packer_source_name >>" {
   boot           = "c"
   boot_wait      = "<< boot_wait >>"
   communicator   = "ssh"
-  http_directory = "http"
+  http_content = {
+    "ks.cfg" = templatefile("${path.root}/http/ks.cfg.pkrtpl", { ssh_password = var.ssh_password })
+  }
   http_interface = var.http_interface
 
   ssh_username = var.ssh_username

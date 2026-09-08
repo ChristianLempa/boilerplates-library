@@ -13,8 +13,8 @@ services:
       - FORGEJO__database__HOST=<< service_name >>_db
       <%- endif %>
       - FORGEJO__database__NAME=<< database_name >>
-      - FORGEJO__database__USER=${DATABASE_USER}
-      - FORGEJO__database__PASSWD=${DATABASE_PASSWORD}
+      - FORGEJO__database__USER=${DATABASE_USER:-<< database_user >>}
+      - FORGEJO__database__PASSWD=${DATABASE_PASSWORD:?Set DATABASE_PASSWORD}
       <%- endif %>
       - FORGEJO__server__SSH_PORT=<< ports_ssh >>
       <%- if not traefik_enabled %>
@@ -67,8 +67,8 @@ services:
     restart: << restart_policy >>
     environment:
       - TZ=<< container_timezone >>
-      - POSTGRES_USER=${DATABASE_USER}
-      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_USER=${DATABASE_USER:-<< database_user >>}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD:?Set DATABASE_PASSWORD}
       - POSTGRES_DB=<< database_name >>
     networks:
       - << service_name >>_backend
@@ -85,10 +85,10 @@ services:
     image: docker.io/library/mysql:8.1
     restart: << restart_policy >>
     environment:
-      - MYSQL_USER=${DATABASE_USER}
-      - MYSQL_PASSWORD=${DATABASE_PASSWORD}
+      - MYSQL_USER=${DATABASE_USER:-<< database_user >>}
+      - MYSQL_PASSWORD=${DATABASE_PASSWORD:?Set DATABASE_PASSWORD}
       - MYSQL_DATABASE=<< database_name >>
-      - MYSQL_ROOT_PASSWORD=${DATABASE_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${DATABASE_PASSWORD:?Set DATABASE_PASSWORD}
     networks:
       - << service_name >>_backend
     volumes:

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import os
 import socket
 import subprocess
 import sys
@@ -12,7 +13,7 @@ import urllib.request
 MONITOR_PATH = r"""<< monitor_path >>"""
 WARNING_PERCENT = int(r"""<< warning_percent >>""")
 
-DISCORD_WEBHOOK_URL = r"""<< discord_webhook_url >>"""
+DISCORD_WEBHOOK_URL = os.environ["DISCORD_WEBHOOK_URL"]
 DISCORD_USERNAME = r"""<< discord_username >>"""
 
 

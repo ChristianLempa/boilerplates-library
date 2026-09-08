@@ -1,13 +1,25 @@
 ---
-apiVersion: v1
-kind: Secret
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
 metadata:
   name: << resource_name >>
-type: Opaque
-stringData:
-  customer-number: |-
-    << customer_number >>
-  api-key: |-
-    << api_key >>
-  api-password: |-
-    << api_password >>
+spec:
+  refreshInterval: 1h
+  secretStoreRef:
+    name: << secret_store_name >>
+    kind: ClusterSecretStore
+  target:
+    name: << resource_name >>
+  data:
+    - secretKey: customer-number
+      remoteRef:
+        key: << remote_secret_key >>
+        property: customer-number
+    - secretKey: api-key
+      remoteRef:
+        key: << remote_secret_key >>
+        property: api-key
+    - secretKey: api-password
+      remoteRef:
+        key: << remote_secret_key >>
+        property: api-password

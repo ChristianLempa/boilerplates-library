@@ -56,13 +56,6 @@
           }
         },
         {
-          "name": "discord_webhook_url",
-          "type": "secret",
-          "title": "Discord Webhook URL",
-          "required": false,
-          "description": "Optional Discord webhook endpoint for warning notifications."
-        },
-        {
           "name": "discord_username",
           "type": "str",
           "title": "Discord Username",

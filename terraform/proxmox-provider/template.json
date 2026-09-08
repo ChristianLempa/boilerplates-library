@@ -59,38 +59,6 @@
           }
         },
         {
-          "name": "proxmox_api_token_enabled",
-          "type": "bool",
-          "title": "Configure API Token Variables",
-          "required": false,
-          "default": true
-        },
-        {
-          "name": "proxmox_api_token_id",
-          "type": "str",
-          "title": "Proxmox API Token ID",
-          "required": false,
-          "needs": [
-            "proxmox_api_token_enabled=true"
-          ],
-          "config": {
-            "placeholder": "root@pam!terraform"
-          }
-        },
-        {
-          "name": "proxmox_api_token_secret",
-          "type": "secret",
-          "title": "Proxmox API Token Secret",
-          "required": false,
-          "description": "Optional token secret default for the sensitive Terraform variable. Leave empty to provide TF_VAR_proxmox_api_token_secret outside of the generated files.",
-          "needs": [
-            "proxmox_api_token_enabled=true"
-          ],
-          "config": {
-            "placeholder": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
-          }
-        },
-        {
           "name": "proxmox_skip_tls_verify",
           "type": "bool",
           "title": "Skip TLS Verification",

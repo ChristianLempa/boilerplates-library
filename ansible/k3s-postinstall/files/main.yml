@@ -169,7 +169,7 @@
               {{
                 (
                   (extra_namespaces_yaml | default('[]') | from_yaml)
-                  + ([cert_manager_namespace | default('cert-manager')] if cert_manager_install_enabled | default(false) or cert_manager_create_cloudflare_secret | default(false) or cert_manager_clusterissuer_enabled | default(false) else [])
+                  + ([cert_manager_namespace | default('cert-manager')] if cert_manager_install_enabled | default(false) or cert_manager_clusterissuer_enabled | default(false) else [])
                   + ([longhorn_namespace | default('longhorn-system')] if longhorn_install_enabled | default(false) else [])
                   + ([traefik_dashboard_namespace | default('traefik')] if traefik_dashboard_exposure_enabled | default(false) else [])
                 ) | unique
@@ -211,21 +211,6 @@
               crds:
                 enabled: true
           when: cert_manager_install_enabled | default(false)
-
-        - name: Create Cloudflare API token secret placeholder for cert-manager
-          kubernetes.core.k8s:
-            kubeconfig: "{{ kubeconfig_path }}"
-            state: present
-            definition:
-              apiVersion: v1
-              kind: Secret
-              metadata:
-                name: "<< cert_manager_cloudflare_secret_name | default('cloudflare-api-token-secret') >>"
-                namespace: "<< cert_manager_namespace | default('cert-manager') >>"
-              type: Opaque
-              stringData:
-                << cert_manager_cloudflare_secret_key | default('api-token') >>: "<< cert_manager_cloudflare_api_token | default('replace-me-with-your-cloudflare-api-token') >>"
-          when: cert_manager_create_cloudflare_secret | default(false)
 
         - name: Create cert-manager ClusterIssuer
           kubernetes.core.k8s:

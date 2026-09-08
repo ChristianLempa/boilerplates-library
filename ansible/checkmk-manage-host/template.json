@@ -49,12 +49,6 @@
           "type": "str",
           "title": "Checkmk Automation User",
           "required": true
-        },
-        {
-          "name": "checkmk_pass",
-          "type": "secret",
-          "title": "Automation Password",
-          "required": true
         }
       ]
     },

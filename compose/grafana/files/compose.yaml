@@ -12,15 +12,15 @@ services:
       - GF_DATABASE_HOST=<< service_name >>_db
       <%- endif %>
       - GF_DATABASE_NAME=<< database_name >>
-      - GF_DATABASE_USER=${DATABASE_USER}
-      - GF_DATABASE_PASSWORD=${GRAFANA_DB_PASSWORD}
+      - GF_DATABASE_USER=${DATABASE_USER:-<< database_user >>}
+      - GF_DATABASE_PASSWORD=${GRAFANA_DB_PASSWORD:?Set GRAFANA_DB_PASSWORD}
       - GF_DATABASE_SSL_MODE=disable
       <%- endif %>
       <%- if authentik_enabled %>
       - GF_AUTH_GENERIC_OAUTH_ENABLED=true
       - GF_AUTH_GENERIC_OAUTH_NAME=<< authentik_slug >>
-      - GF_AUTH_GENERIC_OAUTH_CLIENT_ID=${GRAFANA_OAUTH_CLIENT_ID}
-      - GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET=${GRAFANA_OAUTH_CLIENT_SECRET}
+      - GF_AUTH_GENERIC_OAUTH_CLIENT_ID=${GRAFANA_OAUTH_CLIENT_ID:-<< authentik_client_id >>}
+      - GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET=${GRAFANA_OAUTH_CLIENT_SECRET:?Set GRAFANA_OAUTH_CLIENT_SECRET}
       - GF_AUTH_GENERIC_OAUTH_SCOPES=openid profile email
       - GF_AUTH_GENERIC_OAUTH_AUTH_URL=<< authentik_url >>/application/o/authorize/
       - GF_AUTH_GENERIC_OAUTH_TOKEN_URL=<< authentik_url >>/application/o/token/
@@ -71,8 +71,8 @@ services:
     image: docker.io/library/postgres:17.9
     restart: << restart_policy >>
     environment:
-      - POSTGRES_USER=${DATABASE_USER}
-      - POSTGRES_PASSWORD=${GRAFANA_DB_PASSWORD}
+      - POSTGRES_USER=${DATABASE_USER:-<< database_user >>}
+      - POSTGRES_PASSWORD=${GRAFANA_DB_PASSWORD:?Set GRAFANA_DB_PASSWORD}
       - POSTGRES_DB=<< database_name >>
     networks:
       - << service_name >>_backend

@@ -9,8 +9,7 @@ replicaCount: 1
 superuser:
   name: << netbox_superuser_name >>
   email: << netbox_superuser_email >>
-  password: << netbox_superuser_password >>
-  apiToken: << netbox_superuser_api_token >>
+  existingSecret: << netbox_existing_secret >>
 
 allowedHosts:
   - "<< netbox_allowed_hosts >>"
@@ -24,54 +23,54 @@ externalDatabase:
   port: << database_port >>
   database: << database_name >>
   username: << database_user >>
-  password: << database_password >>
+  existingSecretName: << database_secret_name >>
+  existingSecretKey: password
 <%- else %>
 postgresql:
   enabled: true
   auth:
     database: << database_name >>
     username: << database_user >>
-    password: << database_password >>
+    existingSecret: << database_secret_name >>
 <%- endif %>
 
 <%- if redis_external %>
 redis:
   enabled: false
 
-externalRedis:
-  host: << redis_host >>
-  port: 6379
-  database: 0
-  password: << redis_password >>
 
 tasksRedis:
   host: << redis_host >>
   port: 6379
   database: 0
-  password: << redis_password >>
+  existingSecretName: << redis_secret_name >>
+  existingSecretKey: redis-password
 
 cachingRedis:
   host: << redis_cache_host >>
   port: 6379
   database: 1
-  password: << redis_password >>
+  existingSecretName: << redis_secret_name >>
+  existingSecretKey: redis-password
 <%- else %>
 redis:
   enabled: true
   architecture: standalone
   auth:
     enabled: true
-    password: << redis_password >>
+    existingSecret: << redis_secret_name >>
+    existingSecretPasswordKey: redis-password
 <%- endif %>
 
-secretKey: << netbox_secret_key >>
+existingSecret: << netbox_existing_secret >>
 
 <%- if email_enabled %>
 email:
   server: << email_host >>
   port: << email_port >>
   username: << email_username >>
-  password: << email_password >>
+  existingSecretName: << netbox_existing_secret >>
+  existingSecretKey: email-password
   from: << email_from >>
   useSSL: << email_use_ssl | lower >>
   useTLS: << email_use_tls | lower >>

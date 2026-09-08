@@ -273,23 +273,12 @@
           }
         },
         {
-          "name": "cert_manager_create_cloudflare_secret",
-          "type": "bool",
-          "title": "Cloudflare Secret",
-          "required": false,
-          "default": false,
-          "description": "Create a placeholder secret for a Cloudflare DNS API token"
-        },
-        {
           "name": "cert_manager_cloudflare_secret_name",
           "type": "str",
           "title": "Secret Name",
           "required": false,
           "default": "cloudflare-api-token-secret",
           "description": "Secret name for the Cloudflare DNS API token",
-          "needs": [
-            "cert_manager_create_cloudflare_secret=true"
-          ],
           "config": {
             "placeholder": "cloudflare-api-token-secret"
           }
@@ -301,22 +290,9 @@
           "required": false,
           "default": "api-token",
           "description": "Secret key that stores the Cloudflare API token",
-          "needs": [
-            "cert_manager_create_cloudflare_secret=true"
-          ],
           "config": {
             "placeholder": "api-token"
           }
-        },
-        {
-          "name": "cert_manager_cloudflare_api_token",
-          "type": "secret",
-          "title": "Cloudflare Token",
-          "required": false,
-          "description": "Optional Cloudflare API token value used to populate the placeholder secret",
-          "needs": [
-            "cert_manager_create_cloudflare_secret=true"
-          ]
         },
         {
           "name": "cert_manager_clusterissuer_enabled",

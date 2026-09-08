@@ -5,10 +5,10 @@ services:
     image: docker.io/library/mariadb:12.2.2
     restart: << restart_policy >>
     environment:
-      - MARIADB_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
+      - MARIADB_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD:?Set MARIADB_ROOT_PASSWORD}
       - MARIADB_DATABASE=<< database_name >>
-      - MARIADB_USER=${MARIADB_USER}
-      - MARIADB_PASSWORD=${MARIADB_PASSWORD}
+      - MARIADB_USER=${MARIADB_USER:-<< database_user >>}
+      - MARIADB_PASSWORD=${MARIADB_PASSWORD:?Set MARIADB_PASSWORD}
     ports:
       - "<< ports_mariadb >>:3306"
     volumes:

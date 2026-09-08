@@ -14,8 +14,8 @@ services:
       <%- if pgid %>
       PGID: "<< pgid >>"
       <%- endif %>
-      ENCRYPTION_KEY: "${ARCANE_ENCRYPTION_KEY}"
-      JWT_SECRET: "${ARCANE_JWT_SECRET}"
+      ENCRYPTION_KEY: "${ARCANE_ENCRYPTION_KEY:?Set ARCANE_ENCRYPTION_KEY}"
+      JWT_SECRET: "${ARCANE_JWT_SECRET:?Set ARCANE_JWT_SECRET}"
       TZ: "<< container_timezone >>"
       <%- if analytics_enabled %>
       ANALYTICS_DISABLED: "false"
@@ -23,7 +23,7 @@ services:
       <%- if oidc_enabled %>
       OIDC_ENABLED: "true"
       OIDC_CLIENT_ID: "<< oidc_client_id >>"
-      OIDC_CLIENT_SECRET: "${ARCANE_OIDC_CLIENT_SECRET}"
+      OIDC_CLIENT_SECRET: "${ARCANE_OIDC_CLIENT_SECRET:?Set ARCANE_OIDC_CLIENT_SECRET}"
       OIDC_ISSUER_URL: "<< oidc_issuer_url >>"
       <%- if oidc_provider_name %>
       OIDC_PROVIDER_NAME: "<< oidc_provider_name >>"

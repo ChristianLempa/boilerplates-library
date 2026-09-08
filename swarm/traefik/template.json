@@ -238,39 +238,6 @@
           ]
         },
         {
-          "name": "traefik_tls_acme_token",
-          "type": "secret",
-          "title": "API Token / ID",
-          "required": true,
-          "description": "DNS provider API token or access/client ID. Stored as a Swarm secret.",
-          "needs": [
-            "traefik_tls_enabled=true",
-            "traefik_tls_certresolver=azure,cloudflare,digitalocean,godaddy,namecheap,ovh,porkbun,route53"
-          ]
-        },
-        {
-          "name": "traefik_tls_acme_secret_key",
-          "type": "secret",
-          "title": "Secret Key",
-          "required": true,
-          "description": "DNS provider secret key. Stored as a Swarm secret.",
-          "needs": [
-            "traefik_tls_enabled=true",
-            "traefik_tls_certresolver=azure,godaddy,ovh,porkbun,route53"
-          ]
-        },
-        {
-          "name": "traefik_tls_acme_consumer_key",
-          "type": "secret",
-          "title": "Consumer Key",
-          "required": true,
-          "description": "OVH consumer key. Stored as a Swarm secret.",
-          "needs": [
-            "traefik_tls_enabled=true",
-            "traefik_tls_certresolver=ovh"
-          ]
-        },
-        {
           "name": "traefik_tls_acme_username",
           "type": "str",
           "title": "Username",

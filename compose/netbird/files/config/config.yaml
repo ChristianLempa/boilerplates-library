@@ -1,3 +1,4 @@
+# Non-sensitive base: merge with externally managed credentials before deployment.
 server:
   listenAddress: ":80"
   <%- if traefik_tls_enabled %>
@@ -11,8 +12,6 @@ server:
   healthcheckAddress: ":9000"
   logLevel: "<< netbird_log_level >>"
   logFile: "console"
-  authSecret: |-
-    << netbird_relay_auth_secret >>
   dataDir: "/var/lib/netbird"
   disableAnonymousMetrics: << disable_anonymous_metrics | lower >>
   disableGeoliteUpdate: << disable_geolite_update | lower >>
@@ -37,5 +36,3 @@ server:
   store:
     engine: "sqlite"
     dsn: ""
-    encryptionKey: |-
-      << netbird_store_encryption_key >>

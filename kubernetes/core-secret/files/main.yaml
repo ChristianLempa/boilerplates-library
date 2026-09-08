@@ -1,9 +1,16 @@
 ---
-apiVersion: v1
-kind: Secret
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
 metadata:
   name: << resource_name >>
-type: << secret_type >>
-stringData:
-  api-token: |-
-    << api_token >>
+spec:
+  refreshInterval: 1h
+  secretStoreRef:
+    name: << secret_store_name >>
+    kind: ClusterSecretStore
+  target:
+    name: << resource_name >>
+  data:
+    - secretKey: api-token
+      remoteRef:
+        key: << remote_secret_key >>

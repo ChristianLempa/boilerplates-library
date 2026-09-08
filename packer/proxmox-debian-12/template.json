@@ -40,16 +40,6 @@
           "config": {
             "placeholder": "packer@pve!token"
           }
-        },
-        {
-          "name": "proxmox_api_token_secret",
-          "type": "str",
-          "title": "Proxmox API Token Secret",
-          "required": true,
-          "description": "Packer runtime secret for the Proxmox API token. Prefer overriding this at generation time or via pkrvars instead of committing real secrets.",
-          "config": {
-            "placeholder": "CHANGEME"
-          }
         }
       ]
     },
@@ -226,16 +216,6 @@
           "default": "admin",
           "config": {
             "placeholder": "admin"
-          }
-        },
-        {
-          "name": "ssh_password",
-          "type": "str",
-          "title": "SSH Password",
-          "required": true,
-          "description": "Temporary installation password used by Packer SSH during image creation.",
-          "config": {
-            "placeholder": "CHANGEME"
           }
         }
       ]

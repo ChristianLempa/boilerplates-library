@@ -74,37 +74,37 @@ services:
       - TZ=<< container_timezone >>
       <%- if traefik_tls_enabled %>
       <%- if traefik_tls_certresolver == 'cloudflare' %>
-      - CF_DNS_API_TOKEN=${CF_DNS_API_TOKEN}
+      - CF_DNS_API_TOKEN=${CF_DNS_API_TOKEN:?Set CF_DNS_API_TOKEN}
       <%- elif traefik_tls_certresolver == 'porkbun' %>
-      - PORKBUN_API_KEY=${PORKBUN_API_KEY}
-      - PORKBUN_SECRET_API_KEY=${PORKBUN_SECRET_API_KEY}
+      - PORKBUN_API_KEY=${PORKBUN_API_KEY:?Set PORKBUN_API_KEY}
+      - PORKBUN_SECRET_API_KEY=${PORKBUN_SECRET_API_KEY:?Set PORKBUN_SECRET_API_KEY}
       <%- elif traefik_tls_certresolver == 'route53' %>
-      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
-      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID:?Set AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY:?Set AWS_SECRET_ACCESS_KEY}
       - AWS_REGION=<< traefik_tls_acme_region >>
       <%- elif traefik_tls_certresolver == 'digitalocean' %>
-      - DO_AUTH_TOKEN=${DO_AUTH_TOKEN}
+      - DO_AUTH_TOKEN=${DO_AUTH_TOKEN:?Set DO_AUTH_TOKEN}
       <%- elif traefik_tls_certresolver == 'godaddy' %>
-      - GODADDY_API_KEY=${GODADDY_API_KEY}
-      - GODADDY_API_SECRET=${GODADDY_API_SECRET}
+      - GODADDY_API_KEY=${GODADDY_API_KEY:?Set GODADDY_API_KEY}
+      - GODADDY_API_SECRET=${GODADDY_API_SECRET:?Set GODADDY_API_SECRET}
       <%- elif traefik_tls_certresolver == 'azure' %>
-      - AZURE_CLIENT_ID=${AZURE_CLIENT_ID}
-      - AZURE_CLIENT_SECRET=${AZURE_CLIENT_SECRET}
+      - AZURE_CLIENT_ID=${AZURE_CLIENT_ID:?Set AZURE_CLIENT_ID}
+      - AZURE_CLIENT_SECRET=${AZURE_CLIENT_SECRET:?Set AZURE_CLIENT_SECRET}
       - AZURE_TENANT_ID=<< traefik_tls_acme_tenant_id >>
       - AZURE_SUBSCRIPTION_ID=<< traefik_tls_acme_subscription_id >>
       - AZURE_RESOURCE_GROUP=<< traefik_tls_acme_resource_group >>
       <%- elif traefik_tls_certresolver == 'namecheap' %>
-      - NAMECHEAP_API_KEY=${NAMECHEAP_API_KEY}
-      - NAMECHEAP_API_USER=${NAMECHEAP_API_USER}
+      - NAMECHEAP_API_KEY=${NAMECHEAP_API_KEY:?Set NAMECHEAP_API_KEY}
+      - NAMECHEAP_API_USER=${NAMECHEAP_API_USER:-<< traefik_tls_acme_username >>}
       <%- elif traefik_tls_certresolver == 'netcup' %>
-      - NETCUP_CUSTOMER_NUMBER=${NETCUP_CUSTOMER_NUMBER}
-      - NETCUP_API_KEY=${NETCUP_API_KEY}
-      - NETCUP_API_PASSWORD=${NETCUP_API_PASSWORD}
+      - NETCUP_CUSTOMER_NUMBER=${NETCUP_CUSTOMER_NUMBER:?Set NETCUP_CUSTOMER_NUMBER}
+      - NETCUP_API_KEY=${NETCUP_API_KEY:?Set NETCUP_API_KEY}
+      - NETCUP_API_PASSWORD=${NETCUP_API_PASSWORD:?Set NETCUP_API_PASSWORD}
       <%- elif traefik_tls_certresolver == 'ovh' %>
       - OVH_ENDPOINT=<< traefik_tls_acme_endpoint >>
-      - OVH_APPLICATION_KEY=${OVH_APPLICATION_KEY}
-      - OVH_APPLICATION_SECRET=${OVH_APPLICATION_SECRET}
-      - OVH_CONSUMER_KEY=${OVH_CONSUMER_KEY}
+      - OVH_APPLICATION_KEY=${OVH_APPLICATION_KEY:?Set OVH_APPLICATION_KEY}
+      - OVH_APPLICATION_SECRET=${OVH_APPLICATION_SECRET:?Set OVH_APPLICATION_SECRET}
+      - OVH_CONSUMER_KEY=${OVH_CONSUMER_KEY:?Set OVH_CONSUMER_KEY}
       <%- endif %>
       <%- endif %>
     healthcheck:

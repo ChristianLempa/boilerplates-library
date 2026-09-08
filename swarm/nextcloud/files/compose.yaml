@@ -4,15 +4,15 @@ services:
     environment:
       - TZ=<< container_timezone >>
       - NEXTCLOUD_ADMIN_USER=${NEXTCLOUD_ADMIN_USER}
-      - NEXTCLOUD_ADMIN_PASSWORD=${NEXTCLOUD_ADMIN_PASSWORD}
+      - NEXTCLOUD_ADMIN_PASSWORD=${NEXTCLOUD_ADMIN_PASSWORD:?Set NEXTCLOUD_ADMIN_PASSWORD}
       - REDIS_HOST=<< service_name >>-redis
       <%- if database_type == 'mysql' %>
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD:?Set MYSQL_PASSWORD}
       - MYSQL_DATABASE=<< database_name >>
       - MYSQL_USER=<< database_user >>
       - MYSQL_HOST=<< service_name >>-db
       <%- elif database_type == 'postgres' %>
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD}
       - POSTGRES_DB=<< database_name >>
       - POSTGRES_USER=<< database_user >>
       - POSTGRES_HOST=<< service_name >>-db
@@ -69,12 +69,12 @@ services:
       - TZ=<< container_timezone >>
       - REDIS_HOST=<< service_name >>-redis
       <%- if database_type == 'mysql' %>
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD:?Set MYSQL_PASSWORD}
       - MYSQL_DATABASE=<< database_name >>
       - MYSQL_USER=<< database_user >>
       - MYSQL_HOST=<< service_name >>-db
       <%- elif database_type == 'postgres' %>
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD}
       - POSTGRES_DB=<< database_name >>
       - POSTGRES_USER=<< database_user >>
       - POSTGRES_HOST=<< service_name >>-db
@@ -107,7 +107,7 @@ services:
     environment:
       - TZ=<< container_timezone >>
       - MYSQL_RANDOM_ROOT_PASSWORD=true
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD:?Set MYSQL_PASSWORD}
       - MYSQL_DATABASE=<< database_name >>
       - MYSQL_USER=<< database_user >>
     volumes:
@@ -119,7 +119,7 @@ services:
     environment:
       - TZ=<< container_timezone >>
       - POSTGRES_USER=<< database_user >>
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD}
       - POSTGRES_DB=<< database_name >>
     volumes:
       - nextcloud-db:/var/lib/postgresql/data

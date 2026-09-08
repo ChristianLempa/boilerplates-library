@@ -52,7 +52,10 @@ source "proxmox-iso" "<< packer_source_name >>" {
   boot_wait    = "<< boot_wait >>"
   communicator = "ssh"
 
-  http_directory = "http"
+  http_content = {
+    "user-data" = templatefile("${path.root}/http/user-data.pkrtpl", { admin_password_hash = var.admin_password_hash })
+    "meta-data" = ""
+  }
 <%- if http_interface %>
   http_interface = var.http_interface
 <%- endif %>

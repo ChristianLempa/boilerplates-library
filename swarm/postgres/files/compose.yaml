@@ -8,7 +8,7 @@ services:
       - POSTGRES_HOST_AUTH_METHOD=<< postgres_host_auth_method >>
       <%- endif %>
       - POSTGRES_USER=<< database_user >>
-      - POSTGRES_PASSWORD=<< database_password >>
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD:?Set DATABASE_PASSWORD}
       - POSTGRES_DB=<< database_name >>
       - TZ=<< container_timezone >>
     <%- if network_mode == 'bridge' or network_mode == '' %>

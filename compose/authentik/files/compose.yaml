@@ -5,7 +5,7 @@ services:
     restart: << restart_policy >>
     command: server
     environment:
-      - AUTHENTIK_SECRET_KEY=${AUTHENTIK_SECRET_KEY}
+      - AUTHENTIK_SECRET_KEY=${AUTHENTIK_SECRET_KEY:?Set AUTHENTIK_SECRET_KEY}
       - AUTHENTIK_ERROR_REPORTING__ENABLED=<< authentik_error_reporting | lower >>
       <%- if database_external %>
       - AUTHENTIK_POSTGRESQL__HOST=<< database_host >>
@@ -14,15 +14,15 @@ services:
       - AUTHENTIK_POSTGRESQL__HOST=<< service_name >>_postgres
       - AUTHENTIK_POSTGRESQL__PORT=5432
       <%- endif %>
-      - AUTHENTIK_POSTGRESQL__USER=${DATABASE_USER}
+      - AUTHENTIK_POSTGRESQL__USER=${DATABASE_USER:-<< database_user >>}
       - AUTHENTIK_POSTGRESQL__NAME=<< database_name >>
-      - AUTHENTIK_POSTGRESQL__PASSWORD=${DATABASE_PASSWORD}
+      - AUTHENTIK_POSTGRESQL__PASSWORD=${DATABASE_PASSWORD:?Set DATABASE_PASSWORD}
       <%- if email_enabled %>
       - AUTHENTIK_EMAIL__HOST=<< email_host >>
       - AUTHENTIK_EMAIL__PORT=<< email_port >>
       - AUTHENTIK_EMAIL__FROM=<< email_from >>
-      - AUTHENTIK_EMAIL__USERNAME=${EMAIL_USERNAME}
-      - AUTHENTIK_EMAIL__PASSWORD=${EMAIL_PASSWORD}
+      - AUTHENTIK_EMAIL__USERNAME=${EMAIL_USERNAME:-<< email_username >>}
+      - AUTHENTIK_EMAIL__PASSWORD=${EMAIL_PASSWORD:?Set EMAIL_PASSWORD}
       <%- if email_encryption == "ssl" %>
       - AUTHENTIK_EMAIL__USE_SSL=True
       <%- elif email_encryption == "starttls" %>
@@ -89,7 +89,7 @@ services:
     restart: << restart_policy >>
     command: worker
     environment:
-      - AUTHENTIK_SECRET_KEY=${AUTHENTIK_SECRET_KEY}
+      - AUTHENTIK_SECRET_KEY=${AUTHENTIK_SECRET_KEY:?Set AUTHENTIK_SECRET_KEY}
       - AUTHENTIK_ERROR_REPORTING__ENABLED=<< authentik_error_reporting | lower >>
       <%- if database_external %>
       - AUTHENTIK_POSTGRESQL__HOST=<< database_host >>
@@ -98,23 +98,23 @@ services:
       - AUTHENTIK_POSTGRESQL__HOST=<< service_name >>_postgres
       - AUTHENTIK_POSTGRESQL__PORT=5432
       <%- endif %>
-      - AUTHENTIK_POSTGRESQL__USER=${DATABASE_USER}
+      - AUTHENTIK_POSTGRESQL__USER=${DATABASE_USER:-<< database_user >>}
       - AUTHENTIK_POSTGRESQL__NAME=<< database_name >>
-      - AUTHENTIK_POSTGRESQL__PASSWORD=${DATABASE_PASSWORD}
+      - AUTHENTIK_POSTGRESQL__PASSWORD=${DATABASE_PASSWORD:?Set DATABASE_PASSWORD}
       <%- if email_enabled %>
       - AUTHENTIK_EMAIL__HOST=<< email_host >>
       - AUTHENTIK_EMAIL__PORT=<< email_port >>
       - AUTHENTIK_EMAIL__FROM=<< email_from >>
-      - AUTHENTIK_EMAIL__USERNAME=${EMAIL_USERNAME}
-      - AUTHENTIK_EMAIL__PASSWORD=${EMAIL_PASSWORD}
+      - AUTHENTIK_EMAIL__USERNAME=${EMAIL_USERNAME:-<< email_username >>}
+      - AUTHENTIK_EMAIL__PASSWORD=${EMAIL_PASSWORD:?Set EMAIL_PASSWORD}
       <%- if email_encryption == "ssl" %>
       - AUTHENTIK_EMAIL__USE_SSL=True
       <%- elif email_encryption == "starttls" %>
       - AUTHENTIK_EMAIL__USE_TLS=True
       <%- endif %>
       <%- endif %>
-      <%- if authentik_admin_password %>
-      - AUTHENTIK_BOOTSTRAP_PASSWORD=${AUTHENTIK_BOOTSTRAP_PASSWORD}
+      <%- if bootstrap_enabled %>
+      - AUTHENTIK_BOOTSTRAP_PASSWORD=${AUTHENTIK_BOOTSTRAP_PASSWORD:?Set AUTHENTIK_BOOTSTRAP_PASSWORD}
       <%- endif %>
     user: root
     networks:
@@ -140,8 +140,8 @@ services:
     image: docker.io/library/postgres:17.9
     restart: << restart_policy >>
     environment:
-      - POSTGRES_USER=${DATABASE_USER}
-      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_USER=${DATABASE_USER:-<< database_user >>}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD:?Set DATABASE_PASSWORD}
       - POSTGRES_DB=<< database_name >>
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U << database_user >>"]

@@ -212,35 +212,6 @@
       ]
     },
     {
-      "title": "Authentication",
-      "name": "authentication",
-      "items": [
-        {
-          "name": "git_token",
-          "type": "secret",
-          "title": "Git Token",
-          "required": true
-        },
-        {
-          "name": "license_key",
-          "type": "secret",
-          "title": "License Key",
-          "required": true,
-          "description": "Mend Renovate CE License Key"
-        },
-        {
-          "name": "webhook_secret",
-          "type": "secret",
-          "title": "Webhook Secret",
-          "required": false,
-          "description": "Webhook secret for platform integration",
-          "config": {
-            "placeholder": "renovate"
-          }
-        }
-      ]
-    },
-    {
       "title": "Ports",
       "name": "ports",
       "items": [

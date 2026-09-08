@@ -20,7 +20,6 @@ variable "proxmox_api_token_id" {
 variable "proxmox_api_token_secret" {
   type      = string
   sensitive = true
-  default   = "<< proxmox_api_token_secret >>"
 }
 
 variable "ssh_username" {
@@ -31,10 +30,15 @@ variable "ssh_username" {
 variable "ssh_password" {
   type      = string
   sensitive = true
-  default   = "<%- if ssh_password %><< ssh_password >><%- else %>CHANGEME<%- endif %>"
 }
 
 variable "http_interface" {
   type    = string
   default = "<< http_interface >>"
+}
+
+
+variable "admin_password_hash" {
+  type      = string
+  sensitive = true
 }

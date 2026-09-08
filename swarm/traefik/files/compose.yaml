@@ -153,17 +153,17 @@ services:
 secrets:
   <%- if traefik_tls_certresolver == 'route53' %>
   << service_name >>_aws_credentials:
-    file: ./.env.secret.aws_credentials
+    external: true
   <%- else %>
   << service_name >>_token:
-    file: ./.env.secret.token
+    external: true
   <%- if traefik_tls_certresolver == 'azure' or traefik_tls_certresolver == 'godaddy' or traefik_tls_certresolver == 'ovh' or traefik_tls_certresolver == 'porkbun' %>
   << service_name >>_token_key:
-    file: ./.env.secret.token_key
+    external: true
   <%- endif %>
   <%- if traefik_tls_certresolver == 'ovh' %>
   << service_name >>_consumer_key:
-    file: ./.env.secret.consumer_key
+    external: true
   <%- endif %>
   <%- endif %>
 <%- endif %>

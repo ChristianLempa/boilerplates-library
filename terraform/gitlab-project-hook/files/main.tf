@@ -7,9 +7,7 @@ resource "gitlab_project_hook" "<< resource_name >>" {
 <%- if description %>
   description             = "<< description >>"
 <%- endif %>
-<%- if token %>
-  token                   = "<< token >>"
-<%- endif %>
+  token                   = var.webhook_token
   enable_ssl_verification = << enable_ssl_verification | lower >>
 <%- if push_events_branch_filter %>
   push_events_branch_filter = "<< push_events_branch_filter >>"
@@ -27,3 +25,8 @@ resource "gitlab_project_hook" "<< resource_name >>" {
   wiki_page_events      = << wiki_page_events | lower >>
 }
 
+
+variable "webhook_token" {
+  type      = string
+  sensitive = true
+}

@@ -3,7 +3,7 @@ lang << locale >>
 keyboard --xlayouts=<< keyboard_layout >>
 timezone << timezone >> --utc
 rootpw --lock
-user --name=<< admin_username >> --groups=wheel --plaintext --password=<< ssh_password >>
+user --name=<< admin_username >> --groups=wheel --plaintext --password=${ssh_password}
 reboot
 cdrom
 bootloader --location=mbr

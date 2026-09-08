@@ -3,7 +3,6 @@ datasources:
     url: << postgres_jdbc_url >>
     driverClassName: org.postgresql.Driver
     username: << postgres_username >>
-    password: << postgres_password >>
 kestra:
   server:
     basic-auth:

@@ -2,13 +2,13 @@ services:
   << service_name >>:
     image: docker.io/fnsys/dockhand:v1.0.27
     restart: << restart_policy >>
-    <%- if database_type == 'postgres' or disable_local_login or encryption_key or puid or pgid %>
+    <%- if database_type == 'postgres' or disable_local_login or encryption_enabled or puid or pgid %>
     environment:
       <%- if database_type == 'postgres' %>
-      - DATABASE_URL=postgres://<< database_user >>:${DATABASE_PASSWORD}@<< database_host >>:<< database_port >>/<< database_name >>
+      - DATABASE_URL=postgres://<< database_user >>:${DATABASE_PASSWORD:?Set DATABASE_PASSWORD}@<< database_host >>:<< database_port >>/<< database_name >>
       <%- endif %>
-      <%- if encryption_key %>
-      - ENCRYPTION_KEY=${ENCRYPTION_KEY}
+      <%- if encryption_enabled %>
+      - ENCRYPTION_KEY=${ENCRYPTION_KEY:?Set ENCRYPTION_KEY}
       <%- endif %>
       <%- if puid %>
       - PUID=<< puid >>

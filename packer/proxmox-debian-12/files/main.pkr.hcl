@@ -57,7 +57,9 @@ source "proxmox-iso" "<< packer_source_name >>" {
   boot           = "c"
   boot_wait      = "<< boot_wait >>"
   communicator   = "ssh"
-  http_directory = "http"
+  http_content = {
+    "preseed.cfg" = templatefile("${path.root}/http/preseed.cfg.pkrtpl", { ssh_password = var.ssh_password })
+  }
   http_interface = var.http_interface
 
   ssh_username = var.ssh_username

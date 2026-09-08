@@ -11,7 +11,7 @@ services:
     <%- endif %>
     environment:
       - DNS_SERVER_DOMAIN=<< dns_server_domain >>
-      - DNS_SERVER_ADMIN_PASSWORD=${DNS_SERVER_ADMIN_PASSWORD}
+      - DNS_SERVER_ADMIN_PASSWORD=${DNS_SERVER_ADMIN_PASSWORD:?Set DNS_SERVER_ADMIN_PASSWORD}
       - DNS_SERVER_LOG_FOLDER_PATH=/var/log/technitium/dns
       - DNS_SERVER_LOG_USING_LOCAL_TIME=<< dns_server_log_using_local_time | lower >>
       - DNS_SERVER_RECURSION=<< dns_server_recursion >>

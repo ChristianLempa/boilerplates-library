@@ -3,7 +3,7 @@ services:
     image: cloudflare/cloudflared:2026.3.0
     container_name: << container_name >>
     environment:
-      - TUNNEL_TOKEN=${TUNNEL_TOKEN}
+      - TUNNEL_TOKEN=${TUNNEL_TOKEN:?Set TUNNEL_TOKEN}
     command: << tunnel_run_command >>
     networks:
       - << network_name >>

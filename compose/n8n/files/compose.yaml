@@ -14,14 +14,14 @@ services:
       <%- endif %>
       - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
       - NODE_ENV=production
-      - N8N_ENCRYPTION_KEY=${N8N_ENCRYPTION_KEY}
+      - N8N_ENCRYPTION_KEY=${N8N_ENCRYPTION_KEY:?Set N8N_ENCRYPTION_KEY}
       <%- if database_type == 'postgres' %>
       - DB_TYPE=postgresdb
       - DB_POSTGRESDB_HOST=<< database_host >>
       - DB_POSTGRESDB_PORT=<< database_port >>
       - DB_POSTGRESDB_DATABASE=<< database_name >>
-      - DB_POSTGRESDB_USER=${DATABASE_USER}
-      - DB_POSTGRESDB_PASSWORD=${DATABASE_PASSWORD}
+      - DB_POSTGRESDB_USER=${DATABASE_USER:-<< database_user >>}
+      - DB_POSTGRESDB_PASSWORD=${DATABASE_PASSWORD:?Set DATABASE_PASSWORD}
       <%- endif %>
       <%- if traefik_enabled %>
       - N8N_HOST=<< traefik_host >>.<< traefik_domain >>

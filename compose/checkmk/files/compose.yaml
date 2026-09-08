@@ -7,7 +7,7 @@ services:
       <%- if container_timezone %>
       - TZ=<< container_timezone >>
       <%- endif %>
-      - CMK_PASSWORD=${CMK_PASSWORD}
+      - CMK_PASSWORD=${CMK_PASSWORD:?Set CMK_PASSWORD}
       - CMK_SITE_ID=<< cmk_site_id >>
     tmpfs:
       - /opt/omd/sites/<< cmk_site_id >>/tmp:uid=<< user_uid >>,gid=<< user_gid >>

@@ -75,15 +75,6 @@
           }
         },
         {
-          "name": "token",
-          "type": "str",
-          "title": "Secret Token",
-          "required": false,
-          "config": {
-            "placeholder": "secret-token"
-          }
-        },
-        {
           "name": "enable_ssl_verification",
           "type": "bool",
           "title": "Verify SSL",

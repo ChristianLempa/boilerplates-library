@@ -2,6 +2,8 @@ services:
   << service_name >>:
     image: kestra/kestra:v1.3.15
     container_name: << container_name >>
+    environment:
+      DATASOURCES_POSTGRES_PASSWORD: "${DATASOURCES_POSTGRES_PASSWORD:?Set DATASOURCES_POSTGRES_PASSWORD}"
     entrypoint: /bin/bash
     user: "<< container_user >>"
     command:
@@ -14,10 +16,6 @@ services:
       - << tmp_workdir_host >>:/tmp/kestra-wd
       - << storage_volume_name >>:/app/storage
       - ./config/config.yaml:/app/config.yaml:ro
-<%- if env_file_enabled %>
-    env_file:
-      - << env_file_path >>
-<%- endif %>
     networks:
       - << network_name >>
 <%- if traefik_enabled %>
