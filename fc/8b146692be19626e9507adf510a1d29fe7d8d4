@@ -1,0 +1,50 @@
+README.md
+  s_0876c43bc729eb::t_6a1bcba8318269 51
+  s_0876c43bc729eb::t_2322d8f28d6384 29-30
+bash/docker-volume-backup/template.json
+  s_0876c43bc729eb::t_71b97caf481875 4
+python/server-disk-usage-monitor/template.json
+  s_0876c43bc729eb::t_294846c1fdc9a9 4
+bash/docker-postgres-backup/template.json
+  s_0876c43bc729eb::t_87a5e9dd68ed13 4
+helm/argocd/template.json
+  s_0876c43bc729eb::t_2dd850c3f5ccea 4
+helm/longhorn/template.json
+  s_0876c43bc729eb::t_dfa844dc0fcc99 4
+helm/certmanager-webhook-netcup/template.json
+  s_0876c43bc729eb::t_49f7aac706cec8 4
+helm/netbox/template.json
+  s_0876c43bc729eb::t_f3093192415b0d 4
+helm/authentik/template.json
+  s_0876c43bc729eb::t_b49b1cea4cf171 4
+helm/portainer/template.json
+  s_0876c43bc729eb::t_62099fbb77928a 4
+compose/technitium/template.json
+  s_0876c43bc729eb::t_06489d11db7c01 129
+helm/infisical/template.json
+  s_0876c43bc729eb::t_484a9c1df13434 4
+bash/docker-mysql-backup/template.json
+  s_0876c43bc729eb::t_26a04e0d801df5 4
+helm/certmanager/template.json
+  s_0876c43bc729eb::t_a64a1947297ac2 4
+static/agents-codex/template.json
+  s_0876c43bc729eb::t_f4577aa31d04a3 4
+helm/traefik-helm/template.json
+  s_0876c43bc729eb::t_fcae7df1dd9961 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "fc8b146692be19626e9507adf510a1d29fe7d8d4",
+  "prompts": {},
+  "sessions": {
+    "s_0876c43bc729eb": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "01a08046-41ef-704a-ac75-fcd68561ca4d",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "xcad <christian.lempa@clcreative.de>"
+    }
+  }
+}
