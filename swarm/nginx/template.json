@@ -1,4 +1,5 @@
 {
+  "schema": "boilerplates/template/v1",
   "slug": "nginx-swarm",
   "kind": "swarm",
   "metadata": {
@@ -12,12 +13,7 @@
       "id": "nginx",
       "color": "emerald"
     },
-    "draft": false,
-    "version": {
-      "name": "1.30.0-alpine",
-      "source_dep_name": "docker.io/library/nginx",
-      "source_dep_version": "1.30.0-alpine"
-    }
+    "draft": false
   },
   "variables": [
     {

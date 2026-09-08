@@ -1,4 +1,5 @@
 {
+  "schema": "boilerplates/template/v1",
   "slug": "dockge-compose",
   "kind": "compose",
   "metadata": {
@@ -12,12 +13,7 @@
       "id": "dockge",
       "color": "blue"
     },
-    "draft": false,
-    "version": {
-      "name": "1.5.0",
-      "source_dep_name": "docker.io/louislam/dockge",
-      "source_dep_version": "1.5.0"
-    }
+    "draft": false
   },
   "variables": [
     {

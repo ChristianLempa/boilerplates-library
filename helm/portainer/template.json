@@ -1,4 +1,5 @@
 {
+  "schema": "boilerplates/template/v1",
   "slug": "portainer-helm",
   "kind": "helm",
   "metadata": {
@@ -10,12 +11,7 @@
       "id": "portainer",
       "color": "blue"
     },
-    "draft": false,
-    "version": {
-      "name": "239.4.0",
-      "source_dep_name": "portainer/portainer",
-      "source_dep_version": "239.4.0"
-    }
+    "draft": false
   },
   "variables": [
     {

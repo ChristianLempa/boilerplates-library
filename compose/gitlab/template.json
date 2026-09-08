@@ -1,4 +1,5 @@
 {
+  "schema": "boilerplates/template/v1",
   "slug": "gitlab-compose",
   "kind": "compose",
   "metadata": {
@@ -12,12 +13,7 @@
       "id": "gitlab",
       "color": "orange"
     },
-    "draft": false,
-    "version": {
-      "name": "18.11.2-ce.0",
-      "source_dep_name": "docker.io/gitlab/gitlab-ce",
-      "source_dep_version": "18.11.2-ce.0"
-    }
+    "draft": false
   },
   "variables": [
     {

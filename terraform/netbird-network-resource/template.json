@@ -1,4 +1,5 @@
 {
+  "schema": "boilerplates/template/v1",
   "slug": "netbird-network-resource-terraform",
   "kind": "terraform",
   "metadata": {
@@ -13,11 +14,7 @@
       "id": "netbird",
       "color": "cyan"
     },
-    "draft": true,
-    "version": {
-      "name": "0.0.15",
-      "source_dep_name": "manual/netbird-network-resource"
-    }
+    "draft": true
   },
   "variables": [
     {

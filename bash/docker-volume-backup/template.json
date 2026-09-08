@@ -1,4 +1,5 @@
 {
+  "schema": "boilerplates/template/v1",
   "slug": "docker-volume-backup-bash",
   "kind": "bash",
   "metadata": {
@@ -16,11 +17,7 @@
       "id": "harddisk",
       "color": "emerald"
     },
-    "draft": false,
-    "version": {
-      "name": "1.0.0",
-      "source_dep_name": "manual/docker-volume-backup"
-    }
+    "draft": false
   },
   "variables": [
     {

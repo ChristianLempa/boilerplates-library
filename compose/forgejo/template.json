@@ -1,4 +1,5 @@
 {
+  "schema": "boilerplates/template/v1",
   "slug": "forgejo-compose",
   "kind": "compose",
   "metadata": {
@@ -12,12 +13,7 @@
       "id": "forgejo",
       "color": "orange"
     },
-    "draft": false,
-    "version": {
-      "name": "15.0.2",
-      "source_dep_name": "codeberg.org/forgejo/forgejo",
-      "source_dep_version": "15.0.2"
-    }
+    "draft": false
   },
   "variables": [
     {

@@ -1,4 +1,5 @@
 {
+  "schema": "boilerplates/template/v1",
   "slug": "caddy-compose",
   "kind": "compose",
   "metadata": {
@@ -14,12 +15,7 @@
       "id": "caddy",
       "color": "emerald"
     },
-    "draft": false,
-    "version": {
-      "name": "2.11.2-alpine",
-      "source_dep_name": "docker.io/library/caddy",
-      "source_dep_version": "2.11.2-alpine"
-    }
+    "draft": false
   },
   "variables": [
     {

@@ -1,4 +1,5 @@
 {
+  "schema": "boilerplates/template/v1",
   "slug": "flux-bootstrap-kubernetes",
   "kind": "kubernetes",
   "metadata": {
@@ -10,11 +11,7 @@
       "id": "flux",
       "color": "blue"
     },
-    "draft": true,
-    "version": {
-      "name": "2.7.5",
-      "source_dep_name": "manual/flux-bootstrap"
-    }
+    "draft": true
   },
   "variables": [
     {

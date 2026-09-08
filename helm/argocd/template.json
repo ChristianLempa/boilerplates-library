@@ -1,4 +1,5 @@
 {
+  "schema": "boilerplates/template/v1",
   "slug": "argocd-helm",
   "kind": "helm",
   "metadata": {
@@ -14,12 +15,7 @@
       "id": "argo-cd",
       "color": "orange"
     },
-    "draft": false,
-    "version": {
-      "name": "9.2.4",
-      "source_dep_name": "argo/argo-cd",
-      "source_dep_version": "9.2.4"
-    }
+    "draft": false
   },
   "variables": [
     {

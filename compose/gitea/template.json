@@ -1,4 +1,5 @@
 {
+  "schema": "boilerplates/template/v1",
   "slug": "gitea-compose",
   "kind": "compose",
   "metadata": {
@@ -12,12 +13,7 @@
       "id": "gitea",
       "color": "emerald"
     },
-    "draft": false,
-    "version": {
-      "name": "1.26.1-1",
-      "source_dep_name": "docker.io/gitea/gitea",
-      "source_dep_version": "1.26.1"
-    }
+    "draft": false
   },
   "variables": [
     {

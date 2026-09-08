@@ -1,4 +1,5 @@
 {
+  "schema": "boilerplates/template/v1",
   "slug": "traefik-compose",
   "kind": "compose",
   "metadata": {
@@ -12,12 +13,7 @@
       "id": "traefikproxy",
       "color": "sky"
     },
-    "draft": false,
-    "version": {
-      "name": "v3.6.15",
-      "source_dep_name": "docker.io/library/traefik",
-      "source_dep_version": "v3.6.15"
-    }
+    "draft": false
   },
   "variables": [
     {

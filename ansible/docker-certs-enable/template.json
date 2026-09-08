@@ -1,4 +1,5 @@
 {
+  "schema": "boilerplates/template/v1",
   "slug": "docker-certs-enable-ansible",
   "kind": "ansible",
   "metadata": {
@@ -10,11 +11,7 @@
       "id": "docker",
       "color": "blue"
     },
-    "draft": true,
-    "version": {
-      "name": "1.0.0",
-      "source_dep_name": "manual/docker-certs-enable"
-    }
+    "draft": true
   },
   "variables": [
     {

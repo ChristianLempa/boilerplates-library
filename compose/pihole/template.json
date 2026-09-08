@@ -1,4 +1,5 @@
 {
+  "schema": "boilerplates/template/v1",
   "slug": "pihole-compose",
   "kind": "compose",
   "metadata": {
@@ -14,12 +15,7 @@
       "id": "pi-hole",
       "color": "rose"
     },
-    "draft": false,
-    "version": {
-      "name": "2026.04.1",
-      "source_dep_name": "docker.io/pihole/pihole",
-      "source_dep_version": "2026.04.1"
-    }
+    "draft": false
   },
   "variables": [
     {

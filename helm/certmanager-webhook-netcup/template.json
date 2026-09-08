@@ -1,4 +1,5 @@
 {
+  "schema": "boilerplates/template/v1",
   "slug": "certmanager-webhook-netcup-helm",
   "kind": "helm",
   "metadata": {
@@ -15,12 +16,7 @@
       "id": "netcup",
       "color": "emerald"
     },
-    "draft": false,
-    "version": {
-      "name": "1.0.44",
-      "source_dep_name": "aellwein/cert-manager-webhook-netcup",
-      "source_dep_version": "1.0.44"
-    }
+    "draft": false
   },
   "config": {
     "helm": {

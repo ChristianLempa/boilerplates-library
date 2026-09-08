@@ -1,4 +1,5 @@
 {
+  "schema": "boilerplates/template/v1",
   "slug": "netbox-compose",
   "kind": "compose",
   "metadata": {
@@ -14,12 +15,7 @@
       "id": "netbox",
       "color": "blue"
     },
-    "draft": false,
-    "version": {
-      "name": "v4.5.10",
-      "source_dep_name": "docker.io/netboxcommunity/netbox",
-      "source_dep_version": "v4.5.10"
-    }
+    "draft": false
   },
   "variables": [
     {

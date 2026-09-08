@@ -1,4 +1,5 @@
 {
+  "schema": "boilerplates/template/v1",
   "slug": "cloudflare-zero-trust-tunnel-config-terraform",
   "kind": "terraform",
   "metadata": {
@@ -10,11 +11,7 @@
       "id": "cloudflare-zero-trust",
       "color": "orange"
     },
-    "draft": false,
-    "version": {
-      "name": "5.12.0",
-      "source_dep_name": "manual/cloudflare-zero-trust-tunnel-config"
-    }
+    "draft": false
   },
   "variables": [
     {

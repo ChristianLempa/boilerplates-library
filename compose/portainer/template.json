@@ -1,4 +1,5 @@
 {
+  "schema": "boilerplates/template/v1",
   "slug": "portainer-compose",
   "kind": "compose",
   "metadata": {
@@ -13,12 +14,7 @@
       "id": "portainer",
       "color": "blue"
     },
-    "draft": false,
-    "version": {
-      "name": "2.41.0-alpine",
-      "source_dep_name": "docker.io/portainer/portainer-ce",
-      "source_dep_version": "2.41.0-alpine"
-    }
+    "draft": false
   },
   "variables": [
     {

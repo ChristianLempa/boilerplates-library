@@ -1,4 +1,5 @@
 {
+  "schema": "boilerplates/template/v1",
   "slug": "kube-vip-kubernetes",
   "kind": "kubernetes",
   "metadata": {
@@ -10,11 +11,7 @@
       "id": "kubernetes",
       "color": "blue"
     },
-    "draft": true,
-    "version": {
-      "name": "1.0.1",
-      "source_dep_name": "manual/kube-vip"
-    }
+    "draft": true
   },
   "variables": [
     {

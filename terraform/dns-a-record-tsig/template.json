@@ -1,4 +1,5 @@
 {
+  "schema": "boilerplates/template/v1",
   "slug": "dns-a-record-tsig-terraform",
   "kind": "terraform",
   "metadata": {
@@ -8,11 +9,6 @@
       "provider": "lucide",
       "id": "globe",
       "color": "violet"
-    },
-    "version": {
-      "name": "3.5.0",
-      "source_dep_name": "hashicorp/dns",
-      "source_dep_version": "3.5.0"
     },
     "draft": false
   },

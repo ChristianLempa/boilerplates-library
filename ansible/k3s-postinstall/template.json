@@ -1,4 +1,5 @@
 {
+  "schema": "boilerplates/template/v1",
   "slug": "k3s-postinstall-ansible",
   "kind": "ansible",
   "metadata": {
@@ -16,11 +17,7 @@
       "id": "kubernetes",
       "color": "blue"
     },
-    "draft": false,
-    "version": {
-      "name": "1.0.0",
-      "source_dep_name": "manual/k3s-postinstall"
-    }
+    "draft": false
   },
   "variables": [
     {

@@ -1,4 +1,5 @@
 {
+  "schema": "boilerplates/template/v1",
   "slug": "n8n-compose",
   "kind": "compose",
   "metadata": {
@@ -13,12 +14,7 @@
       "id": "n8n",
       "color": "orange"
     },
-    "draft": false,
-    "version": {
-      "name": "2.20.0",
-      "source_dep_name": "docker.n8n.io/n8nio/n8n",
-      "source_dep_version": "2.20.0"
-    }
+    "draft": false
   },
   "variables": [
     {

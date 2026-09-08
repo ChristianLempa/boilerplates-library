@@ -1,4 +1,5 @@
 {
+  "schema": "boilerplates/template/v1",
   "slug": "agents-codex-static",
   "kind": "static",
   "metadata": {
@@ -16,11 +17,7 @@
       "id": "robot-outline",
       "color": "violet"
     },
-    "draft": true,
-    "version": {
-      "name": "1.0.0",
-      "source_dep_name": "manual/agents-codex-bestpractices"
-    }
+    "draft": true
   },
   "variables": [
     {

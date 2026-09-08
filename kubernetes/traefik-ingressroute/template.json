@@ -1,4 +1,5 @@
 {
+  "schema": "boilerplates/template/v1",
   "slug": "traefik-ingressroute-kubernetes",
   "kind": "kubernetes",
   "metadata": {
@@ -10,11 +11,7 @@
       "id": "traefikproxy",
       "color": "sky"
     },
-    "draft": true,
-    "version": {
-      "name": "3.5.3",
-      "source_dep_name": "manual/traefik-ingressroute"
-    }
+    "draft": true
   },
   "variables": [
     {

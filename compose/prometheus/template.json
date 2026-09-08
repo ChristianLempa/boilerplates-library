@@ -1,4 +1,5 @@
 {
+  "schema": "boilerplates/template/v1",
   "slug": "prometheus-compose",
   "kind": "compose",
   "metadata": {
@@ -13,12 +14,7 @@
       "id": "prometheus",
       "color": "orange"
     },
-    "draft": false,
-    "version": {
-      "name": "v3.11.3",
-      "source_dep_name": "docker.io/prom/prometheus",
-      "source_dep_version": "v3.11.3"
-    }
+    "draft": false
   },
   "variables": [
     {

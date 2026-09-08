@@ -1,4 +1,5 @@
 {
+  "schema": "boilerplates/template/v1",
   "slug": "whoami-compose",
   "kind": "compose",
   "metadata": {
@@ -14,12 +15,7 @@
       "id": "traefikproxy",
       "color": "rose"
     },
-    "draft": false,
-    "version": {
-      "name": "v1.11.0",
-      "source_dep_name": "traefik/whoami",
-      "source_dep_version": "v1.11.0"
-    }
+    "draft": false
   },
   "variables": [
     {

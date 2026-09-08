@@ -1,4 +1,5 @@
 {
+  "schema": "boilerplates/template/v1",
   "slug": "traefik-helm",
   "kind": "helm",
   "metadata": {
@@ -10,12 +11,7 @@
       "id": "traefikproxy",
       "color": "sky"
     },
-    "draft": false,
-    "version": {
-      "name": "40.2.0",
-      "source_dep_name": "traefik/traefik",
-      "source_dep_version": "40.2.0"
-    }
+    "draft": false
   },
   "variables": [
     {

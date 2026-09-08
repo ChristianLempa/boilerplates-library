@@ -1,4 +1,5 @@
 {
+  "schema": "boilerplates/template/v1",
   "slug": "uptimekuma-compose",
   "kind": "compose",
   "metadata": {
@@ -10,12 +11,7 @@
       "id": "uptime-kuma",
       "color": "emerald"
     },
-    "draft": false,
-    "version": {
-      "name": "2.3.2",
-      "source_dep_name": "docker.io/louislam/uptime-kuma",
-      "source_dep_version": "2.3.2"
-    }
+    "draft": false
   },
   "variables": [
     {

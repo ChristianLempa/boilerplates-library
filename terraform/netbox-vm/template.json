@@ -1,4 +1,5 @@
 {
+  "schema": "boilerplates/template/v1",
   "slug": "netbox-vm-terraform",
   "kind": "terraform",
   "metadata": {
@@ -10,11 +11,7 @@
       "id": "netbox",
       "color": "blue"
     },
-    "draft": false,
-    "version": {
-      "name": "5.0.1",
-      "source_dep_name": "manual/netbox-vm"
-    }
+    "draft": false
   },
   "variables": [
     {

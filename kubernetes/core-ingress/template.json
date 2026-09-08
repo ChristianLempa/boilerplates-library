@@ -1,4 +1,5 @@
 {
+  "schema": "boilerplates/template/v1",
   "slug": "core-ingress-kubernetes",
   "kind": "kubernetes",
   "metadata": {
@@ -10,11 +11,7 @@
       "id": "kubernetes",
       "color": "blue"
     },
-    "draft": false,
-    "version": {
-      "name": "1.31.0",
-      "source_dep_name": "manual/core-ingress"
-    }
+    "draft": false
   },
   "variables": [
     {

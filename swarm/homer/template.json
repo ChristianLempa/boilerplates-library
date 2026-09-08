@@ -1,4 +1,5 @@
 {
+  "schema": "boilerplates/template/v1",
   "slug": "homer-swarm",
   "kind": "swarm",
   "metadata": {
@@ -13,12 +14,7 @@
       "id": "homer",
       "color": "blue"
     },
-    "draft": false,
-    "version": {
-      "name": "v26.4.2",
-      "source_dep_name": "docker.io/b4bz/homer",
-      "source_dep_version": "v26.4.2"
-    }
+    "draft": false
   },
   "variables": [
     {

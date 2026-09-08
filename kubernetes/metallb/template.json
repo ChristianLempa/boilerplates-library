@@ -1,4 +1,5 @@
 {
+  "schema": "boilerplates/template/v1",
   "slug": "metallb-kubernetes",
   "kind": "kubernetes",
   "metadata": {
@@ -10,11 +11,7 @@
       "id": "kubernetes",
       "color": "blue"
     },
-    "draft": true,
-    "version": {
-      "name": "0.15.2",
-      "source_dep_name": "manual/metallb"
-    }
+    "draft": true
   },
   "variables": [
     {

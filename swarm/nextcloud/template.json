@@ -1,4 +1,5 @@
 {
+  "schema": "boilerplates/template/v1",
   "slug": "nextcloud-swarm",
   "kind": "swarm",
   "metadata": {
@@ -12,12 +13,7 @@
       "id": "nextcloud",
       "color": "blue"
     },
-    "draft": false,
-    "version": {
-      "name": "33.0.3-apache",
-      "source_dep_name": "docker.io/library/nextcloud",
-      "source_dep_version": "33.0.3-apache"
-    }
+    "draft": false
   },
   "variables": [
     {

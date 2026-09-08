@@ -1,4 +1,5 @@
 {
+  "schema": "boilerplates/template/v1",
   "slug": "docker-install-ubuntu-ansible",
   "kind": "ansible",
   "metadata": {
@@ -10,11 +11,7 @@
       "id": "docker",
       "color": "blue"
     },
-    "draft": false,
-    "version": {
-      "name": "1",
-      "source_dep_name": "manual/docker-install-ubuntu"
-    }
+    "draft": false
   },
   "variables": [
     {

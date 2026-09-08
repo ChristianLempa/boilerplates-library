@@ -1,4 +1,5 @@
 {
+  "schema": "boilerplates/template/v1",
   "slug": "alloy-compose",
   "kind": "compose",
   "metadata": {
@@ -12,12 +13,7 @@
       "id": "grafana-alloy",
       "color": "orange"
     },
-    "draft": false,
-    "version": {
-      "name": "v1.16.0",
-      "source_dep_name": "docker.io/grafana/alloy",
-      "source_dep_version": "v1.16.0"
-    }
+    "draft": false
   },
   "variables": [
     {

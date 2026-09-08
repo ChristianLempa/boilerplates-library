@@ -1,4 +1,5 @@
 {
+  "schema": "boilerplates/template/v1",
   "slug": "loki-compose",
   "kind": "compose",
   "metadata": {
@@ -13,12 +14,7 @@
       "id": "loki",
       "color": "amber"
     },
-    "draft": false,
-    "version": {
-      "name": "3.7.1",
-      "source_dep_name": "docker.io/grafana/loki",
-      "source_dep_version": "3.7.1"
-    }
+    "draft": false
   },
   "variables": [
     {

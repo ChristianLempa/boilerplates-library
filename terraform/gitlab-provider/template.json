@@ -1,4 +1,5 @@
 {
+  "schema": "boilerplates/template/v1",
   "slug": "gitlab-provider-terraform",
   "kind": "terraform",
   "metadata": {
@@ -14,12 +15,7 @@
       "id": "gitlab",
       "color": "orange"
     },
-    "draft": false,
-    "version": {
-      "name": "19.1.0",
-      "source_dep_name": "gitlabhq/gitlab",
-      "source_dep_version": "19.1.0"
-    }
+    "draft": false
   },
   "variables": [
     {

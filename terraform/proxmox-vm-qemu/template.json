@@ -1,4 +1,5 @@
 {
+  "schema": "boilerplates/template/v1",
   "slug": "proxmox-vm-qemu-terraform",
   "kind": "terraform",
   "metadata": {
@@ -10,12 +11,7 @@
       "id": "proxmox",
       "color": "orange"
     },
-    "draft": false,
-    "version": {
-      "name": "3.0.2-rc07",
-      "source_dep_name": "telmate/proxmox",
-      "source_dep_version": "3.0.2-rc07"
-    }
+    "draft": false
   },
   "variables": [
     {

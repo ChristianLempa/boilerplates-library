@@ -1,4 +1,5 @@
 {
+  "schema": "boilerplates/template/v1",
   "slug": "server-disk-usage-monitor-python",
   "kind": "python",
   "metadata": {
@@ -15,11 +16,7 @@
       "id": "python",
       "color": "blue"
     },
-    "draft": false,
-    "version": {
-      "name": "1.0.0",
-      "source_dep_name": "manual/server-disk-usage-monitor"
-    }
+    "draft": false
   },
   "variables": [
     {

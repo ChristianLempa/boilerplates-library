@@ -1,4 +1,5 @@
 {
+  "schema": "boilerplates/template/v1",
   "slug": "bind9-compose",
   "kind": "compose",
   "metadata": {
@@ -13,12 +14,7 @@
       "id": "bind-9",
       "color": "blue"
     },
-    "draft": false,
-    "version": {
-      "name": "9.20-24.10_edge",
-      "source_dep_name": "docker.io/ubuntu/bind9",
-      "source_dep_version": "9.20-24.10_edge"
-    }
+    "draft": false
   },
   "variables": [
     {

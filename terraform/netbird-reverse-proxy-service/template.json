@@ -1,4 +1,5 @@
 {
+  "schema": "boilerplates/template/v1",
   "slug": "netbird-reverse-proxy-service-terraform",
   "kind": "terraform",
   "metadata": {
@@ -14,11 +15,7 @@
       "id": "netbird",
       "color": "cyan"
     },
-    "draft": false,
-    "version": {
-      "name": "0.0.17",
-      "source_dep_name": "manual/netbird-reverse-proxy-service"
-    }
+    "draft": false
   },
   "variables": [
     {

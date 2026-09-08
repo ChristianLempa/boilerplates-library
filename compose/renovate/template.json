@@ -1,4 +1,5 @@
 {
+  "schema": "boilerplates/template/v1",
   "slug": "renovate-compose",
   "kind": "compose",
   "metadata": {
@@ -12,12 +13,7 @@
       "id": "mend-renovate",
       "color": "blue"
     },
-    "draft": false,
-    "version": {
-      "name": "14.5.0-full",
-      "source_dep_name": "ghcr.io/mend/renovate-ce",
-      "source_dep_version": "14.5.0-full"
-    }
+    "draft": false
   },
   "variables": [
     {

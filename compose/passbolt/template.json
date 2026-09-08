@@ -1,4 +1,5 @@
 {
+  "schema": "boilerplates/template/v1",
   "slug": "passbolt-compose",
   "kind": "compose",
   "metadata": {
@@ -13,12 +14,7 @@
       "id": "passbolt",
       "color": "amber"
     },
-    "draft": false,
-    "version": {
-      "name": "5.11.0-1-ce",
-      "source_dep_name": "docker.io/passbolt/passbolt",
-      "source_dep_version": "5.11.0-1-ce"
-    }
+    "draft": false
   },
   "variables": [
     {

@@ -1,4 +1,5 @@
 {
+  "schema": "boilerplates/template/v1",
   "slug": "infisical-helm",
   "kind": "helm",
   "metadata": {
@@ -17,12 +18,7 @@
       "id": "infisical",
       "color": "amber"
     },
-    "draft": false,
-    "version": {
-      "name": "1.9.0",
-      "source_dep_name": "infisical-helm-charts/infisical-standalone",
-      "source_dep_version": "1.9.0"
-    }
+    "draft": false
   },
   "variables": [
     {

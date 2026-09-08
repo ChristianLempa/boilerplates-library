@@ -1,4 +1,5 @@
 {
+  "schema": "boilerplates/template/v1",
   "slug": "netbird-network-router-terraform",
   "kind": "terraform",
   "metadata": {
@@ -13,11 +14,7 @@
       "id": "netbird",
       "color": "cyan"
     },
-    "draft": false,
-    "version": {
-      "name": "0.0.12",
-      "source_dep_name": "manual/netbird-network-router"
-    }
+    "draft": false
   },
   "variables": [
     {

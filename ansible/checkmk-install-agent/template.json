@@ -1,4 +1,5 @@
 {
+  "schema": "boilerplates/template/v1",
   "slug": "checkmk-install-agent-ansible",
   "kind": "ansible",
   "metadata": {
@@ -10,11 +11,7 @@
       "id": "checkmk",
       "color": "emerald"
     },
-    "draft": false,
-    "version": {
-      "name": "2.4.0",
-      "source_dep_name": "manual/checkmk-install-agent"
-    }
+    "draft": false
   },
   "variables": [
     {

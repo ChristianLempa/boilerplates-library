@@ -1,4 +1,5 @@
 {
+  "schema": "boilerplates/template/v1",
   "slug": "adguardhome-compose",
   "kind": "compose",
   "metadata": {
@@ -14,12 +15,7 @@
       "id": "adguard-home",
       "color": "emerald"
     },
-    "draft": false,
-    "version": {
-      "name": "v0.107.74",
-      "source_dep_name": "docker.io/adguard/adguardhome",
-      "source_dep_version": "v0.107.74"
-    }
+    "draft": false
   },
   "variables": [
     {

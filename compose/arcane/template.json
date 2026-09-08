@@ -1,4 +1,5 @@
 {
+  "schema": "boilerplates/template/v1",
   "slug": "arcane-compose",
   "kind": "compose",
   "metadata": {
@@ -14,12 +15,7 @@
       "id": "arcane",
       "color": "violet"
     },
-    "draft": false,
-    "version": {
-      "name": "v2.1.0",
-      "source_dep_name": "ghcr.io/getarcaneapp/manager",
-      "source_dep_version": "v2.1.0"
-    }
+    "draft": false
   },
   "variables": [
     {
