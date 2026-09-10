@@ -1,0 +1,35 @@
+helm/infisical/template.json
+  s_884f118f2dc6b5::t_c77b7bd4f35efa 4
+helm/argocd/template.json
+  s_884f118f2dc6b5::t_c77b7bd4f35efa 4
+helm/longhorn/template.json
+  s_884f118f2dc6b5::t_c77b7bd4f35efa 4
+helm/authentik/template.json
+  s_884f118f2dc6b5::t_c77b7bd4f35efa 4
+helm/certmanager/template.json
+  s_884f118f2dc6b5::t_c77b7bd4f35efa 4
+helm/netbox/template.json
+  s_884f118f2dc6b5::t_c77b7bd4f35efa 4
+helm/traefik-helm/template.json
+  s_884f118f2dc6b5::t_c77b7bd4f35efa 4
+helm/certmanager-webhook-netcup/template.json
+  s_884f118f2dc6b5::t_c77b7bd4f35efa 4
+helm/portainer/template.json
+  s_884f118f2dc6b5::t_c77b7bd4f35efa 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "8136a84bd08ca0fcc127f9668d5401d18f3f77d1",
+  "prompts": {},
+  "sessions": {
+    "s_884f118f2dc6b5": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "01a08016-2e53-76f1-ae56-9a9b69bd4bc0",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "xcad <christian.lempa@clcreative.de>"
+    }
+  }
+}
