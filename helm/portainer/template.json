@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "portainer-helm",
-  "kind": "configuration",
+  "kind": "helm_release",
   "metadata": {
     "name": "Portainer CE",
     "description": "Helm release values for Portainer Community Edition, a web-based container management platform for Docker and Kubernetes environments.",

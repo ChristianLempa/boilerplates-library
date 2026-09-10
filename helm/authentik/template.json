@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "authentik-helm",
-  "kind": "configuration",
+  "kind": "helm_release",
   "metadata": {
     "name": "Authentik",
     "description": "Helm release values for Authentik, an open-source Identity Provider supporting OAuth2, SAML, and LDAP for flexible single sign-on and authentication.",

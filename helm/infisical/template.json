@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "infisical-helm",
-  "kind": "configuration",
+  "kind": "helm_release",
   "metadata": {
     "name": "Infisical",
     "description": "Helm release values for deploying the Infisical standalone chart with chart-managed PostgreSQL/Redis by default, optional existing services, Traefik ingress, and homelab-friendly defaults.",

@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "certmanager-helm",
-  "kind": "configuration",
+  "kind": "helm_release",
   "metadata": {
     "name": "Cert-Manager",
     "description": "Helm release values for cert-manager, a Kubernetes add-on that automates TLS certificate management and issuance from sources like Let's Encrypt.",
