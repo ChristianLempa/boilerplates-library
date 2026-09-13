@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "core-clusterrolebinding-kubernetes",
-  "kind": "kubernetes",
+  "kinds": ["kubernetes"],
   "metadata": {
     "name": "Kubernetes ClusterRoleBinding",
     "description": "Creates a Kubernetes ClusterRoleBinding that binds one subject to a Role or ClusterRole.",

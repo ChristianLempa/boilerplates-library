@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "homer-compose",
-  "kind": "compose",
+  "kinds": ["compose"],
   "metadata": {
     "name": "Homer",
     "description": "Simple static homepage for your server to keep your services on hand, configured through a single YAML file.",

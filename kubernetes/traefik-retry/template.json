@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "traefik-retry-kubernetes",
-  "kind": "kubernetes",
+  "kinds": ["kubernetes"],
   "metadata": {
     "name": "Traefik Retry Middleware",
     "description": "Traefik Middleware CRD for retrying failed upstream requests with a configurable attempt count and optional initial interval.",

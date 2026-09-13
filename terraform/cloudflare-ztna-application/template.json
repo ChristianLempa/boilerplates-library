@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "cloudflare-ztna-application-terraform",
-  "kind": "terraform",
+  "kinds": ["terraform"],
   "metadata": {
     "name": "Cloudflare Zero Trust Access Application",
     "description": "Creates a Cloudflare Zero Trust Access application with service token and IP-based access policies.",

@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "authentik-compose",
-  "kind": "compose",
+  "kinds": ["compose"],
   "metadata": {
     "name": "Authentik",
     "description": "Open-source Identity Provider (IdP) that supports OAuth2, SAML, LDAP, and SCIM for single sign-on and user authentication across your applications.",

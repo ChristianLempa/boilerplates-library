@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "homepage-swarm",
-  "kind": "swarm",
+  "kinds": ["swarm"],
   "metadata": {
     "name": "Homepage",
     "description": "Modern, fully static, fast application dashboard with integrations for over 100 services and translations into multiple languages.",

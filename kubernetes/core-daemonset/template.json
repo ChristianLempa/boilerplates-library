@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "core-daemonset-kubernetes",
-  "kind": "kubernetes",
+  "kinds": ["kubernetes"],
   "metadata": {
     "name": "Kubernetes DaemonSet",
     "description": "Creates a Kubernetes DaemonSet with configurable image, optional host networking, one container port, simple environment variables, an optional hostPath mount, optional control-plane tolerations, and optional resource requests and limits.",

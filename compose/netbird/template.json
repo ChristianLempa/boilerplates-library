@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "netbird-compose",
-  "kind": "compose",
+  "kinds": ["compose"],
   "metadata": {
     "name": "NetBird",
     "description": "Self-hosted NetBird control plane with embedded local user management and optional Traefik integration.",

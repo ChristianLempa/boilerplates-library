@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "checkmk-install-agent-ansible",
-  "kind": "ansible",
+  "kinds": ["ansible"],
   "metadata": {
     "name": "Install Checkmk Agent",
     "description": "Installs and registers the Checkmk monitoring agent on target hosts using the checkmk.general.agent Ansible role.",

@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "semaphoreui-compose",
-  "kind": "compose",
+  "kinds": ["compose"],
   "metadata": {
     "name": "Semaphore UI",
     "description": "Modern web UI for Ansible automation with task scheduling, inventory management, and playbook execution. Ideal for teams who want a user-friendly way to run and monitor Ansible.",

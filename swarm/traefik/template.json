@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "traefik-swarm",
-  "kind": "swarm",
+  "kinds": ["swarm"],
   "metadata": {
     "name": "Traefik",
     "description": "Swarm-only Traefik reverse proxy and load balancer with Docker Swarm service discovery, optional Let's Encrypt DNS challenge TLS, dashboard, and metrics support. For Traefik-managed ACME certificates, run a single replica; Traefik OSS ACME storage is not safe for active-active writes from multiple instances. References: Traefik Swarm provider https://doc.traefik.io/traefik/providers/swarm/ and Traefik ACME storage notes https://doc.traefik.io/traefik/https/acme/.",

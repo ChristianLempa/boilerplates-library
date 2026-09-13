@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "arcane-compose",
-  "kind": "compose",
+  "kinds": ["compose"],
   "metadata": {
     "name": "Arcane",
     "description": "Modern self-hosted Docker management UI for containers, images, volumes, networks, Docker Compose projects, and remote environments.",

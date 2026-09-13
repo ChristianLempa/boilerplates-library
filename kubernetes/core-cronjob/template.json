@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "core-cronjob-kubernetes",
-  "kind": "kubernetes",
+  "kinds": ["kubernetes"],
   "metadata": {
     "name": "Kubernetes CronJob",
     "description": "Creates a Kubernetes CronJob with configurable schedule, image, command and args lists, simple environment variables, optional PVC mounting, and optional resource requests and limits.",

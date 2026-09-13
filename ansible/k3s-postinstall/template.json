@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "k3s-postinstall-ansible",
-  "kind": "ansible",
+  "kinds": ["ansible"],
   "metadata": {
     "name": "K3s Post-Install Platform Setup",
     "description": "Configures common post-install building blocks for a fresh K3s cluster. Supports kubeconfig retrieval, namespace management, Traefik dashboard exposure, cert-manager bootstrap, metrics-server, Longhorn preparation, and optional kube-system tuning.",

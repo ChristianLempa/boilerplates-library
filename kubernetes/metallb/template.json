@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "metallb-kubernetes",
-  "kind": "kubernetes",
+  "kinds": ["kubernetes"],
   "metadata": {
     "name": "MetalLB Layer2 Bootstrap",
     "description": "Practical MetalLB bootstrap manifests for the common homelab path: an IPAddressPool plus L2Advertisement for bare-metal LoadBalancer services.",

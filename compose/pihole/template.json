@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "pihole-compose",
-  "kind": "compose",
+  "kinds": ["compose"],
   "metadata": {
     "name": "Pihole",
     "description": "Network-wide DNS-based ad and tracker blocker that acts as a DNS sinkhole. Filters content at the DNS level for all devices on your network.",

@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "gitlab-project-variable-terraform",
-  "kind": "terraform",
+  "kinds": ["terraform"],
   "metadata": {
     "name": "GitLab Project Variable",
     "description": "Creates a GitLab project CI/CD variable with scope, masking, protection, and type options.",

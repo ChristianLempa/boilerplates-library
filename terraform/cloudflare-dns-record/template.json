@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "cloudflare-dns-record-terraform",
-  "kind": "terraform",
+  "kinds": ["terraform"],
   "metadata": {
     "name": "Cloudflare DNS Record",
     "description": "Creates a single Cloudflare DNS record for A, AAAA, CNAME, TXT, or MX with type-specific inputs, TTL, and proxying where supported.",

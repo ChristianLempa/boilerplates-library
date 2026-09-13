@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "kestra-compose",
-  "kind": "compose",
+  "kinds": ["compose"],
   "metadata": {
     "name": "Kestra",
     "description": "Runs Kestra in Docker Compose with a companion configuration file, PostgreSQL datasource settings, and persistent storage.",

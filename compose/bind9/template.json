@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "bind9-compose",
-  "kind": "compose",
+  "kinds": ["compose"],
   "metadata": {
     "name": "BIND9",
     "description": "The most widely used authoritative and recursive DNS server. This template includes example zones, TSIG authentication for secure zone transfers, and DNSSEC support.",

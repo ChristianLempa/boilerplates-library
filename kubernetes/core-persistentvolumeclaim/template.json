@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "core-persistentvolumeclaim-kubernetes",
-  "kind": "kubernetes",
+  "kinds": ["kubernetes"],
   "metadata": {
     "name": "Kubernetes PersistentVolumeClaim",
     "description": "Kubernetes PersistentVolumeClaim for requesting persistent storage. Used by Pods to claim durable storage from available PersistentVolumes.",

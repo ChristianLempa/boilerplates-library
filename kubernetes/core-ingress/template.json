@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "core-ingress-kubernetes",
-  "kind": "kubernetes",
+  "kinds": ["kubernetes"],
   "metadata": {
     "name": "Kubernetes Ingress",
     "description": "Kubernetes Ingress resource for HTTP/HTTPS routing to backend services.",

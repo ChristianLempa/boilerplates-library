@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "homer-swarm",
-  "kind": "swarm",
+  "kinds": ["swarm"],
   "metadata": {
     "name": "Homer",
     "description": "Simple static homepage for your server to keep your services on hand, configured through a single YAML file.",

@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "kube-vip-kubernetes",
-  "kind": "kubernetes",
+  "kinds": ["kubernetes"],
   "metadata": {
     "name": "kube-vip DaemonSet",
     "description": "Practical kube-vip DaemonSet bootstrap with RBAC for control-plane virtual IPs and optional Service LoadBalancer handling in bare-metal clusters.",

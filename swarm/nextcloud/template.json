@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "nextcloud-swarm",
-  "kind": "swarm",
+  "kinds": ["swarm"],
   "metadata": {
     "name": "Nextcloud",
     "description": "Self-hosted file sync and share platform, similar to Dropbox, with built-in collaboration tools, calendar, contacts, and extensible app ecosystem.",

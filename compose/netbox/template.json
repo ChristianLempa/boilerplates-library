@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "netbox-compose",
-  "kind": "compose",
+  "kinds": ["compose"],
   "metadata": {
     "name": "NetBox",
     "description": "Network infrastructure management (IPAM/DCIM) and automation source of truth. Manages IP addresses, circuits, devices, racks, cables, and other network infrastructure components.",

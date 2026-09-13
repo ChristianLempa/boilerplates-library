@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "technitium-compose",
-  "kind": "compose",
+  "kinds": ["compose"],
   "metadata": {
     "name": "Technitium DNS Server",
     "description": "Authoritative and recursive DNS server with a web console, DNS blocking, and optional forwarders for self-hosted networks.",

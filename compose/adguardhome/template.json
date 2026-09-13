@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "adguardhome-compose",
-  "kind": "compose",
+  "kinds": ["compose"],
   "metadata": {
     "name": "AdGuard Home",
     "description": "Network-wide DNS-based ad and tracker blocker. AdGuard Home operates as a DNS server that blocks tracking domains, with support for DNS-over-HTTPS, DNS-over-TLS, DNS-over-QUIC, parental controls, and safe browsing filters.",

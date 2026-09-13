@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "traefik-ipallowlist-kubernetes",
-  "kind": "kubernetes",
+  "kinds": ["kubernetes"],
   "metadata": {
     "name": "Traefik IPAllowList Middleware",
     "description": "Traefik Middleware CRD for restricting access to trusted source CIDR ranges, with optional client IP strategy controls for proxied deployments.",

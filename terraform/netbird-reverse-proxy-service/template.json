@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "netbird-reverse-proxy-service-terraform",
-  "kind": "terraform",
+  "kinds": ["terraform"],
   "metadata": {
     "name": "NetBird Reverse Proxy Service",
     "description": "Creates a NetBird reverse proxy service with one backend target and configurable authentication.",

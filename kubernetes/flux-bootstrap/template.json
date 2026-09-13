@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "flux-bootstrap-kubernetes",
-  "kind": "kubernetes",
+  "kinds": ["kubernetes"],
   "metadata": {
     "name": "Flux Bootstrap",
     "description": "Draft Flux bootstrap manifests for wiring an already-installed Flux control plane to a Git repository and root Kustomization, with optional Helm source and release resources.",

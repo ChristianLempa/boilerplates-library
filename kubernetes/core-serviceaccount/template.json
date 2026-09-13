@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "core-serviceaccount-kubernetes",
-  "kind": "kubernetes",
+  "kinds": ["kubernetes"],
   "metadata": {
     "name": "Kubernetes ServiceAccount",
     "description": "Kubernetes ServiceAccount for providing an identity to processes running in Pods. Controls access permissions to the Kubernetes API.",

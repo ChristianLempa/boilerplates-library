@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "docker-certs-ansible",
-  "kind": "ansible",
+  "kinds": ["ansible"],
   "metadata": {
     "name": "Generate Docker TLS Certificates",
     "description": "Generates TLS certificates for the Docker daemon, including CA, server, and client certificates. Used to secure Docker remote API access.",

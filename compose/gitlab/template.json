@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "gitlab-compose",
-  "kind": "compose",
+  "kinds": ["compose"],
   "metadata": {
     "name": "GitLab",
     "description": "Complete DevOps platform providing Git repository management, CI/CD pipelines, issue tracking, and an optional container registry in a single application.",

@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "renovate-compose",
-  "kind": "compose",
+  "kinds": ["compose"],
   "metadata": {
     "name": "Renovate",
     "description": "Self-hosted Mend Renovate CE worker for GitLab that scans repositories and opens dependency update merge requests.",

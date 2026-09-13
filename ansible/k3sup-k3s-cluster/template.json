@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "k3sup-k3s-cluster-ansible",
-  "kind": "ansible",
+  "kinds": ["ansible"],
   "metadata": {
     "name": "Bootstrap K3s Cluster with k3sup",
     "description": "Bootstraps a K3s cluster from the Ansible control machine by using k3sup over SSH. Supports first-server install, optional agent joins, and local or remote kubeconfig placement.",

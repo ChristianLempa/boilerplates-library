@@ -32,6 +32,10 @@ Helm values-only bundles keep chart names, repository URLs, and pinned chart ver
 
 Check these headers and manifest fields with `python3 tests/check_helm_metadata.py`.
 
+Templates declare a nonempty `kinds` array of unique canonical classifications, for example `"kinds": ["compose", "ansible"]`. Use multiple kinds only when the authored bundle actually covers those technologies; tags remain free-form. The first kind provides the default icon. Kind changes are versioned, and the `testing` branch uses this array contract rather than the old scalar `kind`.
+
+The application ignores unknown kinds during Git sync and falls back to `generic` if a nonempty list contains no recognized kinds. Missing, null, or empty lists invalidate the template. Changes to recognized kinds are synchronized as new revisions without resetting files. Keep authored library manifests canonical: run `python3 tests/check_kinds.py` to check every manifest's classifications.
+
 Each `template.json` must declare `"schema": "boilerplates/template/v1"`. Template revisions are assigned by Boilerplates; `metadata.version` is no longer supported. Dependency versions stay in authored files or variable defaults. See the [canonical manifest reference](https://github.com/christianlempa/boilerplates/blob/main/docs/features/templates/templates-json.md).
 
 ### Template Variable Types

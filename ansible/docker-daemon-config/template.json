@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "docker-daemon-config-ansible",
-  "kind": "ansible",
+  "kinds": ["ansible"],
   "metadata": {
     "name": "Docker Daemon Config",
     "description": "Manages Docker daemon settings in daemon.json, including log rotation, address pools, registry settings, IPv6, and daemon behavior.",

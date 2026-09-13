@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "docker-install-ubuntu-ansible",
-  "kind": "ansible",
+  "kinds": ["ansible"],
   "metadata": {
     "name": "Install Docker on Ubuntu",
     "description": "Installs Docker Engine on Ubuntu systems using the official Docker APT repository.",

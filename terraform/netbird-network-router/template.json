@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "netbird-network-router-terraform",
-  "kind": "terraform",
+  "kinds": ["terraform"],
   "metadata": {
     "name": "NetBird Network Router",
     "description": "Creates a NetBird network router and targets either a single peer or a peer group.",

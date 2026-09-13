@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "postgres-swarm",
-  "kind": "swarm",
+  "kinds": ["swarm"],
   "metadata": {
     "name": "PostgreSQL",
     "description": "Powerful open-source object-relational database system with over 35 years of active development, known for reliability, feature robustness, and performance.",

@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "forgejo-compose",
-  "kind": "compose",
+  "kinds": ["compose"],
   "metadata": {
     "name": "Forgejo",
     "description": "Self-hosted lightweight software forge for Git repository hosting, code review, issue tracking, package publishing, and team collaboration.",

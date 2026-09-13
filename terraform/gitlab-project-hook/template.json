@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "gitlab-project-hook-terraform",
-  "kind": "terraform",
+  "kinds": ["terraform"],
   "metadata": {
     "name": "GitLab Project Hook",
     "description": "Creates a GitLab project webhook with commonly used event toggles and optional secret token.",

@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "cloudflared-compose",
-  "kind": "compose",
+  "kinds": ["compose"],
   "metadata": {
     "name": "Cloudflared",
     "description": "Runs a Cloudflare Tunnel connector in Docker Compose so private services can be published through Cloudflare Zero Trust.",

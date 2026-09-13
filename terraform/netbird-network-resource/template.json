@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "netbird-network-resource-terraform",
-  "kind": "terraform",
+  "kinds": ["terraform"],
   "metadata": {
     "name": "NetBird Network Resource",
     "description": "Creates a NetBird network resource and attaches it to one or more groups.",

@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "dns-a-record-tsig-terraform",
-  "kind": "terraform",
+  "kinds": ["terraform"],
   "metadata": {
     "name": "DNS Record A (TSIG)",
     "description": "Creates a DNS A record using TSIG-authenticated dynamic DNS updates. Maps a hostname to an IP address on a TSIG-enabled DNS server.",

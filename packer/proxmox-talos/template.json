@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "proxmox-talos",
-  "kind": "packer",
+  "kinds": ["packer"],
   "metadata": {
     "name": "Proxmox Talos Linux Template",
     "description": "Builds a Talos Linux VM template on Proxmox for immutable Kubernetes nodes.",

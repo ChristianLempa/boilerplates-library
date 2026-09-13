@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "gitea-compose",
-  "kind": "compose",
+  "kinds": ["compose"],
   "metadata": {
     "name": "Gitea",
     "description": "Lightweight, self-hosted Git service with a web interface for repository hosting, code review, issue tracking, and team collaboration. Written in Go.",

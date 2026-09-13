@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "gitlab-project-environment-terraform",
-  "kind": "terraform",
+  "kinds": ["terraform"],
   "metadata": {
     "name": "GitLab Project Environment",
     "description": "Creates a GitLab project environment with optional URL, tier, and destroy behavior.",

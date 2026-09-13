@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "arcane-agent-compose",
-  "kind": "compose",
+  "kinds": ["compose"],
   "metadata": {
     "name": "Arcane Agent",
     "description": "Remote Docker host agent for Arcane manager environments, supporting direct inbound and edge outbound connection modes.",

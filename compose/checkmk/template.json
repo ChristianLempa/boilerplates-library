@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "checkmk-compose",
-  "kind": "compose",
+  "kinds": ["compose"],
   "metadata": {
     "name": "Checkmk",
     "description": "Comprehensive IT monitoring solution for infrastructure, applications, and services. Provides real-time health and performance insights with server, network, cloud, and application monitoring.",

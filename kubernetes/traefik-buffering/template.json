@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "traefik-buffering-kubernetes",
-  "kind": "kubernetes",
+  "kinds": ["kubernetes"],
   "metadata": {
     "name": "Traefik Buffering Middleware",
     "description": "Traefik Middleware CRD for buffering request and response bodies so uploads, downloads, and upstream size controls behave more predictably.",

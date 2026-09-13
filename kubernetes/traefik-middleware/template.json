@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "traefik-middleware-kubernetes",
-  "kind": "kubernetes",
+  "kinds": ["kubernetes"],
   "metadata": {
     "name": "Traefik Middleware",
     "description": "Traefik Middleware CRD for modifying HTTP requests and responses. Supports headers, redirects, rate-limiting, authentication, and more.",

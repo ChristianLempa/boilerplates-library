@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "certmanager-certificate-kubernetes",
-  "kind": "kubernetes",
+  "kinds": ["kubernetes"],
   "metadata": {
     "name": "Cert-Manager Certificate",
     "description": "Cert-manager Certificate resource for requesting a TLS certificate from an Issuer or ClusterIssuer and storing it in a Kubernetes Secret.",

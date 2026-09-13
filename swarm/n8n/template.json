@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "n8n-swarm",
-  "kind": "swarm",
+  "kinds": ["swarm"],
   "metadata": {
     "name": "N8N",
     "description": "Source-available workflow automation tool that connects apps and services to automate tasks through a visual drag-and-drop node editor.",

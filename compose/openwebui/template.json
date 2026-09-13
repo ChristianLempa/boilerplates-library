@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "openwebui-compose",
-  "kind": "compose",
+  "kinds": ["compose"],
   "metadata": {
     "name": "Openwebui",
     "description": "Web-based interface for managing and interacting with local AI models (Ollama, etc.). Provides chat, model management, and multi-user support.",

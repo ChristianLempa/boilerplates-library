@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "komodo-swarm",
-  "kind": "swarm",
+  "kinds": ["swarm"],
   "metadata": {
     "name": "Komodo",
     "description": "Build and deployment automation tool for managing Docker deployments, stacks, and builds across multiple servers. Features real-time container monitoring, batch operations, and a web-based management interface.",

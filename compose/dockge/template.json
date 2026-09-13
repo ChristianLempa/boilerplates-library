@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "dockge-compose",
-  "kind": "compose",
+  "kinds": ["compose"],
   "metadata": {
     "name": "Dockge",
     "description": "Web-based Docker Compose stack manager with a clean UI for creating, editing, starting, and stopping compose stacks directly from the browser.",

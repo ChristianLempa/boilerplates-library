@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "gitlab-provider-terraform",
-  "kind": "terraform",
+  "kinds": ["terraform"],
   "metadata": {
     "name": "GitLab Provider",
     "description": "Creates Terraform provider configuration for the GitLab provider with optional self-managed GitLab URL, sensitive token variable, custom CA certificate file, and TLS verification skip setting.",

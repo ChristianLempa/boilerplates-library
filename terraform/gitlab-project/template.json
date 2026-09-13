@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "gitlab-project-terraform",
-  "kind": "terraform",
+  "kinds": ["terraform"],
   "metadata": {
     "name": "GitLab Project",
     "description": "Creates a GitLab project with common identity, visibility, repository, and access settings.",

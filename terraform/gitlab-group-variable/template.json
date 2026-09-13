@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "gitlab-group-variable-terraform",
-  "kind": "terraform",
+  "kinds": ["terraform"],
   "metadata": {
     "name": "GitLab Group Variable",
     "description": "Creates a GitLab group CI/CD variable with scope, masking, protection, and type options.",

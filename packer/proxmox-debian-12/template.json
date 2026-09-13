@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "proxmox-debian-12",
-  "kind": "packer",
+  "kinds": ["packer"],
   "metadata": {
     "name": "Proxmox Debian 12 Template",
     "description": "Builds a Debian 12 cloud-init VM template on Proxmox with Packer and Debian preseed-style automated installation.",

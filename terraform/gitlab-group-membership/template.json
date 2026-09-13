@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "gitlab-group-membership-terraform",
-  "kind": "terraform",
+  "kinds": ["terraform"],
   "metadata": {
     "name": "GitLab Group Membership",
     "description": "Adds a user to a GitLab group with a selected access level and optional expiration date.",

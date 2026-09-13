@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "caddy-compose",
-  "kind": "compose",
+  "kinds": ["compose"],
   "metadata": {
     "name": "Caddy",
     "description": "Modern web server and reverse proxy with automatic HTTPS, modular Caddyfile config, and simple presets for static sites or upstream proxying.",

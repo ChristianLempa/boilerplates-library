@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "dockhand-compose",
-  "kind": "compose",
+  "kinds": ["compose"],
   "metadata": {
     "name": "Dockhand",
     "description": "Modern Docker management UI with Compose stack support, Git-based stack deployments, and optional OIDC authentication.",

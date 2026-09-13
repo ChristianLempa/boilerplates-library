@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "core-ingressclass-kubernetes",
-  "kind": "kubernetes",
+  "kinds": ["kubernetes"],
   "metadata": {
     "name": "Kubernetes IngressClass",
     "description": "Kubernetes IngressClass for specifying which Ingress controller handles Ingress resources. Cluster-scoped resource.",

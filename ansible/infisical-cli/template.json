@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "infisical-cli-ansible",
-  "kind": "ansible",
+  "kinds": ["ansible"],
   "metadata": {
     "name": "Install Infisical CLI",
     "description": "Installs the Infisical CLI on Ubuntu/Debian systems using the official Infisical APT repository.",

@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "prometheus-compose",
-  "kind": "compose",
+  "kinds": ["compose"],
   "metadata": {
     "name": "Prometheus",
     "description": "Open-source systems monitoring and alerting toolkit. Collects and stores metrics as time series data, with a powerful query language (PromQL) and integration with visualization tools like Grafana.",

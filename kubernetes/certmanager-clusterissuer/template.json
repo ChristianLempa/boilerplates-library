@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "certmanager-clusterissuer-kubernetes",
-  "kind": "kubernetes",
+  "kinds": ["kubernetes"],
   "metadata": {
     "name": "Cert-Manager ClusterIssuer",
     "description": "Cluster-scoped cert-manager ACME ClusterIssuer for requesting certificates with HTTP-01 or Cloudflare or Netcup DNS-01 challenge validation.",

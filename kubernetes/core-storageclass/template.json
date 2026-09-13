@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "core-storageclass-kubernetes",
-  "kind": "kubernetes",
+  "kinds": ["kubernetes"],
   "metadata": {
     "name": "Kubernetes StorageClass",
     "description": "Kubernetes StorageClass for defining storage types that can be dynamically provisioned.",

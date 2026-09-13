@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "gitlab-runner-compose",
-  "kind": "compose",
+  "kinds": ["compose"],
   "metadata": {
     "name": "Gitlab-Runner",
     "description": "CI/CD build runner for GitLab pipelines. Executes jobs defined in .gitlab-ci.yml using the Docker executor.",

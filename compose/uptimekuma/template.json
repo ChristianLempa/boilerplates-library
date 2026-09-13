@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "uptimekuma-compose",
-  "kind": "compose",
+  "kinds": ["compose"],
   "metadata": {
     "name": "Uptimekuma",
     "description": "Self-hosted uptime monitoring tool with support for HTTP(s), TCP, ping, DNS, and more. Provides a clean dashboard and customizable notifications.",

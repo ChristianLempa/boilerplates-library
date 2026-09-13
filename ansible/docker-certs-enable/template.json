@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "docker-certs-enable-ansible",
-  "kind": "ansible",
+  "kinds": ["ansible"],
   "metadata": {
     "name": "Enable Docker TLS",
     "description": "Enables TLS on the Docker daemon using existing certificates. Configures Docker for secure remote API access over an encrypted connection.",

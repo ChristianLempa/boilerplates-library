@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "teleport-compose",
-  "kind": "compose",
+  "kinds": ["compose"],
   "metadata": {
     "name": "Teleport",
     "description": "Runs Teleport in Docker Compose with local auth and proxy services plus a companion Teleport configuration file.",

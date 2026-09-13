@@ -10,7 +10,7 @@ config = json.loads((ROOT / "renovate.json").read_text())
 manager = next(m for m in config["customManagers"] if m.get("datasourceTemplate") == "helm")
 # Renovate/JavaScript and Python use different named-capture syntax.
 pattern = re.compile(manager["matchStrings"][0].replace("(?<", "(?P<"))
-fields = {"schema", "slug", "kind", "metadata", "variables"}
+fields = {"schema", "slug", "kinds", "metadata", "variables"}
 manifests = sorted((ROOT / "helm").glob("*/template.json"))
 assert manifests, "No Helm templates found"
 for path in manifests:

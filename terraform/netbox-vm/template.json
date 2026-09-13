@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "netbox-vm-terraform",
-  "kind": "terraform",
+  "kinds": ["terraform"],
   "metadata": {
     "name": "NetBox Virtual Machine",
     "description": "Registers a virtual machine in NetBox with cluster, site, and host device associations. Defines VM metadata including resource allocation and optional IPAM integration.",

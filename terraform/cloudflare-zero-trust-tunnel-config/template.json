@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "cloudflare-zero-trust-tunnel-config-terraform",
-  "kind": "terraform",
+  "kinds": ["terraform"],
   "metadata": {
     "name": "Cloudflare Zero Trust Tunnel Config",
     "description": "Creates a Cloudflare Zero Trust tunnel ingress configuration for a cloudflared tunnel with a primary hostname and fallback service.",

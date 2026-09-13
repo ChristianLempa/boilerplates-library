@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "proxmox-fedora-server",
-  "kind": "packer",
+  "kinds": ["packer"],
   "metadata": {
     "name": "Proxmox Fedora Server Template",
     "description": "Builds a Fedora Server VM template on Proxmox with Kickstart automation.",

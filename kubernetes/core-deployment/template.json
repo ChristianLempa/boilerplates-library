@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "core-deployment-kubernetes",
-  "kind": "kubernetes",
+  "kinds": ["kubernetes"],
   "metadata": {
     "name": "Kubernetes Deployment",
     "description": "Creates a Kubernetes Deployment with configurable image, replicas, service account, container port, simple environment variables, and optional resource requests and limits.",

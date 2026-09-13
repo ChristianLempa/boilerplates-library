@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "proxmox-lxc-terraform",
-  "kind": "terraform",
+  "kinds": ["terraform"],
   "metadata": {
     "name": "Proxmox LXC",
     "description": "Creates a Proxmox Linux container with configurable template, compute, root filesystem, and single-interface network settings.",

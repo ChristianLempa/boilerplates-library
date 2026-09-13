@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "certmanager-webhook-netcup-secret-kubernetes",
-  "kind": "kubernetes",
+  "kinds": ["kubernetes"],
   "metadata": {
     "name": "Cert-Manager Netcup External Secret",
     "description": "Reference credentials in an existing external secret store; requires External Secrets Operator.",

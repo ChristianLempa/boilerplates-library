@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "infisical-compose",
-  "kind": "compose",
+  "kinds": ["compose"],
   "metadata": {
     "name": "Infisical",
     "description": "Open-source secrets management platform for teams and homelabs, including PostgreSQL, Redis, SMTP, and Traefik-friendly Docker Compose configuration.",

@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "core-namespace-kubernetes",
-  "kind": "kubernetes",
+  "kinds": ["kubernetes"],
   "metadata": {
     "name": "Kubernetes Namespace",
     "description": "Creates a Kubernetes Namespace with optional single label and annotation entries for basic environment scoping.",

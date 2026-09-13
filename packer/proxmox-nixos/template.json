@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "proxmox-nixos",
-  "kind": "packer",
+  "kinds": ["packer"],
   "metadata": {
     "name": "Proxmox NixOS Template",
     "description": "Builds a NixOS VM template on Proxmox with a starter configuration.nix for reproducible servers.",

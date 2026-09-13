@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "traefik-circuitbreaker-kubernetes",
-  "kind": "kubernetes",
+  "kinds": ["kubernetes"],
   "metadata": {
     "name": "Traefik CircuitBreaker Middleware",
     "description": "Traefik Middleware CRD for tripping a circuit breaker when an upstream meets a configured failure expression.",

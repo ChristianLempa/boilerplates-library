@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "traefik-ingressroutetcp-kubernetes",
-  "kind": "kubernetes",
+  "kinds": ["kubernetes"],
   "metadata": {
     "name": "Traefik IngressRouteTCP",
     "description": "Traefik IngressRouteTCP CRD for TCP routing of non-HTTP protocols like databases, SSH, or any TCP-based service.",

@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "nginx-swarm",
-  "kind": "swarm",
+  "kinds": ["swarm"],
   "metadata": {
     "name": "Nginx",
     "description": "High-performance web server, reverse proxy, and load balancer known for stability, low resource consumption, and simple configuration.",

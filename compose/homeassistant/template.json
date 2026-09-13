@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "homeassistant-compose",
-  "kind": "compose",
+  "kinds": ["compose"],
   "metadata": {
     "name": "Homeassistant",
     "description": "Open-source smart home automation platform that puts local control and privacy first. Supports thousands of devices and integrations.",

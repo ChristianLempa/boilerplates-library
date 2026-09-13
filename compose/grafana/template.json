@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "grafana-compose",
-  "kind": "compose",
+  "kinds": ["compose"],
   "metadata": {
     "name": "Grafana",
     "description": "Open-source observability platform for visualizing and analyzing metrics, logs, and traces from various data sources through flexible, customizable dashboards.",

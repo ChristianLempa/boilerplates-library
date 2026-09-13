@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "whoami-compose",
-  "kind": "compose",
+  "kinds": ["compose"],
   "metadata": {
     "name": "Whoami",
     "description": "Simple HTTP service that echoes back request information. Useful for testing reverse proxy configurations, load balancers, and network setups.",

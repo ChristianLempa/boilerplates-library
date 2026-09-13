@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "core-service-kubernetes",
-  "kind": "kubernetes",
+  "kinds": ["kubernetes"],
   "metadata": {
     "name": "Kubernetes Service",
     "description": "Kubernetes Service for exposing applications running on a set of Pods. Provides stable network endpoints and load balancing.",

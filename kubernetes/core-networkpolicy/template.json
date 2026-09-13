@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "core-networkpolicy-kubernetes",
-  "kind": "kubernetes",
+  "kinds": ["kubernetes"],
   "metadata": {
     "name": "Kubernetes NetworkPolicy",
     "description": "Creates a Kubernetes NetworkPolicy with targeted pod selection, optional ingress and egress policy types, and simple peer and port controls for common isolation patterns.",

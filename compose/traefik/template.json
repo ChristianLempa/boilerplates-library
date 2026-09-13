@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "traefik-compose",
-  "kind": "compose",
+  "kinds": ["compose"],
   "metadata": {
     "name": "Traefik",
     "description": "Modern HTTP reverse proxy and load balancer designed for microservices. Provides automatic service discovery, Let's Encrypt TLS, and a built-in dashboard.",

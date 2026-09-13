@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "proxmox-provider-terraform",
-  "kind": "terraform",
+  "kinds": ["terraform"],
   "metadata": {
     "name": "Proxmox Provider",
     "description": "Creates Terraform provider configuration for the Telmate Proxmox provider with API token authentication and TLS verification skip setting.",

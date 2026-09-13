@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "passbolt-compose",
-  "kind": "compose",
+  "kinds": ["compose"],
   "metadata": {
     "name": "Passbolt",
     "description": "Open-source password manager designed for teams and businesses. Provides secure storage, sharing, and collaborative management of passwords and sensitive information.",

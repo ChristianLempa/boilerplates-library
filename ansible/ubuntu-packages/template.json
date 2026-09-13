@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "ubuntu-packages-ansible",
-  "kind": "ansible",
+  "kinds": ["ansible"],
   "metadata": {
     "name": "Install Ubuntu Packages",
     "description": "Installs a curated set of useful Ubuntu packages with per-package switches for scripting, package management, monitoring, NFS, and VM guest integration.",

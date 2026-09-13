@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "proxmox-ubuntu-26-04-lts-packer",
-  "kind": "packer",
+  "kinds": ["packer"],
   "metadata": {
     "name": "Proxmox Ubuntu 26.04 LTS Template",
     "description": "Builds an Ubuntu 26.04 LTS cloud-init VM template on Proxmox with the HashiCorp Proxmox Packer plugin and autoinstall.",

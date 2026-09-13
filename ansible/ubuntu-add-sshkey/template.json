@@ -1,7 +1,7 @@
 {
   "schema": "boilerplates/template/v1",
   "slug": "ubuntu-add-sshkey-ansible",
-  "kind": "ansible",
+  "kinds": ["ansible"],
   "metadata": {
     "name": "Add SSH Key and Configure Sudoers",
     "description": "Installs a single SSH public key for a target user on the workload-selected hosts and can enable passwordless sudo for the Ubuntu sudo group.",
