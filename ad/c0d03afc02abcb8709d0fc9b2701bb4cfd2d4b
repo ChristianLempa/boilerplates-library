@@ -1,0 +1,320 @@
+tests/check_kinds.py
+  s_0a689a5ab208b4::t_7d1e740e83fd95 1-21
+tests/check_helm_metadata.py
+  s_0a689a5ab208b4::t_1919e697215a6a 13
+README.md
+  s_0a689a5ab208b4::t_0a360c9b7814ca 37
+  s_0a689a5ab208b4::t_a00c4a8356e0c6 35-36,38
+ansible/checkmk-install-agent/template.json
+  s_0a689a5ab208b4::t_0fc072d4008096 4
+ansible/checkmk-manage-host/template.json
+  s_0a689a5ab208b4::t_9eee2b53d9a522 4
+ansible/docker-certs-enable/template.json
+  s_0a689a5ab208b4::t_a90eba1b03aca5 4
+ansible/docker-certs/template.json
+  s_0a689a5ab208b4::t_22051a96807ea1 4
+ansible/docker-cleanup/template.json
+  s_0a689a5ab208b4::t_4081597987d860 4
+ansible/docker-daemon-config/template.json
+  s_0a689a5ab208b4::t_e4b4465bdcdaba 4
+ansible/docker-install-ubuntu/template.json
+  s_0a689a5ab208b4::t_94ccb79e2ef723 4
+ansible/docker-network/template.json
+  s_0a689a5ab208b4::t_8e98d16dde0926 4
+ansible/infisical-cli/template.json
+  s_0a689a5ab208b4::t_a444b3ca640873 4
+ansible/k3s-postinstall/template.json
+  s_0a689a5ab208b4::t_485f9f1c3f8b71 4
+ansible/k3sup-k3s-cluster/template.json
+  s_0a689a5ab208b4::t_efc7099c289902 4
+ansible/ubuntu-add-sshkey/template.json
+  s_0a689a5ab208b4::t_7159124e488270 4
+ansible/ubuntu-packages/template.json
+  s_0a689a5ab208b4::t_cd61c6f8962b05 4
+bash/docker-mysql-backup/template.json
+  s_0a689a5ab208b4::t_b9c7a5e38816ba 4
+bash/docker-postgres-backup/template.json
+  s_0a689a5ab208b4::t_b994e7f7f2f855 4
+bash/docker-volume-backup/template.json
+  s_0a689a5ab208b4::t_5ce6bcf5abc669 4
+compose/adguardhome/template.json
+  s_0a689a5ab208b4::t_b8a26028ff998a 4
+compose/alloy/template.json
+  s_0a689a5ab208b4::t_94f17b940af748 4
+compose/arcane-agent/template.json
+  s_0a689a5ab208b4::t_b12a69f82bb681 4
+compose/arcane/template.json
+  s_0a689a5ab208b4::t_0a517ff4833609 4
+compose/authentik/template.json
+  s_0a689a5ab208b4::t_2894bb6718b933 4
+compose/bind9/template.json
+  s_0a689a5ab208b4::t_e7fefdfaab00b1 4
+compose/caddy/template.json
+  s_0a689a5ab208b4::t_f0672a78373f77 4
+compose/checkmk/template.json
+  s_0a689a5ab208b4::t_3c99141baa6d07 4
+compose/cloudflared/template.json
+  s_0a689a5ab208b4::t_5a7fb024eaa1a8 4
+compose/crowdsec/template.json
+  s_0a689a5ab208b4::t_8b7231fae5f875 4
+compose/dockge/template.json
+  s_0a689a5ab208b4::t_c3df6514b573eb 4
+compose/dockhand/template.json
+  s_0a689a5ab208b4::t_51a389b858a7e3 4
+compose/forgejo/template.json
+  s_0a689a5ab208b4::t_93442c7709d008 4
+compose/gitea/template.json
+  s_0a689a5ab208b4::t_c4c482d4feaae0 4
+compose/gitlab-runner/template.json
+  s_0a689a5ab208b4::t_6f75ef398b7200 4
+compose/gitlab/template.json
+  s_0a689a5ab208b4::t_79bcc6e6ff69b9 4
+compose/grafana/template.json
+  s_0a689a5ab208b4::t_8246293cc87eec 4
+compose/homeassistant/template.json
+  s_0a689a5ab208b4::t_7a543b0031da97 4
+compose/homepage/template.json
+  s_0a689a5ab208b4::t_9ce7c2c67cd895 4
+compose/homer/template.json
+  s_0a689a5ab208b4::t_f9816be7bb4742 4
+compose/infisical/template.json
+  s_0a689a5ab208b4::t_758e07bbb93a6f 4
+compose/influxdb/template.json
+  s_0a689a5ab208b4::t_7deef019cd9c29 4
+compose/kestra/template.json
+  s_0a689a5ab208b4::t_afed8a490c4260 4
+compose/komodo/template.json
+  s_0a689a5ab208b4::t_def414581524a3 4
+compose/loki/template.json
+  s_0a689a5ab208b4::t_2f977b6d39a8da 4
+compose/mariadb/template.json
+  s_0a689a5ab208b4::t_76d597dc342b52 4
+compose/n8n/template.json
+  s_0a689a5ab208b4::t_493a5e68e06984 4
+compose/netbird/template.json
+  s_0a689a5ab208b4::t_8412bb3ff9ee99 4
+compose/netbox/template.json
+  s_0a689a5ab208b4::t_2a7142a803f4be 4
+compose/nextcloud/template.json
+  s_0a689a5ab208b4::t_dd7aca96157fa1 4
+compose/nginx/template.json
+  s_0a689a5ab208b4::t_931374139d8b73 4
+compose/openwebui/template.json
+  s_0a689a5ab208b4::t_bc778573680493 4
+compose/passbolt/template.json
+  s_0a689a5ab208b4::t_3cb0c923cf382a 4
+compose/pihole/template.json
+  s_0a689a5ab208b4::t_c9f2c7e5aae2a9 4
+compose/portainer/template.json
+  s_0a689a5ab208b4::t_faac443eb7a955 4
+compose/postgres/template.json
+  s_0a689a5ab208b4::t_7f43adc3db439d 4
+compose/prometheus/template.json
+  s_0a689a5ab208b4::t_2366ad61e1df94 4
+compose/renovate/template.json
+  s_0a689a5ab208b4::t_835af8807239d8 4
+compose/semaphoreui/template.json
+  s_0a689a5ab208b4::t_59481e4af3a66a 4
+compose/technitium/template.json
+  s_0a689a5ab208b4::t_48d848a2d8a0fd 4
+compose/teleport/template.json
+  s_0a689a5ab208b4::t_527025e6e03a97 4
+compose/traefik/template.json
+  s_0a689a5ab208b4::t_7a904df6968d42 4
+compose/twingate-connector/template.json
+  s_0a689a5ab208b4::t_12c64c1ef3fbbc 4
+compose/uptimekuma/template.json
+  s_0a689a5ab208b4::t_ab5809459c778d 4
+compose/whoami/template.json
+  s_0a689a5ab208b4::t_74bd3848cd3763 4
+helm/argocd/template.json
+  s_0a689a5ab208b4::t_261e38aab49d3d 4
+helm/authentik/template.json
+  s_0a689a5ab208b4::t_a8ac7092b91f24 4
+helm/certmanager-webhook-netcup/template.json
+  s_0a689a5ab208b4::t_dec3a4cb4e9b2b 4
+helm/certmanager/template.json
+  s_0a689a5ab208b4::t_4e97d003820407 4
+helm/infisical/template.json
+  s_0a689a5ab208b4::t_d866b1234fbb61 4
+helm/longhorn/template.json
+  s_0a689a5ab208b4::t_7800ba5ffcf7cf 4
+helm/netbox/template.json
+  s_0a689a5ab208b4::t_98862cddebd882 4
+helm/portainer/template.json
+  s_0a689a5ab208b4::t_80284424fd2626 4
+helm/traefik-helm/template.json
+  s_0a689a5ab208b4::t_e94b079106ec5a 4
+kubernetes/certmanager-certificate/template.json
+  s_0a689a5ab208b4::t_3c191299146e51 4
+kubernetes/certmanager-clusterissuer/template.json
+  s_0a689a5ab208b4::t_a1699d8480c1dc 4
+kubernetes/certmanager-issuer/template.json
+  s_0a689a5ab208b4::t_a47a2af044540d 4
+kubernetes/certmanager-webhook-netcup-secret/template.json
+  s_0a689a5ab208b4::t_17ceae7f3294a1 4
+kubernetes/core-clusterrolebinding/template.json
+  s_0a689a5ab208b4::t_b83c7bbc4ccd91 4
+kubernetes/core-configmap/template.json
+  s_0a689a5ab208b4::t_16ba4ee946f95d 4
+kubernetes/core-cronjob/template.json
+  s_0a689a5ab208b4::t_4a66baa5d2c90a 4
+kubernetes/core-daemonset/template.json
+  s_0a689a5ab208b4::t_f4bad7f0162522 4
+kubernetes/core-deployment/template.json
+  s_0a689a5ab208b4::t_1e8ce1406fbdfa 4
+kubernetes/core-ingress/template.json
+  s_0a689a5ab208b4::t_5efa1c189209fe 4
+kubernetes/core-ingressclass/template.json
+  s_0a689a5ab208b4::t_806ffe5396f3c2 4
+kubernetes/core-namespace/template.json
+  s_0a689a5ab208b4::t_3fae7659d10e17 4
+kubernetes/core-networkpolicy/template.json
+  s_0a689a5ab208b4::t_3416a392050059 4
+kubernetes/core-persistentvolume/template.json
+  s_0a689a5ab208b4::t_127e2e163465fb 4
+kubernetes/core-persistentvolumeclaim/template.json
+  s_0a689a5ab208b4::t_1254660610cdd8 4
+kubernetes/core-secret/template.json
+  s_0a689a5ab208b4::t_b4023750271f57 4
+kubernetes/core-service/template.json
+  s_0a689a5ab208b4::t_291164510776d2 4
+kubernetes/core-serviceaccount/template.json
+  s_0a689a5ab208b4::t_2a1e2ccc73f7f4 4
+kubernetes/core-statefulset/template.json
+  s_0a689a5ab208b4::t_befe43f3f8bd5b 4
+kubernetes/core-storageclass/template.json
+  s_0a689a5ab208b4::t_8aac0269863da8 4
+kubernetes/flux-bootstrap/template.json
+  s_0a689a5ab208b4::t_b91b117bdaaec0 4
+kubernetes/kube-vip/template.json
+  s_0a689a5ab208b4::t_4f2b09cbf303ba 4
+kubernetes/metallb/template.json
+  s_0a689a5ab208b4::t_8dc9bca537240b 4
+kubernetes/traefik-basicauth/template.json
+  s_0a689a5ab208b4::t_112d66b99783ad 4
+kubernetes/traefik-buffering/template.json
+  s_0a689a5ab208b4::t_c75d10fcac1575 4
+kubernetes/traefik-circuitbreaker/template.json
+  s_0a689a5ab208b4::t_97698175932ab8 4
+kubernetes/traefik-forwardauth-middleware/template.json
+  s_0a689a5ab208b4::t_46a4bae35d8456 4
+kubernetes/traefik-ingressroute/template.json
+  s_0a689a5ab208b4::t_ba7b8a9138a83a 4
+kubernetes/traefik-ingressroutetcp/template.json
+  s_0a689a5ab208b4::t_73f7cb2685c4ef 4
+kubernetes/traefik-ipallowlist/template.json
+  s_0a689a5ab208b4::t_a22ed45f2b8438 4
+kubernetes/traefik-middleware/template.json
+  s_0a689a5ab208b4::t_a33f55b840839f 4
+kubernetes/traefik-retry/template.json
+  s_0a689a5ab208b4::t_de2cb4d3a151f8 4
+kubernetes/twingate-connector/template.json
+  s_0a689a5ab208b4::t_fc9d48e6168d19 4
+packer/proxmox-debian-12/template.json
+  s_0a689a5ab208b4::t_e0b22b43d210b3 4
+packer/proxmox-fedora-server/template.json
+  s_0a689a5ab208b4::t_c4a1f32e950e43 4
+packer/proxmox-nixos/template.json
+  s_0a689a5ab208b4::t_ea6b0f8891b0af 4
+packer/proxmox-opensuse-microos/template.json
+  s_0a689a5ab208b4::t_cc74b5410be4f4 4
+packer/proxmox-talos/template.json
+  s_0a689a5ab208b4::t_973567fad0f59a 4
+packer/proxmox-ubuntu-24.04-lts/template.json
+  s_0a689a5ab208b4::t_efa0b30ed3026c 4
+packer/proxmox-ubuntu-26.04-lts/template.json
+  s_0a689a5ab208b4::t_c4e87cd6818e06 4
+python/server-disk-usage-monitor/template.json
+  s_0a689a5ab208b4::t_1e9d1c55604378 4
+static/agents-codex/template.json
+  s_0a689a5ab208b4::t_42ae6ffb699ec3 4
+swarm/homepage/template.json
+  s_0a689a5ab208b4::t_9c31d1e7a45b57 4
+swarm/homer/template.json
+  s_0a689a5ab208b4::t_e462c591707821 4
+swarm/komodo/template.json
+  s_0a689a5ab208b4::t_39915d0d4609f6 4
+swarm/n8n/template.json
+  s_0a689a5ab208b4::t_72d8c4be1aae8f 4
+swarm/nextcloud/template.json
+  s_0a689a5ab208b4::t_324a28050a825e 4
+swarm/nginx/template.json
+  s_0a689a5ab208b4::t_824ddfe6ee6962 4
+swarm/pihole/template.json
+  s_0a689a5ab208b4::t_05f8b732a7c19f 4
+swarm/portainer/template.json
+  s_0a689a5ab208b4::t_40674884147439 4
+swarm/postgres/template.json
+  s_0a689a5ab208b4::t_d63ee7a183ee32 4
+swarm/renovate/template.json
+  s_0a689a5ab208b4::t_1415c369485779 4
+swarm/traefik/template.json
+  s_0a689a5ab208b4::t_227c430f7d0af0 4
+swarm/twingate-connector/template.json
+  s_0a689a5ab208b4::t_f7438c7fbbb9ff 4
+terraform/cloudflare-dns-record/template.json
+  s_0a689a5ab208b4::t_8c5eaa142e5937 4
+terraform/cloudflare-zero-trust-tunnel-config/template.json
+  s_0a689a5ab208b4::t_675535df77eb9c 4
+terraform/cloudflare-zone-data/template.json
+  s_0a689a5ab208b4::t_e7efd1a9e5361a 4
+terraform/cloudflare-ztna-application/template.json
+  s_0a689a5ab208b4::t_6c07f9a060f404 4
+terraform/dns-a-record-tsig/template.json
+  s_0a689a5ab208b4::t_4a44ebcf75e2c5 4
+terraform/gitlab-group-membership/template.json
+  s_0a689a5ab208b4::t_df4f6d30dca92b 4
+terraform/gitlab-group-variable/template.json
+  s_0a689a5ab208b4::t_4c97cbdcd14341 4
+terraform/gitlab-group/template.json
+  s_0a689a5ab208b4::t_fe3e00415487dd 4
+terraform/gitlab-project-environment/template.json
+  s_0a689a5ab208b4::t_9f8753297b7399 4
+terraform/gitlab-project-hook/template.json
+  s_0a689a5ab208b4::t_84fc6d66d3ea3f 4
+terraform/gitlab-project-milestone/template.json
+  s_0a689a5ab208b4::t_384a99719714df 4
+terraform/gitlab-project-variable/template.json
+  s_0a689a5ab208b4::t_eb753a623e8500 4
+terraform/gitlab-project/template.json
+  s_0a689a5ab208b4::t_d3e13f3c09ac9e 4
+terraform/gitlab-provider/template.json
+  s_0a689a5ab208b4::t_aaa8385dd7c79d 4
+terraform/netbird-group/template.json
+  s_0a689a5ab208b4::t_c69af115ff1876 4
+terraform/netbird-network-resource/template.json
+  s_0a689a5ab208b4::t_d2fb349cd7aa69 4
+terraform/netbird-network-router/template.json
+  s_0a689a5ab208b4::t_b373d805d2af0a 4
+terraform/netbird-network/template.json
+  s_0a689a5ab208b4::t_ab19a144570e89 4
+terraform/netbird-policy/template.json
+  s_0a689a5ab208b4::t_439a30ff5d06e9 4
+terraform/netbird-reverse-proxy-service/template.json
+  s_0a689a5ab208b4::t_c312249674eb34 4
+terraform/netbox-vm/template.json
+  s_0a689a5ab208b4::t_0cffb07727ec07 4
+terraform/proxmox-lxc/template.json
+  s_0a689a5ab208b4::t_4dbfbd951c8094 4
+terraform/proxmox-provider/template.json
+  s_0a689a5ab208b4::t_16aa6cf6df0627 4
+terraform/proxmox-vm-qemu/template.json
+  s_0a689a5ab208b4::t_fe5de6f3e0114c 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "adc0d03afc02abcb8709d0fc9b2701bb4cfd2d4b",
+  "prompts": {},
+  "sessions": {
+    "s_0a689a5ab208b4": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "01a09a79-fad0-723e-8959-f720af8bf435",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "xcad <christian.lempa@clcreative.de>"
+    }
+  }
+}
