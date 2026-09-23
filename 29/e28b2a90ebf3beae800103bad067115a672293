@@ -1,0 +1,28 @@
+AGENTS.md
+  s_50b9e20483359f::t_9d2d3a80221b84 5-34
+  s_50b9e20483359f::t_6a3932e710883d 2-4
+  s_50b9e20483359f::t_e6ff2b7e8e0ff9 35-37
+  s_50b9e20483359f::t_d5db5afcff875d 1,38-84
+README.md
+  s_50b9e20483359f::t_1f868c6b379af9 39,53
+.gitmodules
+  s_50b9e20483359f::t_bdd60fb4a500fc 1-3
+docs
+  s_50b9e20483359f::t_5386c5ede34248 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "29e28b2a90ebf3beae800103bad067115a672293",
+  "prompts": {},
+  "sessions": {
+    "s_50b9e20483359f": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "01a0ce97-c4e0-7535-8536-cb26c902efdb",
+        "model": "gpt-6-sol"
+      },
+      "human_author": "xcad <christian.lempa@clcreative.de>"
+    }
+  }
+}
