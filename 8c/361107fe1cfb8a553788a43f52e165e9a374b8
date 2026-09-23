@@ -1,0 +1,19 @@
+docs
+  s_50b9e20483359f::t_fd8df39fc2ba6e 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "8c361107fe1cfb8a553788a43f52e165e9a374b8",
+  "prompts": {},
+  "sessions": {
+    "s_50b9e20483359f": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "01a0ce97-c4e0-7535-8536-cb26c902efdb",
+        "model": "gpt-6-sol"
+      },
+      "human_author": "xcad <christian.lempa@clcreative.de>"
+    }
+  }
+}
