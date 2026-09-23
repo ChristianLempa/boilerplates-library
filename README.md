@@ -36,7 +36,7 @@ Templates declare a nonempty `kinds` array of unique canonical classifications, 
 
 The application ignores unknown kinds during Git sync and falls back to `generic` if a nonempty list contains no recognized kinds. Missing, null, or empty lists invalidate the template. Changes to recognized kinds are synchronized as new revisions without resetting files. Keep authored library manifests canonical: run `python3 tests/check_kinds.py` to check every manifest's classifications.
 
-Each `template.json` must declare `"schema": "boilerplates/template/v1"`. Template revisions are assigned by Boilerplates; `metadata.version` is no longer supported. Dependency versions stay in authored files or variable defaults. See the [canonical manifest reference](https://github.com/christianlempa/boilerplates/blob/main/docs/features/templates/templates-json.md).
+Each `template.json` must declare `"schema": "boilerplates/template/v1"`. Template revisions are assigned by Boilerplates; `metadata.version` is no longer supported. Dependency versions stay in authored files or variable defaults. Core maintainers with private docs access can see the [canonical manifest reference](docs/app/features/templates/templates-json.md) after `git submodule update --init docs`.
 
 ### Template Variable Types
 
@@ -50,7 +50,7 @@ Boilerplates supports seven variable types:
 - `email` — validated email address
 - `url` — validated URL with scheme and host
 
-Defaults must be valid for the declared variable type. Use JSON integers for `int`; `float` accepts numeric values or strings parseable as decimals. Credentials are supplied only by the deployment environment, never as template inputs. See the [canonical template variable reference](https://github.com/christianlempa/boilerplates/blob/main/docs/features/templates/templates-variables.md) for the complete schema and rendering behavior.
+Defaults must be valid for the declared variable type. Use JSON integers for `int`; `float` accepts numeric values or strings parseable as decimals. Credentials are supplied only by the deployment environment, never as template inputs. Core maintainers with private docs access can see the [canonical template variable reference](docs/app/features/templates/templates-variables.md) for the complete schema and rendering behavior.
 
 ## Deployment credentials and compatibility
 
